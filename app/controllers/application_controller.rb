@@ -20,13 +20,14 @@ class ApplicationController < ActionController::Base
 	protected
 	
 	def force_auth
-		CASClient::Frameworks::Rails::Filter unless @current_user
+		session[:last_ts] = nil
+		CASClient::Frameworks::Rails::Filter.filter self unless @current_user
 	end
 	
 	def check_user
 		# first visit, or stale visit, try to gateway auth
 		if(!session[:last_ts])
-				CASClient::Frameworks::Rails::GatewayFilter
+				CASClient::Frameworks::Rails::GatewayFilter.filter self
 		end
 		
 		session[:last_ts] = Time.now
@@ -34,11 +35,11 @@ class ApplicationController < ActionController::Base
 		if(session[:cas_user])
 			# User is CAS Authed, try to make an account for them
 			# TODO: Check if we actually created an account, and if so, redirect them to profile flow
-			@current_user = Person.where(:netid => session[:cas_user]).first_or_create!
-			if !@current_user.has_completed_registration?
+			@current_user = Person.where(:netid => session[:cas_user]).first
+			if !@current_user && (controller_name != "people"  || !["new","create"].include?(action_name))
 				# This is their first visit, trigger the new user flow
 				session[:user_flow_entry] = request.url
-				redirect_to new_user_flow
+				redirect_to new_person_path
 			end
 		end
 		

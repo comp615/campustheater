@@ -1,0 +1,31 @@
+<h3>Welcome to the NEW Yale Drama Coalition Site!</h3>
+<p>
+You either tried to access something on the site that requires registration, or you just happened to be logged in to CAS. Either way, we're glad you got here!
+</p>
+<p>
+The site's internals have been redesigned from the ground up, and that means we're going to associated your netid with your account. There's a ton of cool
+ perks that come with this: No more remembering passwords to your shows, keep track of all your reservations and auditions in one place, and use the same 
+ login you already use!
+</p>
+<p>
+Anyways we know you were doing something, and we'll get you back there in one second, but first please take a minute to fill out your basic information,
+you'll only have to do this once!
+</p>
+
+<%= form_for @person do |f| %>
+	<%= f.label :fname %> <%= f.text_field :fname %><br />
+	<%= f.label :lname %><%= f.text_field :lname %><br />
+	<%= f.label :college %><%= f.select :college, YALE_COLLEGES.to_a.map(&:reverse) %><br />
+	<%= f.label :year %><%= f.number_field :year %><br />
+	<%= f.label :bio %>
+	<br />
+	<%= f.text_area :bio %><br />
+	
+	<br /><br />
+	<h4>This portion will only visible to you:</h4><br />
+	<%= f.label :email %><%= f.text_field :email %><br />
+	Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br />
+	Associated NetID: <%= session[:cas_user] %><br />
+	<%= f.submit "Get Started!" %>
+	
+<% end %>

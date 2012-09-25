@@ -1,8 +1,8 @@
 class PeopleController < ApplicationController  
 
 	before_filter :force_auth, :except => [:show, :logout]
-	before_filter :verify_user, :except => [:show, :dashboard, :logout]
-	before_filter :fetch_user, :except => [:dashboard, :logout]
+	before_filter :verify_user, :except => [:show, :dashboard, :logout, :new, :create]
+	before_filter :fetch_user, :except => [:dashboard, :logout, :new, :create]
 	
 	def show
 		# Show public view
@@ -11,7 +11,6 @@ class PeopleController < ApplicationController
 	
 	def dashboard
 		#Determine type of user dashboard to show
-		@current_user
 		@shows = Show.unscoped.includes(:showtimes).find(@current_user.permissions.map(&:show_id))
 		@permission_map = @current_user.permissions.group_by(&:show_id)
 		
@@ -26,6 +25,49 @@ class PeopleController < ApplicationController
 		# Take note of self.needs_registration?, lock them in if so, display special info
 	end
 	
+	# New User step 1
+	def new
+		redirect_to @current_user if @current_user # They must be CAS authed no we're OK
+		@current_user = @person = Person.new
+	end
+	
+	# Designed to be indemnipotent in case they refresh the page and re-submit
+	def create
+		@person = Person.new unless @current_user
+		@person.netid = session[:cas_user] unless @current_user
+		#TODO: College saving doesn't work, check the form
+		if @current_user || @person.update_attributes(params[:person])
+			#Let's check to see if they have any recommended people they match. If so, send them there, otherwise take them away
+			@person ||= @current_user
+			@matches = @person.similar_to_me
+			if @matches.length > 0
+				render :new_step2
+			else
+				url = session[:user_flow_entry]
+				session[:user_flow_entry] = nil
+				redirect_to url
+			end			
+		else
+			render :new, :notice => "There was an error with the data you entered, please try again!"
+		end
+	end
+	
+	def takeover_request
+		# Asking to match people, let's do it
+		# We'll allow multiple requests for a name and let the admin sort it out...
+		# TODO:But they cannot have multiple requests for the same name, we'll have to deal with that in the model that finds this
+		# TODO: Finalize and implement
+		puts @current_user.id
+		puts params[:person_ids].inspect
+		if session[:user_flow_entry]
+			url = session[:user_flow_entry]
+			session[:user_flow_entry] = nil
+			redirect_to url, :notice => "Request Successful. Enjoy the site!"
+		else
+			redirect_to dashboard_path, :notice => "Takeover request successful."
+		end
+	end
+	
 	def update
 		respond_to do |format|
 	    if @person.update_attributes(params[:person])
@@ -36,26 +78,6 @@ class PeopleController < ApplicationController
 	      format.json { respond_with_bip(@person) }
 	    end
 	  end
-  
-  	# If they are coming from the new user flow, take them to the profile takeover page
-		if session[:user_flow_entry]
-			flash[:notice] = "User info updated successfully! Just one more quick thing."
-			redirect_to takeover_edit
-		end
-	end
-	
-	def takeover_edit
-		# Take note of session[:user_flow_entry], maybe display special help if so since they are in the think of it
-	end
-	
-	def takeover_update
-		# This is the end of the signup flow, send them back
-		if session[:user_flow_entry]
-			flash[:notice] = "Thanks for hanging in there, we'll leave you alone now! Remember you can always manage your profile on the Dashboard tab at left."
-			original_page = session[:user_flow_entry]
-			session[:user_flow_entry] = nil
-			redirect_to original_page
-		end
 	end
 	
 	def logout
@@ -69,7 +91,8 @@ class PeopleController < ApplicationController
 	end
 	
 	def verify_user
-		raise ActionController::RoutingError.new('Forbidden')	unless @current_user && (@current_user.id == params[:id] || @current_user.site_admin?)
+		puts @current_user.inspect
+		raise ActionController::RoutingError.new('Forbidden')	unless @current_user && (@current_user.id == params[:id].to_i || @current_user.site_admin?)
 	end
 	
 end

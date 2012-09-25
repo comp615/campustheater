@@ -41,6 +41,7 @@ class Person < ActiveRecord::Base
 		people.concat Person.find_all_by_fname_and_lname(self.fname, self.lname) unless self.fname.blank? || self.lname.blank?
 		people.concat Person.find_all_by_email(self.email) unless self.email.blank?
 		people.concat Person.where(["fname LIKE ? AND lname = ?",self.fname.first(1) + "%", self.lname]) unless self.fname.blank? || self.lname.blank?
+		people.select! {|person| person.netid == nil }
 		people.uniq - [self]
 	end
     
@@ -66,7 +67,7 @@ protected
 	#Todo: Repopulate periodically?
   #populate contact fields from LDAP
   def populateLDAP
-    
+    return #Fix this later once we get LDAP or whatever worked out
     #quit if no email or netid to work with
     self.email ||= ''
     return if !self.email.include?('@yale.edu') && !self.netid

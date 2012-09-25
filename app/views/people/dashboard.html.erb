@@ -66,9 +66,15 @@ Render Partials?
 
 
 <h4>Profile Takeover Notifications</h4>
-<%= "No people found right now" if @similar_people.empty? %>
-<% @similar_people.each do |p| %>
-	<%= link_to p.display_name, p %> (This is me)<br />
+<% if @similar_people.empty? %>
+	"No people found right now"
+<% else %>
+	<%= form_tag takeover_request_path(@current_user) do %>
+		<% @similar_people.each do |p| %>
+			<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
+		<% end %>
+		<%= submit_tag "Request Names" %>
+	<% end %>
 <% end %>
 
 

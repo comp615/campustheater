@@ -47,7 +47,8 @@ Ydc::Application.routes.draw do
   #   end
   
   # Shouldn't have index...
-  resources :people
+  resources :people 
+  match 'people/:id/request_names' => 'people#takeover_request', :as => :takeover_request, :method => :post
 
   #match ':show_name/reserve' => 'reservations#show_reservation', :as => :show_reservation
   #match ':show_name/reserve/:id' => 'reservations#new', :as => :showtime_reservation
