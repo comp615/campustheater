@@ -1,0 +1,158 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require reset.css
+ *= require_self
+ *= require jquery.ui.datepicker
+ *= require jquery.ui.autocomplete
+ *= require jquery.timepicker.css
+ *= require_tree
+*/
+
+//MIXINS
+@mixin rounded_corners($rad) {
+	-webkit-border-radius: $rad $rad;
+	-moz-border-radius: #{$rad} / #{$rad};
+	-o-border-radius: #{$rad} / #{$rad};
+	-ms-border-radius: #{$rad} / #{$rad};
+	-khtml-border-radius: #{$rad} / #{$rad};
+	border-radius: #{$rad};
+}
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
+@mixin clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+body {
+	color: #070d4b;
+	font-family: Futura, Century Gothic, Helvetica, Tahoma;
+	font-size: 16px;
+	background: image_url('bg.png') repeat-y;
+}
+
+.best_in_place {
+	cursor: pointer;
+	text-shadow: 0 0 0.1em #8F7;
+	&:hover {
+		text-shadow: 0 0 0.2em #AAA;
+	}
+}
+
+.field_with_errors label {
+	font-weight: bold;
+	color: red;
+}
+
+table {
+	td,th {
+		padding: 5px 10px
+	}
+	th { font-weight: bold; }
+}
+
+b,strong { font-weight: bold; }
+
+hr {
+	width: 700px;
+	color: 7081FF;
+	height: 2px;
+	background-color: #7081FF;
+	text-align: center;
+	border: 0;
+}
+
+/* 	Header Stuff	*/
+.sidebar {
+	float: left;
+	width: 141px;
+	height: 1000px;
+	.header {
+		h1 {
+			position: absolute;
+			text-align: center;
+			font-size: 48px;
+			top: 0px;
+			left: 310px;
+			width: 500px;			
+		}
+	}
+	
+	.nav {
+		font-size: 18px;
+		font-weight: bold;
+		float: left;	
+		li {
+			margin: 7px 0px 0px -15px;
+			padding: 5px 20px 5px 25px;
+			border: 3px solid #070d4b;
+			border-radius: 20px;
+			float: left;
+			background: #8496fd;
+			background: white;
+			cursor: pointer;
+			&:hover {
+				background: #8496fd;
+			}
+		}
+	}
+}
+
+/*  End Header		*/
+
+/* 	Footer Stuff	*/
+.footer {
+	float: left;	
+}
+
+
+/*  End Footer		*/
+
+.content {
+	width: 800px;
+	margin-left: 100px;
+	margin-top: 160px;
+	float: left;
+}
+
+/* Stuff that should be broken out later? */
+
+/* Index page */
+.this_week {
+	@include clearfix();
+	.show {
+		float: left;	
+		width: 250px;
+		margin-right: 10px;
+		margin-bottom: 30px;
+		.title {
+			color: #0011aa;
+			font-weight: bold;
+		}
+	}
+	
+	/* Dynamic pull out for wide screens */
+	&.wide {
+		top: 150px;
+		left: 1100px;
+		width: 250px;
+		position: absolute;
+		float: right;
+	}
+}

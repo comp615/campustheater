@@ -1,0 +1,25 @@
+<div class="title"><%= @show.title %></div>
+<%= full_timestamp(@showtime.timestamp) %>
+<br /><br />
+TODO: THIS WILL USE MULTI-COLUMNS TO MANAGE FLOW
+<br /><br />
+<div class="reservations">
+	<div class="confirmed">
+		<% @confirmed.sort_by(&:fname).each do |reservation| %>
+		<div class="reservation_block">
+			<% reservation.num.times do %>
+				<div class="listing"><%= reservation.fname %> <%= reservation.lname %></div>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+	<div class="waitlist">
+		<% @waitlist.each do |reservation| %>
+		<div class="reservation_block">
+			<% reservation.num.times do %>
+			<div class="listing"><%= reservation.fname %> <%= reservation.lname %></div>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+</div>

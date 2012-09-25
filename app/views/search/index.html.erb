@@ -1,0 +1,52 @@
+<h4>Search</h4>
+Please choose something to search for:<br />
+<%= form_tag '/search', :method => :get do %>
+
+	<%= radio_button_tag :mode, "crew", params[:mode] == "crew" || params[:mode].blank? %> Crew Member<br />
+	<%= radio_button_tag :mode, "actor", params[:mode] == "actor" %> Actor/Character<br />
+	<%= radio_button_tag :mode, "show", params[:mode] == "show" %> Show/Performence<br /><br /> 
+	
+	<div class="crew actor show">
+		Name: <%= text_field_tag :name, params[:name] %><br />
+	</div>
+	
+	<div class="crew">
+		Position: <%= select_tag :position_id, options_from_collection_for_select(Position.all, :id, :position, params[:position_id]), :prompt => "Please choose..." %><br />
+	</div>
+	
+	<div class="actor">
+		Character's Name: <%= text_field_tag :character, params[:character] %><br />
+	</div>
+
+	<div class="crew actor show datepair">
+		Date Range: 
+		<%= text_field_tag :start, params[:start], :class => "date start" %> - 
+		<%= text_field_tag :end, params[:end], :class => "date end" %>
+	</div>
+	<br />	
+	<%= submit_tag "Submit" %>
+<% end %>
+<br />
+<hr />
+<br />
+
+<% if !@results.blank? && params[:mode] == "show" %>
+	<h4>Results:</h4><br />
+	<table>
+		<tr><th>Show Name</th><th>Dates</th></tr>
+		<% @results.sort_by{|s| s.showtimes.first.timestamp}.each do |s| %>
+			<tr><td><%= link_to s.title, best_link(s) %></td><td><%= format_long_rundates(s) %></td></tr>
+		<% end %>
+	</table>
+<% elsif !@results.blank? %>
+	<table>
+		<tr><th>Person</th><th>Show Name</th><th>Dates</th></tr>
+		<% @results.group_by(&:person_id).each do |person_id,arr| %>
+			<% arr.sort_by{|sp| sp.show.showtimes.first.timestamp}.each_with_index do |sp,i| %>
+				<tr><td><%= link_to sp.person.display_name, sp.person if i == 0 %></td><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= format_long_rundates(sp.show) %></td></tr>
+			<% end %>
+		<% end %>
+</table>
+<% elsif params[:mode] && @results.blank? %>
+	<b>No Results Found</b>
+<% end %>

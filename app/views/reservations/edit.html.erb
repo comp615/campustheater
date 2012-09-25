@@ -1,0 +1,42 @@
+<div class="title"><%= @show.title %></div><br />
+
+By: <%= @show.writer %><br />
+<%= @show.tagline if !@show.tagline.blank? %><%= raw "<br />" if !@show.tagline.blank? %>
+Place:<%= @show.location %>
+<hr />
+
+<% if !@reservation.id.blank? %>
+	Current Status: <b>
+	<% num_before = @reservation.showtime.reservations.where(["updated_at < ?", @reservation.updated_at]).sum(:num)  %>
+	<% if num_before >= @show.cap  %>
+		WAITLISTED (Show up anyways as many waitlist spots usually free up)
+	<% elsif num_before + @reservation.num > @show.cap  %>
+		PARTIALLY RESERVED (<%= @show.cap - num_before %> CONFIRMED)
+	<% else %>
+		CONFIRMED
+	<% end %>
+	</b><br />
+	Please refer to the url of this page to edit your reservation<br />
+	<br />
+	NOTICE: Changing your reservation in any way, except for lowering the number of ticket, will move you to the back of the waitlist. Please ensure this is what you want before submitting.<br /><br />
+<% end %>
+
+
+Please select a show:<br />
+<br />
+<%= form_for [@show, @reservation] do |f| %>
+	<% @show.showtimes.each do |showtime| %>
+		<%= render :partial => "showtime_reservation_line", :locals => {:form => f, :showtime => showtime} %><br />
+	<% end %>
+	<br /><br />
+	<%= f.label :fname %> <%= f.text_field :fname %><br />
+	<%= f.label :lname %> <%= f.text_field :lname %><br />
+	<%= f.label :email %> <%= f.text_field :email %><br />
+	<%= f.label :num %> <%= f.number_field :num, :min => 1, :max => @show.cap %><br />
+	<%= f.label :reservation_type %> <%= f.select :reservation_type_id, options_from_collection_for_select(ReservationType.all, :id, :tix_type) %><br />
+	<%= f.submit "Submit", :confirm => "Are you sure the information is correct?" %>
+<% end %>
+<% if !@reservation.id.blank? %>
+	<br />
+	<%= button_to "Cancel Reservation", [@show,@reservation], :method => :delete %>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="title"><%= @show.title %></div>
+Seat Cap: <%= @show.cap %><br />
+Waitlist: <%= @show.waitlist ? "Enabled" : "DISABLED" %><br />
+<br />
+<b>Showtimes:</b><br />
+<% @show.showtimes.each do |showtime| %>
+	<p>
+	<b><%= link_to full_timestamp(showtime.timestamp), [@show,showtime] %></b><br />
+	<%= showtime.reservations.sum(:num)	%> seats requested
+	</p>
+<% end %>

@@ -1,0 +1,17 @@
+<div class="show">
+	<% if show.has_poster? %>
+		<%= link_to image_tag(show.poster), best_link(show) %>
+	<% else %>
+		<%= link_to show.title, best_link(show), :class => 'title' %><br />
+		<strong>By:</strong> <%= show.writer %><br />
+		<%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
+		<strong>Directed By:</strong> <%= show.director %>
+	<% end %>
+	<br />
+	<strong>Place:</strong> <%= show.location %><br />
+	<% show.showtimes.each do |showtime| %>
+		<%= format_showtime_full(showtime.timestamp) %><br />
+	<% end %>
+	Reservations: 
+	<%= get_reservation_line(show) %>
+</div>

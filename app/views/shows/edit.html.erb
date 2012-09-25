@@ -1,0 +1,141 @@
+
+<% if @show.errors.any? %>
+	<ul>
+	<% @show.errors.full_messages.each do |msg| %>
+	  <li><%= msg %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<ul div="nav">
+	<li data-page="basic" class="active">Basic Info</li>
+	<% if @show.id != nil %>
+		<li data-page="people">Cast and Crew</li>	
+		<li data-page="ticketing">Ticketing</li>
+		<li data-page="basic">Auditions</li>
+	<% end %>
+</ul>
+
+<%= form_for @show, :validate => true do |f| %>
+  <div id="basic">
+  	<h4>Basic Information</h4>
+  	Just the basic information about your show. All fields on this page are required!
+	  <table>
+			<tr>
+				<td><%= f.label :category %></td>
+				<td><%= f.enum_select :category %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :title %></td>
+				<td><%= f.text_field :title %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :writer %></td>
+				<td><%= f.text_field :writer %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :tagline %></td>
+				<td><%= f.text_field :tagline %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :location %></td>
+				<td><%= f.text_field :location %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :url_key %></td>
+				<td><%= f.text_field :url_key %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :contact %></td>
+				<td><%= f.text_field :contact %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :description %></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2"><%= f.text_area :description %></td>
+			</tr>
+	  </table>
+	  
+	  <h4>Showtimes</h4>
+	  You must give at least one showtime, even if it's tentative so we know around when the show will be:
+		
+	  	<ul>
+			<%= f.fields_for :showtimes do |builder| %>
+				<%= render 'showtime_fields', :f => builder %>
+			<% end %>
+			<li><%= link_to_add_fields "Add Showtime", f, :showtimes %></li>
+			</ul>
+	
+	 <% if @show.id != nil %>		 
+		 <div id="people">
+		 	<h4>Cast</h4>
+		 	<ul>
+			 	<%= f.fields_for :show_positions, @show.cast do |builder| %>
+					<%= render 'show_position_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
+			</ul>
+			<p></p>
+			
+			<h4>Crew</h4>
+			<ul>
+				<%= f.fields_for :show_positions, @show.crew do |builder| %>
+					<%= render 'show_position_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
+			</ul>
+			
+			<h4>Permissions</h4>
+			These are the people who will be able to access your show to edit it (or portions of it).
+			<ul>
+				<%= f.fields_for :permissions do |builder| %>
+					<%= render 'permission_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
+			</ul>			
+		 </div>
+		 
+		 <div id="ticketing">
+		 	<h4>Ticketing</h4>
+		 	Get tickets for your show up and running
+		  <table>
+				<tr>
+					<td><%= f.label :tix_enabled %></td>
+					<td><%= f.check_box :tix_enabled %></td>
+				</tr>
+				<tr class="tix_off">
+					<td><%= f.label :alt_tix %></td>
+					<td><%= f.text_field :alt_tix %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :seats %></td>
+					<td><%= f.number_field :seats %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :cap %></td>
+					<td><%= f.number_field :cap %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :waitlist %></td>
+					<td><%= f.check_box :waitlist %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :show_waitlist %></td>
+					<td><%= f.check_box :show_waitlist %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :freeze_mins_before %></td>
+					<td><%= f.number_field :freeze_mins_before %></td>
+				</tr>
+				<tr class="tix_on">
+					<td><%= f.label :on_sale %></td>
+					<td><%= f.text_field :on_sale, :class => "date", :value => @show.on_sale ? @show.on_sale.strftime("%m/%d/%Y") : Time.now.strftime("%m/%d/%Y") %></td>
+				</tr>
+		  </table>
+		 </div>
+	 <% end %>
+	 <p><%= f.submit "Submit" %></p>
+<% end %>
+

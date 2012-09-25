@@ -1,0 +1,14 @@
+<% if showtime.is_waitlist_full? %>
+	SOLD OUT - 
+<% elsif showtime.is_full? %>
+	<%= form.radio_button :showtime_id, showtime.id %> - 
+	WAITLIST ONLY - 
+<% else %>
+	<%= form.radio_button :showtime_id, showtime.id %>
+<% end %>
+
+<b><%= format_showtime_full(showtime.timestamp) %></b>
+
+<% if showtime.remaining_tickets > 0 && showtime.remaining_tickets <= showtime.show.seats / 8 %>
+	- only <%= showtime.remaining_tickets %> seats remain
+<% end %>

@@ -1,0 +1,19 @@
+Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.
+<br><br>
+If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
+
+<div class="shows this_week">
+	<h4>This Week's Shows</h4>
+	<% @shows.each do |show| %>
+		<%= render :partial => 'shared/show_vert_frontpage', :locals => {:show => show} %>
+	<% end %>
+</div>
+<hr />
+<div class="news">
+	<% @news.each do |news| %>
+		<h2><%= news.title %></h2>
+		<h4>Posted by: <%= news.poster %></h4>
+		<h5><%= full_timestamp(news.created_at) %></h5>
+		<%= raw news.text %>
+	<% end %>
+</div>

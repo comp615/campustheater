@@ -1,0 +1,11 @@
+<div class="show_group images">
+	<% if shows.length < 1 %>
+		No shows currently scheduled!
+	<% end %>
+	
+	<% shows.each do |show| %>
+		<div class="show">
+			<%= render :partial => "shared/show_listing", :locals => { :show => show } %>
+		</div>
+	<% end %>
+</div>

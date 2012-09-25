@@ -1,0 +1,13 @@
+THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah.
+
+<hr />
+<h2>Showing this Week</h2>
+<%= render :partial => "shared/show_group_with_images", :locals => { :shows => @this_week} %>
+
+<hr />
+<h2>Coming this Semester</h2>
+<%= render :partial => "shared/show_group", :locals => { :shows => @this_semester} %>
+
+<hr />
+<h2>Next Semester</h2>
+<%= render :partial => "shared/show_group", :locals => { :shows => @other} %>

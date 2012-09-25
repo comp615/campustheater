@@ -1,0 +1,41 @@
+<% content_for :head do %>
+	<% if params[:url_key].blank? && !@show.url_key.blank? %>
+		<link type="canonical" href="<%= vanity_path(@show.url_key) %>">
+	<% end %>
+<% end %>
+
+
+<div class="title"><%= @show.title %></div><br />
+
+<strong>By:</strong> <%= @show.writer %><br />
+<%= @show.tagline if !@show.tagline.blank? %><%= raw "<br />" if !@show.tagline.blank? %>
+<strong>Place:</strong> <%= @show.location %><br />
+<% @show.showtimes.each do |showtime| %>
+	<%= format_showtime_full(showtime.timestamp) %><br />
+<% end %>
+Reservations: 
+<%= get_reservation_line(@show) %>
+
+<p>
+	<%= @show.description %>
+</p>
+
+<hr />
+
+<div class="cast">
+	<h4>Cast:</h4>
+	<table>
+	<% @show.cast.select{|sp| sp.person_id }.each do |sp| %>
+		<tr><td><%= link_to sp.person.display_name, sp.person %></td><td><%= sp.display_name %></td></tr>
+	<% end %>
+	</table>
+</div>
+
+<div class="crew">
+<h4>Crew:</h4>
+	<table>
+	<% @show.crew.each do |sp| %>
+		<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>
+	<% end %>
+	</table>
+</div>

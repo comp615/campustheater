@@ -1,0 +1,19 @@
+<tr>
+	<td><%= small_timestamp(audition.timestamp) %></td>
+	<td><%= best_in_place_if @aud_admin, audition, :location, :type => :input, :path => show_auditions_path(@show) + "/#{audition.id}" %></td>
+	<% if audition.person == @current_user %>
+		<td><button name="commit" value="cancel" type="submit">Cancel Audition</button></td>
+		<td><%= audition.person.display_name %></td>
+		<td><%= audition.email %></td>
+		<td><%= audition.phone %></td>
+	<% elsif audition.person %>
+		<td>Taken</td>
+		<td><%= audition.person.display_name %></td>
+		<td><%= audition.email %></td>
+		<td><%= audition.phone %></td>
+	<% else %>
+		<td><button name="commit" value="<%= audition.id %>" type="submit">Signup</button></td>
+		<td colspan="3">Not Taken Yet</td>
+	<% end %>
+	<td><%= form.check_box :_destroy %></td>	
+</tr>

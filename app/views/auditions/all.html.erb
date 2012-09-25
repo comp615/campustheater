@@ -1,0 +1,5 @@
+<% @shows.each do |show,auditions| %>
+<%= render :partial => "shared/show_listing", :locals => {:show => show} %><br />
+Slots available: <%= "#{auditions.select{|a| a.person_id == nil}.count} / #{auditions.count}" %><br />
+<%= link_to "Signup Here", show_auditions_path(show) %>
+<% end %>

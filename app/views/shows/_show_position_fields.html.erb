@@ -1,0 +1,15 @@
+<li>
+<% if(f.object && f.object.position_id == 17) %>
+	<%= f.text_field :character %>
+	<%= f.text_field :name, :class => "person", :value => f.object.person ? f.object.person.display_name : "" %>
+	<%= f.hidden_field :position_id, :class => "person_id" %>
+	<%= f.hidden_field :person_id %>
+	<%= link_to_remove_fields "remove", f %>
+<% else %>
+	<%= f.check_box :assistant %>
+	<%= f.collection_select(:position_id, Position.all, :id, :position) %>
+	<%= f.text_field :name, :class => "person", :value => f.object.person ? f.object.person.display_name : "" %>
+	<%= f.hidden_field :person_id, :class => "person_id" %>
+	<%= link_to_remove_fields "remove", f %>
+<% end %>
+</li>

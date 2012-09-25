@@ -1,0 +1,5 @@
+<li class="datepair">
+	<%= f.text_field :date, :class => "date", :value => f.object.timestamp ? f.object.timestamp.strftime("%m/%d/%Y") : "" %>
+	<%= f.text_field :time, :class => "time", :value => f.object.timestamp %>
+	<%= link_to_remove_fields "remove", f %>
+</li>

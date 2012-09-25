@@ -1,0 +1,21 @@
+<% if shows.length < 1 %>
+	No shows here!
+<% end %>
+
+<table class="show_group">
+	<% shows.in_groups_of(2) do |show1,show2| %>
+		<tr>
+		
+			<td <%= "colspan='2'" unless show2 %>>
+				<%= render :partial => "shared/show_listing", :locals => { :show => show1 } %>
+			</td>
+			
+			<% if show2 %>
+			<td>
+				<%= render :partial => "shared/show_listing", :locals => { :show => show2 } %>
+			</td>
+			<% end %>
+			
+		</tr>
+	<% end %>
+</table>
