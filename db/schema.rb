@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123004159) do
+ActiveRecord::Schema.define(:version => 20120123004160) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20120123004159) do
     t.string   "password"
     t.string   "confirm_code"
     t.boolean  "active",                     :default => false, :null => false
-    t.boolean  "email_allow",                                   :null => false
+    t.boolean  "email_allow",                :default => false, :null => false
     t.boolean  "site_admin",                 :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -66,10 +66,11 @@ ActiveRecord::Schema.define(:version => 20120123004159) do
   add_index "people", ["netid"], :name => "index_people_on_netid"
 
   create_table "permissions", :force => true do |t|
-    t.integer  "show_id"
-    t.integer  "person_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "show_id",                                                  :null => false
+    t.integer  "person_id",                                                :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.enum     "level",      :limit => [:full, :reservations, :auditions], :null => false
   end
 
   add_index "permissions", ["person_id"], :name => "index_permissions_on_person_id"
@@ -84,15 +85,16 @@ ActiveRecord::Schema.define(:version => 20120123004159) do
   end
 
   create_table "reservations", :force => true do |t|
-    t.string    "fname",          :limit => 50, :null => false
-    t.string    "lname",          :limit => 50, :null => false
-    t.string    "email",                        :null => false
-    t.integer   "num",            :limit => 1,  :null => false
-    t.timestamp "updated_at",                   :null => false
-    t.integer   "showtime_id",                  :null => false
-    t.integer   "ticket_type_id", :limit => 2,  :null => false
+    t.string    "fname",               :limit => 50, :null => false
+    t.string    "lname",               :limit => 50, :null => false
+    t.string    "email",                             :null => false
+    t.integer   "num",                 :limit => 1,  :null => false
+    t.timestamp "updated_at",                        :null => false
+    t.integer   "showtime_id",                       :null => false
+    t.integer   "reservation_type_id", :limit => 2,  :null => false
     t.datetime  "created_at"
     t.integer   "person_id"
+    t.string    "token",               :limit => 45
   end
 
   create_table "show_positions", :force => true do |t|
@@ -104,31 +106,31 @@ ActiveRecord::Schema.define(:version => 20120123004159) do
   end
 
   create_table "shows", :force => true do |t|
-    t.string   "category",              :limit => 7,  :default => "theater", :null => false
-    t.string   "title",                                                      :null => false
-    t.string   "writer",                                                     :null => false
+    t.enum     "category",              :limit => [:theater, :dance, :film, :comedy, :casting], :default => :theater, :null => false
+    t.string   "title",                                                                                               :null => false
+    t.string   "writer",                                                                                              :null => false
     t.string   "tagline"
-    t.string   "location",                                                   :null => false
-    t.string   "contact",                                                    :null => false
-    t.boolean  "auditions_enabled",                                          :null => false
+    t.string   "location",                                                                                            :null => false
+    t.string   "contact",                                                                                             :null => false
+    t.boolean  "auditions_enabled",                                                             :default => false,    :null => false
     t.text     "aud_info"
     t.text     "aud_files"
-    t.boolean  "public_aud_info",                                            :null => false
-    t.text     "description",                                                :null => false
+    t.boolean  "public_aud_info",                                                               :default => false,    :null => false
+    t.text     "description",                                                                                         :null => false
     t.string   "poster"
-    t.boolean  "approved",                                                   :null => false
-    t.string   "pw",                                                         :null => false
+    t.boolean  "approved",                                                                      :default => false,    :null => false
+    t.string   "pw"
     t.string   "url_key",               :limit => 25
     t.string   "alt_tix"
-    t.integer  "seats",                 :limit => 2,                         :null => false
-    t.integer  "cap",                   :limit => 2,                         :null => false
-    t.boolean  "waitlist",                            :default => false,     :null => false
-    t.boolean  "show_waitlist",                       :default => false,     :null => false
-    t.boolean  "tix_enabled",                         :default => false,     :null => false
-    t.integer  "freeze_mins_before",                  :default => 120,       :null => false
+    t.integer  "seats",                 :limit => 2,                                            :default => 0,        :null => false
+    t.integer  "cap",                   :limit => 2,                                            :default => 0,        :null => false
+    t.boolean  "waitlist",                                                                      :default => false,    :null => false
+    t.boolean  "show_waitlist",                                                                 :default => false,    :null => false
+    t.boolean  "tix_enabled",                                                                   :default => false,    :null => false
+    t.integer  "freeze_mins_before",                                                            :default => 120,      :null => false
     t.date     "on_sale"
-    t.boolean  "archive",                             :default => true,      :null => false
-    t.boolean  "archive_reminder_sent",               :default => false,     :null => false
+    t.boolean  "archive",                                                                       :default => true,     :null => false
+    t.boolean  "archive_reminder_sent",                                                         :default => false,    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -140,5 +142,15 @@ ActiveRecord::Schema.define(:version => 20120123004159) do
   end
 
   add_index "showtimes", ["show_id"], :name => "show_index"
+
+  create_table "takeover_requests", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "requested_person_id"
+    t.boolean  "approved"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "takeover_requests", ["person_id"], :name => "index_takeover_requests_on_person_id"
 
 end

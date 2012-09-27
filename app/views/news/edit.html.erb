@@ -1,0 +1,6 @@
+<div class="news">
+	<h2><%= best_in_place_if @current_user.site_admin?, @news, :title, :type => :input %></h2>
+	<h4>Posted by: <%= best_in_place_if @current_user.site_admin?, @news, :poster, :type => :input %></h4>
+	<h5><%= full_timestamp(@news.created_at) if @news.created_at %></h5>
+	<%= best_in_place_if @current_user.site_admin?, @news, :text, :type => :textarea %>
+</div>

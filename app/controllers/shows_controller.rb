@@ -114,15 +114,17 @@ class ShowsController < ApplicationController
 	end
 	
 	def destroy
-	
+		@show.destroy
+		# Return them to wherever? Admin dash will redirect normal people to user dash
+		redirect_to admin_dashboard_path
 	end
 	
 	private
 	
 	def fetch_show
-		@show = Show.includes(:show_positions => [:person, :position]).find(params[:id]) if(params[:id])
-		@show = Show.includes(:show_positions => [:person, :position]).find_by_url_key(params[:url_key]) if(params[:url_key])
-		render :not_found if(!@show)
+		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find(params[:id]) if(params[:id])
+		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find_by_url_key(params[:url_key]) if(params[:url_key])
+		render :not_found if !@show || (!@show.approved && !@current_user.site_admin?)
 	end
 	
 	def auth

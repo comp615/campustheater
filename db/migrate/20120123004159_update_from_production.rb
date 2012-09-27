@@ -7,6 +7,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	
   	execute("ALTER TABLE people CHANGE person_id id int(11) NOT NULL AUTO_INCREMENT")
   	remove_column :people, :last_update
+  	add_attachment :people, :picture
   	add_timestamps :people
   	add_column :people, :netid, :string, :limit => 6
   	add_index :people, :netid
@@ -34,6 +35,8 @@ class UpdateFromProduction < ActiveRecord::Migration
   	end
   	
   	execute("ALTER TABLE shows CHANGE show_id id int(11) NOT NULL AUTO_INCREMENT")
+  	add_column :shows, :flickr_id, :string, :null => true
+  	add_attachment :shows, :poster
   	add_timestamps :shows
   	rename_column :shows, :type, :category
   	rename_column :shows, :freeze, :freeze_mins_before
@@ -79,10 +82,17 @@ class UpdateFromProduction < ActiveRecord::Migration
   	rename_column :show_positions, :pos_id, :position_id
   	remove_column :show_positions, :name
   	change_column :show_positions, :character, :string, :null => true
+  	add_column :show_positions, :new_assistant, :enum, :limit => [:assistant, :associates], :null => true
   	
-  	# Migrate the nulls out of show_positions
+  	# Migrate the nulls out of show_positions, switch to enum prefixes for "assistant"
   	ShowPosition.reset_column_information
   	ShowPosition.where(:character => "").update_all(:character => nil)
+  	ShowPosition.where(:assistant => true).update_all(:new_assistant => :assistant)
+  	
+  	remove_column :show_positions, :assistant
+  	rename_column :show_positions, :new_assistant, :assistant
+  	ShowPosition.reset_column_information
+  	
   	
   	rename_table :show_auditions, :auditions
   	execute("ALTER TABLE auditions CHANGE aud_id id int(11) NOT NULL AUTO_INCREMENT")

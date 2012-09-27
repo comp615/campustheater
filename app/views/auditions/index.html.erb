@@ -1,3 +1,5 @@
+<% javascript 'auditions.js' %>
+
 <% if @aud_admin %>
 	Batch add Audition Times
 	<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair" do |f| %>

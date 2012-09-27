@@ -7,6 +7,7 @@ class PeopleController < ApplicationController
 	def show
 		# Show public view
 		#TODO: SHould we cache people's public profiles?
+		#TODO: Should admins be able to edit?
 	end
 	
 	def dashboard
@@ -57,8 +58,10 @@ class PeopleController < ApplicationController
 		# We'll allow multiple requests for a name and let the admin sort it out...
 		# TODO:But they cannot have multiple requests for the same name, we'll have to deal with that in the model that finds this
 		# TODO: Finalize and implement
-		puts @current_user.id
-		puts params[:person_ids].inspect
+		
+		params[:person_ids].each do |person_id|
+			TakeoverRequest.create(:person => @current_user, :requested_person_id => person_id, :approved => false)
+		end
 		if session[:user_flow_entry]
 			url = session[:user_flow_entry]
 			session[:user_flow_entry] = nil

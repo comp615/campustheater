@@ -9,6 +9,7 @@ gem 'mysql2', '> 0.3'
 gem 'enum_column3'
 gem 'rails-settings-cached'
 gem 'best_in_place'
+gem 'paperclip', '~> 3.0'
 
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'

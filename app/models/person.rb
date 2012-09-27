@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
 	has_many :reservations, :dependent => :nullify
 	has_many :permissions, :dependent => :delete_all
 	has_many :auditions, :dependent => :destroy
+	has_many :takeover_requests, :dependent => :destroy #Outgoing requests, incoming are invisible
 	
 	after_create :populateLDAP
 	#TODO: Where appropriate, redirect to user dashboard, check for name matches, etc.
@@ -42,7 +43,7 @@ class Person < ActiveRecord::Base
 		people.concat Person.find_all_by_email(self.email) unless self.email.blank?
 		people.concat Person.where(["fname LIKE ? AND lname = ?",self.fname.first(1) + "%", self.lname]) unless self.fname.blank? || self.lname.blank?
 		people.select! {|person| person.netid == nil }
-		people.uniq - [self]
+		people.uniq - [self] - self.takeover_requests.map{|tor| tor.requested_person}
 	end
     
   # Accessors 
@@ -52,7 +53,7 @@ class Person < ActiveRecord::Base
   
   def site_admin?
   	#TODO: Change
-  	false
+  	true
   end
   
   def needs_registration?

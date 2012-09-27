@@ -1,0 +1,69 @@
+<% javascript 'admin.js' %>
+<h3>Admin Dashboard</h3>
+
+<h4>Pending Show Queue</h4>
+<% if @pending_shows.blank? %>
+	No requests at this time!
+<% else %>
+	<table>
+		<tr><th>Show</th><th>Approve</th><th>Approve, but don't archive</th><th>Delete</th></tr>
+		<% @pending_shows.each do |s| %>
+			<tr><td><%= link_to s.title, edit_show_path(s) %></td><td><%= link_to "Approve", approve_show_path(s.id) + "?archive=1" %></td><td><%= link_to "Approve (no archive)", approve_show_path(s.id) %></td><td>See Below</td></tr>
+		<% end %>
+	</table>
+<% end %>
+<br /><br />
+
+<h4>Pending Name Request Queue</h4>
+<% if @pending_takeovers.blank? %>
+	No requests at this time!
+<% else %>
+	<table>
+		<tr><th>User Name</th><th>Requested Name</th><th>Approve</th><th>Remove</th></tr>
+	<% @pending_takeovers.each do |req| %>
+		<tr><td><%= link_to req.person.display_name, req.person %></td><td><%= link_to req.requested_person.display_name, req.requested_person %></td><td><%= link_to "Approve", approve_takeover_path(req) %></td><td><%= link_to "Delete", reject_takeover_path(req) %></td></tr>
+	<% end %>
+	</table>
+<% end %>
+
+
+<br /><br />
+<b>Select a show to edit:</b>
+<form method="get" action="/shows/id/edit">
+  <%= select_tag :show_edit_id, options_from_collection_for_select(@shows, :id, :title) %>
+  <%= submit_tag "Edit"%>
+</form>
+
+<br />
+<b>Delete a show:</b>
+<%= form_for(:show, :url => show_path("id"), :html => {:method => :delete}) do  %>
+  <%= select_tag :show_delete_id, options_from_collection_for_select(@shows, :id, :title) %>
+  <%= submit_tag "Delete", :confirm => "Are you sure you want to delete the selected show?" %>
+<% end %>
+
+<br /><br />
+<b>Edit News:</b>
+<form method="get" action="/news/id/edit">
+  <%= select_tag :news_edit_id, options_from_collection_for_select(@news, :id, :title) %>
+  <%= submit_tag "Edit" %>
+</form>
+<br /><br />
+
+<b>Delete News:</b>
+<%= form_for(:news, :url => news_path("id"), :html => {:method => :delete}) do  %>
+  <%= select_tag :news_delete_id, options_from_collection_for_select(@news, :id, :title) %>
+  <%= submit_tag "Delete", :confirm => "Are you sure you want to delete the selected article?" %>
+<% end %>
+
+<br /><br />
+
+<b>New News:</b>
+<div class="news">
+	<%= form_for News.new do |f| %>
+		Title: <%= f.text_field :title %><br />
+		Posted by: <%= f.text_field :poster %><br />
+		<%= f.text_area :text %>
+		<br /><br />
+		<%= f.submit "Create" %>
+	<% end %>
+</div>

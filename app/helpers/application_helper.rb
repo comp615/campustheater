@@ -81,4 +81,9 @@ module ApplicationHelper
     end
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
+  
+  #Helper to load javascript page specific stuff
+  def javascript(*files)
+    content_for(:head) { javascript_include_tag(*files) }
+  end
 end

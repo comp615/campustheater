@@ -1,7 +1,11 @@
-<%= link_to "Site Admin Dashboard<br/><br />".html_safe, '/admin' if @current_user.site_admin? %>
+<%= link_to "Site Admin Dashboard<br/><br />".html_safe, admin_dashboard_path if @current_user.site_admin? %>
 
 <b>Welcome <%= @current_user.fname %>!</b><br />
 This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!
+<br />
+
+<br />
+<%= link_to "View/Edit Profile", @current_user %>
 <br />
 
 <h4>My Shows</h4>
@@ -67,7 +71,7 @@ Render Partials?
 
 <h4>Profile Takeover Notifications</h4>
 <% if @similar_people.empty? %>
-	"No people found right now"
+	No people found right now
 <% else %>
 	<%= form_tag takeover_request_path(@current_user) do %>
 		<% @similar_people.each do |p| %>

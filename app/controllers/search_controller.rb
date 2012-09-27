@@ -32,7 +32,7 @@ class SearchController < ApplicationController
 			@results = @results.where(:id => show_ids) if show_ids
 			@results = Show.where(["title LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
 		end
-		@results = @results.all
+		@results
 	end
 	
 	def lookup
