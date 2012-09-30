@@ -6,13 +6,18 @@ class Person < ActiveRecord::Base
 	has_many :permissions, :dependent => :delete_all
 	has_many :auditions, :dependent => :destroy
 	has_many :takeover_requests, :dependent => :destroy #Outgoing requests, incoming are invisible
+	has_attached_file :picture, 
+				:styles => { :medium => ["400x400>", :jpg], :thumb => ["150x150>", :jpg] },
+				:storage => :s3,
+     		:s3_credentials => "#{Rails.root}/config/aws.yml",
+    		:path => "/people/:id/picture/:style/:filename"
 	
 	after_create :populateLDAP
 	#TODO: Where appropriate, redirect to user dashboard, check for name matches, etc.
 	#TODO: Build out salt,pw stuff to allow them to edit themselves once gone!
 	#Write a custom typo/distance algo and something else for nicknames
 	
-	attr_accessible :fname, :lname, :email, :year, :college, :bio, :email_allow
+	attr_accessible :fname, :lname, :email, :year, :college, :bio, :email_allow, :picture
 	
 	validates :year, :numericality => { :only_integer => true, :greater_than_or_equal_to => 2006, :less_than_or_equal_to => Time.now.year + 8 }, :allow_nil => true
 	validates :college, :inclusion => { :in => YALE_COLLEGES.flatten }, :allow_nil => true

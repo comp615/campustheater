@@ -17,7 +17,7 @@ Reservations:
 <%= get_reservation_line(@show) %>
 
 <p>
-	<%= @show.description %>
+	<%= h(@show.description).gsub(/\n/, '<br/>').html_safe %>
 </p>
 
 <hr />

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123004160) do
+ActiveRecord::Schema.define(:version => 20120123004161) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
   end
 
   create_table "people", :force => true do |t|
-    t.string   "fname",        :limit => 50,                    :null => false
-    t.string   "lname",        :limit => 50,                    :null => false
+    t.string   "fname",                :limit => 50,                    :null => false
+    t.string   "lname",                :limit => 50,                    :null => false
     t.string   "email"
     t.integer  "year"
     t.string   "college"
@@ -55,12 +55,16 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
     t.text     "bio"
     t.string   "password"
     t.string   "confirm_code"
-    t.boolean  "active",                     :default => false, :null => false
-    t.boolean  "email_allow",                :default => false, :null => false
-    t.boolean  "site_admin",                 :default => false
+    t.boolean  "active",                             :default => false, :null => false
+    t.boolean  "email_allow",                        :default => false, :null => false
+    t.boolean  "site_admin",                         :default => false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "netid",        :limit => 6
+    t.string   "netid",                :limit => 6
   end
 
   add_index "people", ["netid"], :name => "index_people_on_netid"
@@ -68,9 +72,9 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
   create_table "permissions", :force => true do |t|
     t.integer  "show_id",                                                  :null => false
     t.integer  "person_id",                                                :null => false
+    t.enum     "level",      :limit => [:full, :reservations, :auditions]
     t.datetime "created_at",                                               :null => false
     t.datetime "updated_at",                                               :null => false
-    t.enum     "level",      :limit => [:full, :reservations, :auditions], :null => false
   end
 
   add_index "permissions", ["person_id"], :name => "index_permissions_on_person_id"
@@ -94,15 +98,15 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
     t.integer   "reservation_type_id", :limit => 2,  :null => false
     t.datetime  "created_at"
     t.integer   "person_id"
-    t.string    "token",               :limit => 45
+    t.text      "token"
   end
 
   create_table "show_positions", :force => true do |t|
-    t.integer "show_id",                                    :null => false
-    t.integer "position_id", :limit => 2,                   :null => false
-    t.boolean "assistant",                :default => true, :null => false
+    t.integer "show_id",                                          :null => false
+    t.integer "position_id", :limit => 2,                         :null => false
     t.string  "character"
-    t.integer "person_id",                                  :null => false
+    t.integer "person_id",                                        :null => false
+    t.enum    "assistant",   :limit => [:assistant, :associates]
   end
 
   create_table "shows", :force => true do |t|
@@ -117,13 +121,13 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
     t.text     "aud_files"
     t.boolean  "public_aud_info",                                                               :default => false,    :null => false
     t.text     "description",                                                                                         :null => false
-    t.string   "poster"
+    t.string   "old_poster",                                                                                          :null => false
     t.boolean  "approved",                                                                      :default => false,    :null => false
-    t.string   "pw"
+    t.text     "pw"
     t.string   "url_key",               :limit => 25
     t.string   "alt_tix"
-    t.integer  "seats",                 :limit => 2,                                            :default => 0,        :null => false
-    t.integer  "cap",                   :limit => 2,                                            :default => 0,        :null => false
+    t.integer  "seats",                                                                         :default => 0,        :null => false
+    t.integer  "cap",                                                                           :default => 0,        :null => false
     t.boolean  "waitlist",                                                                      :default => false,    :null => false
     t.boolean  "show_waitlist",                                                                 :default => false,    :null => false
     t.boolean  "tix_enabled",                                                                   :default => false,    :null => false
@@ -131,6 +135,11 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
     t.date     "on_sale"
     t.boolean  "archive",                                                                       :default => true,     :null => false
     t.boolean  "archive_reminder_sent",                                                         :default => false,    :null => false
+    t.string   "flickr_id"
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,11 +153,11 @@ ActiveRecord::Schema.define(:version => 20120123004160) do
   add_index "showtimes", ["show_id"], :name => "show_index"
 
   create_table "takeover_requests", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "requested_person_id"
-    t.boolean  "approved"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.integer  "person_id",                              :null => false
+    t.integer  "requested_person_id",                    :null => false
+    t.boolean  "approved",            :default => false, :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "takeover_requests", ["person_id"], :name => "index_takeover_requests_on_person_id"

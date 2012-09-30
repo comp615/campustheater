@@ -13,7 +13,8 @@ class UpdateFromProduction < ActiveRecord::Migration
   	add_index :people, :netid
   	change_column :people, :email, :string, :null => true
   	change_column :people, :email_allow, :boolean, :default => false
-  	change_column :people, :year, :integer, :limit => 4, :null => true
+  	change_column :people, :year, :integer, :limit => 4, :null => true, :default => nil
+  	execute("UPDATE people SET `year` = NULL WHERE `year` < 2006")
   	change_column :people, :college, :string, :null => true
   	change_column :people, :pic, :string, :null => true
   	change_column :people, :bio, :text, :null => true, :default => nil
@@ -27,7 +28,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   		p.year = nil if p.year.blank?
   		p.college = nil if p.college.blank?
   		p.pic = nil if p.pic.blank?
-  		p.bio = p.bio.gsub(/<br ?\/?>/, "\n").gsub(/[\n\r]+/,"\n")
+  		p.bio = p.bio.gsub(/<br ?\/?>/, "\r\n").gsub(/[\n\r]+/,"\r\n")
   		p.bio = nil if p.bio.blank?
   		p.password = nil if p.password.blank?
   		p.confirm_code = nil if p.confirm_code.blank?
@@ -36,6 +37,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	
   	execute("ALTER TABLE shows CHANGE show_id id int(11) NOT NULL AUTO_INCREMENT")
   	add_column :shows, :flickr_id, :string, :null => true
+  	rename_column :shows, :poster, :old_poster
   	add_attachment :shows, :poster
   	add_timestamps :shows
   	rename_column :shows, :type, :category
@@ -46,7 +48,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	remove_column :shows, :aud_signup
   	remove_column :shows, :insta_confirm
   	change_column :shows, :tagline, :string, :null => true
-  	change_column :shows, :ps, :text, :null => true, :default => nil
+  	change_column :shows, :pw, :text, :null => true, :default => nil
   	change_column :shows, :seats, :integer, :limit => 4, :default => 0
   	change_column :shows, :cap, :integer, :limit => 4, :default => 0
   	change_column :shows, :approved, :boolean, :default => false
@@ -54,16 +56,19 @@ class UpdateFromProduction < ActiveRecord::Migration
   	change_column :shows, :aud_info, :text, :null => true, :default => nil
   	change_column :shows, :public_aud_info, :boolean, :default => false
   	change_column :shows, :aud_files, :text, :null => true, :default => nil
-  	change_column :shows, :poster, :string, :null => true
   	change_column :shows, :alt_tix, :string, :null => true
   	# The numeric ticket params should default to 0 and not matter because it will be disabled/verified
   	change_column :shows, :waitlist, :boolean, :default => false
   	change_column :shows, :show_waitlist, :boolean, :default => false
   	change_column :shows, :tix_enabled, :boolean, :default => false
   	change_column :shows, :freeze_mins_before, :integer, :limit => 4, :default => 120 #2 hours
-  	change_column :shows, :on_sale, :date, :null => true
+  	change_column :shows, :on_sale, :date, :null => true, :default => nil
   	change_column :shows, :archive, :boolean, :default => true
   	change_column :shows, :archive_reminder_sent, :boolean, :default => false
+  	
+  	execute("UPDATE `shows` SET url_key = NULL WHERE url_key NOT REGEXP '^[a-zA-Z0-9_]+$'")
+  	execute("UPDATE `shows` SET on_sale = NULL WHERE on_sale = '0000-00-00'")
+  	Show.where(:tix_enabled => true, :on_sale => nil).update_all(:on_sale => Time.now - 1.year)
   	
   	execute("ALTER TABLE tickets_type CHANGE tix_type_id id int(11) NOT NULL AUTO_INCREMENT")
   	rename_table :tickets_type, :reservation_types
@@ -82,7 +87,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	rename_column :show_positions, :pos_id, :position_id
   	remove_column :show_positions, :name
   	change_column :show_positions, :character, :string, :null => true
-  	add_column :show_positions, :new_assistant, :enum, :limit => [:assistant, :associates], :null => true
+  	add_column :show_positions, :new_assistant, :enum, :limit => [:assistant, :associate], :null => true
   	
   	# Migrate the nulls out of show_positions, switch to enum prefixes for "assistant"
   	ShowPosition.reset_column_information
@@ -113,6 +118,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	# Now handle some data cleansing
   	# Migrate shows to use nils, hold off cross-table migrations till end to prevent de-syncing
   	# Migrate shows to use minutes instead of hours for freeze time
+  	
   	Show.reset_column_information
   	Show.order("id DESC").each do |s|
   		s.url_key = nil if s.url_key.blank?
@@ -123,6 +129,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   		s.alt_tix = nil if s.alt_tix.blank?
   		s.on_sale = nil if s.on_sale.blank?
   		s.freeze_mins_before = s.freeze_mins_before * 60 # Convert to minutes
+  		s.description = s.description.gsub(/<br ?\/?>/, "\r\n").gsub(/[\n\r]+/,"\r\n")
   		
   		# If we can't save, the url_key is probably duplicated, remove it
   		s.url_key = nil if !s.valid?

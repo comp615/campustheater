@@ -9,6 +9,7 @@ gem 'mysql2', '> 0.3'
 gem 'enum_column3'
 gem 'rails-settings-cached'
 gem 'best_in_place'
+gem 'aws-sdk', '1.6.0' #TODO: Remove post 1.6.6 once they fix https://forums.aws.amazon.com/thread.jspa?messageID=385375
 gem 'paperclip', '~> 3.0'
 
 gem 'jquery-ui-rails'

@@ -1,3 +1,5 @@
+require 'paperclip'
+
 Ydc::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -35,3 +37,8 @@ Ydc::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+# Config for imagemagick for Charlie
+Paperclip.options[:swallow_stderr] = false
+Paperclip.options[:command_path] = 'C:\\Program Files (x86)\\ImageMagick-6.7.9-Q16'
+Paperclip.options[:whiny_thumbnails] = true

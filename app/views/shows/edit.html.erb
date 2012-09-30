@@ -17,7 +17,7 @@
 	<% end %>
 </ul>
 
-<%= form_for @show, :validate => true do |f| %>
+<%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
   <div id="basic">
   	<h4>Basic Information</h4>
   	Just the basic information about your show. All fields on this page are required!
@@ -39,9 +39,18 @@
 				<td><%= f.text_field :tagline %></td>
 			</tr>
 			<tr>
+				<td><%= f.label :poster %></td>
+				<td><%= f.file_field :poster %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :flickr_id %></td>
+				<td><%= f.text_field :flickr_id %></td>
+			</tr>
+			<tr>
 				<td><%= f.label :location %></td>
 				<td><%= f.text_field :location %></td>
 			</tr>
+			
 			<tr>
 				<td><%= f.label :url_key %></td>
 				<td><%= f.text_field :url_key %></td>

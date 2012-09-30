@@ -26,6 +26,8 @@ class ShowsController < ApplicationController
 	def show
 		# Do something with @show?
 		#redirect_to root_url
+		s3 = AWS::S3.new
+   	s3_bucket = s3.buckets['yaledramacoalition']
 	end
 	
 	def new

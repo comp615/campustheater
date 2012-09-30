@@ -4,6 +4,10 @@ class Show < ActiveRecord::Base
 	has_many :show_positions, :dependent => :delete_all, :include => :person
 	has_many :permissions, :dependent => :delete_all
 	has_many :auditions, :dependent => :destroy
+	has_attached_file :poster, :styles => { :medium => "400x400>", :thumb => "150x150>" },				
+				:storage => :s3,
+     		:s3_credentials => "#{Rails.root}/config/aws.yml",
+    		:path => "/shows/:id/poster/:style/:filename"
 	
 	has_many :directors, :class_name => :ShowPosition, :conditions => {:position_id => 1, :assistant => false}, :include => :person
 	
@@ -14,7 +18,7 @@ class Show < ActiveRecord::Base
 	#TODO: Make some scopes to get basic information only
 	# TODO: Stub out director line and auto-manage
 	
-	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description
+	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description, :poster, :flickr_id
 	attr_accessible :tix_enabled, :alt_tix, :seats, :cap, :waitlist, :show_waitlist, :freeze_mins_before, :on_sale
 	attr_accessible :aud_info
 	attr_accessible :showtimes_attributes, :show_positions_attributes, :permissions_attributes
@@ -23,8 +27,8 @@ class Show < ActiveRecord::Base
 	accepts_nested_attributes_for :permissions, :allow_destroy => true
 	
 	# Ensure unique slug
-	validates :category, :title, :writer, :location, :contact, :presence, :description, :presence => true
-	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers"
+	validates :category, :title, :writer, :location, :contact, :presence, :description, :presence => true, :unless => Proc.new { |s| s.id && s.id < 500 }
+	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers", :allow_nil => true
 	validates_uniqueness_of :url_key, :allow_nil => true, :case_sensitive => false, :message => "Sorry, the desired url is already taken. Please try another!"
 	validates_columns :category
 	validates :contact, :email_format => true
@@ -75,11 +79,6 @@ class Show < ActiveRecord::Base
 	
 	def ok_to_ticket?
 		self.tix_enabled && self.on_sale.to_time <= Time.now && !self.has_closed?
-	end
-	
-	# TODO: build out into new file system or something
-	def has_poster?
-		!self.poster.blank?
 	end
 	
 	# Get the OCI term of the show's opening night, can help for categorizing

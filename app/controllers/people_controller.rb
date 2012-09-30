@@ -21,11 +21,6 @@ class PeopleController < ApplicationController
 		@similar_people = @current_user.similar_to_me
 	end
 	
-	# TODO: Remove or hookup to a different flow or do something with these edit things
-	def edit
-		# Take note of self.needs_registration?, lock them in if so, display special info
-	end
-	
 	# New User step 1
 	def new
 		redirect_to @current_user if @current_user # They must be CAS authed no we're OK
@@ -74,7 +69,7 @@ class PeopleController < ApplicationController
 	def update
 		respond_to do |format|
 	    if @person.update_attributes(params[:person])
-	      format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+	      format.html { redirect_to(@person, :notice => 'User was successfully updated.') }
 	      format.json { respond_with_bip(@person) }
 	    else
 	      format.html { render :action => "edit" }
