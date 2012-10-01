@@ -64,10 +64,6 @@ class Person < ActiveRecord::Base
   def needs_registration?
   	self.fname.blank?
   end
-  
-  def display_bio
-  	self.bio.gsub("\n","<br />")
-  end
 
 protected
 	#Todo: Repopulate periodically?

@@ -2,7 +2,7 @@
 <div class="person info">
 	<h3><%= best_in_place_if @person.id == @current_user.id, @person, :fname, :type => :input %> <%= best_in_place_if @person.id == @current_user.id, @person, :lname, :type => :input %></h3>
 	<%= best_in_place_if @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
-	<%= best_in_place_if @person.id == @current_user.id, @person, :bio, :type => :textarea, :display_as => :display_bio %>
+	<%= best_in_place_if @person.id == @current_user.id, @person, :bio, :type => :textarea %>
 	
 	<% if @person.id == @current_user.id %>
 		<br /><br />
