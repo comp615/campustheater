@@ -30,6 +30,7 @@ class ShowsController < ApplicationController
 		@page_name = " - #{@show.title}"
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
+   	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 	end
 	
 	def new

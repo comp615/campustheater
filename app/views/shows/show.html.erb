@@ -46,3 +46,29 @@
 	<% end %>
 	</table>
 </div>
+
+<div class="files">
+	<h4>Files</h4>
+	<% @s3_objects.each do |obj| %>
+		<%= link_to obj.key.split("/")[-1], "#{obj.url_for(:read)}" %><br />
+	<% end %>
+</div>
+
+<% unless @show.flickr_id.blank? %>
+	<h4>Photo Archive</h4>
+	<div class="slideshow" id="flickr_show" style="height:550px; width: 700px">
+	    <p>Please enable Javascript to view this slideshow</p>
+	</div>
+	<% content_for :head do %>
+		<%= javascript_include_tag("flickrshow-7.2.coffee") %>
+	<% end %>
+	<script>
+	$(document).ready(function() {
+		var flickr_show = $('#flickr_show').flickrshow({
+	        autoplay:true,
+	        interval:5000,
+	        set: '<%= @show.flickr_id %>'
+	    });
+	});
+  </script>
+<% end %>
