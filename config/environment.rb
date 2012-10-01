@@ -10,21 +10,6 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes
 )
 
-YALE_COLLEGES = 
-{ 'BK' => 'Berkeley', 
-  'BR' => 'Branford', 
-  'CC' => 'Calhoun', 
-  'DC' => 'Davenport', 
-  'JE' => 'JE', 
-  'MC' => 'Morse', 
-  'PC' => 'Pierson', 
-  'SY' => 'Saybrook', 
-  'SM' => 'Silliman', 
-  'ES' => 'Stiles', 
-  'TD' => 'Timothy Dwight', 	
-  'TC' => 'Trumbull' 
-}
-
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
