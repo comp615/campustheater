@@ -1,5 +1,6 @@
 class ShowsController < ApplicationController  
 	
+	before_filter :force_auth, :except => [:show, :index, :archives]
 	before_filter :fetch_show, :only => [:show, :edit, :update, :destroy, :show_showtime]
 	before_filter :auth, :except => [:index, :show, :archives, :new, :create]
 	
@@ -26,6 +27,7 @@ class ShowsController < ApplicationController
 	def show
 		# Do something with @show?
 		#redirect_to root_url
+		@page_name = " - #{@show.title}"
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
 	end
@@ -130,7 +132,6 @@ class ShowsController < ApplicationController
 	end
 	
 	def auth
-		trigger_login if !@current_user
 		return true if (@current_user.has_permission?(@show, :full))
 		
 		# Still hanging around? That means it isn't authed

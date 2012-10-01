@@ -1,0 +1,22 @@
+.info {
+	margin-bottom: 30px;
+	width: 400px;
+	float: left;
+}
+
+.description {
+	clear: left;
+}
+
+.show_group td {
+	width: 400px;
+	padding: 10px;
+}
+
+.poster {
+	float: right;
+	margin: 20px 40px;
+	> img {
+		max-width: 320px;
+	}
+}

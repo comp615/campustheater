@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	before_filter :check_user	
 	
 	def trigger_login
-		session[:back_to] = request.request_uri
+		session[:back_to] = request.fullpath
 		flash[:notice] = "Please login to view this page"
 		redirect_to login_url
 	end

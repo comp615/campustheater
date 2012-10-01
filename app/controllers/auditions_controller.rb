@@ -24,6 +24,7 @@ class AuditionsController < ApplicationController
 	
 	def index
 		@auditions = @show.auditions.future.includes(:person)
+		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
 		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id} || {}
 	end
 	

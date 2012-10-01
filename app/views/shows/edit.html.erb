@@ -20,7 +20,7 @@
 <%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
   <div id="basic">
   	<h4>Basic Information</h4>
-  	Just the basic information about your show. All fields on this page are required!
+  	Just the basic information about your show. All fields in this section are required!
 	  <table>
 			<tr>
 				<td><%= f.label :category %></td>
@@ -78,7 +78,13 @@
 			<li><%= link_to_add_fields "Add Showtime", f, :showtimes %></li>
 			</ul>
 	
-	 <% if @show.id != nil %>		 
+	 <% if @show.id != nil %>
+	 	 <div id="auditions">
+	 	 	<h4>Auditions</h4>
+	 	 	<%= link_to "Click Here to manage your auditions", show_auditions_path(@show) %><br />
+	 	 	NOTE: Clicking will leave this page discarding all changes
+	 	 </div>
+	 	 
 		 <div id="people">
 		 	<h4>Cast</h4>
 		 	<ul>

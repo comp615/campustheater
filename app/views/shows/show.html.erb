@@ -4,25 +4,32 @@
 	<% end %>
 <% end %>
 
-
-<div class="title"><%= @show.title %></div><br />
-
-<strong>By:</strong> <%= @show.writer %><br />
-<%= @show.tagline if !@show.tagline.blank? %><%= raw "<br />" if !@show.tagline.blank? %>
-<strong>Place:</strong> <%= @show.location %><br />
-<% @show.showtimes.each do |showtime| %>
-	<%= format_showtime_full(showtime.timestamp) %><br />
+<% if @show.poster.exists? %>
+		<div class="poster">
+			<%= image_tag @show.poster.url(:medium) %>
+		</div>
 <% end %>
-Reservations: 
-<%= get_reservation_line(@show) %>
 
-<p>
+<div class="show info">
+	<div class="title"><%= @show.title %></div><br />
+	
+	<strong>By:</strong> <%= @show.writer %><br />
+	<%= @show.tagline if !@show.tagline.blank? %><%= raw "<br />" if !@show.tagline.blank? %>
+	<strong>Place:</strong> <%= @show.location %><br />
+	<% @show.showtimes.each do |showtime| %>
+		<%= format_showtime_full(showtime.timestamp) %><br />
+	<% end %>
+	Reservations: 
+	<%= get_reservation_line(@show) %>
+</div>
+
+<div class="description">
 	<%= h(@show.description).gsub(/\n/, '<br/>').html_safe %>
-</p>
+</div>
 
 <hr />
 
-<div class="cast">
+<div class="cast" align="center">
 	<h4>Cast:</h4>
 	<table>
 	<% @show.cast.select{|sp| sp.person_id }.each do |sp| %>
@@ -31,7 +38,7 @@ Reservations:
 	</table>
 </div>
 
-<div class="crew">
+<div class="crew" align="center">
 <h4>Crew:</h4>
 	<table>
 	<% @show.crew.each do |sp| %>

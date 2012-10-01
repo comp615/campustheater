@@ -1,23 +1,26 @@
-<h3><%= best_in_place_if @person.id == @current_user.id, @person, :fname, :type => :input %> <%= best_in_place_if @person.id == @current_user.id, @person, :lname, :type => :input %></h3>
-<%= best_in_place_if @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
-<%= best_in_place_if @person.id == @current_user.id, @person, :bio, :type => :textarea, :display_as => :display_bio %>
 
-<%= image_tag @person.picture.url(:medium) %>
-
-<% if @person.id == @current_user.id %>
-	<br /><br />
-	<h4>This portion is only visible to you:</h4><br />
-	Email: <%= best_in_place @person, :email, :type => :input %><br />
-	Allow people to email me: <%= best_in_place @person, :email_allow, :type => :checkbox %><br />
-	Associated NetID: <%= @person.netid %>
-	Upload Picture:
-	<%= form_for @person, :html => { :multipart => true } do |f| %>
-		<%= f.file_field :picture %>
-		<%= f.submit "Submit New Photo" %>
+<div class="person info">
+	<h3><%= best_in_place_if @person.id == @current_user.id, @person, :fname, :type => :input %> <%= best_in_place_if @person.id == @current_user.id, @person, :lname, :type => :input %></h3>
+	<%= best_in_place_if @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
+	<%= best_in_place_if @person.id == @current_user.id, @person, :bio, :type => :textarea, :display_as => :display_bio %>
+	
+	<% if @person.id == @current_user.id %>
+		<br /><br />
+		<h4>This portion is only visible to you:</h4><br />
+		Email: <%= best_in_place @person, :email, :type => :input %><br />
+		Allow people to email me: <%= best_in_place @person, :email_allow, :type => :checkbox %><br />
+		Associated NetID: <%= @person.netid %>
+		Upload Picture:
+		<%= form_for @person, :html => { :multipart => true } do |f| %>
+			<%= f.file_field :picture %>
+			<%= f.submit "Submit New Photo" %>
+		<% end %>
 	<% end %>
-<% end %>
+</div>
 
-<%= image_tag @person.pic, :class => "profile" if !@person.pic.blank? %>
+<% if @person.picture.exists? %>
+	<div class="poster"><%= image_tag @person.picture.url(:medium) %></div>
+<% end %>
 <hr />
 <h3>Show History</h3>
 <table>

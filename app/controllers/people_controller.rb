@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
 		# Show public view
 		#TODO: SHould we cache people's public profiles?
 		#TODO: Should admins be able to edit?
+		@page_name = " - #{@person.display_name}"
 	end
 	
 	def dashboard

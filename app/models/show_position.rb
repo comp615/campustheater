@@ -21,7 +21,7 @@ class ShowPosition < ActiveRecord::Base
 		if self.cast?
 			self.character
 		else
-			self.assistant ? "Assistant #{self.position.display_name}" : self.position.display_name
+			self.assistant ? "#{self.assistant.to_s.capitalize} #{self.position.display_name}" : self.position.display_name
 		end
 	end
 	

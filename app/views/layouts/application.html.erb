@@ -29,6 +29,8 @@
 			<li><%= link_to "Upcoming", shows_path %></li>
 			<% if @current_user %>
 				<li><%= link_to "My Dashboard", dashboard_path %></li>
+			<% else %>
+				<li><%= link_to "Login", dashboard_path %></li>
 			<% end %>
 			<li><%= link_to "Auditions", auditions_url %></li>
 			<li><%= link_to "Opportunities", opportunities_path %></li>
@@ -51,11 +53,11 @@
 
 
 <div class="footer">
+	<hr />
 	<p>
 	Site coded by Charlie Croom<br />
-	Original Design by Ian Janer and John Yates<br />
-	Please note that the YDC is simply a coordinating organization and does not actually produce any of the shows listed on this site. 
-	We are not responsible for the content of the individual show pages. 
+	Original Design by Ian Janer and John Yates<br /><br /><br />
+	Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site. 
 	Show specific questions should be directed to the appropriate show's director or producer.
 	</p>
 </div>

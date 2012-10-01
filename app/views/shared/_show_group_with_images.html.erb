@@ -5,7 +5,7 @@
 	
 	<% shows.each do |show| %>
 		<div class="show">
-			<%= render :partial => "shared/show_listing", :locals => { :show => show } %>
+			<%= render :partial => "shared/show_listing", :locals => { :show => show, :poster => show.poster } %>
 		</div>
 	<% end %>
 </div>

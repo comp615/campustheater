@@ -50,6 +50,7 @@ body {
 .best_in_place {
 	cursor: pointer;
 	text-shadow: 0 0 0.1em #8F7;
+	background-color: #AFB;
 	&:hover {
 		text-shadow: 0 0 0.2em #AAA;
 	}
@@ -69,6 +70,13 @@ table {
 
 b,strong { font-weight: bold; }
 
+.title {
+	color: #01A;
+	font-weight: bold;
+	font-size: 19px;
+	text-decoration: none;
+}
+
 hr {
 	width: 700px;
 	color: 7081FF;
@@ -82,7 +90,6 @@ hr {
 .sidebar {
 	float: left;
 	width: 141px;
-	height: 1000px;
 	.header {
 		h1 {
 			position: absolute;
@@ -118,7 +125,11 @@ hr {
 
 /* 	Footer Stuff	*/
 .footer {
-	float: left;	
+	clear: both;
+	padding-top: 80px;
+	margin-left: 250px;
+	text-align: center;
+	width: 700px;
 }
 
 
@@ -127,7 +138,7 @@ hr {
 .content {
 	width: 800px;
 	margin-left: 100px;
-	margin-top: 160px;
+	margin-top: 180px;
 	float: left;
 }
 

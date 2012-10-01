@@ -1,5 +1,9 @@
 <% javascript 'auditions.js' %>
 
+Auditions for:<br />
+<%= link_to @show.title, best_link(@show), :class => 'title' %><br />
+<strong>By:</strong> <%= @show.writer %><br /><br />
+
 <% if @aud_admin %>
 	Batch add Audition Times
 	<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair" do |f| %>
@@ -30,40 +34,42 @@ Audition Information:<br />
 
 <hr />
 
-
-<%= form_tag show_auditions_path(@show), :method => :put do %>
-	<h4>Your Information:</h4>
-	Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s %>" /><br />
-	Email: <input type="text" name="email" value="<%= @user_audition[:email].to_s %>" />
-	<br />
-
-	<h4>Audition Times:</h4>
-	Note that signing up for a new slot will replace any previous slot you have<br />
-	<%= submit_tag "Delete Selected" if @aud_admin %>
-	<table>
-	<tr>
-	<th>Audition Time</th><th>Location</th><th>Signup</th>
-	<% if @aud_admin %>
-		<th>Person</th>
-		<th>Email</th>
-		<th>Phone</th>
-		<th></th>
+<% if !@auditions.blank? %>
+	<%= form_tag show_auditions_path(@show), :method => :put do %>
+		<h4>Your Information:</h4>
+		Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s %>" /><br />
+		Email: <input type="text" name="email" value="<%= @user_audition[:email].to_s %>" />
+		<br />
+	
+		<h4>Audition Times:</h4>
+		Note that signing up for a new slot will replace any previous slot you have<br />
+		<table>
+		<tr>
+		<th>Audition Time</th><th>Location</th><th>Signup</th>
+		<% if @aud_admin %>
+			<th>Person</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th><%= submit_tag "Delete Selected" %></th>
+		<% end %>
+		</tr>
+		<tr><td colspan="4">
+	  <td></tr>
+		<% @auditions.each do |aud| %> 
+	    <%= fields_for "auditions[#{aud.id}]", aud do |builder| %>
+	    	<% if @aud_admin %>
+	    		<%= render :partial => 'shared/audition_entry_admin', :locals => {:audition => aud, :form => builder} %>
+	    	<% else %>
+	    		<%= render :partial => 'shared/audition_entry', :locals => {:audition => aud, :form => builder} %>
+	    	<% end %>
+	    <% end %>
+	  <% end %>
+	  <% if @aud_admin %>
+	  <tr><td colspan="6"></td><td>
+	  <%= submit_tag "Delete Selected" if @aud_admin %>
+	  <td></tr>
+	  <% end %>
+	  
+	  </table>
 	<% end %>
-	</tr>
-	<tr><td colspan="4">
-  <td></tr>
-	<% @auditions.each do |aud| %> 
-    <%= fields_for "auditions[#{aud.id}]", aud do |builder| %>
-    	<% if @aud_admin %>
-    		<%= render :partial => 'shared/audition_entry_admin', :locals => {:audition => aud, :form => builder} %>
-    	<% else %>
-    		<%= render :partial => 'shared/audition_entry', :locals => {:audition => aud, :form => builder} %>
-    	<% end %>
-    <% end %>
-  <% end %>
-  <tr><td colspan="4">
-  <%= submit_tag "Delete Selected" if @aud_admin %>
-  <td></tr>
-  
-  </table>
 <% end %>
