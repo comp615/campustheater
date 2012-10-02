@@ -8,6 +8,7 @@ class PagesController < ApplicationController
 		@news = News.last(5)
 		
 		# Shows!
+		# TODO: Change this, duh!
 		@shows = Show.last(5)
 	end
 	
