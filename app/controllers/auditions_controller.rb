@@ -52,7 +52,7 @@ class AuditionsController < ApplicationController
 		end
 		
 		if @show.save
-			redirect_to @show.auditions, :notice => 'Show was successfully updated.'
+			redirect_to show_auditions_path(@show), :notice => 'Show was successfully updated.'
 		else
 			render :nothing => true
 		end
