@@ -3,7 +3,7 @@
   <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
   <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :bio, :type => :textarea %>
   
-  <% if @person.id == @current_user.id %>
+  <% if @current_user && @person.id == @current_user.id %>
     <br /><br />
     <h4>This portion is only visible to you:</h4><br />
     Email: <%= best_in_place @person, :email, :type => :input %><br />
