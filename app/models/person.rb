@@ -57,8 +57,7 @@ class Person < ActiveRecord::Base
   end
   
   def site_admin?
-  	#TODO: Change
-  	true
+  	["cpc2","sbt3"].include? self.netid
   end
   
   def needs_registration?
