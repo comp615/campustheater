@@ -1,7 +1,37 @@
+@mixin clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
 .info {
-	margin-bottom: 30px;
-	width: 400px;
-	float: left;
+			margin-bottom: 30px;
+			width: 450px;
+			float: left;
+}
+
+/* Upcoming shows */
+.upcoming.this_week {
+	.show {
+		@include clearfix();
+		.info {
+			text-align: center;
+			width: 900px;
+		}
+		&.with_poster {
+			> div {
+				width: 450px;
+				margin: 10px;
+				float: left;
+			}
+		}
+	}
 }
 
 .description {

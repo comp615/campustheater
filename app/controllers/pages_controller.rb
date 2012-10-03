@@ -9,7 +9,7 @@ class PagesController < ApplicationController
 		
 		# Shows!
 		# TODO: Change this, duh!
-		@shows = Show.last(5)
+		@shows = Show.this_week
 	end
 	
 	def search

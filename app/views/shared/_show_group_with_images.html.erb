@@ -1,11 +1,29 @@
-<div class="show_group images">
+<div class="show_group upcoming this_week">
 	<% if shows.length < 1 %>
 		No shows currently scheduled!
 	<% end %>
 	
 	<% shows.each do |show| %>
-		<div class="show">
-			<%= render :partial => "shared/show_listing", :locals => { :show => show, :poster => show.poster } %>
-		</div>
+		<% if image_class == :left && show.poster.exists? %>
+			<div class="show with_poster">
+				<div class="poster"><%= image_tag show.poster.url(:medium) %></div>
+				<div class="info">
+					<%= render :partial => "shared/show_listing", :locals => { :show => show } %>
+				</div>
+			</div>
+		<% elsif show.poster.exists? %>
+			<div class="show with_poster">
+				<div class="info">
+						<%= render :partial => "shared/show_listing", :locals => { :show => show } %>
+				</div>
+				<div class="poster"><%= image_tag show.poster.url(:medium) %></div>
+			</div>
+		<% else %>
+			<div class="show">
+				<div class="info">
+						<%= render :partial => "shared/show_listing", :locals => { :show => show } %>
+				</div>
+			</div>
+		<% end %>
 	<% end %>
 </div>

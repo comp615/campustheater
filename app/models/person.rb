@@ -4,7 +4,7 @@ class Person < ActiveRecord::Base
 	has_many :show_positions, :dependent => :destroy
 	has_many :reservations, :dependent => :nullify
 	has_many :permissions, :dependent => :delete_all
-	has_many :auditions, :dependent => :destroy
+	has_many :auditions, :dependent => :nullify
 	has_many :takeover_requests, :dependent => :destroy #Outgoing requests, incoming are invisible
 	has_attached_file :picture, 
 				:styles => { :medium => ["400x400>", :jpg], :thumb => ["150x150>", :jpg] },
