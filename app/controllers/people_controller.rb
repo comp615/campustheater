@@ -42,6 +42,7 @@ class PeopleController < ApplicationController
 			else
 				url = session[:user_flow_entry]
 				session[:user_flow_entry] = nil
+				url ||= dashboard_path
 				redirect_to url
 			end			
 		else

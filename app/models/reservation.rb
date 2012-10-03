@@ -5,7 +5,7 @@ class Reservation < ActiveRecord::Base
 	belongs_to :showtime
 	belongs_to :person
 	
-	validates :fname, :lname, :email, :reservation_type_id, :show_id, :presence => true
+	validates :fname, :lname, :email, :reservation_type_id, :showtime_id, :presence => true
 	validates :email, :email_format => true
 	validates :num, :numericality => { :only_integer => true, :greater_than => 0 }
 	validate :other_validations

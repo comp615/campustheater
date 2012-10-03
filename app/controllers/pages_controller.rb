@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 		# Select and load active modules from config DB (if any)
 		
 		# Load in news posts and other relevant content for display
-		@news = News.last(5)
+		@news = News.order("created_at DESC").first(5)
 		
 		# Shows!
 		# TODO: Change this, duh!

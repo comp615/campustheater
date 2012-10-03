@@ -88,7 +88,7 @@ class ShowsController < ApplicationController
 					person = Person.create!(:fname => name[0], :lname => name[1..-1].join(" "))
 					obj[:person_id] = person.id
 				end
-				obj = { :id => obj[:id], :assistant => obj[:assistant], :position_id => obj[:position_id], :person_id => obj[:name].blank? ? nil : obj[:person_id], :_destroy => obj[:_destroy] }
+				obj = { :id => obj[:id], :assistant => obj[:assistant], :position_id => obj[:position_id], :person_id => obj[:name].blank? ? nil : obj[:person_id], :character => obj[:character], :_destroy => obj[:_destroy] }
 				params[:show][:show_positions_attributes][key] = obj
 			end
 		end

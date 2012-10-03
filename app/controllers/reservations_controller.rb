@@ -75,7 +75,7 @@ class ReservationsController < ApplicationController
 		@reservation = Reservation.find(params[:id])
 		return false unless @show.showtime_ids.include? @reservation.showtime_id
 		# 
-		return true if @current_user.has_permission?(@show, :full) || 
+		return true if (@current_user && @current_user.has_permission?(@show, :full)) || 
 										@reservation.person_id == @current_user.id ||
 										params[:auth_code] == @reservation.generate_MD5 || 
 										params[:auth_code] == @reservation.token
