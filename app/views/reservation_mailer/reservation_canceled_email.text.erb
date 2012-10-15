@@ -1,0 +1,11 @@
+A show you had reservations for has been canceled:
+
+<%= link_to @show.title, best_link(@show, true), :class => 'title' %>
+By: <%= @show.writer %>
+Place: <%= @show.location %>
+Showtime: <%= full_timestamp(@showtime.timestamp) %>
+
+The above showtime has been canceled, and unfortunately this means we've had to cancel your reservations as well. You can try going to the shows page to see if other times are available.
+
+Sorry for the inconvinience!
+YDC

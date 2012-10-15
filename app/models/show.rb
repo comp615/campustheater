@@ -33,6 +33,8 @@ class Show < ActiveRecord::Base
 	validates_columns :category
 	validates :contact, :email_format => true
 	validates :seats, :cap, :freeze_mins_before, :on_sale, :presence => true, :if => Proc.new { |s| s.tix_enabled }
+
+	after_update :check_to_notify_changes
 	
 	
 	def self.shows_in_range(range)
@@ -120,6 +122,18 @@ class Show < ActiveRecord::Base
 	end
 	
 	private
+
+	def check_to_notify_changes
+		# NOTE: DOESN'T COVER NESTED ATTRIBUTES. Those are handled on the respective models
+		if self.location_changed? && self.approved
+			# Let OUP know
+			ShowMailer.show_changed_email(self, { "location"=> self.location_change }).deliver
+		end
+		if self.approved_changed? && self.approved
+			# Send OUP a note about the new show. Maybe send the show a note too!
+			ShowMailer.show_approved_email(self).deliver
+		end
+	end
 	
 	# Helper function to convert a static oci_term into a rails date range for querying
 	# @param oci_term [String] the oci_term to search for, i.e. 201201 = spring 2012, 201103 = fall 2011

@@ -11,10 +11,6 @@ class Reservation < ActiveRecord::Base
 	validate :other_validations
 	validates_columns :showtime_id
 	
-	
-	before_destroy :inform_attendee_delete
-	after_update :inform_attendee_alter
-	
 	def show
 		self.showtime.show
 	end
@@ -27,18 +23,20 @@ class Reservation < ActiveRecord::Base
 		self.show.cap
 	end
 	
-	def inform_attendee_delete
-		# TODO: Check that the showtime was actually in the future before going forward!
-		
-	end
-	
-	def inform_attendee_alter
-		# TODO: email them!
-	end
-	
 	def generate_MD5
 		# TODO: Figure out what it is
 		# Digest::MD5.hexdigest()
+	end
+
+	def status_line
+		num_before = self.showtime.reservations.where(["updated_at < ?", self.updated_at]).sum(:num) 
+		if num_before >= self.show.cap
+			"WAITLISTED (Show up anyways as many waitlist spots usually free up)"
+		elsif num_before + @reservation.num > @show.cap
+			"PARTIALLY RESERVED (#{@show.cap - num_before} CONFIRMED)"
+		else
+			"CONFIRMED"
+		end
 	end
 	
 	def other_validations

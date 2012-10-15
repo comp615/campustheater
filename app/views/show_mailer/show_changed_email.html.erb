@@ -1,0 +1,10 @@
+There's been an information change to <%= link_to @show.title, best_link(@show, true), :class => 'title' %> we thought you'd want to know about:<br />
+<br />
+<% @changes.each do |attribute, values| %>
+Attribute: <b><%= attribute %></b><br />
+Old Value: <%= values.first %><br />
+New Value: <%= values.last %><br />
+<br />
+<% end %><br />
+Thanks!<br />
+YDC

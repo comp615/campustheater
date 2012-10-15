@@ -1,0 +1,21 @@
+A show you currently have reservations for has been changed. Please see the updates below:
+
+<%= @show.title %>
+By: <%= @show.writer %>
+Place: <%= @show.location %>
+
+Old Showtime: <%= full_timestamp(@showtime.timestamp_change.first) %>
+New Showtime: <%= full_timestamp(@showtime.timestamp_change.last) %>
+
+Current Status: <%= @status %>
+Num Tickets: <%= @reservation.num %>
+
+<% if @reservation.person_id %>
+	You can access your reservation by logging in to your dashboard at yaledramacoalition.org or by going here:
+<% else %>
+	You can access your reservation at the link below:
+<% end %>
+<%= (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}") %>
+
+Thanks for your understanding!
+YDC

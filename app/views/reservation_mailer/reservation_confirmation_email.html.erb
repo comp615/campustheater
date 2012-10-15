@@ -1,0 +1,20 @@
+You have successfully made reservations for a show. Details are below:<br />
+<br />
+<%= link_to @show.title, best_link(@show, true), :class => 'title' %><br />
+By: <%= @show.writer %><br />
+Place: <%= @show.location %><br />
+Showtime: <%= full_timestamp(@showtime.timestamp) %><br />
+<br />
+Current Status: <%= @status %><br />
+Num Tickets: <%= @reservation.num %><br />
+<br />
+<% if @reservation.person_id %>
+	You can access your reservation either by logging in to <%= link_to "your dashboard", dashboard_url %> or by going here:
+<% else %>
+	You can access your reservation at the link below:
+<% end %>
+<br />
+<%= link_to "Edit/View Reservation", (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}") %><br />
+<br />
+Enjoy the show!<br />
+YDC

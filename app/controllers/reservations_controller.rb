@@ -30,6 +30,10 @@ class ReservationsController < ApplicationController
 		params[:reservation][:person_id] = @current_user.id if @current_user
 		respond_to do |format|
 			if @reservation.update_attributes(params[:reservation])
+				
+				# Tell the ReservationMailer to send a confirmation email
+        ReservationMailer.reservation_confirmation_email(@reservation.showtime, @reservation, @reservation.status_line).deliver
+
 				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully created.' }
 			else
 				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again!' }

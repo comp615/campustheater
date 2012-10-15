@@ -49,11 +49,16 @@ class ShowsController < ApplicationController
 		end
 		
 		@show = Show.new
+		@show.approved = false
 		respond_to do |format|
 			if @show.update_attributes(params[:show])
 				#Add permissions for this person to the show
 				@show.permissions.create(:person => @current_user, :level => :full) unless @current_user.site_admin?
-				format.html { render :action => "edit", :notice => 'Show was successfully created.' }
+				
+				# Tell the ShowMailer to send an approval Email to the admin after save
+        ShowMailer.need_approval_email(@show).deliver
+
+				format.html { redirect_to(edit_show_path(@show), :notice => 'Show was successfully updated.') }
 			else
 				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again' }
 			end

@@ -36,9 +36,19 @@ Ydc::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Root url used for action mailer links
+  config.action_mailer.default_url_options = { :host => "localhost", :port => 3000 }
+
 end
 
 # Config for imagemagick for Charlie
 Paperclip.options[:swallow_stderr] = false
 Paperclip.options[:command_path] = 'C:\\Program Files (x86)\\ImageMagick-6.7.9-Q16'
 Paperclip.options[:whiny_thumbnails] = true
+
+# Also in development, don't really send emails...just put them in a file
+ActionMailer::Base.delivery_method = :file
+ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
+
+

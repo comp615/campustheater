@@ -8,6 +8,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	execute("ALTER TABLE people CHANGE person_id id int(11) NOT NULL AUTO_INCREMENT")
   	remove_column :people, :last_update
   	add_attachment :people, :picture
+    add_column :shows, :picture_meta,    :text
   	add_timestamps :people
   	add_column :people, :netid, :string, :limit => 6
   	add_index :people, :netid
@@ -39,6 +40,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	add_column :shows, :flickr_id, :string, :null => true
   	rename_column :shows, :poster, :old_poster
   	add_attachment :shows, :poster
+    add_column :shows, :poster_meta,    :text
   	add_timestamps :shows
   	rename_column :shows, :type, :category
   	rename_column :shows, :freeze, :freeze_mins_before

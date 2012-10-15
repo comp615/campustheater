@@ -64,6 +64,10 @@ Ydc::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+
+  # Root url used for action mailer links
+  config.action_mailer.default_url_options = { :host => "yaledramacoalition.org" }
   
   #Use notifier plugin gem
   config.middleware.use ExceptionNotifier,
@@ -72,3 +76,5 @@ Ydc::Application.configure do
 	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu},
 	  :ignore_exceptions => ExceptionNotifier.default_ignore_exceptions
 end
+
+ActionMailer::Base.delivery_method = :smtp

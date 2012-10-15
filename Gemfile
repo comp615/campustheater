@@ -11,7 +11,9 @@ gem 'rails-settings-cached'
 gem 'best_in_place'
 gem 'aws-sdk', '1.6.0' #TODO: Remove post 1.6.6 once they fix https://forums.aws.amazon.com/thread.jspa?messageID=385375
 gem 'paperclip', '~> 3.0'
+gem 'paperclip-meta'
 
+# gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 gem 'client_side_validations', :git => 'git://github.com/bcardarella/client_side_validations.git'
@@ -27,7 +29,7 @@ group :assets do
   # gem "twitter-bootstrap-rails"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer'
+  #gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -35,6 +37,8 @@ end
 group :production do
 	gem 'exception_notification'
 end
+
+gem 'quiet_assets', :group => :development
 
 gem 'jquery-rails'
 

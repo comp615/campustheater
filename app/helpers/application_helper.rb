@@ -43,8 +43,12 @@ module ApplicationHelper
 		time.strftime("%b %d %-l:%M %p")
 	end
 	
-	def best_link(show)
-		url_for show.url_key.blank? ? show : vanity_path(show.url_key)
+	def best_link(show, full_path = false)
+		if full_path
+			url_for show.url_key.blank? ? show_url(show) : vanity_url(show.url_key)
+		else
+			url_for show.url_key.blank? ? show : vanity_path(show.url_key)
+		end
 	end
 	
 	def get_reservation_line(show)

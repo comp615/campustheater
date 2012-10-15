@@ -25,7 +25,7 @@ class AdminController < ApplicationController
 	end
 	
 	def approve_show
-		@show = Show.find(params[:id])
+		@show = Show.unscoped.find(params[:id])
 		@show.approved = true
 		@show.archive = params[:archive].to_i == 1
 		if @show.save

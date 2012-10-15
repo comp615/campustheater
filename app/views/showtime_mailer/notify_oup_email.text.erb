@@ -1,0 +1,12 @@
+One of the showtimes for <%= @show.title %> has been altered, we thought you'd want to know:
+
+NOTE: Blanks for old imply that this is a new showtime. Blanks for new imply deletion
+
+<% @showtime.changes.each do |attribute, values| %>
+Attribute: <%= attribute %>
+Old Value: <%= values.first %>
+New Value: <%= values.last %>
+
+<% end %>
+Thanks!
+YDC

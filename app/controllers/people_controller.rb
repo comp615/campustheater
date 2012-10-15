@@ -17,7 +17,8 @@ class PeopleController < ApplicationController
 		@permission_map = @current_user.permissions.group_by(&:show_id)
 		
 		#TODO: Could probably optimize this
-		@reservations = @current_user.reservations.includes(:showtime => [:show]).select{|r| r.showtime.timestamp >= Time.now}.sort{|r| r.showtime.timestamp}
+		puts @current_user.reservations.map{|r| r.showtime}.inspect
+		@reservations = @current_user.reservations.includes(:showtime => [:show]).select{|r| r.showtime.timestamp >= Time.now}.sort_by{|r| r.showtime.timestamp}
 		@auditions = @current_user.auditions.where(["`timestamp` > ?",Time.now])
 		@similar_people = @current_user.similar_to_me
 	end
