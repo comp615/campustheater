@@ -15,6 +15,7 @@
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
 //= require jquery.timepicker.js
+//= require bootstrap
 //= require rails.validations
 //= require rails.validations.custom
 //= require datepair
