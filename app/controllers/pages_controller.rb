@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
 		# Group things appropriately. Cannot be more than 2 modules
 		@shows = Show.readonly.this_week
-		@shows = @shows.slice(1,3)
+		
 		puts "Condensing #{@shows.length} shows and #{@modules.length} modules"
 
 		if @shows.length + @modules.length <= 3
