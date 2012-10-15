@@ -3,13 +3,49 @@ class PagesController < ApplicationController
 	# The page users hit when they first visit in browser.
 	def index
 		# Select and load active modules from config DB (if any)
+		@page_header_title = "Homepage"
 		
 		# Load in news posts and other relevant content for display
 		@news = News.order("created_at DESC").first(5)
 		
+		@modules = []
+		@rows = []
 		# Shows!
 		# TODO: Change this, duh!
-		@shows = Show.this_week
+
+		# Group things appropriately. Cannot be more than 2 modules
+		@shows = Show.readonly.this_week
+		@shows = @shows.slice(1,3)
+		puts "Condensing #{@shows.length} shows and #{@modules.length} modules"
+
+		if @shows.length + @modules.length <= 3
+			@rows = [@shows + @modules]
+		elsif @shows.length + @modules.length == 4
+			@rows = [@shows.slice!(0,2), @shows + @modules]	# 2 shows / 2 shows/modules
+		elsif @shows.length + @modules.length == 5
+			@rows = [@shows.slice!(0,2), @shows + @modules]	# 2 shows / 3 shows/modules
+		elsif @shows.length + @modules.length == 6
+			@rows = [@shows.slice!(0,3), @shows + @modules] # 3 shows / 3 shows/modules
+		elsif @shows.length + @modules.length == 7
+			if @modules.length >= 1
+				@rows = [ @shows.slice!(0,2), @shows.slice!(0,2) + @modules.slice!(0,1), @shows + @modules] # 2 shows / 3 shows(most one module) / 2 shows/modules
+			else
+				@rows = [ @shows.slice!(0,2), @shows.slice!(0,3), @shows.slice!(0,2) ] # 2 shows / 3 shows(most one module) / 2 shows/modules
+			end
+		elsif @shows.length + @modules.length == 8	# 3 shows/modules / 2 shows / 3 modules/shows
+			if @modules.length >= 2
+				@rows = [ @shows.slice!(0,2) + @modules.slice!(0,1), @shows.slice!(0,2), @shows + @modules]
+			else
+				@rows = [ @shows.slice!(0,3), @shows.slice!(0,2), @shows + @modules]
+			end
+		else
+			#more than 8? Pshew. Good luck
+			while @shows.length > 0
+				@rows += @shows.slice!(0,2 + @rows.length % 2)
+			end
+		end
+
+		puts "row config: #{@rows.map{|r| r.length}.inspect}"
 	end
 	
 	def search

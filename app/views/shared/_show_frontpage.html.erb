@@ -1,0 +1,51 @@
+<!-- The ROW class needs to contain the color sets -->
+<% if show.poster.exists? && show.poster.height(:medium) >= show.poster.width(:medium) && row_count == 2 # vertical/square poster 2-item row %>
+	<div class="row <%= color_palette %>">
+		<div class="span3"><%= image_tag show.poster.url(:medium) %></div>
+		<div class="span3">
+<% elsif show.poster.exists? && row_count == 2 # horizontal poster, in a 2-item row...poster as background %>
+	<div class="row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
+		<div class="span3 offset3 text-on-image">
+<% elsif show.poster.exists? && row_count == 3 # horizontal poster, in a 3-item row...poster above  %>
+	<div class="row <%= color_palette %>">
+		<div class="span4">
+			<!-- TODO: If this is super-wide, OK, otherwise, maybe we should float the text over it here too -->
+			<div class="top poster"><%= image_tag show.poster.url(:medium) %></div>
+			<div class="bottom info">
+<% elsif row_count == 3 # No Poster %>
+	<div class="row <%= color_palette %>">
+		<div class="info full span4">
+<% elsif row_count == 2# No Poster %>
+	<div class="row <%= color_palette %>">
+		<div class="info full span6">
+<% end %>
+		<%= link_to show.title, best_link(show), :class => 'title' %><br />
+		<strong>By:</strong> <%= show.writer %><br />
+		<%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
+		<strong>Directed By:</strong> <%= show.director %>
+		<br />
+		<strong>Place:</strong> <%= show.location %><br />
+		<% show.showtimes.each do |showtime| %>
+			<%= format_showtime_full(showtime.timestamp) %><br />
+		<% end %>
+		<a class="btn btn-primary" href="<%= best_link(show) %>">
+			<i class="icon-arrow-right icon-white"></i>
+			Learn More
+		</a>
+		<% if !show.tix_enabled && show.alt_tix %>
+			<a class="btn btn-primary" href="<%= show.alt_tix %>">
+				<i class="icon-ok icon-white"></i>
+				Request Tickets*
+			</a>
+		<% elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale %>
+			<a class="btn btn-primary" href="<%= show_reservations_path(show) %>">
+				<i class="icon-ok icon-white"></i>
+				Reserve Tickets
+			</a>
+		<% end %>
+		
+	</div>
+</div>
+<% if row_count == 2 && show.poster.exists? %>
+</div>
+<% end %>

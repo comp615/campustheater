@@ -4,7 +4,7 @@ class Show < ActiveRecord::Base
 	has_many :show_positions, :dependent => :delete_all, :include => :person
 	has_many :permissions, :dependent => :delete_all
 	has_many :auditions, :dependent => :destroy
-	has_attached_file :poster, :styles => { :medium => "400x400>", :thumb => "150x150>" },				
+	has_attached_file :poster, :styles => { :medium => "480x400>", :thumb => "150x150>" },				
 				:storage => :s3,
      		:s3_credentials => "#{Rails.root}/config/aws.yml",
     		:path => "/shows/:id/poster/:style/:filename"
@@ -61,7 +61,7 @@ class Show < ActiveRecord::Base
 	# All shows till the next Sunday
 	def self.this_week
 		range = (Time.now .. Time.now.sunday)
-		range = (Time.now .. Time.now.next_week) if(Time.now.sunday?)
+		range = (Time.now .. Time.now.next_week(:sunday)) if(Time.now.sunday?)
 		
 		self.shows_in_range(range)
 	end

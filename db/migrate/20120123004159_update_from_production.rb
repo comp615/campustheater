@@ -40,7 +40,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	add_column :shows, :flickr_id, :string, :null => true
   	rename_column :shows, :poster, :old_poster
   	add_attachment :shows, :poster
-    add_column :shows, :poster_meta,    :text
+    add_column :shows, :poster_meta, :text
   	add_timestamps :shows
   	rename_column :shows, :type, :category
   	rename_column :shows, :freeze, :freeze_mins_before

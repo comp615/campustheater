@@ -1,13 +1,33 @@
-Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.
+<div class="row" style="text-align: center">
+	<div class="span12">
+		<b>Yale Drama Coalition</b> presents
+		<hr style="width: 100px; margin: 10px auto;"/>
+	</div>
+</div>
+
+<% @rows.each do |items| %>
+	<% this_class = items.length == 2 ? "span6" : "span4" %>
+	<% this_class = "span12" if items.length == 1 %>
+	<div class="this_week">
+		<div class="row">
+		<% items.each do |item| %>
+			<div class="<%= this_class %>">
+				<% if item.is_a? Show %>
+					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => cycle("red", "blue","yellow", "green") } %>
+				<% else %>
+					<%= item %>
+				<% end %>
+			</div>
+		<% end %>
+		</div>
+	</div>
+<% end %>
+
+
+    Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.
 <br><br>
 If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
 
-<div class="shows front this_week">
-	<h4>This Week's Shows</h4>
-	<% @shows.each do |show| %>
-		<%= render :partial => 'shared/show_vert_frontpage', :locals => {:show => show} %>
-	<% end %>
-</div>
 <hr />
 <div class="news">
 	<% @news.each do |news| %>
