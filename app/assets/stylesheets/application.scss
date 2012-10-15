@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset.css
+ *= require bootstrap.min
  *= require_self
- *= require bootstrap
  *= require jquery.ui.datepicker
  *= require jquery.ui.autocomplete
  *= require jquery.timepicker.css
@@ -43,9 +43,13 @@
 
 body {
 	color: #070d4b;
-	font-family: Futura, Century Gothic, Helvetica, Tahoma;
+	font-family: 'Bitter', serif;
 	font-size: 16px;
 	background: image_url('bg.png') repeat-y;
+}
+
+h1,h2,h3,h4,h5 {
+	font-family: "depot-new-web", sans;
 }
 
 .best_in_place {
