@@ -4,10 +4,10 @@ class PagesController < ApplicationController
 	def index
 		# Select and load active modules from config DB (if any)
 		@page_header_title = "Homepage"
-		
+
 		# Load in news posts and other relevant content for display
 		@news = News.order("created_at DESC").first(5)
-		
+
 		@modules = []
 		@rows = []
 		# Shows!
@@ -15,7 +15,9 @@ class PagesController < ApplicationController
 
 		# Group things appropriately. Cannot be more than 2 modules
 		@shows = Show.readonly.this_week
-		
+
+		# TODO: Algorithmically re-arrange posters to be in rows of 2
+
 		puts "Condensing #{@shows.length} shows and #{@modules.length} modules"
 
 		if @shows.length + @modules.length <= 3
@@ -47,17 +49,17 @@ class PagesController < ApplicationController
 
 		puts "row config: #{@rows.map{|r| r.length}.inspect}"
 	end
-	
+
 	def search
-	
+
 	end
-	
+
 	# Static Page
 	def resources
 		@page_name = " - Resources"
 		@page_header_title = "Resources"
 	end
-	
+
 	# The parameter we recieve is the file that we want to render
 	def guides
 		# TODO: SHould probably NOINDEX these, or find a better way to get the data out and into the template
@@ -65,5 +67,5 @@ class PagesController < ApplicationController
 		@file = params[:static_file] + ".html"
 		raise ActiveRecord::RecordNotFound unless params[:static_file] =~ /\A[\w\-]+\Z/ && FileTest.exists?(Rails.root + "public/static_guides/" + @file)
 	end
-	
+
 end

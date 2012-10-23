@@ -5,23 +5,24 @@
 	</div>
 </div>
 
-<% @rows.each do |items| %>
-	<% this_class = items.length == 2 ? "span6" : "span4" %>
-	<% this_class = "span12" if items.length == 1 %>
-	<div class="this_week">
+<div class="this_week">
+	<% @rows.each do |items| %>
+		<% this_class = items.length == 2 ? "span6" : "span4" %>
+		<% this_class = "span12" if items.length == 1 %>
+
 		<div class="row">
 		<% items.each do |item| %>
-			<div class="<%= this_class %>">
+			<div class="<%= this_class %> item">
 				<% if item.is_a? Show %>
-					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => cycle("red", "blue","yellow", "green") } %>
+					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => cycle("red", "blue","yellow", "light-blue") } %>
 				<% else %>
 					<%= item %>
 				<% end %>
 			</div>
 		<% end %>
 		</div>
-	</div>
-<% end %>
+	<% end %>
+</div>
 
 
     Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.

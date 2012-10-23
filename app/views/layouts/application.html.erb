@@ -4,19 +4,20 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  
+
   <meta name="description" content="The Yale Drama Coalition is an organization for the furthering of theater at Yale University.">
 	<meta name="keywords" content="Yale, theater, information, theatre, dramat, drama, coalition, University, repertory, mailing">
-	
+
 	<!--Favicon-->
 	<link rel="shortcut icon" href="<%= image_path 'favicon.ico' %>">
 	<link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
 
 	<!--Fonts-->
+	<!--
 	<link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	
+-->
 	<%= yield :head %>
 </head>
 <body>
@@ -35,7 +36,7 @@
 				<li><%= link_to "Opportunities", opportunities_path %></li>
 				<li><%= link_to "Learn", resources_path %></li>
 			</ul>
-			<form class="navbar-search pull-left">
+			<form class="navbar-search pull-left" method="GET" action="/search">
 	    	<input type="text" class="search-query" placeholder="Search">
 	    </form>
 	    <ul class="nav pull-right">
@@ -60,8 +61,8 @@
 	<hr />
 	<p>
 	Site coded by Charlie Croom<br />
-	Original Design by Ian Janer and John Yates<br /><br /><br />
-	Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site. 
+	Design by Jared Shenson<br /><br /><br />
+	Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site.
 	Show specific questions should be directed to the appropriate show's director or producer.
 	</p>
 </div>
