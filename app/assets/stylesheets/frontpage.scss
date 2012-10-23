@@ -1,4 +1,9 @@
 .this_week {
+  .poster-bg {
+    position: relative;
+    background-repeat: no-repeat;
+  }
+
   .row {
     margin: 0px;
     color: white;
@@ -7,8 +12,14 @@
       margin-top: 20px;
     }
 
-    .span3.info {
-      width: 210px;
+    .span3 {
+      &.poster, &.info {
+        width: 210px;
+      }
+    }
+
+    .span4.info {
+      width: 260px;
     }
 
     .item {
@@ -24,7 +35,7 @@
           padding-top: 100px;
         }
         &.offset3 {
-          margin-left: 200px;
+          margin-left: 210px;
           min-height: 250px;
         }
       }

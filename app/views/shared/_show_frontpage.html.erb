@@ -1,17 +1,18 @@
 <!-- The ROW class needs to contain the color sets -->
-<% if show.poster.exists?  && show.poster.height(:medium) >= show.poster.width(:medium) &&row_count == 2 # vertical/square poster 2-item row %>
+<% if show.poster.exists?  && show.poster.height(:medium) >= show.poster.width(:medium) && row_count == 2 # vertical/square poster 2-item row %>
 	<div class="row <%= color_palette %>">
 		<div class="span3 poster"><%= image_tag show.poster.url(:medium) %></div>
 		<div class="span3 info">
 <% elsif show.poster.exists? && row_count == 2 # horizontal poster, in a 2-item row...poster as background %>
-	<div class="row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
+	<div class="poster-bg row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
 		<div class="span3 offset3 text-on-image info">
+<% elsif show.poster.exists? && show.poster.height(:medium) >= show.poster.width(:medium) && row_count == 3 # vertical poster, in a 3-item row...poster above  %>
+	<div class="poster-bg row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
+		<div class="text-on-image info span4" style="position: absolute; bottom: 0px;">
 <% elsif show.poster.exists? && row_count == 3 # horizontal poster, in a 3-item row...poster above  %>
 	<div class="row <%= color_palette %>">
-		<div class="span4">
-			<!-- TODO: If this is super-wide, OK, otherwise, maybe we should float the text over it here too -->
-			<div class="top poster"><%= image_tag show.poster.url(:medium) %></div>
-			<div class="bottom info">
+		<div class="top poster"><%= image_tag show.poster.url(:medium) %></div>
+		<div class="bottom info">
 <% elsif row_count == 3 # No Poster %>
 	<div class="row info full <%= color_palette %>">
 
