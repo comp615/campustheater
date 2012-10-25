@@ -26,6 +26,9 @@ class Show < ActiveRecord::Base
 	accepts_nested_attributes_for :show_positions, :allow_destroy => true
 	accepts_nested_attributes_for :permissions, :allow_destroy => true
 	
+
+	# TODO: Validate alt_tix to be url or email address...
+	
 	# Ensure unique slug
 	validates :category, :title, :writer, :location, :contact, :presence, :description, :presence => true, :unless => Proc.new { |s| s.id && s.id < 500 }
 	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers", :allow_nil => true

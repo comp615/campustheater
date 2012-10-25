@@ -13,26 +13,27 @@ class SearchController < ApplicationController
 			show_ids = Showtime.uniq.where(:timestamp => (start..stop)).pluck(:show_id)
 		end
 		
+		@people1 = []
+		@people2 = []
 		# Build up the query based on what we are looking for
-		if params[:mode] == "crew"
-			return if params[:position_id].blank? && params[:name].blank?
-			@results = ShowPosition.scoped.crew.not_vacant.includes(:show,:person)
-			@results = @results.where(:show_id => show_ids) if show_ids
-			@results = @results.where(:position_id => params[:position_id]) unless params[:position_id].blank?
-			@results = @results.joins(:person).where(["CONCAT_WS( ' ', `fname` , `lname` ) LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
-		elsif params[:mode] == "actor"
-			return if params[:character].blank? && params[:name].blank?
-			@results = ShowPosition.scoped.cast.not_vacant.includes(:show,:person)
-			@results = @results.where(:show_id => show_ids) if show_ids
-			@results = @results.where(:character => params[:character]) unless params[:character].blank?
-			@results = @results.joins(:person).where(["CONCAT_WS( ' ', `fname` , `lname` ) LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
-		elsif params[:mode] == "show"
-			return if params[:name].blank? && params[:start].blank? && params[:end].blank?
-			@results = Show.scoped
-			@results = @results.where(:id => show_ids) if show_ids
-			@results = Show.where(["title LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
+		if (params[:mode] == "crew" || params[:header_search]) && (!params[:position_id].blank? || !params[:name].blank?)
+			@people1 = ShowPosition.scoped.crew.not_vacant.includes(:show,:person)
+			@people1 = @people1.where(:show_id => show_ids) if show_ids
+			@people1 = @people1.where(:position_id => params[:position_id]) unless params[:position_id].blank?
+			@people1 = @people1.joins(:person).where(["CONCAT_WS( ' ', `fname` , `lname` ) LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
 		end
-		@results
+		if (params[:mode] == "actor" || params[:header_search]) && (!params[:character].blank? || !params[:name].blank?)
+			@people2 = ShowPosition.scoped.cast.not_vacant.includes(:show,:person)
+			@people2 = @people2.where(:show_id => show_ids) if show_ids
+			@people2 = @people2.where(:character => params[:character]) unless params[:character].blank?
+			@people2 = @people2.joins(:person).where(["CONCAT_WS( ' ', `fname` , `lname` ) LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
+		end
+		if (params[:mode] == "show" || params[:header_search]) && (!params[:name].blank? || !params[:start].blank? || !params[:end].blank?)
+			@shows = Show.scoped
+			@shows = @shows.where(:id => show_ids) if show_ids
+			@shows = Show.where(["title LIKE ?", "%#{params[:name]}%"]) unless params[:name].blank?
+		end
+		@people = @people1 + @people2
 	end
 	
 	def lookup

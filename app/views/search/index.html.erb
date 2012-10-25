@@ -32,23 +32,25 @@ Please choose something to search for:<br />
 <hr />
 <br />
 
-<% if !@results.blank? && params[:mode] == "show" %>
-	<h4>Results:</h4><br />
+<% if !@shows.blank? %>
+	<h4>Show Results:</h4><br />
 	<table>
 		<tr><th>Show Name</th><th>Dates</th></tr>
-		<% @results.sort_by{|s| s.showtimes.first.timestamp}.each do |s| %>
+		<% @shows.sort_by{|s| s.showtimes.first.timestamp}.each do |s| %>
 			<tr><td><%= link_to s.title, best_link(s) %></td><td><%= format_long_rundates(s) %></td></tr>
 		<% end %>
 	</table>
-<% elsif !@results.blank? %>
+<% end %>
+<% if !@people.blank? %>
+	<h4>Person Results:</h4><br />
 	<table>
 		<tr><th>Person</th><th>Show Name</th><th>Dates</th></tr>
-		<% @results.group_by(&:person_id).each do |person_id,arr| %>
+		<% @people.group_by(&:person_id).each do |person_id,arr| %>
 			<% arr.sort_by{|sp| sp.show.showtimes.first.timestamp}.each_with_index do |sp,i| %>
 				<tr><td><%= link_to sp.person.display_name, sp.person if i == 0 %></td><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= format_long_rundates(sp.show) %></td></tr>
 			<% end %>
 		<% end %>
 </table>
-<% elsif params[:mode] && @results.blank? %>
+<% elsif params[:mode] && @people.blank? %>
 	<b>No Results Found</b>
 <% end %>

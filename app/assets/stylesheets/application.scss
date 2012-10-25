@@ -28,6 +28,14 @@ h1,h2,h3,h4,h5 {
 .header {
 	h1,h2,h3,h4,h5 { display: inline; }
 	h4 { margin-left: 20px; }
+	.navbar-inner {
+		background-image: none;
+		background-color: #6f79d8;
+		.nav > li > a {
+			color: white;
+			text-shadow: none;
+		}
+	}
 }
 
 .text-on-image {
