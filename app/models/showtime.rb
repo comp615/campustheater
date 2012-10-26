@@ -23,7 +23,7 @@ class Showtime < ActiveRecord::Base
 	end
 
 	def notify_delete_reservations
-		if self.showtime >= Time.now
+		if self.timestamp >= Time.now
 			self.reservations.each do |r|
 				ReservationMailer.reservation_canceled_email(self, r)
 			end

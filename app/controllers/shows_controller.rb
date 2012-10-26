@@ -4,6 +4,7 @@ class ShowsController < ApplicationController
 	before_filter :fetch_show, :only => [:show, :edit, :update, :destroy, :show_showtime]
 	before_filter :auth, :except => [:index, :show, :archives, :new, :create]
 	
+	
 	# upcoming shows, grouped by week, semester, others
 	def index
 		@page_name = " - Upcoming Shows"
@@ -43,6 +44,12 @@ class ShowsController < ApplicationController
 		params[:show].each {|key,val| val = nil if val.blank? }
 		
 		#Process showtimes to timestamps
+		if params[:show][:showtimes_attributes].blank?
+			@show = Show.new
+			render :action => "edit", :notice => 'You must give at least one showtime'
+			return
+		end
+
 		params[:show][:showtimes_attributes].each do |key,obj| 
 			obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P') }
 			params[:show][:showtimes_attributes][key] = obj
@@ -53,12 +60,13 @@ class ShowsController < ApplicationController
 		respond_to do |format|
 			if @show.update_attributes(params[:show])
 				#Add permissions for this person to the show
-				@show.permissions.create(:person => @current_user, :level => :full) unless @current_user.site_admin?
+				@show.permissions.create(:person_id => @current_user.id, :level => :full) unless @current_user.site_admin?
+				@show.save!
 				
 				# Tell the ShowMailer to send an approval Email to the admin after save
         ShowMailer.need_approval_email(@show).deliver
 
-				format.html { redirect_to(edit_show_path(@show), :notice => 'Show was successfully updated.') }
+				format.html { redirect_to(edit_show_path(@show), :notice => 'Show was successfully created. Feel free to update additional information now!') }
 			else
 				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again' }
 			end
@@ -134,11 +142,11 @@ class ShowsController < ApplicationController
 	def fetch_show
 		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find(params[:id]) if(params[:id])
 		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find_by_url_key(params[:url_key]) if(params[:url_key])
-		render :not_found if !@show || (!@show.approved && !@current_user.site_admin?)
+		render :not_found unless @show && (@show.approved || @current_user.has_permission?(@show, :full))
 	end
 	
 	def auth
-		return true if (@current_user.has_permission?(@show, :full))
+		return true if @current_user.has_permission?(@show, :full)
 		
 		# Still hanging around? That means it isn't authed
 		raise ActionController::RoutingError.new('Not Found')		
