@@ -6,12 +6,6 @@ class ApplicationController < ActionController::Base
 	# Add this before filter to force CAS Authentication on all controllers + actions
 	before_filter :check_user	
 	
-	def trigger_login
-		session[:back_to] = request.fullpath
-		flash[:notice] = "Please login to view this page"
-		redirect_to login_url
-	end
-	
 	def logged_in?
 		!!@current_user
 	end
@@ -26,7 +20,7 @@ class ApplicationController < ActionController::Base
 	
 	def check_user
 		# first visit, or stale visit, try to gateway auth
-		if(!session[:last_ts])
+		if(!session[:last_ts] && !@current_user)
 				CASClient::Frameworks::Rails::GatewayFilter.filter self
 		end
 		
