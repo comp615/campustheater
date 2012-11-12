@@ -8,150 +8,128 @@
 	</ul>
 <% end %>
 
-<ul div="nav">
-	<li data-page="basic" class="active">Basic Info</li>
-	<% if @show.id != nil %>
-		<li data-page="people">Cast and Crew</li>	
-		<li data-page="ticketing">Ticketing</li>
-		<li data-page="basic">Auditions</li>
-	<% end %>
-</ul>
-
 <%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
-  <div id="basic">
-  	<h4>Basic Information</h4>
-  	Just the basic information about your show. All fields in this section are required!
-	  <table>
-			<tr>
-				<td><%= f.label :category %></td>
-				<td><%= f.enum_select :category %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :title %></td>
-				<td><%= f.text_field :title %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :writer %></td>
-				<td><%= f.text_field :writer %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :tagline %></td>
-				<td><%= f.text_field :tagline %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :poster %></td>
-				<td><%= f.file_field :poster %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :flickr_id %></td>
-				<td><%= f.text_field :flickr_id %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :location %></td>
-				<td><%= f.text_field :location %></td>
-			</tr>
-			
-			<tr>
-				<td><%= f.label :url_key %></td>
-				<td><%= f.text_field :url_key %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :contact %></td>
-				<td><%= f.text_field :contact %></td>
-			</tr>
-			<tr>
-				<td><%= f.label :description %></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="2"><%= f.text_area :description %></td>
-			</tr>
-	  </table>
-	  
-	  <h4>Showtimes</h4>
-	  You must give at least one showtime, even if it's tentative so we know around when the show will be:
+	<div class="row show-form">
+	  <div class="span6">
+			<h4>Show Details</h4>
+			Tell us a bit about your awesome new show!<br />
+
+			<%= f.enum_select :category %><br />
+			<%= f.text_field :title, :class => "required", :placeholder => "Title" %><br />
+			<%= f.text_field :writer, :class => "required", :placeholder => "Writer" %><br />
+			<%= f.text_field :tagline, :placeholder => "Tagline" %><br />
+			<%= f.text_area :description, :class => "required", :placeholder => "Summary/History/Other Info" %><br />
+			<%= f.text_field :contact, :class => "required", :placeholder => "Contact Email Address" %><br />
+			<%= f.text_field :url_key, :placeholder => "Unique URL" %><br />
+			<div class="field_explination">
+				Your show will be accessible at
+				http://<%= request.host_with_port %>/<span data-field="show_url_key">url_key</span>
+			</div>
+
+
+
+			<%= f.text_field :flickr_id, :placeholder => "Flickr Gallery ID" if @current_user.site_admin? %>
+			<div class="field_explination">
+				If this show has a Flickr gallery, please enter the ID here
+			</div>
+
+			<%= f.file_field :poster %>
+
+			<hr />
+			<h4>Scheduling and Tickets</h4>
+			Fill in what you know, but we'll need at least one date and time to get started<br />
+
+			<%= f.text_field :location, :class => "required", :placeholder => "Location" %><br />
+	  	<ol class="showtimes">
+				<%= f.fields_for :showtimes do |builder| %>
+					<%= render 'showtime_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_add_fields "Add Showtime", f, :showtimes %></li>
+			</ol>
+
+			<%= f.check_box :tix_enabled %>
+			<%= f.label :tix_enabled, "Enable YDC Ticketing System" %>
+			<a href="#" rel="tooltip" title="This system allows you to automatically accept and manage reservations through the YDC site. We highly recommend it!">What's this?</a><br />
+
+			<div class="tix_off">
+				<%= f.text_field :alt_tix, :placeholder => "Alternate Ticketing Address" %><br />
+				<div class="field_explination">
+					An optional URL or email address where users will be sent to request tickets
+				</div>
+			</div>
+
+			<div class="tix_on">
+				<%= f.number_field :seats %><%= f.label :seats, "Seats Available" %>
+				<%= f.number_field :cap %><%= f.label :cap, "Max seats per resevation" %><br />
+				<%= f.label :on_sale, "Allow ticket reservations starting" %><%= f.text_field :on_sale, :class => "date", :value => @show.on_sale ? @show.on_sale.strftime("%m/%d/%Y") : Time.now.strftime("%m/%d/%Y") %><br />
+				<%= f.label :freeze_mins_before do 
+							("Freeze ticket sales " + f.number_field(:freeze_mins_before) + " hours before showtime(s)").html_safe
+						end
+				%><br />
+				<%= f.check_box :waitlist %>
+				<%= f.label :waitlist, "Enable Waitlist" %>
+				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the size of the theater">What's this?</a>
+			</div>
+
+
+
+
+
 		
-	  	<ul>
-			<%= f.fields_for :showtimes do |builder| %>
-				<%= render 'showtime_fields', :f => builder %>
+			<% if @show.id != nil %>
+				<div id="auditions">
+					<h4>Auditions</h4>
+					<%= link_to "Click Here to manage your auditions", show_auditions_path(@show) %><br />
+					NOTE: Clicking will leave this page discarding all changes
+				</div>
+
+				<div id="people">
+					<h4>Cast</h4>
+					<ul>
+						<%= f.fields_for :show_positions, @show.cast do |builder| %>
+							<%= render 'show_position_fields', :f => builder %>
+						<% end %>
+						<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
+					</ul>
+					<p></p>
+
+					<h4>Crew</h4>
+					<ul>
+					<%= f.fields_for :show_positions, @show.crew do |builder| %>
+						<%= render 'show_position_fields', :f => builder %>
+					<% end %>
+					<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
+					</ul>
+
+					<h4>Permissions</h4>
+					These are the people who will be able to access your show to edit it (or portions of it).
+					<ul>
+					<%= f.fields_for :permissions do |builder| %>
+						<%= render 'permission_fields', :f => builder %>
+					<% end %>
+					<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
+					</ul>			
+				</div>
+			
 			<% end %>
-			<li><%= link_to_add_fields "Add Showtime", f, :showtimes %></li>
-			</ul>
-	
-	 <% if @show.id != nil %>
-	 	 <div id="auditions">
-	 	 	<h4>Auditions</h4>
-	 	 	<%= link_to "Click Here to manage your auditions", show_auditions_path(@show) %><br />
-	 	 	NOTE: Clicking will leave this page discarding all changes
-	 	 </div>
-	 	 
-		 <div id="people">
-		 	<h4>Cast</h4>
-		 	<ul>
-			 	<%= f.fields_for :show_positions, @show.cast do |builder| %>
-					<%= render 'show_position_fields', :f => builder %>
-				<% end %>
-				<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
-			</ul>
-			<p></p>
-			
-			<h4>Crew</h4>
-			<ul>
-				<%= f.fields_for :show_positions, @show.crew do |builder| %>
-					<%= render 'show_position_fields', :f => builder %>
-				<% end %>
-				<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
-			</ul>
-			
-			<h4>Permissions</h4>
-			These are the people who will be able to access your show to edit it (or portions of it).
-			<ul>
-				<%= f.fields_for :permissions do |builder| %>
-					<%= render 'permission_fields', :f => builder %>
-				<% end %>
-				<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
-			</ul>			
-		 </div>
-		 
-		 <div id="ticketing">
-		 	<h4>Ticketing</h4>
-		 	Get tickets for your show up and running
-		  <table>
-				<tr>
-					<td><%= f.label :tix_enabled %></td>
-					<td><%= f.check_box :tix_enabled %></td>
-				</tr>
-				<tr class="tix_off">
-					<td><%= f.label :alt_tix %></td>
-					<td><%= f.text_field :alt_tix %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :seats %></td>
-					<td><%= f.number_field :seats %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :cap %></td>
-					<td><%= f.number_field :cap %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :waitlist %></td>
-					<td><%= f.check_box :waitlist %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :show_waitlist %></td>
-					<td><%= f.check_box :show_waitlist %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :freeze_mins_before %></td>
-					<td><%= f.number_field :freeze_mins_before %></td>
-				</tr>
-				<tr class="tix_on">
-					<td><%= f.label :on_sale %></td>
-					<td><%= f.text_field :on_sale, :class => "date", :value => @show.on_sale ? @show.on_sale.strftime("%m/%d/%Y") : Time.now.strftime("%m/%d/%Y") %></td>
-				</tr>
-		  </table>
-		 </div>
-	 <% end %>
-	 <p><%= f.submit "Submit" %></p>
+			<p><%= f.submit "Submit" %></p>
+		</div>
+
+		<div class="span6">
+			<h4>Design Preview</h4>
+			See what your shows will look like on the YDC Homepage<br />
+			<div class="frontpage-preview">
+				<div class="row">
+					<div class="span6 item">
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :color_palette => "blue" } %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4 item">
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :color_palette => "blue" } %>
+					</div>
+				</div>
+			</div>
+		</div>
 <% end %>
 

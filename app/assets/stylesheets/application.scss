@@ -11,6 +11,7 @@
  *= require bootstrap.min
  *= require_self
  *= require frontpage
+ *= require shows
  *= require jquery.ui.datepicker
  *= require jquery.ui.autocomplete
  *= require jquery.timepicker.css
@@ -18,17 +19,18 @@
 
 body {
 	color: #070d4b;
-	font-family: 'Bitter', serif;
-	width: 1230px;
+	font-family: "depot-new-web", sans;
+	width: 940px;
 	margin: 0 auto;
 }
 
 h1,h2,h3,h4,h5 {
-	font-family: "depot-new-web", sans;
 }
 
 .header {
+	font-family: "depot-new-web", sans;
 	h1,h2,h3,h4,h5 { display: inline; }
+	.active { font-weight: bold; }
 	h4 { margin-left: 20px; }
 	.navbar-inner {
 		background-image: none;

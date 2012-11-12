@@ -40,6 +40,21 @@ function datify(parent_el) {
 
 // Hookup the autocompletes on page load
 $(document).ready(function() {
+	// Add a holder for the required asterisks
+	$("input.required, select.required, textarea.required").after("<span class='required' />");
+
+	// Bind the live-preview updates
+	$("form").on("change", "input, textarea, select", function() {
+		$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
+	});
+
+	$("input, textarea, select").each(function() {
+		if($(this).val() != "")
+			$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
+	});
+
+
+
 	hookupPersonAutoComplete();
 	$("#show_on_sale").datepicker({ 'dateFormat': 'm/d/yy' })
 	

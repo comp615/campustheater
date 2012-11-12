@@ -1,4 +1,13 @@
-.this_week {
+.cal-intro {
+  text-transform: uppercase;
+  hr {
+    width: 100px; 
+    margin: 10px auto; 
+    border-top-color: #110D3F;
+  }
+}
+
+.this_week, .frontpage-preview {
   .poster-bg {
     position: relative;
     background-repeat: no-repeat;
@@ -23,9 +32,14 @@
     }
 
     .item {
-      margin-left: 0px;
       [class*="span"] { margin: 0px; }
       & + .item { margin-left: 20px; }
+      .title {
+        font-family: 'Bitter', serif;
+        &:hover {
+          text-decoration: none;
+        }
+      }
       .info {
         padding: 15px 20px;
         &.span4 {
@@ -43,7 +57,7 @@
 
 
 
-    .title {
+    .title, .title > a {
       font-size: 30px;
       color: white;
     }

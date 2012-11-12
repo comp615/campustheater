@@ -1,14 +1,14 @@
 <div class="row" style="text-align: center">
-	<div class="span12">
+	<div class="span12 cal-intro">
 		<b>Yale Drama Coalition</b> presents
-		<hr style="width: 100px; margin: 10px auto;"/>
+		<hr />
 	</div>
 </div>
 
 <div class="this_week">
 	<% @rows.each do |items| %>
 		<% this_class = items.length == 2 ? "span6" : "span4" %>
-		<% this_class = "span12" if items.length == 1 %>
+		<% this_class = "span6 offset3" if items.length == 1 %>
 
 		<div class="row">
 		<% items.each do |item| %>

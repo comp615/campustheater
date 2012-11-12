@@ -90,6 +90,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	remove_column :show_positions, :name
   	change_column :show_positions, :character, :string, :null => true
   	add_column :show_positions, :new_assistant, :enum, :limit => [:assistant, :associate], :null => true
+    add_column :show_postision, :listing_order, :int, :limit => 2, :default => nil, :null => true
   	
   	# Migrate the nulls out of show_positions, switch to enum prefixes for "assistant"
   	ShowPosition.reset_column_information

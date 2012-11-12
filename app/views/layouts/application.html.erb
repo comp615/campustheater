@@ -13,11 +13,11 @@
 	<link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
 
 	<!--Fonts-->
-	<!--
+	
 	<link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
--->
+
 	<%= yield :head %>
 </head>
 <body>
@@ -30,7 +30,7 @@
 	<div class="navbar">
     <div class="navbar-inner">
 	   <ul class="nav">
-				<li><%= link_to "Home", root_path %></li>
+				<li><%= link_to "Home", root_path, :class => "active" %></li>
 				<li><%= link_to "Calendar", shows_path %></li>
 				<li><%= link_to "Auditions", auditions_url %></li>
 				<li><%= link_to "Opportunities", opportunities_path %></li>

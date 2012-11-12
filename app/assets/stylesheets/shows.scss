@@ -1,52 +1,80 @@
-@mixin clearfix() {
-  *zoom: 1;
-  &:before,
-  &:after {
-    display: table;
-    content: "";
-  }
-  &:after {
-    clear: both;
-  }
-}
+.show-form {
 
-.info {
-			margin-bottom: 30px;
-			width: 450px;
-			float: left;
-}
+	line-height: 40px;
 
-/* Upcoming shows */
-.upcoming.this_week {
-	.show {
-		@include clearfix();
-		.info {
-			text-align: center;
-			width: 900px;
-		}
-		&.with_poster {
-			> div {
-				width: 450px;
-				margin: 10px;
-				float: left;
-			}
+	input[type=text], input[type=number], textarea, select {
+		width: 90%;
+		background-color: #D4D7F3;
+		color: #6F79D8;
+
+		&:focus {
+			background-color: #6F79D8;
+			color: #FFF;
 		}
 	}
-}
 
-.description {
-	clear: left;
-}
+	label + input, input + label {
+		margin-left: 10px;
+	}
 
-.show_group td {
-	width: 400px;
-	padding: 10px;
-}
+	#show_freeze_mins_before {
+		margin: 0 5px;
+	}
 
-.poster {
-	float: right;
-	margin: 20px 40px;
-	> img {
-		max-width: 320px;
+	input[type=number] {
+		width: 45px;
+	}
+
+	input.date {
+		width: 100px;
+	}
+
+	label {
+		color: #6F79D8;
+		font-size: 18px;
+		display: inline;
+	}
+
+	.showtimes {
+
+		input {
+			width: 100px;
+			margin-left: 7px;
+		}
+		label {
+			margin-right: 15px;
+		}
+	}
+
+	textarea {
+		height: 150px;
+		resize: vertical;
+	}
+
+	span.required:after {
+		color: red;
+		font-size: 32px;
+		content: " *"; 
+	}
+
+	.field_explination {
+		line-height: 20px;
+		position: relative;
+		top: -10px;
+	}
+
+	[rel=tooltip] {
+		border-bottom: 1px dotted;
+		font-size: 14px;
+		margin-left: 20px;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.frontpage-preview {
+		position: fixed;
+		margin-left: 0px;
 	}
 }

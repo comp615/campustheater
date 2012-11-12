@@ -15,7 +15,7 @@ class ShowPosition < ActiveRecord::Base
 	scope :crew, where("position_id != 17")
 	scope :cast, where("position_id = 17")
 	
-	default_scope :order => "position_id ASC, assistant ASC"
+	default_scope :order => "listing_order ASC, position_id ASC, assistant ASC"
 	
 	def display_name
 		if self.cast?

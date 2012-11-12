@@ -12,7 +12,7 @@ class Showtime < ActiveRecord::Base
 		self.reservations.order("`updated_at` ASC").each do |r|
 			if num_before >= self.show.cap
 				status = "WAITLISTED (Show up anyways as many waitlist spots usually free up)"
-			elsif num_before + self.num > self.show.cap
+			elsif num_before + r.num > self.show.cap
 				status = "PARTIALLY RESERVED (#{self.show.cap - num_before} CONFIRMED)"
 			else
 				status = "CONFIRMED"

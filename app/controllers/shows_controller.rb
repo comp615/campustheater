@@ -36,6 +36,7 @@ class ShowsController < ApplicationController
 	
 	def new
 		@show = Show.new
+		@page_header_title = "Create Show"
 		render :edit
 	end
 	
@@ -76,7 +77,7 @@ class ShowsController < ApplicationController
 	#TODO: Add ordering to the cast/crew fields to allow a custom ordering
 	#TODO: Prompt them on submit if they are altering showtimes or something
 	def edit
-	
+		@page_header_title = "Edit Show"
 	end
 	
 	def update
