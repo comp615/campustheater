@@ -28,11 +28,11 @@ class Show < ActiveRecord::Base
 	
 	# Ensure unique slug
 	validates :category, :title, :writer, :location, :contact, :presence, :description, :presence => true, :unless => Proc.new { |s| s.id && s.id < 500 }
-	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers", :allow_nil => true
-	validates_uniqueness_of :url_key, :allow_nil => true, :case_sensitive => false, :message => "Sorry, the desired url is already taken. Please try another!"
+	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers", :allow_blank => true
+	validates_uniqueness_of :url_key, :allow_blank => true, :case_sensitive => false, :message => "Sorry, the desired url is already taken. Please try another!"
 	validates_columns :category
 	# TODO: Validate alt_tix to be url or email address...
-	validates :alt_tix, :email_format => true, :unless => Proc.new { |s| s.alt_tix }
+	validates :alt_tix, :email_format => true, :allow_blank => true, :unless => Proc.new { |s| s.tix_enabled }
 	validates :contact, :email_format => true
 	validates :seats, :cap, :freeze_mins_before, :on_sale, :presence => true, :if => Proc.new { |s| s.tix_enabled }
 

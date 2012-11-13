@@ -41,37 +41,9 @@ class ShowsController < ApplicationController
 	end
 	
 	def create
-		#Process blanks to nils
-		params[:show].each {|key,val| val = nil if val.blank? }
-		
-		#Process showtimes to timestamps
-		if params[:show][:showtimes_attributes].blank?
-			@show = Show.new
-			render :action => "edit", :notice => 'You must give at least one showtime'
-			return
-		end
-
-		params[:show][:showtimes_attributes].each do |key,obj| 
-			obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P') }
-			params[:show][:showtimes_attributes][key] = obj
-		end
-		
 		@show = Show.new
 		@show.approved = false
-		respond_to do |format|
-			if @show.update_attributes(params[:show])
-				#Add permissions for this person to the show
-				@show.permissions.create(:person_id => @current_user.id, :level => :full) unless @current_user.site_admin?
-				@show.save!
-				
-				# Tell the ShowMailer to send an approval Email to the admin after save
-        ShowMailer.need_approval_email(@show).deliver
-
-				format.html { redirect_to(edit_show_path(@show), :notice => 'Show was successfully created. Feel free to update additional information now!') }
-			else
-				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again' }
-			end
-		end
+		edit
 	end
 	
 	#TODO: Add ordering to the cast/crew fields to allow a custom ordering
@@ -85,6 +57,11 @@ class ShowsController < ApplicationController
 		params[:show].each {|key,val| val = nil if val.blank? }
 		
 		#Process showtimes to timestamps
+		if params[:show][:showtimes_attributes].blank?
+			@show = Show.new
+			render :action => "edit", :notice => 'You must give at least one showtime'
+			return
+		end
 		if params[:show][:showtimes_attributes]
 			params[:show][:showtimes_attributes].each do |key,obj| 
 				obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P'), :_destroy => obj[:_destroy] }
@@ -122,12 +99,19 @@ class ShowsController < ApplicationController
 	    	#Add permissions for this person to the show if they tried to delete them
 	    	if !@current_user.site_admin? && !@show.permissions.detect{|sp| sp.person_id == @current_user.id && sp.type == :full}
 	    		@show.permissions.create(:person => @current_user, :level => :full) unless @current_user.site_admin?
-	    	end	    	
+	    		@show.save!
+	    	end
+
+	    	# Tell the ShowMailer to send an approval Email to the admin after save
+        ShowMailer.need_approval_email(@show).deliver if params[:id].blank?
+
 	      format.html { redirect_to(@show, :notice => 'Show was successfully updated.') }
 	      format.json { render :json => {:success => true} }
+	      format.js { render :action => "edit_success" }
 	    else
 	      format.html { render :action => "edit" }
 	      format.json { render :json => {:error => true} }
+	      format.js { render :nothing => true }
 	    end
 	  end
 	end

@@ -1,6 +1,6 @@
 <li>
 	<%= f.enum_select :level %>
-	<%= f.text_field :name, :class => "person", :value => f.object.person ? f.object.person.display_name : "" %>
+	<%= f.text_field :name, :class => "person", :value => f.object.person ? f.object.person.display_name : "", :placeholder => "Student Name" %>
 	<%= f.hidden_field :person_id, :class => "person_id" %>
 	<%= link_to_remove_fields "remove", f %>
 </li>

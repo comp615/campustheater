@@ -13,6 +13,26 @@
 		}
 	}
 
+	.field_with_errors {
+		background-color: red;
+	}
+
+	#people {
+		input {
+			width: 30%;
+		}
+
+		select{
+			width: 25%;
+		}
+		
+		ul {
+			margin-left: 5px;
+			list-style-type: none;
+		}
+	}
+
+
 	label + input, input + label {
 		margin-left: 10px;
 	}
@@ -74,6 +94,7 @@
 	}
 
 	.frontpage-preview {
+		line-height: 20px;
 		position: fixed;
 		margin-left: 0px;
 	}

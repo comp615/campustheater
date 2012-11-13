@@ -17,6 +17,7 @@ gem 'paperclip-meta'
 gem 'jquery-ui-rails'
 gem 'jquery-timepicker-rails'
 gem 'client_side_validations', :git => 'git://github.com/bcardarella/client_side_validations.git'
+gem 'remotipart'
 
 gem 'net-ldap'
 gem 'rubycas-client'

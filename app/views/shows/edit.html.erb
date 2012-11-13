@@ -8,7 +8,7 @@
 	</ul>
 <% end %>
 
-<%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
+<%= form_for @show, :validate => true, :html => { :multipart => true }, :remote => true do |f| %>
 	<div class="row show-form">
 	  <div class="span6">
 			<h4>Show Details</h4>
@@ -72,46 +72,37 @@
 			</div>
 
 
-
-
-
-		
-			<% if @show.id != nil %>
-				<div id="auditions">
-					<h4>Auditions</h4>
-					<%= link_to "Click Here to manage your auditions", show_auditions_path(@show) %><br />
-					NOTE: Clicking will leave this page discarding all changes
-				</div>
-
-				<div id="people">
-					<h4>Cast</h4>
-					<ul>
-						<%= f.fields_for :show_positions, @show.cast do |builder| %>
-							<%= render 'show_position_fields', :f => builder %>
-						<% end %>
-						<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
-					</ul>
-					<p></p>
-
-					<h4>Crew</h4>
-					<ul>
-					<%= f.fields_for :show_positions, @show.crew do |builder| %>
+			<hr />
+			<h4>Cast, Prod Staff and Permissions</h4>
+			<div id="people">
+				<h5>Cast</h5>
+				<ul>
+					<%= f.fields_for :show_positions, @show.cast do |builder| %>
 						<%= render 'show_position_fields', :f => builder %>
 					<% end %>
-					<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
-					</ul>
+					<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
+				</ul>
+				<a href="#" rel="tooltip" title="Audition setup is accessible from 'My Dashboard' once your show has been approved">How do I post auditions?</a><br />
+				
 
-					<h4>Permissions</h4>
-					These are the people who will be able to access your show to edit it (or portions of it).
-					<ul>
-					<%= f.fields_for :permissions do |builder| %>
-						<%= render 'permission_fields', :f => builder %>
-					<% end %>
-					<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
-					</ul>			
-				</div>
-			
-			<% end %>
+				<h5>Production Staff</h5>
+				<ul>
+				<%= f.fields_for :show_positions, @show.crew do |builder| %>
+					<%= render 'show_position_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
+				</ul>
+				<a href="#" rel="tooltip" title="Simply add a new position with an empty name field">How do I list open positions?</a><br />
+
+				<h5>Permissions</h5>
+				<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
+				<ul>
+				<%= f.fields_for :permissions do |builder| %>
+					<%= render 'permission_fields', :f => builder %>
+				<% end %>
+				<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
+				</ul>			
+			</div>			
 			<p><%= f.submit "Submit" %></p>
 		</div>
 

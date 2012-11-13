@@ -38,6 +38,20 @@ function datify(parent_el) {
 	});
 }
 
+function handleFileChange() {
+	// This seems jank, but I guess it's how the plugin works for validations
+	var $form = $('form.edit_show');
+	var id = $form.attr("id");
+	var validators = window.ClientSideValidations.forms[id].validators;
+	if ($form.isValid(validators)) {
+	    $form.data("remote", true);
+	    $form.attr("data-remote", true);
+	    $form.submit();
+	} else {
+		alert('Please fill out the missing fields to preview your poster');
+	}
+}
+
 // Hookup the autocompletes on page load
 $(document).ready(function() {
 	// Add a holder for the required asterisks
@@ -52,6 +66,8 @@ $(document).ready(function() {
 		if($(this).val() != "")
 			$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
 	});
+
+	$("#show_poster").on("change", handleFileChange);
 
 
 
