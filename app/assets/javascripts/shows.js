@@ -2,16 +2,46 @@
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest("li").hide();
+  return false;
 }
 
-function add_fields(link, association, content) {
+function add_fields(trigger_obj, association, content) {
   var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g")
-  $(link).parent().before(content.replace(regexp, new_id));
+  var regexp = new RegExp("new_" + association, "g");
+  var $content = $(content.replace(regexp, new_id));
+
+
+  // Bind the new function for the elements we're adding
+  var change_function = function() {
+  	$content.find("a.remove").show();
+  	add_fields($content, association, content);
+  };
+
+  // Bind the event to trigger just once for the elements we are adding, hide remove till they edit
+  $content.one("change", "input,select", change_function);
+  $content.find("a.remove").hide();
+
+	// Manual hack for the first run
+  if($(trigger_obj).is("a")) {
+  	$(trigger_obj).parent().after($content);
+  	if(association == "showtimes")
+  		datify($(trigger_obj).parent().next());
+  	$(trigger_obj).parent().remove();
+  } else {
+  	$(trigger_obj).after($content);
+  }
+  
   if(association == "showtimes")
-  	datify($(link).parent().prev());
+  	datify($(trigger_obj).next());
   if(association == "show_positions" || association == "permissions")
   	hookupPersonAutoComplete();
+}
+
+function initialize_fields() {
+	var links;
+	links.each(function() {
+
+	});
 }
 
 // Function to hookup the datepickers (auto-loaded on page load in another lib)
@@ -69,6 +99,17 @@ $(document).ready(function() {
 
 	$("#show_poster").on("change", handleFileChange);
 
+	// Click all the add links to convert them to fields
+	// TODO: Just render them in the first place
+	$("a.add-link").click();
+
+	// Since the timepicker is nested in a label, we need to prevent
+	// label clicks from doing anything if they are on the time select list
+	$("form").on("click","label", function(e) { 
+	  if($(e.target).is("li.ui-timepicker-selected")) {
+	     e.preventDefault();
+	   }
+	});
 
 
 	hookupPersonAutoComplete();

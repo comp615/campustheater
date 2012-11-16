@@ -31,8 +31,13 @@ h1,h2,h3,h4,h5 {
 	font-family: "depot-new-web", sans;
 	h1,h2,h3,h4,h5 { display: inline; }
 	.active { font-weight: bold; }
-	h4 { margin-left: 20px; }
+	h4 { 
+		margin-left: 20px; 
+		font-weight: normal;
+		color: #6D6E70;
+	}
 	.navbar-inner {
+		text-transform: uppercase;
 		background-image: none;
 		background-color: #6f79d8;
 		.nav > li > a {
