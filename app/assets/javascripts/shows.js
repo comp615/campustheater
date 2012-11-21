@@ -37,11 +37,21 @@ function add_fields(trigger_obj, association, content) {
   	hookupPersonAutoComplete();
 }
 
-function initialize_fields() {
-	var links;
-	links.each(function() {
-
+// Add tech ops to the list when they change something and the student is blank
+function watchTechOps() {
+	$("#tech_ops").empty();
+	$("#show_positions input[name*=name]").each(function() {
+		if($(this).val() == "" && $(this).siblings("[name*=_destroy]").val() != 1) {
+			$el = $("<li />");
+			$el.html($(this).siblings("[name*=assistant]").val() + " " + $(this).siblings("[name*=position_id]").children(":selected").text());
+			$("#tech_ops").append($el);
+		}
 	});
+}
+
+// If they manually change the name after autocompleting...remove the person_id
+function protectAutocomplete() {
+	$(this).siblings("[name*=person_id]").val("");
 }
 
 // Function to hookup the datepickers (auto-loaded on page load in another lib)
@@ -97,11 +107,16 @@ $(document).ready(function() {
 			$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
 	});
 
+	$("#show_positions").on("change", "input, select", watchTechOps);
+	$("#show_positions").on("click", ".remove", watchTechOps);
+	$("form").on("change","[name*=name]",protectAutocomplete);
+
 	$("#show_poster").on("change", handleFileChange);
 
 	// Click all the add links to convert them to fields
 	// TODO: Just render them in the first place
 	$("a.add-link").click();
+	watchTechOps();
 
 	// Since the timepicker is nested in a label, we need to prevent
 	// label clicks from doing anything if they are on the time select list

@@ -1,7 +1,7 @@
 class ShowsController < ApplicationController  
 	
 	before_filter :force_auth, :except => [:show, :index, :archives]
-	before_filter :fetch_show, :only => [:show, :edit, :update, :destroy, :show_showtime]
+	before_filter :fetch_show, :only => [:show, :edit, :edit_people, :update, :destroy, :show_showtime]
 	before_filter :auth, :except => [:index, :show, :archives, :new, :create]
 	
 	
@@ -51,6 +51,10 @@ class ShowsController < ApplicationController
 	def edit
 		@page_header_title = "Edit Show"
 	end
+
+	def edit_people
+		@page_header_title = "Edit Show"
+	end
 	
 	def update
 		#Process blanks to nils
@@ -74,6 +78,7 @@ class ShowsController < ApplicationController
 			params[:show][:show_positions_attributes].each do |key,obj|
 				
 				# Create person if not exists
+				
 				if obj[:person_id].blank? && !obj[:name].blank?
 					name = obj[:name].split
 					person = Person.create!(:fname => name[0], :lname => name[1..-1].join(" "))
@@ -105,7 +110,13 @@ class ShowsController < ApplicationController
 	    	# Tell the ShowMailer to send an approval Email to the admin after save
         ShowMailer.need_approval_email(@show).deliver if params[:id].blank?
 
-	      format.html { redirect_to(@show, :notice => 'Show was successfully updated.') }
+	      format.html do 
+	      	if params[:id].blank?
+	      		redirect_to(@show)
+	      	else
+	      		redirect_to(@show, :notice => 'Show was successfully updated.')
+	      	end
+	      end
 	      format.json { render :json => {:success => true} }
 	      format.js { render :action => "edit_success" }
 	    else
@@ -125,6 +136,7 @@ class ShowsController < ApplicationController
 	private
 	
 	def fetch_show
+		params[:id] = params[:show_id] if params[:id].blank?
 		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find(params[:id]) if(params[:id])
 		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find_by_url_key(params[:url_key]) if(params[:url_key])
 		render :not_found unless @show && (@show.approved || @current_user.has_permission?(@show, :full))

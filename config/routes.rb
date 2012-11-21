@@ -69,6 +69,7 @@ Ydc::Application.routes.draw do
   
   
   resources :shows do
+    get 'edit_people', :controller => :shows, :action => :edit_people
 		resources :showtimes, :only => [:show, :index] #Used as reservation viewer for admin
 		resources :auditions
 		resources :reservations

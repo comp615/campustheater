@@ -17,7 +17,7 @@
 		background-color: red;
 	}
 
-	#people {
+	&.people {
 		input {
 			width: 30%;
 		}
@@ -29,6 +29,23 @@
 		ul {
 			margin-left: 5px;
 			list-style-type: none;
+		}
+
+		h5 {
+			margin-bottom: 0px;
+		}
+
+		h5 + p {
+			line-height: 20px;
+			margin-bottom: 15px;
+		}
+	}
+
+	.auditions {
+		input[name=location] { width: 90%; }
+		input.time { width: 55px; }
+		.span2, .span3 {
+			text-align: right;
 		}
 	}
 

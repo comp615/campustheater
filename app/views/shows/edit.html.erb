@@ -71,39 +71,16 @@
 				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the size of the theater">What's this?</a>
 			</div>
 
-
-			<hr />
-			<h4>Cast, Prod Staff and Permissions</h4>
-			<div id="people">
-				<h5>Cast</h5>
-				<ul>
-					<%= f.fields_for :show_positions, @show.cast do |builder| %>
-						<%= render 'show_position_fields', :f => builder %>
-					<% end %>
-					<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
-				</ul>
-				<a href="#" rel="tooltip" title="Audition setup is accessible from 'My Dashboard' once your show has been approved">How do I post auditions?</a><br />
-				
-
-				<h5>Production Staff</h5>
-				<ul>
-				<%= f.fields_for :show_positions, @show.crew do |builder| %>
-					<%= render 'show_position_fields', :f => builder %>
-				<% end %>
-				<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
-				</ul>
-				<a href="#" rel="tooltip" title="Simply add a new position with an empty name field">How do I list open positions?</a><br />
-
-				<h5>Permissions</h5>
-				<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
-				<ul>
+			<h5>Permissions</h5>
+			<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
+			<ul>
 				<%= f.fields_for :permissions do |builder| %>
 					<%= render 'permission_fields', :f => builder %>
 				<% end %>
 				<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
-				</ul>			
-			</div>			
-			<p><%= f.submit "Submit" %></p>
+			</ul>			
+	
+			<p><%= f.submit @show.id ? "Submit" : "Next Step" %></p>
 		</div>
 
 		<div class="span6">
