@@ -1,5 +1,5 @@
 .show-form {
-
+	color: #6F79D8;
 	line-height: 40px;
 
 	input[type=text], input[type=number], textarea, select {
@@ -17,8 +17,8 @@
 		background-color: red;
 	}
 
-	&.people {
-		input {
+	&.people, .permissions {
+		input[type=text] {
 			width: 30%;
 		}
 
@@ -33,6 +33,10 @@
 
 		h5 {
 			margin-bottom: 0px;
+			color: #2B3169;
+			font-size: 14pt;
+			text-transform: uppercase;
+			font-weight: normal;
 		}
 
 		h5 + p {
@@ -46,6 +50,40 @@
 		input.time { width: 55px; }
 		.span2, .span3 {
 			text-align: right;
+		}
+	}
+
+	#tech_ops {
+		font-size: 18px;
+		color: #2B3169;
+		span { color: #6F79D8; }
+	}
+
+	#audition_slots {
+		line-height: 20px;
+		.date { 
+			width: 100px;
+			float: left;
+			font-size: 18pt;
+			color: #2B3169;
+			.location {
+				color: #6F79D8;
+				font-size: 14pt;
+			}
+		}
+		.entries {
+			font-size: 18px;
+			width: 300px;
+			float: left;
+			a.remove {
+				color: #BE1E2D;
+			}
+			.past {
+				color: #D4D7F3;
+			}
+		}
+		.condensed, .hide-all {
+			display: none;
 		}
 	}
 
@@ -74,7 +112,7 @@
 
 	.showtimes {
 
-		input {
+		input[type=text] {
 			width: 100px;
 			margin-left: 7px;
 		}

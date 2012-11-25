@@ -61,7 +61,7 @@ class ShowsController < ApplicationController
 		params[:show].each {|key,val| val = nil if val.blank? }
 		
 		#Process showtimes to timestamps
-		if params[:show][:showtimes_attributes].blank?
+		if params[:show][:showtimes_attributes].blank? && @show.showtimes.count == 0
 			@show = Show.new
 			render :action => "edit", :notice => 'You must give at least one showtime'
 			return
@@ -70,6 +70,9 @@ class ShowsController < ApplicationController
 			params[:show][:showtimes_attributes].each do |key,obj| 
 				obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P'), :_destroy => obj[:_destroy] }
 				params[:show][:showtimes_attributes][key] = obj
+
+				# Remove it if it doesn't have the needed fields
+				params[:show][:show_positions_attributes].delete(key) if obj[:date].blank? || obj[:time].blank?
 			end
 		end
 		
@@ -78,7 +81,6 @@ class ShowsController < ApplicationController
 			params[:show][:show_positions_attributes].each do |key,obj|
 				
 				# Create person if not exists
-				
 				if obj[:person_id].blank? && !obj[:name].blank?
 					name = obj[:name].split
 					person = Person.create!(:fname => name[0], :lname => name[1..-1].join(" "))
@@ -86,6 +88,9 @@ class ShowsController < ApplicationController
 				end
 				obj = { :id => obj[:id], :assistant => obj[:assistant], :position_id => obj[:position_id], :person_id => obj[:name].blank? ? nil : obj[:person_id], :character => obj[:character], :_destroy => obj[:_destroy] }
 				params[:show][:show_positions_attributes][key] = obj
+
+				# Remove it if it doesn't have a position
+				params[:show][:show_positions_attributes].delete(key) if obj[:position_id].blank? || (obj[:position_id] == "17" && obj[:character].blank?)
 			end
 		end
 		
@@ -112,7 +117,7 @@ class ShowsController < ApplicationController
 
 	      format.html do 
 	      	if params[:id].blank?
-	      		redirect_to(@show)
+	      		redirect_to(show_edit_people_path(@show))
 	      	else
 	      		redirect_to(@show, :notice => 'Show was successfully updated.')
 	      	end
@@ -120,6 +125,8 @@ class ShowsController < ApplicationController
 	      format.json { render :json => {:success => true} }
 	      format.js { render :action => "edit_success" }
 	    else
+	    	puts "COULD NOT UPDATE"
+	    	puts @show[:errors].inspect
 	      format.html { render :action => "edit" }
 	      format.json { render :json => {:error => true} }
 	      format.js { render :nothing => true }

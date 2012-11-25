@@ -1,0 +1,2 @@
+$("#audition_slots").html("<%= escape_javascript(render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) }) %>");
+$("form.auditions")[0].reset();

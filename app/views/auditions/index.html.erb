@@ -6,7 +6,7 @@ Auditions for:<br />
 
 <% if @aud_admin %>
 	Batch add Audition Times
-	<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair" do |f| %>
+	<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair", :remote => true do |f| %>
 		<%= label :audition, :location %>
 		<%= text_field_tag :location %>
 		<br />
@@ -37,8 +37,8 @@ Audition Information:<br />
 <% if !@auditions.blank? %>
 	<%= form_tag show_auditions_path(@show), :method => :put do %>
 		<h4>Your Information:</h4>
-		Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s %>" /><br />
-		Email: <input type="text" name="email" value="<%= @user_audition[:email].to_s %>" />
+		Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s if @user_audition %>" /><br />
+		Email: <input type="text" name="email" value="<%= @user_audition[:email].to_s if @user_audition %>" />
 		<br />
 	
 		<h4>Audition Times:</h4>

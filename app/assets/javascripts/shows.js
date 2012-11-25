@@ -41,12 +41,46 @@ function add_fields(trigger_obj, association, content) {
 function watchTechOps() {
 	$("#tech_ops").empty();
 	$("#show_positions input[name*=name]").each(function() {
-		if($(this).val() == "" && $(this).siblings("[name*=_destroy]").val() != 1) {
+		if($(this).val() == "" && $(this).siblings("[name*=_destroy]").val() != 1 && $(this).siblings("[name*=position_id]").val() != "") {
 			$el = $("<li />");
-			$el.html($(this).siblings("[name*=assistant]").val() + " " + $(this).siblings("[name*=position_id]").children(":selected").text());
+			$el.html("<span>" + $(this).siblings("[name*=assistant]").val() + " " + $(this).siblings("[name*=position_id]").children(":selected").text() + "</span>");
 			$("#tech_ops").append($el);
 		}
 	});
+}
+
+function manageAuditionEllipsis(e) {
+	e.preventDefault();
+	var hide = $(this).is(".hide-all");
+	var $table = $(this).closest("table");
+	$table.find(".ellipsis").toggle(hide);
+	$table.find(".condensed").toggle(!hide);
+	$table.find(".hide-all").toggle(!hide);
+	$table.find(".show-all").toggle(hide);
+}
+
+function removeSingleAudition(e) {
+	e.preventDefault();
+	var aud_id = $(this).closest("tr").data("audition-id");
+	send_destroy([aud_id]);
+}
+
+function removeBlockAudition(e) {
+	e.preventDefault();
+	var aud_ids = $(this).closest(".audition-group").find("tr").map(function() { return $(this).data("audition-id"); });
+	send_destroy($.makeArray(aud_ids));
+}
+
+function send_destroy(ids) {
+	var url = $("form.auditions").attr("action");
+	$.ajax({
+		url: url,
+		data: {destroy_ids: ids},
+		type: "PUT",
+		success: function(data) {
+			eval(data);
+		}
+	})
 }
 
 // If they manually change the name after autocompleting...remove the person_id
@@ -63,7 +97,6 @@ function datify(parent_el) {
 		if ($this.hasClass('start') || $this.hasClass('end')) {
 			$this.on('changeDate change', doDatepair);
 		}
-
 	});
 
 	$(parent_el).find('input.time').each(function() {
@@ -117,6 +150,18 @@ $(document).ready(function() {
 	// TODO: Just render them in the first place
 	$("a.add-link").click();
 	watchTechOps();
+
+	// Manage showing/hiding of the audition groups
+	$("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
+	$("#aud_enabled_wrapper").toggle( $(this).is(":checked") );
+	$("#submit").on('click', function() { $("form.edit_show")[0].submit() });
+	$("#show_auditions_enabled").on('change',function() { $("#aud_enabled_wrapper").toggle( $(this).is(":checked") )});
+
+	// Make the audition form submit the correct form
+	$(".auditions input[type=submit]").on("click",function(e) { e.preventDefault(); e.stopImmediatePropagation(); $(this).closest("form").submit()});
+	$("#audition_slots").on("click", "a.remove", removeSingleAudition);
+	$("#audition_slots").on("click", ".block-remove .btn", removeBlockAudition);
+
 
 	// Since the timepicker is nested in a label, we need to prevent
 	// label clicks from doing anything if they are on the time select list

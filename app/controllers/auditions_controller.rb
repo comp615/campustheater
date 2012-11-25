@@ -52,10 +52,14 @@ class AuditionsController < ApplicationController
 			start += params[:duration].to_i.minutes	
 		end
 		
-		if @show.save
-			redirect_to show_auditions_path(@show), :notice => 'Show was successfully updated.'
-		else
-			render :nothing => true
+		respond_to do |format|
+			if @show.save
+				format.html { redirect_to show_auditions_path(@show), :notice => 'Show was successfully updated.' }
+				format.json { render :json => {:success => true} }
+	      format.js { render :action => "create_success" }
+			else
+				render :nothing => true
+			end
 		end
 	end
 	
@@ -105,7 +109,13 @@ class AuditionsController < ApplicationController
 		else
 			raise unless @aud_admin #Only admins
 			# Mass delete, wish I could have managed this more cleanly
-			@show.audition_ids = params[:auditions].select {|id,values| values[:_destroy] != "1"}.map{|id,values| id}	
+			# @show.audition_ids = params[:auditions].select {|id,values| values[:_destroy] != "1"}.map{|id,values| id}	
+
+			# New way form edit page
+			@show.auditions.find(params[:destroy_ids]).each{|a| a.destroy}
+			@show.auditions(true)
+		 	render :action => "create_success"
+			return
 		end
 		redirect_to show_auditions_path(@show), :notice => 'Audition successfully updated.'
 	end

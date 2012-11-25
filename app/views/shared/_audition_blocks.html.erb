@@ -1,0 +1,52 @@
+<% audition_groups.each do |group| %>
+	<div class="audition-group clearfix">
+		<div class="date">
+			<%= group.first.timestamp.strftime("%b %-d") %><br />
+			<span class="location">@ <%= group.first.location %></span>
+		</div>
+		<div class="entries">
+			<table>
+				<% group.each_with_index do |audition,i| %>
+					<% if group.length > 4 && i == 1 %>
+						<tr class="ellipsis"><td>...</td></tr>
+					<% end %>
+					<tr class="
+						<%= 'filled' if audition.person_id %> 
+						<%= 'past' if audition.timestamp <= Time.now %> 
+						<%= 'condensed' if i > 0 && i < group.length - 1 && group.length > 4 %>
+					" data-audition-id="<%= audition.id %>">
+						<td>
+							<%= audition.timestamp.strftime("%-l:%M%P") %>
+						</td>
+						<td>
+							<% if audition.person_id %>
+								<%= audition.person.name %>
+							<% end %>
+							<% if audition.timestamp >= Time.now %>
+								<a href="#" class="remove">(x)</a>
+							<% end %>
+						</td>
+					</tr>
+					<% if group.length > 4 && i == group.length - 1 %>
+						<tr class="show-all">
+							<td>
+								<a href="#">Show all <%= group.length %> slots</a>
+							</td>
+						</tr>
+						<tr class="hide-all">
+							<td>
+								<a href="#">Hide <%= group.length - 2 %> slots</a>
+							</td>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+		<div class="block-remove">
+			<div class="btn btn-danger">
+				X
+			</div>
+		</div>
+	</div>
+	<hr />
+<% end %>

@@ -73,12 +73,14 @@
 
 			<h5>Permissions</h5>
 			<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
-			<ul>
-				<%= f.fields_for :permissions do |builder| %>
-					<%= render 'permission_fields', :f => builder %>
-				<% end %>
-				<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
-			</ul>			
+			<div class="permissions">
+				<ul>
+					<%= f.fields_for :permissions do |builder| %>
+						<%= render 'permission_fields', :f => builder %>
+					<% end %>
+					<li><%= link_to_add_fields "Add Permission", f, :permissions %></li>
+				</ul>
+			</div>			
 	
 			<p><%= f.submit @show.id ? "Submit" : "Next Step" %></p>
 		</div>

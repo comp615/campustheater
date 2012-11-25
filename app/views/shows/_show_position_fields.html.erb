@@ -7,7 +7,7 @@
 	<%= link_to_remove_fields "remove", f %>
 <% else %>
 	<%= f.enum_select :assistant %>
-	<%= f.collection_select(:position_id, Position.all, :id, :position) %>
+	<%= f.collection_select(:position_id, Position.all, :id, :position, :include_blank => true) %>
 	<%= f.text_field :name, :class => "person", :value => f.object.person ? f.object.person.display_name : "", :placeholder => "Student Name" %>
 	<%= f.hidden_field :person_id, :class => "person_id" %>
 	<%= link_to_remove_fields "remove", f %>

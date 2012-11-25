@@ -21,15 +21,6 @@
 			</ul>
 	  </div>
 	  <div class="span6">
-	  	<h5>Tech Opportunities</h5>
-	  	<p>These positions will be listed on our tech opportunities page.</p>
-	  	<ol id="tech_ops">
-	  	</ol>
-	  </div>
-	</div>
-
-	<div class="row show-form people">
-	  <div class="span6">
 	  	<h5>Cast</h5>
 	  	<p>Who's taking center stage? Drag and drop to re-order the listings.</p>
 	  	<ul>
@@ -39,39 +30,61 @@
 				<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
 			</ul>
 	  </div>
-
+	</div>
+	<hr />
+	<div class="row show-form people">
+	  <div class="span6">
+	  	<h5>Tech Opportunities</h5>
+	  	<p>These positions will be listed on our tech opportunities page.</p>
+	  	<ol id="tech_ops">
+	  	</ol>
+	  </div>
 	  <div class="span6">
 	  	<h5>Auditions</h5>
 	  	<p>Easily organize cast auditions with the YDC's built-in scheduling, or manage the process on your own.</p>
 	  	<%= f.check_box :auditions_enabled %>
 			<%= f.label :auditions_enabled, "Enable YDC Audition System" %>
-			<%= f.text_area :aud_info, :class => "required", :placeholder => "Audition Info" %><br />
-<% end %>
-			Create Audition Slots
-			<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair auditions", :remote => true do |f| %>
-				<%= text_field_tag :location, "", :placeholder => "Location" %>
-				<br />
-				<div class="row">
-					<div class="span3">
-						Date: <%= text_field_tag :date, nil, :class => "date" %>
+			<div id="aud_enabled_wrapper">
+				<%= f.text_area :aud_info, :class => "required", :placeholder => "Audition Info" %><br />
+	<% end %>
+				Create Audition Slots
+				<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :remote => true, :class => "datepair auditions" do |f| %>
+					<%= text_field_tag :location, "", :placeholder => "Location" %>
+					<br />
+					<div class="row">
+						<div class="span3">
+							Date: <%= text_field_tag :date, nil, :class => "date" %>
+						</div>
+						<div class="span2">
+							Start Time: <%= text_field_tag :start_time, nil, :class => "time start" %>
+						</div>
 					</div>
-					<div class="span2">
-						Start Time: <%= text_field_tag :start_time, nil, :class => "time start" %>
-					</div>
-				</div>
-				<div class="row">
-					<div class="span3">
-						Slot Length: <%= number_field_tag :duration %>
-					</div>
-					<div class="span2">
-						End Time: <%= text_field_tag :end_time, nil, :class => "time end" %>
-					</div>
-				</div>				
-				<%= submit_tag "Create Slots" %>
-			<% end %>
+					<div class="row">
+						<div class="span3">
+							Slot Length: <%= number_field_tag :duration %>
+						</div>
+						<div class="span2">
+							End Time: <%= text_field_tag :end_time, nil, :class => "time end" %>
+						</div>
+					</div>				
+					<%= submit_tag "Create Slots" %>
+				<% end %>
 
-			<%= @show.title %>'s Audition Slots
-			....
+				<%= @show.title %>'s Audition Slots
+				<div id="audition_slots">
+					<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>
+				</div>
+			</div>
 	  </div>
 	</div>
+  <hr />
+  <div class="clearfix" style="text-align: center;">
+  	<a class="btn" href="<%= dashboard_path %>">
+  		Cancel
+  	</a>
+  	<div class="btn btn-primary" id="submit">
+  		Save cast & crew
+  	</div>
+  </div>
+	
 
