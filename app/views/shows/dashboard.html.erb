@@ -1,0 +1,118 @@
+<div class="row show-dashboard">
+  <div class="span6">
+  	<!-- BASIC DETAILS -->
+  	<h5>Show Details &nbsp; <%= link_to "(Edit)", edit_show_path(@show) %></h5> 
+  	<div class="row">
+  		<div class="span1 alt-text">
+  			Name
+  		</div>
+  		<div class="span5">
+  			<%= @show.title %>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="span1 alt-text">
+  			Writer
+  		</div>
+  		<div class="span5">
+  			<%= @show.writer %>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="span1 alt-text">
+  			Website
+  		</div>
+  		<div class="span5">
+  			<%= link_to show_url(@show), @show %>
+  		</div>
+  	</div>
+  </div>
+  <!-- TICKETING AREA -->
+  <div class="span6">
+  	<h5>Scheduling and Tickets  &nbsp; <%= link_to "(Edit)", edit_show_path(@show) %></h5> 
+  	<div class="row">
+  		<div class="span1 alt-text">
+  			Location
+  		</div>
+  		<div class="span5">
+  			<%= @show.location %>
+  		</div>
+  	</div>
+  	<br />
+  	<% if @current_user.has_permission?(@show, :reservations) %>
+	  	<table>
+	  		<tr class="alt-text">
+	  			<th>
+	  				Time
+	  			</th>
+	  			<th>
+	  				Reserved
+	  			</th>
+	  			<th>
+	  				Remaining
+	  			</th>
+	  			<th>
+	  				Waitlisted (Max <%= @show.seats %>)
+	  			</th>
+	  		</tr>
+	  		<% @show.showtimes.each do |showtime| %>
+
+	  		<tr class="<%= 'past' if showtime.timestamp <= Time.now %>">
+	  			<td>
+	  				<%= small_timestamp(showtime.timestamp) %>
+	  			</td>
+	  			<td>
+	  				<%= [showtime.reservations.sum(:num), @show.seats].min %>
+	  			</td>
+	  			<td>
+	  				<%= @show.seats - [showtime.reservations.sum(:num), @show.seats].min %>
+	  			</td>
+	  			<td>
+	  				<%= [showtime.reservations.sum(:num) - @show.seats, 0].max %>
+	  			</td>
+	  		</tr>
+	  		<tr class="links <%= 'past' if showtime.timestamp <= Time.now %>">
+	  			<td>
+	  				&nbsp; <i class='icon-print'></i> <%= link_to "View Reservations", show_showtime_path(@show, showtime) %>
+	  			</td>
+	  			<td colspan="3">
+	  				<i class='icon-download-alt'></i> <%= link_to "Download Reservations", show_showtime_path(@show, showtime, "csv") %>
+	  			</td>
+	  		</tr>
+	  		<% end %>
+	  	</table>
+	  <% else %>
+	  	<% @show.showtimes.each do |showtime| %>
+	  		<%= small_timestamp(showtime.timestamp) %><br />
+	  	<% end %>
+	  <% end %>
+  </div>
+</div>
+<hr />
+<div class="row show-dashboard">
+  <div class="span4 staff">
+  	<h5>Cast  &nbsp; <%= link_to "(Edit)", show_edit_people_path(@show) %></h5>
+  	<% @show.cast.each do |castmember| %>
+  		<%= link_to castmember.person.name, castmember.person %> (<%= castmember.display_name %>)<br />
+  	<% end %>
+  	<br />
+  	<h5>Production Staff  &nbsp; <%= link_to "(Edit)", show_edit_people_path(@show) %></h5> 
+  	<% @show.crew.each do |techie| %>
+  		<%= link_to techie.person.name, techie.person %> (<%= techie.display_name %>)<br />
+  	<% end %>
+  	<br />
+  	<span class="alt-text">Open Opportunities</span>
+  	<% @show.show_positions.select {|sp| sp.position_id != 17 && !sp.person}.each do |techie| %>
+  		(<%= techie.display_name %>)<br />
+  	<% end %>
+  </div>
+  <div class="span8">
+  	<h5>Auditions &nbsp; <%= link_to "(Edit)", show_edit_people_path(@show) %></h5>
+  	<span class="alt-text">Audition Info</span><br />
+  	<p><%= @show.aud_info.blank? ? "(blank)" : @show.aud_info %></p>
+  	<br />
+		<div id="audition_slots">
+			<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>
+		</div>
+  </div>
+</div>

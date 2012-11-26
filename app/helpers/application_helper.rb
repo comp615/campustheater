@@ -43,6 +43,17 @@ module ApplicationHelper
 	def small_timestamp(time)
 		time.strftime("%b %d %-l:%M %p")
 	end
+
+	# (517) 648-8850
+	def format_phone(string)
+		return "" if string.blank?
+		arr = string.scan(/(\d)/)
+		return "" if !arr || arr.empty?
+		builder = ""
+		arr.slice!(0,1) if arr.first.first == "1"
+		return "" if arr.length != 10
+		[arr.slice!(0,3).join,arr.slice!(0,3).join,arr.slice!(0,4).join].join("-")
+	end
 	
 	def best_link(show, full_path = false)
 		if full_path

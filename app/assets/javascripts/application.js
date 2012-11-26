@@ -31,4 +31,17 @@ $(document).ready(function() {
   $("[rel=tooltip]").on("click", function(e) {
   	e.preventDefault();
   });
+
+  /* Setup audition module, TODO: pull out elsewhere...only in two places */
+  $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
 });
+
+function manageAuditionEllipsis(e) {
+	e.preventDefault();
+	var hide = $(this).is(".hide-all");
+	var $table = $(this).closest("table");
+	$table.find(".ellipsis").toggle(hide);
+	$table.find(".condensed").toggle(!hide);
+	$table.find(".hide-all").toggle(!hide);
+	$table.find(".show-all").toggle(hide);
+}

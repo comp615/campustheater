@@ -3,6 +3,11 @@
 		<div class="date">
 			<%= group.first.timestamp.strftime("%b %-d") %><br />
 			<span class="location">@ <%= group.first.location %></span>
+			<br />
+			<br />
+			<span class="email alt-text">
+				<i class="icon-envelope"></i><%= link_to "Email", "mailto:" + group.map{|a| a.email }.reject!(&:blank?).join(",") %>
+			</span>
 		</div>
 		<div class="entries">
 			<table>
@@ -18,13 +23,19 @@
 						<td>
 							<%= audition.timestamp.strftime("%-l:%M%P") %>
 						</td>
-						<td>
+						<td class="name">
 							<% if audition.person_id %>
-								<%= audition.person.name %>
+								<%= link_to audition.person.name, audition.person %>
 							<% end %>
 							<% if audition.timestamp >= Time.now %>
 								<a href="#" class="remove">(x)</a>
 							<% end %>
+						</td>
+						<td class="phone">
+							<%= format_phone audition.phone %>
+						</td>
+						<td class="email">
+							<%= audition.email %>
 						</td>
 					</tr>
 					<% if group.length > 4 && i == group.length - 1 %>
@@ -50,3 +61,10 @@
 	</div>
 	<hr />
 <% end %>
+<div class="audition-actions">
+<i class="icon-envelope"></i> <%= link_to "Email all students", "mailto:" + audition_groups.map{|group| group.map{|a| a.email }}.flatten.reject!(&:blank?).join(",") %>
+ &nbsp;
+<i class="icon-print"></i> <%= link_to "Print Full Audition List", show_auditions_path(@show) %>
+ &nbsp;
+<i class="icon-download-alt"></i> <%= link_to "Download Full Audition List (CSV)", show_auditions_path(@show, "csv") %>
+</div>

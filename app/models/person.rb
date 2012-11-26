@@ -32,10 +32,10 @@ class Person < ActiveRecord::Base
 	# @param show [Integer] the show id to check (can also be a show object)
 	# @param type [Symbol] One of :full, or a different type which is also in the DB
 	# @returns Boolean true if current user has permission
-	def has_permission?(show,type)
+	def has_permission?(show, type, any = false)
 		return true if self.site_admin?
 		show_id = show.instance_of?(Show) ? show.id : show.to_i
-		if(self.permissions.detect{|perm| perm.show_id == show_id && (perm.level == :full || perm.level == type)})
+		if(self.permissions.detect{|perm| perm.show_id == show_id && (any || perm.level == :full || perm.level == type)})
 			true
 		else
 			false #TODO: Maybe auto redirect to login?

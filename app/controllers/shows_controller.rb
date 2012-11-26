@@ -1,8 +1,8 @@
 class ShowsController < ApplicationController  
 	
 	before_filter :force_auth, :except => [:show, :index, :archives]
-	before_filter :fetch_show, :only => [:show, :edit, :edit_people, :update, :destroy, :show_showtime]
-	before_filter :auth, :except => [:index, :show, :archives, :new, :create]
+	before_filter :fetch_show, :only => [:show, :edit, :edit_people, :update, :destroy, :show_showtime, :dashboard]
+	before_filter :auth, :except => [:index, :show, :archives, :new, :create, :dashboard]
 	
 	
 	# upcoming shows, grouped by week, semester, others
@@ -32,6 +32,12 @@ class ShowsController < ApplicationController
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
    	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
+	end
+
+	def dashboard
+		@page_header_title = "Show Dashboard"
+		# People can see this as long as they have SOME permission
+		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
 	end
 	
 	def new

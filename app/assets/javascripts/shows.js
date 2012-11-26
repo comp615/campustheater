@@ -49,16 +49,6 @@ function watchTechOps() {
 	});
 }
 
-function manageAuditionEllipsis(e) {
-	e.preventDefault();
-	var hide = $(this).is(".hide-all");
-	var $table = $(this).closest("table");
-	$table.find(".ellipsis").toggle(hide);
-	$table.find(".condensed").toggle(!hide);
-	$table.find(".hide-all").toggle(!hide);
-	$table.find(".show-all").toggle(hide);
-}
-
 function removeSingleAudition(e) {
 	e.preventDefault();
 	var aud_id = $(this).closest("tr").data("audition-id");
@@ -152,7 +142,6 @@ $(document).ready(function() {
 	watchTechOps();
 
 	// Manage showing/hiding of the audition groups
-	$("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
 	$("#aud_enabled_wrapper").toggle( $(this).is(":checked") );
 	$("#submit").on('click', function() { $("form.edit_show")[0].submit() });
 	$("#show_auditions_enabled").on('change',function() { $("#aud_enabled_wrapper").toggle( $(this).is(":checked") )});

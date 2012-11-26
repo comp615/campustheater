@@ -1,3 +1,38 @@
+h5 {
+	color: #2B3169;
+	font-size: 14pt;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
+#audition_slots {
+		line-height: 20px;
+		.date { 
+			width: 100px;
+			float: left;
+			font-size: 18pt;
+			color: #2B3169;
+			.location {
+				color: #6F79D8;
+				font-size: 14pt;
+			}
+		}
+		.entries {
+			font-size: 18px;
+			width: 300px;
+			float: left;
+			a.remove {
+				color: #BE1E2D;
+			}
+			.past {
+				color: #D4D7F3;
+			}
+		}
+		.condensed, .hide-all {
+			display: none;
+		}
+	}
+
 .show-form {
 	color: #6F79D8;
 	line-height: 40px;
@@ -33,10 +68,6 @@
 
 		h5 {
 			margin-bottom: 0px;
-			color: #2B3169;
-			font-size: 14pt;
-			text-transform: uppercase;
-			font-weight: normal;
 		}
 
 		h5 + p {
@@ -53,40 +84,17 @@
 		}
 	}
 
+	#audition_slots {
+		.email, .phone, .audition-actions {
+			display: none;
+		}
+	}
+
 	#tech_ops {
 		font-size: 18px;
 		color: #2B3169;
 		span { color: #6F79D8; }
 	}
-
-	#audition_slots {
-		line-height: 20px;
-		.date { 
-			width: 100px;
-			float: left;
-			font-size: 18pt;
-			color: #2B3169;
-			.location {
-				color: #6F79D8;
-				font-size: 14pt;
-			}
-		}
-		.entries {
-			font-size: 18px;
-			width: 300px;
-			float: left;
-			a.remove {
-				color: #BE1E2D;
-			}
-			.past {
-				color: #D4D7F3;
-			}
-		}
-		.condensed, .hide-all {
-			display: none;
-		}
-	}
-
 
 	label + input, input + label {
 		margin-left: 10px;
@@ -152,5 +160,29 @@
 		line-height: 20px;
 		position: fixed;
 		margin-left: 0px;
+	}
+}
+
+.show-dashboard {
+	table {
+		td, th {
+			padding: 0px 10px;
+		}
+		.past {
+			color: #D4D7F3;
+		}
+	}
+
+	.staff {
+		& > a {
+			text-decoration: underline;
+			color: inherit;
+		}
+	}
+
+	#audition_slots {
+		.block-remove, .remove {
+			display: none;
+		}
 	}
 }
