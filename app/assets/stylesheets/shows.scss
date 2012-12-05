@@ -5,6 +5,53 @@ h5 {
 	font-weight: normal;
 }
 
+.show-header {
+	h2 {
+		display: inline-block;
+		padding: 0px 20px;
+		font-family: Bitter;
+	}
+	.writer { 
+		font-weight: bold;
+	}
+	.tagline {
+		text-transform: uppercase;
+	}
+	p { 
+		font-size: 18px;
+		margin: 0px; 
+	}
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.poster {
+	margin-bottom: 40px;
+	text-align: center;
+	img { max-height: 450px; }
+}
+
+.cast, .crew {
+	text-align: center;
+	table {
+		td:first-child {
+			text-align: right;
+			font-weight: bold;
+			padding-right: 10px;
+			width: 50%;
+		}
+		td:last-child {
+			text-align: left;
+			padding-left: 10px;
+			width: 50%;
+		}
+	}
+}
+
+.row {
+	margin-bottom: 30px;
+}
+
 #audition_slots {
 		line-height: 20px;
 		.date { 

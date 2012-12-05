@@ -57,7 +57,11 @@ class Show < ActiveRecord::Base
 	end
 	
 	def crew
-		self.show_positions.select {|sp| sp.position_id != 17 && sp.person}
+		self.show_positions.select {|sp| sp.position_id != 17 && sp.person_id}
+	end
+
+	def has_opportunities?
+		!!self.show_positions.detect {|sp| sp.position_id != 17 && !sp.person_id}
 	end
 	
 	# All shows till the next Sunday

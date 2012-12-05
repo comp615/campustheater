@@ -29,6 +29,7 @@ class ShowsController < ApplicationController
 		# Do something with @show?
 		#redirect_to root_url
 		@page_name = " - #{@show.title}"
+		@page_header_title = "View Show"
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
    	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")

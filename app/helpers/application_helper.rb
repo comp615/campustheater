@@ -63,13 +63,15 @@ module ApplicationHelper
 		end
 	end
 	
-	def get_reservation_line(show)
+	def get_reservation_line(show, block = false)
 		if show.showtimes.length > 0 && Time.now > Time.at(show.showtimes.last.timestamp)
 			"Show no longer running"
 		elsif !show.tix_enabled && show.alt_tix
 			show.alt_tix
-		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale
+		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
 			link_to "Reserve Tickets", show_reservations_path(show)
+		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
+			"RENDER RESERVATION BLOCK"
 		elsif show.tix_enabled
 			"Not available till #{show.on_sale}"
 		else
