@@ -5,6 +5,17 @@ h5 {
 	font-weight: normal;
 }
 
+.reservations {
+	input {
+		display: inline;
+		border: none;
+		box-shadow: none;
+		border-bottom: 1px #2B3169 solid;
+		&[type=number] { width: 50px; }
+		&[type=text] { width: 135px; }
+	}
+}
+
 .show-header {
 	h2 {
 		display: inline-block;

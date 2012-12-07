@@ -9,6 +9,7 @@ A site to help campuses manage vibrant theater and performing arts communities
 - reservation dialog and inline block for view show page
 
 
+- Loading spinner on poster upload
 - Freshmen and Playground tables need to be enhanced into Rails
 - See internal code TODOs
 - Poster preview not working as gem is broken in rails 3.2.*

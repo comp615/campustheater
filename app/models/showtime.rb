@@ -30,6 +30,11 @@ class Showtime < ActiveRecord::Base
 		end
 	end
 
+	# hack helper...don't use this, use application_helper instead
+	def short_display_time
+		self.timestamp.strftime("%b %d %-l:%M %p") + (self.is_full? ? " (Waitlist)" : "")
+	end
+
 	def notify_oup
 		@show = self.show rescue nil # will error if show can't be found, meaning not approved
 		ShowtimeMailer.notify_oup_email(@show,self).deliver if @show && @show.approved		
@@ -37,6 +42,10 @@ class Showtime < ActiveRecord::Base
 	
 	def is_full?
 		self.reservations.sum(:num) >= self.show.seats
+	end
+
+	def reservations_frozen?
+		Time.now > self.showtime - self.show.freeze_mins_before.mins
 	end
 	
 	# Cap waitlist at 2x number of seats

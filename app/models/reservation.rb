@@ -30,10 +30,10 @@ class Reservation < ActiveRecord::Base
 
 	def status_line
 		num_before = self.showtime.reservations.where(["updated_at < ?", self.updated_at]).sum(:num) 
-		if num_before >= self.show.cap
+		if num_before >= self.show.seats
 			"WAITLISTED (Show up anyways as many waitlist spots usually free up)"
-		elsif num_before + @reservation.num > @show.cap
-			"PARTIALLY RESERVED (#{@show.cap - num_before} CONFIRMED)"
+		elsif num_before + self.num > self.show.seats
+			"PARTIALLY RESERVED (#{@show.seats - num_before} CONFIRMED)"
 		else
 			"CONFIRMED"
 		end
@@ -43,15 +43,19 @@ class Reservation < ActiveRecord::Base
 		other_showtime_ids = self.show.showtime_ids
 		user_other_reservations_count = Reservation.where(:email => self.email, :showtime_id => other_showtime_ids)
 		if self.id
-		user_other_reservations_count = user_other_reservations_count.where(["id != ?", self.id]).count
+			user_other_reservations_count = user_other_reservations_count.where(["id != ?", self.id]).count
 		else
-		user_other_reservations_count = user_other_reservations_count.where("id IS NOT NULL").count
+			user_other_reservations_count = user_other_reservations_count.where("id IS NOT NULL").count
 		end
-		if user_other_reservations_count > 0 && 
+		if user_other_reservations_count > 0
       errors.add(:email, "cannot make multiple reservations to the same show")
     end
     if num > self.show.cap
     	errors.add(:num, "is too large")
+    end
+    # TODO: add more stuff, check freeze time...etc.
+    if !self.show.ok_to_ticket?
+    	error.add(:showtime_id, "is not for a reservable show")
     end
 	end
 end

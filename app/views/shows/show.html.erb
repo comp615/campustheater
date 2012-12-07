@@ -6,6 +6,9 @@
 
 <div class="row show-header">
 	<div class="span12">
+		<% if !@show.approved %>
+			<h1>DRAFT VIEW - Awaiting Approval</h1>
+		<% end %>
 		<h2><%= @show.title %></h2>
 		<p class="writer"><%= @show.writer %></p>
 		<p class="tagline"><%= @show.tagline %></p>

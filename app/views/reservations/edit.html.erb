@@ -8,13 +8,7 @@ Place:<%= @show.location %>
 <% if !@reservation.id.blank? %>
 	Current Status: <b>
 	<% num_before = @reservation.showtime.reservations.where(["updated_at < ?", @reservation.updated_at]).sum(:num)  %>
-	<% if num_before >= @show.cap  %>
-		WAITLISTED (Show up anyways as many waitlist spots usually free up)
-	<% elsif num_before + @reservation.num > @show.cap  %>
-		PARTIALLY RESERVED (<%= @show.cap - num_before %> CONFIRMED)
-	<% else %>
-		CONFIRMED
-	<% end %>
+	<%= @reservation.status_line %>
 	</b><br />
 	Please refer to the url of this page to edit your reservation<br />
 	<br />

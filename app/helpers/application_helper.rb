@@ -68,10 +68,12 @@ module ApplicationHelper
 			"Show no longer running"
 		elsif !show.tix_enabled && show.alt_tix
 			show.alt_tix
+		elsif !show.approved
+			"Show not yet approved"
 		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
 			link_to "Reserve Tickets", show_reservations_path(show)
-		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
-			"RENDER RESERVATION BLOCK"
+		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && block
+			render :partial => "shared/show_reservation_form", :locals => {:show => show}
 		elsif show.tix_enabled
 			"Not available till #{show.on_sale}"
 		else

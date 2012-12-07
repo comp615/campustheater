@@ -1,13 +1,12 @@
-	<% if shows.length < 1 %>
-		No shows here!
-	<% end %>
-	<% shows.in_groups_of(3) do |show_group| %>
-		<div class="row">
-		<% show_group.each do |show| %>
-			<div class="span4">
-				<%= render :partial => "shared/show_listing", :locals => { :show => show } if show %>
-			</div>
-		<% end %>
+<% if shows.length < 1 %>
+	No shows here!
+<% end %>
+<% shows.in_groups_of(3) do |show_group| %>
+	<div class="row">
+	<% show_group.each do |show| %>
+		<div class="span4">
+			<%= render :partial => "shared/show_listing", :locals => { :show => show } if show %>
 		</div>
 	<% end %>
-</div>
+	</div>
+<% end %>
