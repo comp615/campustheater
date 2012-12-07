@@ -34,6 +34,14 @@ $(document).ready(function() {
 
   /* Setup audition module, TODO: pull out elsewhere...only in two places */
   $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
+
+  // On click for reservation modal show
+  $('#reservations').on('show', reservationOpenHandler);
+  $('#reservations').on('click', '.btn-primary', reservationSubmitHandler);
+  $('a[data-toggle=modal][href=#reservations]').on("click", function(e) { 
+    $("#reservations").data("show-id", $(this).data("show-id"));
+    $("#reservations .show_title").text($(this).closest(".item").find("[data-field=show_title]").text());
+  });
 });
 
 function manageAuditionEllipsis(e) {
@@ -44,4 +52,30 @@ function manageAuditionEllipsis(e) {
 	$table.find(".condensed").toggle(!hide);
 	$table.find(".hide-all").toggle(!hide);
 	$table.find(".show-all").toggle(hide);
+}
+
+// Handle reservation modal open
+function reservationOpenHandler(e) {
+  var show_id = $(this).data("show-id");
+  // Load data in
+  if (!show_showtimes[show_id] || show_showtimes[show_id].length == 0) {
+    alert("Sorry, tickets can't be reserved right now, please see the show's details page for more info");
+    return false;
+  }
+
+  var showtimes = show_showtimes[show_id];
+  var cap = showtimes[0].cap;
+  $(this).find("[data-field=cap]").text(cap);
+  $(this).find("input[name*=num]").attr("max",cap);
+  $(this).find("form").attr("action", "/shows/" + show_id + "/reservations");
+  var $select = $(this).find("select[name*=showtime_id]");
+  $select.empty();
+
+  showtimes.forEach(function(st) {
+    $select.append("<option value=\"" + st.id + "\">" + st.text + "</option>");
+  })
+}
+
+function reservationSubmitHandler(e) {
+  $(this).closest(".modal").find("form").submit();
 }

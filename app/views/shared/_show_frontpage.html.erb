@@ -31,11 +31,11 @@
 				<i class="icon-ok icon-white"></i>
 				Tickets*
 			</a>
-		<% elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale %>
-			<a class="btn btn-primary" href="<%= show_reservations_path(show) %>">
+		<% elsif show.ok_to_ticket? %>
+			<a class="btn btn-primary" href="#reservations" role="button" data-toggle="modal" data-show-id="<%= show.id %>">
 				<i class="icon-ok icon-white"></i>
 				Tickets
-			</a>
+			</a><!-- Button to trigger modal -->
 		<% end %>
 	</div>
 

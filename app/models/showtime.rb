@@ -45,7 +45,7 @@ class Showtime < ActiveRecord::Base
 	end
 
 	def reservations_frozen?
-		Time.now > self.showtime - self.show.freeze_mins_before.mins
+		Time.now > self.timestamp - self.show.freeze_mins_before.minutes
 	end
 	
 	# Cap waitlist at 2x number of seats

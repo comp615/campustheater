@@ -15,6 +15,9 @@ class PagesController < ApplicationController
 		# Group things appropriately. Cannot be more than 2 modules
 		@shows = Show.readonly.this_week
 
+		@showtime_data = {}
+		@shows.map {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
+
 		# TODO: Algorithmically re-arrange posters to be in rows of 2
 
 		puts "Condensing #{@shows.length} shows and #{@modules.length} modules"

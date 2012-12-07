@@ -1,3 +1,9 @@
+<% content_for :head do %>
+	<script>
+		var show_showtimes = <%= raw @showtime_data.to_json %>;
+	</script>
+<% end %>
+
 <div class="row" style="text-align: center">
 	<div class="span12 cal-intro">
 		<b>Yale Drama Coalition</b> presents

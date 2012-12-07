@@ -8,7 +8,7 @@ class ReservationMailer < ActionMailer::Base
     @showtime = showtime
     @reservation = reservation
     @status = status
-    mail(:to => @reservation.email, :subject => "[YDC Site] Showtime Change for: " + show.title, :reply_to => @show.contact)
+    mail(:to => @reservation.email, :subject => "[YDC Site] Showtime Change for: " + @show.title, :reply_to => @show.contact)
   end
 
   def reservation_confirmation_email(showtime,reservation,status)

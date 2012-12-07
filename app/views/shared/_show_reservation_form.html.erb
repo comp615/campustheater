@@ -1,9 +1,11 @@
-<%= form_for [show, Reservation.new] do |f| %>
+<% no_submit ||= false %>
+
+<%= form_for :reservation, :url => (show.id ? show_reservation_path(show,"") : "") do |f| %>
 	<%= f.collection_select(:showtime_id, show.showtimes.select{|st| !st.is_waitlist_full? && !st.reservations_frozen? }, :id, :short_display_time) %><br />
-	Reserve <%= f.number_field :num %> Seats (Max <%= show.cap %>)<br />
+	Reserve <%= f.number_field :num, :min => 1, :max => show.cap %> Seats (Max <span data-field="cap"><%= show.cap %></span>)<br />
 	First Name: <%= f.text_field :fname, :value => (@current_user ? @current_user.fname : "") %><br />
 	Last Name: <%= f.text_field :lname, :value => (@current_user ? @current_user.lname : "") %><br />
 	Email: <%= f.text_field :email, :value => (@current_user ? @current_user.email : "") %><br />
 	Who are you? <%= f.select :reservation_type_id, options_from_collection_for_select(ReservationType.all, :id, :tix_type) %><br />
-	<%= f.submit :confirm => "Are you sure your information is correct?" %>
+	<%= f.submit "Create Reservation", :confirm => "Are you sure your information is correct?" unless no_submit %>
 <% end %>
