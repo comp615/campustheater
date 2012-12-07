@@ -8,7 +8,6 @@ class ShowsController < ApplicationController
 	# upcoming shows, grouped by week, semester, others
 	def index
 		@page_name = " - Upcoming Shows"
-		@page_header_title = "Upcoming Shows"
 		
 		@shows = Show.future
 		@this_week = @shows.select{|s| s.this_week?}
@@ -19,7 +18,6 @@ class ShowsController < ApplicationController
 	# Similar to upcoming shows, but just the past ones, optionally grouped by oci_term. I.E. 201203
 	def archives
 		@page_name = " - Archives"
-		@page_header_title = "Archives"
 		
 		@term = params[:term] || Time.now.year.to_s + (Time.now.month < 7 ? "01" : "03")
 		@shows = Show.where(:archive => true).shows_in_term(@term).select(&:has_closed?)
@@ -29,21 +27,20 @@ class ShowsController < ApplicationController
 		# Do something with @show?
 		#redirect_to root_url
 		@page_name = " - #{@show.title}"
-		@page_header_title = "View Show"
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
    	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 	end
 
 	def dashboard
-		@page_header_title = "Show Dashboard"
+		@page_name = " - Show Dashboard"
 		# People can see this as long as they have SOME permission
 		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
 	end
 	
 	def new
 		@show = Show.new
-		@page_header_title = "Create Show"
+		@page_name = " - New Show"
 		render :edit
 	end
 	
@@ -56,11 +53,11 @@ class ShowsController < ApplicationController
 	#TODO: Add ordering to the cast/crew fields to allow a custom ordering
 	#TODO: Prompt them on submit if they are altering showtimes or something
 	def edit
-		@page_header_title = "Edit Show"
+		@page_name = " - Edit Show"
 	end
 
 	def edit_people
-		@page_header_title = "Edit Show"
+		@page_name = " - Edit Show"
 	end
 	
 	def update
@@ -75,11 +72,14 @@ class ShowsController < ApplicationController
 		end
 		if params[:show][:showtimes_attributes]
 			params[:show][:showtimes_attributes].each do |key,obj| 
-				obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P'), :_destroy => obj[:_destroy] }
-				params[:show][:showtimes_attributes][key] = obj
-
 				# Remove it if it doesn't have the needed fields
-				params[:show][:show_positions_attributes].delete(key) if obj[:date].blank? || obj[:time].blank?
+				if obj[:date].blank? || obj[:time].blank?
+					params[:show][:showtimes_attributes].delete(key) 
+					next
+				end
+
+				obj = { :id => obj[:id], :timestamp => DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P'), :_destroy => obj[:_destroy] }
+				params[:show][:showtimes_attributes][key] = obj	
 			end
 		end
 		
@@ -104,6 +104,7 @@ class ShowsController < ApplicationController
 		#Process permissions to remove names
 		if params[:show][:permissions_attributes]
 			params[:show][:permissions_attributes].each do |key,obj|
+				params[:show][:permissions_attributes].delete(key) if obj[:person_id].blank?
 				obj.delete(:name)
 			end
 		end

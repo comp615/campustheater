@@ -3,7 +3,6 @@ class PagesController < ApplicationController
 	# The page users hit when they first visit in browser.
 	def index
 		# Select and load active modules from config DB (if any)
-		@page_header_title = "Homepage"
 
 		# Load in news posts and other relevant content for display
 		@news = News.order("created_at DESC").first(5)
@@ -57,7 +56,6 @@ class PagesController < ApplicationController
 	# Static Page
 	def resources
 		@page_name = " - Resources"
-		@page_header_title = "Resources"
 	end
 
 	# The parameter we recieve is the file that we want to render

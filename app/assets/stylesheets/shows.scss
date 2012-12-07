@@ -233,3 +233,11 @@ h5 {
 		}
 	}
 }
+
+#flickr_show {
+	height:550px; 
+	width: 100%;
+	.flickrshow-container {
+		z-index: -1;
+	}
+}
