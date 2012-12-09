@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
 	end
 	
 	def check_user
-		session[:cas_user] = "cpc2"
-		@current_user = Person.where(:netid => "cpc2").first
+		# session[:cas_user] = "cpc2"
+		# @current_user = Person.where(:netid => "cpc2").first
 
 		# first visit, or stale visit, try to gateway auth
 		if(!session[:last_ts] && !@current_user)
