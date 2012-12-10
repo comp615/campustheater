@@ -47,7 +47,8 @@ class PeopleController < ApplicationController
 				redirect_to url
 			end			
 		else
-			render :new, :notice => "There was an error with the data you entered, please try again!"
+			flash.now[:error] = "There was an error with the data you entered, please try again!"
+			render :new
 		end
 	end
 	
@@ -63,9 +64,9 @@ class PeopleController < ApplicationController
 		if session[:user_flow_entry]
 			url = session[:user_flow_entry]
 			session[:user_flow_entry] = nil
-			redirect_to url, :notice => "Request Successful. Enjoy the site!"
+			redirect_to url, :notice => "Request Successful. Enjoy the new site!"
 		else
-			redirect_to dashboard_path, :notice => "Takeover request successful."
+			redirect_to dashboard_path, :notice => "Takeover request successful!"
 		end
 	end
 	

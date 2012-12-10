@@ -35,7 +35,8 @@ class NewsController < ApplicationController
 	      format.html { redirect_to admin_dashboard_path, :notice => 'News was updated.' }
 	      format.json { respond_with_bip(@news) }
 	    else
-	      format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again' }
+	    	flash.now[:error] = 'Sorry, there was a problem with the data you entered, please try again'
+	      format.html { render :action => "edit" }
 	      format.json { respond_with_bip(@news) }
 	    end
 	  end

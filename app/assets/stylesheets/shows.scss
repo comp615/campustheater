@@ -45,16 +45,21 @@ h5 {
 .cast, .crew {
 	text-align: center;
 	table {
+		width: 100%;
+		td { 
+			vertical-align: top;
+			padding: 3px 0px; 
+		}
 		td:first-child {
+			width: 50%;
 			text-align: right;
 			font-weight: bold;
 			padding-right: 10px;
-			width: 50%;
 		}
 		td:last-child {
+			width: 50%;
 			text-align: left;
 			padding-left: 10px;
-			width: 50%;
 		}
 	}
 }

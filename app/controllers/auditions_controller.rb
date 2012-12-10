@@ -17,7 +17,7 @@ class AuditionsController < ApplicationController
 	# ^ TODO: Auto-prune old shows with vacant positions so they don't end up clogging this query
 	def opportunities
 		@opportunities = ShowPosition.crew.vacant.includes(:show, :position)
-		@opportunities.select!{|o| o.show.showtimes.first.timestamp > Time.now }
+		@opportunities.select!{|o| o.show && o.show.showtimes.first.timestamp > Time.now }
 		@opportunities = @opportunities.group_by(&:display_name)
 		# TODO: Replace show.contact with the email of the producer?
 	end
@@ -43,7 +43,8 @@ class AuditionsController < ApplicationController
 		if @show.auditions.where(:timestamp => (start...stop)).count > 0
 			#Bad params
 			@auditions = @show.auditions.future.includes(:person)
-			render :action => 'index', :notice => 'Given audition times conflict with pre-existing auditions.'
+			flash.now[:error] = 'Given audition times conflict with pre-existing auditions.'
+			render :action => 'index'
 			return
 		end
 		
@@ -71,7 +72,7 @@ class AuditionsController < ApplicationController
 		if params[:commit] == "cancel" || params[:commit] =~ /\d+/
 			# user wants to cancel/update, verify params
 			if params[:commit] =~ /\d+/ && (params[:phone].blank? || params[:email].blank?)
-				redirect_to show_auditions_path(@show), :notice => 'Please enter a valid phone and email so the show can contact you'
+				redirect_to show_auditions_path(@show), :error => 'Please enter a valid phone and email so the show can contact you'
 				return
 			end
 			

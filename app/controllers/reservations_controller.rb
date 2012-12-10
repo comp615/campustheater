@@ -34,9 +34,10 @@ class ReservationsController < ApplicationController
 				# Tell the ReservationMailer to send a confirmation email
         ReservationMailer.reservation_confirmation_email(@reservation.showtime, @reservation, @reservation.status_line).deliver
 
-				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully created.' }
+				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully created. You should recieve an email confirmation shortly with a link to this page.' }
 			else
-				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again!' }
+				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again!'
+				format.html { render :action => "edit" }
 			end
 		end
 	end
@@ -55,9 +56,10 @@ class ReservationsController < ApplicationController
 		params[:reservation][:person_id] = @current_user.id if @current_user && (!@reservation || !@reservation.person_id)
 		respond_to do |format|
 			if @reservation.update_attributes(params[:reservation])
-				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully created.' }
+				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully updated.' }
 			else
-				format.html { render :action => "edit", :notice => 'Sorry, there was a problem with the data you entered, please try again!' }
+				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again!'
+				format.html { render :action => "edit" }
 			end
 		end
 	end

@@ -32,10 +32,11 @@
     }
 
     .item {
-      [class*="span"] { margin: 0px; }
+      &[class*="span"] { margin: 0px; }
       & + .item { margin-left: 20px; }
       .title {
         font-family: 'Bitter', serif;
+        line-height: 30px;
         &:hover {
           text-decoration: none;
         }

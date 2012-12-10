@@ -1,32 +1,41 @@
-<h3>Welcome to the NEW Yale Drama Coalition Site!</h3>
-<p>
-You either tried to access something on the site that requires registration, or you just happened to be logged in to CAS. Either way, we're glad you got here!
-</p>
-<p>
-The site's internals have been redesigned from the ground up, and that means we're going to associated your netid with your account. There's a ton of cool
- perks that come with this: No more remembering passwords to your shows, keep track of all your reservations and auditions in one place, and use the same 
- login you already use!
-</p>
-<p>
-Anyways we know you were doing something, and we'll get you back there in one second, but first please take a minute to fill out your basic information,
-you'll only have to do this once!
-</p>
-
-<%= form_for @person, :html => { :multipart => true } do |f| %>
-	<%= f.label :fname %> <%= f.text_field :fname %><br />
-	<%= f.label :lname %><%= f.text_field :lname %><br />
-	<%= f.label :college %><%= f.select :college, YALE_COLLEGES.to_a.map(&:reverse) %><br />
-	<%= f.label :year %><%= f.number_field :year %><br />
-	<%= f.label :bio %>
-	<br />
-	<%= f.text_area :bio %><br />
-	<%= f.label :picture %><%= f.file_field :picture %><br />
-	
-	<br /><br />
-	<h4>This portion will only visible to you:</h4><br />
-	<%= f.label :email %><%= f.text_field :email %><br />
-	Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br />
-	Associated NetID: <%= session[:cas_user] %><br />
-	<%= f.submit "Get Started!" %>
-	
-<% end %>
+<div class="row">
+	<div class="span6 offset3">
+		<h3>Welcome to the NEW YDC Website!</h3>
+		<p>
+			<%= image_tag("welcome_llama.png", :style => "float: right;") %>
+		You either tried to access something on the site that requires registration, or you just happened to be logged in to CAS. Either way, we're glad you got here!
+		</p>
+		<p>
+		The site's internals have been redesigned from the ground up, and that means we're going to associate your netid with your account. There's a ton of cool
+		 perks that come with this: No more remembering passwords to your shows, keep track of all your reservations and auditions in one place, and use the same login you already use at Yale!
+		</p>
+		<p>
+		Anyways we know you were doing something, and we'll get you back there in one second, but first <b>please take a minute to fill out your basic information.
+		You'll only have to do this once!</b>
+		</p>
+		<br />
+		<%= form_for @person, :html => { :multipart => true } do |f| %>
+			<div class="row">
+				<div class="span3">
+					<%= f.label :fname, "First Name" %> <%= f.text_field :fname %><br />
+					<%= f.label :lname, "Last Name" %><%= f.text_field :lname %><br />
+					<%= f.label :college, "Residential College" %><%= f.select :college, YALE_COLLEGES.to_a.map(&:reverse) %><br />
+					<%= f.label :year, "Class Year" %><%= f.number_field :year %><br />
+					<%= f.label :picture, "Profile Picture" %><%= f.file_field :picture %><br />
+				</div>
+				<div class="span3">
+					<%= f.label :bio, "Short Bio" %>
+					<br />
+					<%= f.text_area :bio %>
+				</div>
+			</div>
+			<br />
+			<h4>This portion will only visible to you:</h4><br />
+			<%= f.label :email, "Email Address" %><%= f.text_field :email %><br />
+			Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br />
+			Associated NetID: <%= session[:cas_user] %><br /><br />
+			<%= f.submit "Get Started!" %>
+			
+		<% end %>
+	</div>
+</div>

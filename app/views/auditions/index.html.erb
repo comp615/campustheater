@@ -37,6 +37,7 @@ Audition Information:<br />
 <% if !@auditions.blank? %>
 	<%= form_tag show_auditions_path(@show), :method => :put do %>
 		<h4>Your Information:</h4>
+		Name: <%= @current_user.display_name %><br />
 		Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s if @user_audition %>" /><br />
 		Email: <input type="text" name="email" value="<%= @user_audition[:email].to_s if @user_audition %>" />
 		<br />

@@ -57,7 +57,7 @@ class Show < ActiveRecord::Base
 	end
 	
 	def crew
-		self.show_positions.select {|sp| sp.position_id != 17 && sp.person_id}
+		self.show_positions.select {|sp| sp.position_id != 17 && sp.person}
 	end
 
 	def has_opportunities?

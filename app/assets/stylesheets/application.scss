@@ -12,6 +12,8 @@
  *= require_self
  *= require frontpage
  *= require shows
+ *= require people
+ *= require reservations
  *= require jquery.ui.datepicker
  *= require jquery.ui.autocomplete
  *= require jquery.timepicker.css
@@ -87,6 +89,12 @@ h1,h2,h3,h4,h5 {
 	}
 }
 
+.field_with_errors { 
+	display: inline; 
+	input, select, textarea {
+		border: 1px solid red
+	}
+}
 .field_with_errors label {
 	font-weight: bold;
 	color: red;

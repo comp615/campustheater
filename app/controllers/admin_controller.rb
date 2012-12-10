@@ -14,7 +14,7 @@ class AdminController < ApplicationController
 		if req.fulfill
 			redirect_to admin_dashboard_path, :notice => "#{req.person.display_name}'s request granted!"
 		else
-			redirect_to admin_dashboard_path, :notice => "There was a problem, please try again..."
+			redirect_to admin_dashboard_path, :error => "There was a problem, please try again..."
 		end
 	end
 	
@@ -31,7 +31,7 @@ class AdminController < ApplicationController
 		if @show.save
 			redirect_to admin_dashboard_path, :notice => "Show approved!"
 		else
-			redirect_to admin_dashboard_path, :notice => "There was a problem, please try again..."
+			redirect_to admin_dashboard_path, :error => "There was a problem, please try again..."
 		end
 	end
 	

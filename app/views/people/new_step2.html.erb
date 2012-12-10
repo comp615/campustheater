@@ -1,12 +1,17 @@
-<h4>Old User Matches for You</h4>
-<p>One last thing, then you're on your way! We know you probably had an account on the old site, and we want to make sure everything syncs up to this new account.
-We've found some people that might be you below, if they are, just check them off and once approved, the data will be moved to this new account</p>
+<div class="row">
+	<div class="span6 offset3">
+		<h4>Old User Matches for You</h4>
+		<p>One last thing, then you're on your way! We know you probably had an account on the old site, and we want to make sure everything syncs up to this new account.
+		We've found some people that might be you below, if they are, just check them off and once approved, the associated data will be moved to this new account</p>
 
-<br /><br />
-<b>Similar Names:</b><br />
-<%= form_tag takeover_request_path(@person) do %>
-	<% @matches.each do |p| %>
-		<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
-	<% end %>
-	<%= submit_tag "Request Names" %>
-<% end %>
+		<br /><br />
+		<b>Similar Names:</b><br />
+		<%= form_tag takeover_request_path(@person) do %>
+			<% @matches.each do |p| %>
+				<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
+			<% end %>
+			<br />
+			<%= submit_tag "Request Names" %>
+		<% end %>
+	</div>
+</div>

@@ -50,7 +50,7 @@ class Reservation < ActiveRecord::Base
 		if user_other_reservations_count > 0
       errors.add(:email, "cannot make multiple reservations to the same show")
     end
-    if num > self.show.cap
+    if num && num > self.show.cap
     	errors.add(:num, "is too large")
     end
     # TODO: add more stuff, check freeze time...etc.
