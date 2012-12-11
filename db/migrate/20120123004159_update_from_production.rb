@@ -39,6 +39,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	execute("ALTER TABLE shows CHANGE show_id id int(11) NOT NULL AUTO_INCREMENT")
   	add_column :shows, :flickr_id, :string, :null => true
   	rename_column :shows, :poster, :old_poster
+    change_column :shows, :old_poster, :null => true, :default => :nil
   	add_attachment :shows, :poster
     add_column :shows, :poster_meta, :text
   	add_timestamps :shows

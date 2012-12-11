@@ -50,7 +50,7 @@ class ShowsController < ApplicationController
 	def create
 		@show = Show.new
 		@show.approved = false
-		edit
+		update
 	end
 	
 	#TODO: Add ordering to the cast/crew fields to allow a custom ordering

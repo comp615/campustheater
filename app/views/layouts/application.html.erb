@@ -47,7 +47,7 @@
   </div>
 </div>
 
-<div class="content">
+<div class="content <%= params[:controller] %> <%= params[:action] %>">
 	<% if flash[:notice] %>
     <div class="alert alert-info"><%= flash[:notice] %></div>
   <% end %>

@@ -1,84 +1,86 @@
 <%= link_to "Site Admin Dashboard<br/><br />".html_safe, admin_dashboard_path if @current_user.site_admin? %>
+<h3>Welcome <%= @current_user.fname %>!</h3>
+This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!<br /><br />
 
-<b>Welcome <%= @current_user.fname %>!</b><br />
-This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!
-<br />
 
-<br />
-<%= link_to "View/Edit Profile", @current_user %>
-<br />
-
-<h4>My Shows</h4>
-Note that ticketing and audition links won't be available until shows are approved.
-
-<% if @shows.empty? %>
-	You don't currently have access to any shows!
-<% else %>
-	<table>
-		<tr><th>Show</th><th>Open Date</th><th>Permissions</th><th></th></tr>
-		<% @shows.each do |s| %>
-		<tr>
-			<td><%= link_to s.title, s %><%= " (Pending)" unless s.approved %></td>
-			<td><%= s.showtimes.first.timestamp.strftime("%b %d %Y") %></td>
-			<td><%= @permission_map[s.id].map{|p| p.level.to_s.capitalize}.join(",") %></td>
-			<td>
-				<%= link_to "Edit Show".html_safe, edit_show_path(s) if @permission_map[s.id].detect{|p| p.level == :full} %>
-				<%= link_to "<br />Manage Auditions".html_safe, show_auditions_path(s) if s.approved && @permission_map[s.id].detect{|p| [:full, :auditions].include? p.level } %>
-				<%= link_to "<br />View Reservations".html_safe, show_showtimes_path(s) if s.approved && s.tix_enabled && !s.has_closed? && @permission_map[s.id].detect{|p| [:full, :reservations].include? p.level} %>
-			</td>
-		</tr>
+<div class="row">
+	<div class="span6">
+		<h5>My Profile  &nbsp; <%= link_to "(Edit)", @current_user %></h5> 
+		<b><%= @current_user.display_name %></b><br />
+	  <%= @current_user.college %> <%= @current_user.year %><br />
+	  <%= @current_user.bio %>
+		<br /><br />
+		<b>Profile Takeover Notifications</b><br />
+		<% if @similar_people.empty? %>
+			No people found right now
+		<% else %>
+			<%= form_tag takeover_request_path(@current_user) do %>
+				<% @similar_people.each do |p| %>
+					<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
+				<% end %>
+				<%= submit_tag "Request Names" %>
+			<% end %>
 		<% end %>
-	</table>
-<% end %>
-<br />
-<%= link_to "List a New Show", new_show_path %>
-
-
-
-<h4>My Upcoming Reservations</h4>
-<% if @reservations.empty? %>
-	You don't have any upcoming reservations!
-<% else %>
-	<table>
-		<tr><th>Show</th><th>Time</th><th>Location</th><th></th></tr>
-		<% @reservations.each do |r| %>
-			<tr>
-				<td><%= link_to r.show.title, r.show %></td>
-				<td><%= small_timestamp r.showtime.timestamp %></td>
-				<td><%= r.show.location %></td>
-				<td><%= link_to "View/Edit", [r.show,r] %></td>
+	</div>
+	<div class="span6">
+		<h5>My Upcoming Reservations</h5>
+		<% if @reservations.empty? %>
+			You don't have any upcoming reservations!
+		<% else %>
+			<table>
+				<tr><th>Show</th><th>Time</th><th>Location</th><th></th></tr>
+				<% @reservations.each do |r| %>
+					<tr>
+						<td><%= link_to r.show.title, r.show %></td>
+						<td><%= small_timestamp r.showtime.timestamp %></td>
+						<td><%= r.show.location %></td>
+						<td><%= link_to "View/Edit", [r.show,r] %></td>
+				<% end %>
+			</table>
 		<% end %>
-	</table>
-<% end %>
-
-<h4>My Auditions</h4>
-<% if @auditions.empty? %>
-	You don't have any upcoming auditions!
-<% else %>
-	<table>
-		<tr><th>Show</th><th>Audition Time</th><th>Location</th><th></th></tr>
-		<% @auditions.each do |a| %>
-			<tr>
-				<td><%= link_to a.show.title, a.show %></td>
-				<td><%= small_timestamp a.timestamp %></td>
-				<td><%= a.location %></td>
-				<td><%= link_to "View/Edit", show_auditions_path(a.show) %></td>
+	</div>
+</div>
+<div class="row">
+	<div class="span6">
+		<h5>My Auditions</h5>
+		<% if @auditions.empty? %>
+			You don't have any upcoming auditions!
+		<% else %>
+			<table>
+				<tr><th>Show</th><th>Audition Time</th><th>Location</th><th></th></tr>
+				<% @auditions.each do |a| %>
+					<tr>
+						<td><%= link_to a.show.title, a.show %></td>
+						<td><%= small_timestamp a.timestamp %></td>
+						<td><%= a.location %></td>
+						<td><%= link_to "View/Edit", show_auditions_path(a.show) %></td>
+				<% end %>
+			</table>
+		<% end %> 
+	</div>
+	<div class="span6">
+		<h5>My Shows  &nbsp; <%= link_to "(New)", new_show_path %></h5>
+		Note that ticketing and audition links won't be available until shows are approved.<br /><br />
+		<% if @shows.empty? %>
+			You don't currently have access to any shows!
+		<% else %>
+			<table>
+				<tr><th>Show</th><th>Open Date</th><th>Permissions</th><th></th></tr>
+				<% @shows.each do |s| %>
+				<tr>
+					<td><%= link_to s.title, s %><%= " (Pending)" unless s.approved %></td>
+					<td><%= s.showtimes.first.timestamp.strftime("%b %d %Y") %></td>
+					<td><%= @permission_map[s.id].map{|p| p.level.to_s.capitalize}.join(",") %></td>
+					<td>
+						<%= link_to "Show Dashboard", show_dashboard_path(s) %>
+					</td>
+				</tr>
+				<% end %>
+			</table>
 		<% end %>
-	</table>
-<% end %>
-Render Partials?
+	</div>
+</div>
 
 
-<h4>Profile Takeover Notifications</h4>
-<% if @similar_people.empty? %>
-	No people found right now
-<% else %>
-	<%= form_tag takeover_request_path(@current_user) do %>
-		<% @similar_people.each do |p| %>
-			<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
-		<% end %>
-		<%= submit_tag "Request Names" %>
-	<% end %>
-<% end %>
 
 
