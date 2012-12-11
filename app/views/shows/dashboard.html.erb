@@ -26,6 +26,15 @@
   			<%= link_to best_link(@show,true), best_link(@show) %>
   		</div>
   	</div>
+    <br /><br />
+    <div class="row">
+      <div class="span6">
+        <h5>Misc Files  &nbsp; <%= link_to "(Edit)", show_edit_files_path(@show) %></h5>
+        <% @s3_objects.each do |obj| %>
+              <%= link_to obj.key.split("/")[-1], "#{obj.url_for(:read)}" %><br />
+        <% end %>
+      </div>
+    </div>
   </div>
   <!-- TICKETING AREA -->
   <div class="span6">

@@ -64,7 +64,7 @@ h5 {
 	}
 }
 
-.row {
+*:not([class*="span"]) > .row {
 	margin-bottom: 30px;
 }
 

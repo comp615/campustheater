@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 	# And their protected methods
 	protected
 	
+	# force auth is always run after check_user, so we might have been successful
 	def force_auth
 		session[:last_ts] = nil
 		CASClient::Frameworks::Rails::Filter.filter self unless @current_user
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::Base
 			@current_user = Person.where(:netid => session[:cas_user]).first
 			if !@current_user && (controller_name != "people"  || !["new","create"].include?(action_name))
 				# This is their first visit, trigger the new user flow
-				session[:user_flow_entry] = request.url
+				session[:user_flow_entry] ||= request.url
 				redirect_to new_person_path
 			end
 		end

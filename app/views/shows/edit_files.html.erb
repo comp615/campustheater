@@ -1,0 +1,26 @@
+<h4>Edit files for <%= @show.title %></h4>
+ 
+<h5>Upload a New File:</h5>
+<%= form_for @show, :remote => true do |f| %>
+	<%= f.file_field :file %>
+<% end %>
+
+<hr />
+<h5>Current Files:</h5>
+<%= form_tag(:method => :post) do %>
+	<input type=submit name=destroy value="Delete Selected Files">
+	<table>
+		<tr><th>File</th><th>Remove?</th></tr>
+	<% @s3_objects.each do |obj| %>
+		<tr>
+			<td>
+				<%= link_to obj.key.split("/")[-1], "#{obj.url_for(:read)}" %>
+			</td>
+			<td>
+				<input type=checkbox name="destroy_files[]" value="<%= obj.key.split("/")[-1] %>">
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<input type=submit name=destroy value="Delete Selected Files">
+<% end %>
