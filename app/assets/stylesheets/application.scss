@@ -69,6 +69,21 @@ h1,h2,h3,h4,h5 {
 			color: white;
 			text-shadow: none;
 		}
+
+		.navbar-search {
+			background-color: #8891df;
+			padding-right: 5px;
+			border-radius: 2px;
+			i { margin-top: 4px; margin-right: 4px; }
+		}
+
+		.search-query {
+			border-radius: 2px;
+			background-color: #8891df;
+			color: white;
+			width: 150px;
+			border: none;
+		}
 	}
 }
 
