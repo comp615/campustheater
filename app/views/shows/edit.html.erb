@@ -33,7 +33,15 @@
 				If this show has a Flickr gallery, please enter the ID here
 			</div>
 
-			<%= f.file_field :poster %>
+			<%= f.file_field :poster %><br />
+
+			<b>Choose an accent color...</b><br />
+			<% @show.column_for_attribute(:accent_color).limit.each do |color| %>
+				<div class="color-item">
+						<%= label_tag("show_accent_color_#{color.to_s}", "<div class='swatch #{color.to_s}'></div>".html_safe) %>
+						<%= f.radio_button(:accent_color, color.to_s) %>
+				</div>
+			<% end %>
 
 			<hr />
 			<h4>Scheduling and Tickets</h4>
@@ -91,12 +99,12 @@
 			<div class="frontpage-preview">
 				<div class="row">
 					<div class="span6 item">
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :color_palette => "blue" } %>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :color_palette => @show.accent_color ? @show.accent_color.to_s : "black" } %>
 					</div>
 				</div>
 				<div class="row">
 					<div class="span4 item">
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :color_palette => "blue" } %>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :color_palette => @show.accent_color ? @show.accent_color.to_s : "black" } %>
 					</div>
 				</div>
 			</div>

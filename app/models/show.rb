@@ -18,7 +18,7 @@ class Show < ActiveRecord::Base
 	#TODO: Make some scopes to get basic information only
 	# TODO: Stub out director line and auto-manage
 	
-	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description, :poster, :flickr_id
+	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description, :poster, :accent_color, :flickr_id
 	attr_accessible :tix_enabled, :alt_tix, :seats, :cap, :waitlist, :show_waitlist, :freeze_mins_before, :on_sale
 	attr_accessible :auditions_enabled, :aud_info
 	attr_accessible :showtimes_attributes, :show_positions_attributes, :permissions_attributes

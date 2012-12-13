@@ -19,8 +19,13 @@ h5 {
 .show-header {
 	h2 {
 		display: inline-block;
-		padding: 0px 20px;
+		padding: 5px 20px;
 		font-family: Bitter;
+		color: white;
+		border-radius: 2px;
+		&.no_color {
+			color: inherit;
+		}
 	}
 	.writer { 
 		font-weight: bold;
@@ -219,10 +224,23 @@ h5 {
 		}
 	}
 
+	.color-item {
+		text-align: center;
+		line-height: 20px;
+		float: left;
+		margin: 5px;
+		input { margin: 0px; }
+		.swatch {
+			width: 55px;
+			height: 25px;
+		}
+	}
+
 	.frontpage-preview {
 		line-height: 20px;
 		position: fixed;
-		margin-left: 0px;
+		[class*="span"] { margin-left: 0px; }
+		.poster { margin: 0px; }
 	}
 }
 

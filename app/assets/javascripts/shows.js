@@ -121,6 +121,12 @@ $(document).ready(function() {
 	$("input.required, select.required, textarea.required").after("<span class='required' />");
 
 	// Bind the live-preview updates
+	var available_colors = $.makeArray($("input[name*=accent_color]").map(function() { return $(this).attr("value") }));
+	$("input[name*=accent_color]").on("change", function() {
+		$(".frontpage-preview").find(".item .row").removeClass(available_colors.join(" ")).addClass($(this).val());
+	});
+
+	// Bind color changer to change the css class
 	$("form").on("change", "input, textarea, select", function() {
 		$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
 	});

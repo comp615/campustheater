@@ -68,6 +68,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	change_column :shows, :on_sale, :date, :null => true, :default => nil
   	change_column :shows, :archive, :boolean, :default => true
   	change_column :shows, :archive_reminder_sent, :boolean, :default => false
+    add_column :shows, :accent_color, :enum, :limit => [:red, :yellow, :green, :dark_blue, :blue, :light_blue, :black], :null => true
   	
   	execute("UPDATE `shows` SET url_key = NULL WHERE url_key NOT REGEXP '^[a-zA-Z0-9_]+$'")
   	execute("UPDATE `shows` SET on_sale = NULL WHERE on_sale = '0000-00-00'")
