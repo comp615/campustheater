@@ -13,6 +13,7 @@
 		Anyways we know you were doing something, and we'll get you back there in one second, but first <b>please take a minute to fill out your basic information.
 		You'll only have to do this once!</b>
 		</p>
+		Your NetID: <b><%= session[:cas_user] %></b> &nbsp; &nbsp; &nbsp; Not you? <%= link_to "Logout", logout_path %><br />
 		<br />
 		<%= form_for @person, :html => { :multipart => true } do |f| %>
 			<div class="row">
@@ -32,8 +33,7 @@
 			<br />
 			<h4>This portion will only visible to you:</h4><br />
 			<%= f.label :email, "Email Address" %><%= f.text_field :email %><br />
-			Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br />
-			Associated NetID: <%= session[:cas_user] %><br /><br />
+			Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br /><br />
 			<%= f.submit "Get Started!" %>
 			
 		<% end %>

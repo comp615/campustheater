@@ -82,7 +82,7 @@ class PeopleController < ApplicationController
 	end
 	
 	def logout
-		redirect_to root_path
+		CASClient::Frameworks::Rails::Filter.logout(self)
 	end
 	
 	private

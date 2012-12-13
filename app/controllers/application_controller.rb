@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 			# User is CAS Authed, try to make an account for them
 			# TODO: Check if we actually created an account, and if so, redirect them to profile flow
 			@current_user = Person.where(:netid => session[:cas_user]).first
-			if !@current_user && (controller_name != "people"  || !["new","create"].include?(action_name))
+			if !@current_user && (controller_name != "people"  || !["new","create","logout"].include?(action_name))
 				# This is their first visit, trigger the new user flow
 				session[:user_flow_entry] ||= request.url
 				redirect_to new_person_path
