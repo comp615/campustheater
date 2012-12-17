@@ -86,8 +86,6 @@ class Person < ActiveRecord::Base
       p = ldap.search(:base => b, :filter => f, :return_result => true).first
     
     rescue Exception => e
-          logger.debug :text => e
-          logger.debug :text => "*** ERROR with LDAP"
           guessFromEmail
     end
 

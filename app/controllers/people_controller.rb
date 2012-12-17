@@ -25,7 +25,10 @@ class PeopleController < ApplicationController
 	# New User step 1
 	def new
 		redirect_to @current_user if @current_user # They must be CAS authed no we're OK
-		@current_user = @person = Person.new.populateLDAP
+		@person = Person.new
+		@person.netid = session[:cas_user]
+		@person.populateLDAP
+		@current_user = @person
 	end
 	
 	# Designed to be indemnipotent in case they refresh the page and re-submit
