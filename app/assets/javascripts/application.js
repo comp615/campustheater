@@ -15,6 +15,7 @@
 //= require jquery.remotipart
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
+//= require jquery.ui.sortable
 //= require jquery.timepicker.js
 //= require bootstrap
 //= require rails.validations

@@ -115,6 +115,26 @@ function handleFileChange() {
 	}
 }
 
+function setPositionOrderingAndSubmit(e) {
+	if($("input[name=order_crew]").is(":checked")) {
+		$("#show_positions input[name*=listing_order]").each(function(i) {
+			$(this).val(i);
+		});
+	} else {
+		$("#show_positions input[name*=listing_order]").removeAttr("value");
+	}
+
+	if($("input[name=order_cast]").is(":checked")) {
+		$("#show_cast input[name*=listing_order]").each(function(i) {
+			$(this).val(i);
+		});
+	} else {
+		$("#show_cast input[name*=listing_order]").removeAttr("value");
+	}
+
+	$("form.edit_show")[0].submit();
+}
+
 // Hookup the autocompletes on page load
 $(document).ready(function() {
 	// Add a holder for the required asterisks
@@ -149,7 +169,7 @@ $(document).ready(function() {
 
 	// Manage showing/hiding of the audition groups
 	$("#aud_enabled_wrapper").toggle( $(this).is(":checked") );
-	$("#submit").on('click', function() { $("form.edit_show")[0].submit() });
+	$("#submit").on('click', setPositionOrderingAndSubmit);
 	$("#show_auditions_enabled").on('change',function() { $("#aud_enabled_wrapper").toggle( $(this).is(":checked") )});
 
 	// Make the audition form submit the correct form
@@ -157,6 +177,9 @@ $(document).ready(function() {
 	$("#audition_slots").on("click", "a.remove", removeSingleAudition);
 	$("#audition_slots").on("click", ".block-remove .btn", removeBlockAudition);
 
+	// Allow sorting of people/shows
+  $( "#show_positions, #show_cast" ).sortable();
+  $( "#show_positions, #show_cast" ).disableSelection();
 
 	// Since the timepicker is nested in a label, we need to prevent
 	// label clicks from doing anything if they are on the time select list

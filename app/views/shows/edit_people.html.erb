@@ -13,6 +13,7 @@
 	  <div class="span6">
 	  	<h5>Production Staff</h5>
 	  	<p>Tell the community about who's making your show happen. Leave the name field blank to list the position as a tech opportunity.</p>
+	  	<input type="checkbox" name="order_crew" <%= "checked" if @show.crew.detect{|c| c.listing_order != nil} %>> Use custom ordering below for crew<br />
 		  	<ul id="show_positions">
 				<%= f.fields_for :show_positions, @show.crew do |builder| %>
 					<%= render 'show_position_fields', :f => builder %>
@@ -23,7 +24,8 @@
 	  <div class="span6">
 	  	<h5>Cast</h5>
 	  	<p>Who's taking center stage? Drag and drop to re-order the listings.</p>
-	  	<ul>
+	  	<input type="checkbox" name="order_cast" <%= "checked" if @show.cast.detect{|c| c.listing_order != nil} %>> Use custom ordering below for cast<br />
+	  	<ul id="show_cast">
 				<%= f.fields_for :show_positions, @show.cast do |builder| %>
 					<%= render 'show_position_fields', :f => builder %>
 				<% end %>
