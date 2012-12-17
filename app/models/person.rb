@@ -65,11 +65,9 @@ class Person < ActiveRecord::Base
   	self.fname.blank?
   end
 
-protected
-	#Todo: Repopulate periodically?
   #populate contact fields from LDAP
   def populateLDAP
-    return #Fix this later once we get LDAP or whatever worked out
+    return unless Rails.env.production?
     #quit if no email or netid to work with
     self.email ||= ''
     return if !self.email.include?('@yale.edu') && !self.netid
@@ -92,19 +90,19 @@ protected
           logger.debug :text => "*** ERROR with LDAP"
           guessFromEmail
     end
+
+    return unless p
   
     self.netid = ( p['uid'] ? p['uid'][0] : '' )
     self.fname = ( p['knownAs'] ? p['knownAs'][0] : '' )
-    if self.fname.blank?
-      self.fname = ( p['givenname'] ? p['givenname'][0] : '' )
-    end
+    self.fname ||= ( p['givenname'] ? p['givenname'][0] : '' )
     self.lname = ( p['sn'] ? p['sn'][0] : '' )
     self.email = ( p['mail'] ? p['mail'][0] : '' )
     self.year = ( p['class'] ? p['class'][0].to_i : 0 )
     self.college = ( p['college'] ? p['college'][0] : '' )
     
-    self.save!
-
+    # Don't save the model, because they are going to be shown a form to edit info
+    # self.save!
   end
 
   # not a yale email, just make best guess at it 
