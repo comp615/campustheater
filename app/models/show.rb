@@ -35,6 +35,7 @@ class Show < ActiveRecord::Base
 	validates :alt_tix, :email_format => true, :allow_blank => true, :unless => Proc.new { |s| s.tix_enabled }
 	validates :contact, :email_format => true
 	validates :seats, :cap, :freeze_mins_before, :on_sale, :presence => true, :if => Proc.new { |s| s.tix_enabled }
+	validates :showtimes, :length => { :minimum => 1, :too_short => "needs to have at least 1 showtime given" }
 
 	after_update :check_to_notify_changes
 	

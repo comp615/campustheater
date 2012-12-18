@@ -46,7 +46,8 @@ Please choose something to search for:<br />
 	<table>
 		<tr><th>Person</th><th>Show Name</th><th>Dates</th></tr>
 		<% @people.group_by(&:person_id).each do |person_id,arr| %>
-			<% arr.sort_by{|sp| sp.show.showtimes.first.timestamp}.each_with_index do |sp,i| %>
+			<% arr.sort_by{|sp| sp.show ? sp.show.showtimes.first.timestamp : 0}.each_with_index do |sp,i| %>
+				<% next unless sp.show %>
 				<tr><td><%= link_to sp.person.display_name, sp.person if i == 0 %></td><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= format_long_rundates(sp.show) %></td></tr>
 			<% end %>
 		<% end %>

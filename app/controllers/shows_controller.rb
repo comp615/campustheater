@@ -134,7 +134,7 @@ class ShowsController < ApplicationController
 	    if @show.update_attributes(params[:show])
 	    	#Add permissions for this person to the show if they tried to delete them
 	    	if !@current_user.site_admin? && !@show.permissions.detect{|sp| sp.person_id == @current_user.id && sp.type == :full}
-	    		@show.permissions.create(:person => @current_user, :level => :full) unless @current_user.site_admin?
+	    		@show.permissions.create(:person_id => @current_user.id, :level => :full) 
 	    		@show.save!
 	    	end
 
