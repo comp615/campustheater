@@ -44,7 +44,7 @@ Please choose something to search for:<br />
 <% if !@people.blank? %>
 	<h4>Person Results:</h4><br />
 	<table>
-		<tr><th>Person</th><th>Show Name</th><th>Dates</th></tr>
+		<tr><th width="25%">Person</th><th width="40%">Show Name</th><th width="35%">Dates</th></tr>
 		<% @people.group_by(&:person_id).each do |person_id,arr| %>
 			<% arr.sort_by{|sp| sp.show ? sp.show.showtimes.first.timestamp : 0}.each_with_index do |sp,i| %>
 				<% next unless sp.show %>
