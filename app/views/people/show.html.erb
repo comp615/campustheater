@@ -24,7 +24,7 @@
 <h3>Show History</h3>
 <table>
   <tr><th>Show Name</th><th>Role</th><th>Dates</th></tr>
-  <% @person.show_positions.includes(:show,:position).sort_by{|sp| sp.show.showtimes.first.timestamp}.reverse.each do |sp| %>
+  <% @person.show_positions.includes(:show,:position).sort_by{|sp| sp.show ? sp.show.showtimes.first.timestamp : 0}.reverse.each do |sp| %>
   <tr><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= sp.display_name %></td><td><%= format_long_rundates(sp.show) %></td></tr>
   <% end %>
 </table>

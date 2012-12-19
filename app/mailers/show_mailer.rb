@@ -10,13 +10,13 @@ class ShowMailer < ActionMailer::Base
 
   def show_approved_email(show)
     @show = show
-    mail(:to => [show.contact,"undergraduateproduction@yale.edu","derek.webster@yale.edu"], :subject => "[YDC Site] New Show Approved: " + show.title)
+    mail(:to => [show.contact,"undergraduateproduction@yale.edu","ycarts@yale.edu"], :subject => "[YDC Site] New Show Approved: " + show.title)
   end
 
   def show_changed_email(show, changes)
   	@show = show
   	@changes = changes
-    mail(:to => ["undergraduateproduction@yale.edu","derek.webster@yale.edu"], :subject => "[YDC Site] Show Changed: " + show.title)
+    mail(:to => ["undergraduateproduction@yale.edu","ycarts@yale.edu"], :subject => "[YDC Site] Show Changed: " + show.title)
   end
 
 end
