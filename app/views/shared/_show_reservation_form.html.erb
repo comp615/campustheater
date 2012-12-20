@@ -7,5 +7,6 @@
 	Last Name: <%= f.text_field :lname, :value => (@current_user ? @current_user.lname : "") %><br />
 	Email: <%= f.text_field :email, :value => (@current_user ? @current_user.email : "") %><br />
 	Who are you? <%= f.select :reservation_type_id, options_from_collection_for_select(ReservationType.all, :id, :tix_type) %><br />
-	<%= f.submit "Create Reservation", :confirm => "Are you sure your information is correct?" unless no_submit %>
+	
+	<%= button_tag "<i class='icon-ok icon-white'></i> Make Reservation".html_safe, :class => "btn btn-small", :confirm => "Are you sure your information is correct?" unless no_submit %>
 <% end %>

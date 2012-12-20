@@ -46,7 +46,7 @@
 
 <div class="row">
 	<div class="cast span4 offset2">
-		<h5>Cast:</h5>
+		<h5>Cast</h5>
 		<table>
 			<% @show.cast.select{|sp| sp.person_id }.each do |sp| %>
 				<tr><td><%= link_to sp.person.display_name, sp.person %></td><td><%= sp.display_name %></td></tr>
@@ -59,7 +59,7 @@
 	</div>
 
 	<div class="crew span4">
-		<h5>Production Staff:</h5>
+		<h5>Production Staff</h5>
 		<table>
 			<% @show.crew.each do |sp| %>
 				<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>

@@ -26,11 +26,11 @@
 	<div class="navbar">
     <div class="navbar-inner">
 	   <ul class="nav">
-				<li><%= link_to "Home", root_path, :class => "active" %></li>
-				<li><%= link_to "Calendar", shows_path %></li>
-				<li><%= link_to "Auditions", auditions_url %></li>
-				<li><%= link_to "Opportunities", opportunities_path %></li>
-				<li><%= link_to "Learn", resources_path %></li>
+				<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
+				<li><%= link_to "Calendar", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
+				<li><%= link_to "Auditions", auditions_url, :class => @active_nav == :auditions ? "active" : "" %></li>
+				<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
+				<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
 			</ul>
 			<form class="navbar-search pull-left" method="GET" action="/search">
 	    	<input type="text" class="search-query" name="name">

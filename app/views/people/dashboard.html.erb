@@ -16,7 +16,7 @@ This dashboard is your hub for everything on the site. Here you can manage all y
 		<% else %>
 			<%= form_tag takeover_request_path(@current_user) do %>
 				<% @similar_people.each do |p| %>
-					<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
+					<label><%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %></label><br />
 				<% end %>
 				<%= submit_tag "Request Names" %>
 			<% end %>

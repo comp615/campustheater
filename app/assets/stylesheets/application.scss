@@ -27,7 +27,7 @@ body {
 .content {
 	width: 940px;
 	margin: 0 auto;
-	margin-top: 60px;
+	margin-top: 80px;
 }
 
 .alt-text {
@@ -39,7 +39,15 @@ body {
 	}
 }
 
-h1,h2,h3,h4,h5 {
+h5 {
+	color: #6f79d8;
+}
+
+h1,h2,h3 {
+	font-family: "Bitter", sans;
+}
+.faded {
+	color: #d4d7f3;
 }
 
 .header {
@@ -47,6 +55,7 @@ h1,h2,h3,h4,h5 {
 	background-color: #6f79d8;
 	width: 100%;
 	position: fixed;
+	padding: 5px 0px;
 	top: 0px;
 	h1,h2,h3,h4,h5 { display: inline; }
 	.active { font-weight: bold; }
@@ -91,9 +100,17 @@ h1,h2,h3,h4,h5 {
 	background-color: rgba(0,0,0,.3);
 }
 
-
-
-
+.btn {
+  background-image: none;
+  border: none;
+  background-color: #6f79d8;
+  color: white;
+  text-shadow: none;
+  &:hover {
+  	color: white;
+  	background-color: #070d4b;
+  }
+}
 
 .best_in_place {
 	cursor: pointer;

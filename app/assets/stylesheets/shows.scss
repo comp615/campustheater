@@ -1,277 +1,303 @@
-h5 {
-	color: #2B3169;
-	font-size: 14pt;
-	text-transform: uppercase;
-	font-weight: normal;
-}
-
-.reservations {
-	input {
-		display: inline;
-		border: none;
-		box-shadow: none;
-		border-bottom: 1px #2B3169 solid;
-		&[type=number] { width: 50px; }
-		&[type=text] { width: 135px; }
-	}
-}
-
-.show-header {
-	h2 {
-		display: inline-block;
-		padding: 5px 20px;
-		font-family: Bitter;
-		color: white;
-		border-radius: 2px;
-		&.no_color {
-			color: inherit;
-		}
-	}
-	.writer { 
-		font-weight: bold;
-	}
-	.tagline {
+.content.shows {
+	h5 {
+		color: #2B3169;
+		font-size: 14pt;
 		text-transform: uppercase;
-	}
-	p { 
-		font-size: 18px;
-		margin: 0px; 
-	}
-	margin-bottom: 40px;
-	text-align: center;
-}
-
-.poster {
-	margin-bottom: 40px;
-	text-align: center;
-	img { max-height: 450px; }
-}
-
-.cast, .crew {
-	text-align: center;
-	table {
-		width: 100%;
-		td { 
-			vertical-align: top;
-			padding: 3px 0px; 
-		}
-		td:first-child {
-			width: 50%;
-			text-align: right;
-			font-weight: bold;
-			padding-right: 10px;
-		}
-		td:last-child {
-			width: 50%;
-			text-align: left;
-			padding-left: 10px;
-		}
-	}
-}
-
-*:not([class*="span"]) > .row {
-	margin-bottom: 30px;
-}
-
-#audition_slots {
-		line-height: 20px;
-		.date { 
-			width: 100px;
-			float: left;
-			font-size: 18pt;
-			color: #2B3169;
-			.location {
-				color: #6F79D8;
-				font-size: 14pt;
-			}
-		}
-		.entries {
-			font-size: 18px;
-			width: 300px;
-			float: left;
-			a.remove {
-				color: #BE1E2D;
-			}
-			.past {
-				color: #D4D7F3;
-			}
-		}
-		.condensed, .hide-all {
-			display: none;
-		}
+		font-weight: normal;
+		a { color: #6F79D8; }
 	}
 
-.show-form {
-	color: #6F79D8;
-	line-height: 40px;
-
-	input[type=text], input[type=number], textarea, select {
-		width: 90%;
-		background-color: #D4D7F3;
+	&.show h5 {
 		color: #6F79D8;
+	}
 
-		&:focus {
-			background-color: #6F79D8;
-			color: #FFF;
+	.reservations {
+		input {
+			display: inline;
+			border: none;
+			box-shadow: none;
+			border-radius: 0px;
+			border-bottom: 1px #2B3169 solid;
+			&[type=number] { width: 50px; }
+			&[type=text] { 
+				padding-bottom: 0px;
+				width: 135px;
+				&[name*=email] { width: 165px; } 
+			}
 		}
 	}
 
-	.field_with_errors {
-		background-color: red;
+	.show-header {
+		h2 {
+			display: inline-block;
+			padding: 5px 20px;
+			font-family: Bitter;
+			color: white;
+			border-radius: 2px;
+			&.no_color {
+				color: inherit;
+			}
+		}
+		.writer { 
+			font-weight: bold;
+		}
+		.tagline {
+			text-transform: uppercase;
+		}
+		p { 
+			font-size: 18px;
+			margin: 0px; 
+		}
+		margin-bottom: 40px;
+		text-align: center;
 	}
 
-	&.people, .permissions {
-		input[type=text] {
-			width: 30%;
+	.poster {
+		margin-bottom: 40px;
+		text-align: center;
+		img { max-height: 450px; }
+	}
+
+	.cast, .crew {
+		text-align: center;
+		table {
+			width: 100%;
+			td { 
+				vertical-align: top;
+				padding: 3px 0px; 
+			}
+			td:first-child {
+				width: 50%;
+				text-align: right;
+				font-weight: bold;
+				padding-right: 10px;
+			}
+			td:last-child {
+				width: 50%;
+				text-align: left;
+				padding-left: 10px;
+			}
+		}
+	}
+
+	*:not([class*="span"]) > .row {
+		margin-bottom: 30px;
+	}
+
+	#audition_slots {
+			line-height: 20px;
+			.date { 
+				width: 100px;
+				float: left;
+				font-size: 18pt;
+				color: #2B3169;
+				.location {
+					color: #6F79D8;
+					font-size: 14pt;
+				}
+			}
+			.entries {
+				font-size: 18px;
+				width: 510px;
+				float: left;
+				a.remove {
+					color: #BE1E2D;
+				}
+				.past {
+					color: #D4D7F3;
+				}
+			}
+			.condensed, .hide-all {
+				display: none;
+			}
 		}
 
-		select{
-			width: 25%;
+	.show-form {
+		color: #6F79D8;
+		line-height: 40px;
+
+		input[type=text], input[type=number], textarea, select {
+			width: 90%;
+			background-color: #D4D7F3;
+			color: #6F79D8;
+
+			&:focus {
+				background-color: #6F79D8;
+				color: #FFF;
+			}
 		}
-		
-		ul {
-			margin-left: 5px;
-			list-style-type: none;
+
+		input[type=checkbox] {
+			margin-top: -5px;
+		}
+
+		.field_with_errors {
+			background-color: red;
 		}
 
 		h5 {
-			margin-bottom: 0px;
-		}
+				margin-bottom: 0px;
+			}
 
 		h5 + p {
 			line-height: 20px;
 			margin-bottom: 15px;
 		}
-	}
 
-	.auditions {
-		input[name=location] { width: 90%; }
-		input.time { width: 55px; }
-		.span2, .span3 {
-			text-align: right;
+		&.people, .permissions {
+			input[type=text] {
+				width: 30%;
+			}
+
+			select{
+				width: 25%;
+			}
+			
+			ul {
+				margin-left: 5px;
+				list-style-type: none;
+			}
 		}
-	}
 
-	#audition_slots {
-		.email, .phone, .audition-actions {
-			display: none;
+		.auditions {
+			input[name=location] { width: 90%; }
+			input.time { width: 55px; }
+			.span2, .span3 {
+				text-align: right;
+			}
 		}
-	}
 
-	#tech_ops {
-		font-size: 18px;
-		color: #2B3169;
-		span { color: #6F79D8; }
-	}
+		#audition_slots {
+			.email, .phone, .audition-actions {
+				display: none;
+			}
+			.entries {
+				width: 310px;
+			}
+		}
 
-	label + input, input + label {
-		margin-left: 10px;
-	}
+		#tech_ops {
+			font-size: 18px;
+			color: #2B3169;
+			span { color: #6F79D8; }
+		}
 
-	#show_freeze_mins_before {
-		margin: 0 5px;
-	}
+		label + input, input + label {
+			margin-left: 10px;
+		}
 
-	input[type=number] {
-		width: 45px;
-	}
+		#show_freeze_mins_before {
+			margin: 0 5px;
+		}
 
-	input.date {
-		width: 100px;
-	}
+		input[type=number] {
+			width: 45px;
+		}
 
-	label {
-		color: #6F79D8;
-		font-size: 18px;
-		display: inline;
-	}
-
-	.showtimes {
-
-		input[type=text] {
+		input.date {
 			width: 100px;
-			margin-left: 7px;
 		}
+
 		label {
-			margin-right: 15px;
+			color: #6F79D8;
+			font-size: 18px;
+			display: inline;
+		}
+
+		.showtimes {
+
+			input[type=text] {
+				width: 100px;
+				margin-left: 7px;
+			}
+			label {
+				margin-right: 15px;
+			}
+		}
+
+		textarea {
+			height: 150px;
+			resize: vertical;
+		}
+
+		span.required:after {
+			color: red;
+			font-size: 32px;
+			content: " *"; 
+		}
+
+		.field_explination {
+			line-height: 20px;
+			position: relative;
+			top: -10px;
+		}
+
+		[rel=tooltip] {
+			border-bottom: 1px dotted;
+			font-size: 14px;
+			margin-left: 20px;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		.color-item {
+			text-align: center;
+			line-height: 20px;
+			float: left;
+			margin: 5px;
+			input { margin: 0px; }
+			.swatch {
+				width: 55px;
+				height: 25px;
+			}
+		}
+
+		.frontpage-preview {
+			line-height: 20px;
+			position: fixed;
+			[class*="span"] { margin-left: 0px; }
+			.poster { margin: 0px; }
 		}
 	}
 
-	textarea {
-		height: 150px;
-		resize: vertical;
-	}
+	.show-dashboard {
+		table {
+			td, th {
+				padding: 0px 10px;
+			}
+			.past {
+				color: #D4D7F3;
+			}
+		}
 
-	span.required:after {
-		color: red;
-		font-size: 32px;
-		content: " *"; 
-	}
+		.staff {
+			& > a {
+				text-decoration: underline;
+				color: inherit;
+			}
+		}
 
-	.field_explination {
-		line-height: 20px;
-		position: relative;
-		top: -10px;
-	}
-
-	[rel=tooltip] {
-		border-bottom: 1px dotted;
-		font-size: 14px;
-		margin-left: 20px;
-
-		&:hover {
-			text-decoration: none;
+		#audition_slots {
+			.block-remove, .remove {
+				display: none;
+			}
+			table td {
+				padding: 0px;
+				&:first-child { width: 70px; }
+				&.name { width: 180px;}
+				&.phone { width: 180px;}
+				&.email { width: 80px}
+			}
 		}
 	}
 
-	.color-item {
-		text-align: center;
-		line-height: 20px;
-		float: left;
-		margin: 5px;
-		input { margin: 0px; }
-		.swatch {
-			width: 55px;
-			height: 25px;
+	#flickr_show {
+		height:550px; 
+		width: 100%;
+		.flickrshow-container {
+			z-index: -1;
 		}
-	}
-
-	.frontpage-preview {
-		line-height: 20px;
-		position: fixed;
-		[class*="span"] { margin-left: 0px; }
-		.poster { margin: 0px; }
-	}
-}
-
-.show-dashboard {
-	table {
-		td, th {
-			padding: 0px 10px;
-		}
-		.past {
-			color: #D4D7F3;
-		}
-	}
-
-	.staff {
-		& > a {
-			text-decoration: underline;
-			color: inherit;
-		}
-	}
-
-	#audition_slots {
-		.block-remove, .remove {
-			display: none;
-		}
-	}
-}
-
-#flickr_show {
-	height:550px; 
-	width: 100%;
-	.flickrshow-container {
-		z-index: -1;
 	}
 }

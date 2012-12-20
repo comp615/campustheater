@@ -26,6 +26,8 @@
 						<td class="name">
 							<% if audition.person_id %>
 								<%= link_to audition.person.name, audition.person %>
+							<% else %>
+								<%= audition.name %>
 							<% end %>
 							<% if audition.timestamp >= Time.now %>
 								<a href="#" class="remove">(x)</a>
@@ -35,7 +37,7 @@
 							<%= format_phone audition.phone %>
 						</td>
 						<td class="email">
-							<%= audition.email %>
+							<%= link_to "Email", "mailto:" + audition.email if audition.email %>
 						</td>
 					</tr>
 					<% if group.length > 4 && i == group.length - 1 %>

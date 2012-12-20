@@ -11,8 +11,8 @@
 <%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
 	<div class="row show-form">
 	  <div class="span6">
-			<h4>Show Details</h4>
-			Tell us a bit about your awesome new show!<br />
+			<h5>Show Details</h5>
+			<p>Tell us a bit about your awesome new show!</p>
 
 			<%= f.enum_select :category %><br />
 			<%= f.text_field :title, :class => "required", :placeholder => "Title", :validate => true %><br />
@@ -33,6 +33,7 @@
 				If this show has a Flickr gallery, please enter the ID here
 			</div>
 
+			<b>Upload a poster</b><br />
 			<%= f.file_field :poster %><br />
 
 			<b>Choose an accent color...</b><br />
@@ -42,10 +43,10 @@
 						<%= f.radio_button(:accent_color, color.to_s) %>
 				</div>
 			<% end %>
-
+			<br />
 			<hr />
-			<h4>Scheduling and Tickets</h4>
-			Fill in what you know, but we'll need at least one date and time to get started<br />
+			<h5>Scheduling and Tickets</h5>
+			<p>Fill in what you know, but we'll need at least one date and time to get started</p>
 
 			<%= f.text_field :location, :class => "required", :placeholder => "Location", :validate => true %><br />
 	  	<ol class="showtimes">
@@ -71,14 +72,14 @@
 				<%= f.number_field :cap %><%= f.label :cap, "Max seats per resevation" %><br />
 				<%= f.label :on_sale, "Allow ticket reservations starting" %><%= f.text_field :on_sale, :class => "date", :value => @show.on_sale ? @show.on_sale.strftime("%m/%d/%Y") : Time.now.strftime("%m/%d/%Y") %><br />
 				<%= f.label :freeze_mins_before do 
-							("Freeze ticket sales " + f.number_field(:freeze_mins_before) + " hours before showtime(s)").html_safe
+							("Freeze ticket sales " + f.number_field(:freeze_mins_before) + " minutes before showtime(s)").html_safe
 						end
 				%><br />
 				<%= f.check_box :waitlist %>
 				<%= f.label :waitlist, "Enable Waitlist" %>
 				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the size of the theater">What's this?</a>
 			</div>
-
+			<hr />
 			<h5>Permissions</h5>
 			<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
 			<div class="permissions">
@@ -94,8 +95,8 @@
 		</div>
 
 		<div class="span6">
-			<h4>Design Preview</h4>
-			See what your shows will look like on the YDC Homepage<br />
+			<h5>Design Preview</h5>
+			<p>See what your shows will look like on the YDC Homepage</p>
 			<div class="frontpage-preview">
 				<div class="row">
 					<div class="span6 item">

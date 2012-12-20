@@ -7,6 +7,7 @@ class ShowsController < ApplicationController
 	
 	# upcoming shows, grouped by week, semester, others
 	def index
+		@active_nav = :calendar
 		@page_name = " - Upcoming Shows"
 		
 		@shows = Show.future
@@ -17,6 +18,7 @@ class ShowsController < ApplicationController
 	
 	# Similar to upcoming shows, but just the past ones, optionally grouped by oci_term. I.E. 201203
 	def archives
+		@active_nav = :calendar
 		@page_name = " - Archives"
 		
 		@term = params[:term] || Time.now.year.to_s + (Time.now.month < 7 ? "01" : "03")
@@ -26,6 +28,7 @@ class ShowsController < ApplicationController
 	def show
 		# Do something with @show?
 		#redirect_to root_url
+		@active_nav = :calendar
 		@page_name = " - #{@show.title}"
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']

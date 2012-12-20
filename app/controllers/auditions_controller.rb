@@ -9,6 +9,7 @@ class AuditionsController < ApplicationController
 	
 	# Cast Opportunities
 	def all
+		@active_nav = :auditions
 		@shows = Audition.future.includes(:show).group_by(&:show)
 	end
 	
@@ -16,6 +17,7 @@ class AuditionsController < ApplicationController
 	# TODO: Optimize to filter out old shows
 	# ^ TODO: Auto-prune old shows with vacant positions so they don't end up clogging this query
 	def opportunities
+		@active_nav = :opportunities
 		@opportunities = ShowPosition.crew.vacant.includes(:show, :position)
 		@opportunities.select!{|o| o.show && o.show.showtimes.first.timestamp > Time.now }
 		@opportunities = @opportunities.group_by(&:display_name)
@@ -23,6 +25,7 @@ class AuditionsController < ApplicationController
 	end
 	
 	def index
+		@active_nav = :auditions
 		@auditions = @show.auditions.future.includes(:person)
 		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
 		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id}

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 	# The page users hit when they first visit in browser.
 	def index
 		# Select and load active modules from config DB (if any)
+		@active_nav = :home
 
 		# Load in news posts and other relevant content for display
 		@news = News.order("created_at DESC").first(5)
@@ -52,19 +53,18 @@ class PagesController < ApplicationController
 		puts "row config: #{@rows.map{|r| r.length}.inspect}"
 	end
 
-	def search
-
-	end
-
 	# Static Page
 	def resources
 		@page_name = " - Resources"
+		@active_nav = :learn
 	end
 
 	# The parameter we recieve is the file that we want to render
 	def guides
 		# TODO: SHould probably NOINDEX these, or find a better way to get the data out and into the template
 		#Be careful with this as it could lead to bad things
+		@page_name = " - Resources"
+		@active_nav = :learn
 		@file = params[:static_file] + ".html"
 		raise ActiveRecord::RecordNotFound unless params[:static_file] =~ /\A[\w\-]+\Z/ && FileTest.exists?(Rails.root + "public/static_guides/" + @file)
 	end
