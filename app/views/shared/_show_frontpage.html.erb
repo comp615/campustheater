@@ -6,9 +6,9 @@
 <% elsif show.poster.exists? && row_count <= 2 # horizontal poster, in a 2-item row...poster as background %>
 	<div class="poster-bg row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
 		<div class="span3 offset3 text-on-image info" style="height: <%= show.poster.height(:medium) - 30 %>px;">
-<% elsif show.poster.exists? && show.poster.height(:medium) >= show.poster.width(:medium) && row_count == 3 # vertical poster, in a 3-item row...poster above  %>
+<% elsif show.poster.exists? && show.poster.height(:medium) * 5/4 >= show.poster.width(:medium) && row_count == 3 # vertical poster, in a 3-item row...poster above  %>
 	<div class="poster-bg row <%= color_palette %>" style="background-image: url('<%= show.poster.url(:medium) %>'); min-height: <%= show.poster.height(:medium) %>px; ">
-		<div class="text-on-image info span4" style="position: absolute; bottom: 0px;">
+		<div class="text-on-image info" style="position: absolute; bottom: 0px;">
 <% elsif show.poster.exists? && row_count == 3 # horizontal poster, in a 3-item row...poster above  %>
 	<div class="row <%= color_palette %>">
 		<div class="top poster"><%= image_tag show.poster.url(:medium) %></div>
