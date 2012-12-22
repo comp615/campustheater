@@ -35,7 +35,6 @@ class PeopleController < ApplicationController
 	def create
 		@person = Person.new unless @current_user
 		@person.netid = session[:cas_user] unless @current_user
-		#TODO: College saving doesn't work, check the form
 		if @current_user || @person.update_attributes(params[:person])
 			#Let's check to see if they have any recommended people they match. If so, send them there, otherwise take them away
 			@person ||= @current_user
@@ -57,8 +56,6 @@ class PeopleController < ApplicationController
 	def takeover_request
 		# Asking to match people, let's do it
 		# We'll allow multiple requests for a name and let the admin sort it out...
-		# TODO:But they cannot have multiple requests for the same name, we'll have to deal with that in the model that finds this
-		# TODO: Finalize and implement
 		
 		params[:person_ids].each do |person_id|
 			TakeoverRequest.create(:person => @current_user, :requested_person_id => person_id, :approved => false)

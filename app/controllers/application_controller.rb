@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  #TODO: Redo everything below to fit the vision once needed
   
 	# Add this before filter to force CAS Authentication on all controllers + actions
 	before_filter :check_user	
@@ -20,8 +18,8 @@ class ApplicationController < ActionController::Base
 	end
 	
 	def check_user
-		 session[:cas_user] = "cpc2"
-		 @current_user = Person.where(:netid => "cpc2").first
+		 #session[:cas_user] = "cpc2"
+		 #@current_user = Person.where(:netid => "cpc2").first
 
 		# first visit, or stale visit, try to gateway auth
 		if(!session[:last_ts] && !@current_user)
@@ -32,7 +30,7 @@ class ApplicationController < ActionController::Base
 		
 		if(session[:cas_user])
 			# User is CAS Authed, try to make an account for them
-			# TODO: Check if we actually created an account, and if so, redirect them to profile flow
+			# Check if we actually created an account, and if so, redirect them to profile flow
 			@current_user = Person.where(:netid => session[:cas_user]).first
 			if !@current_user && (controller_name != "people"  || !["new","create","logout"].include?(action_name))
 				# This is their first visit, trigger the new user flow

@@ -31,9 +31,8 @@ class ShowPosition < ActiveRecord::Base
 	
 	private
 	
-	#TODO: Build out this method to trigger a recache on self.show.director
 	def recache_director
-	
+		self.show.bust_director_cache if self.position_id == 1 || self.position_id_was == 1
 	end
 	
 	# TODO: verify this does what it's supposed to

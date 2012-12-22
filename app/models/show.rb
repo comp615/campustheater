@@ -1,5 +1,4 @@
 class Show < ActiveRecord::Base	
-	#TODO: Auto-include
 	has_many :showtimes, :dependent => :destroy, :order => "timestamp ASC"
 	has_many :show_positions, :dependent => :delete_all, :include => :person
 	has_many :permissions, :dependent => :delete_all
@@ -16,7 +15,6 @@ class Show < ActiveRecord::Base
 	
 	#TODO: after_update :expire_caches
 	#TODO: Make some scopes to get basic information only
-	# TODO: Stub out director line and auto-manage
 	
 	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description, :poster, :accent_color, :flickr_id
 	attr_accessible :tix_enabled, :alt_tix, :seats, :cap, :waitlist, :show_waitlist, :freeze_mins_before, :on_sale
@@ -44,6 +42,7 @@ class Show < ActiveRecord::Base
 		self.joins(:showtimes).where(:showtimes => {:timestamp => range})
 	end
 	
+	# TODO: Wrap in cache
 	def director
 		peeps = self.directors.map{|sp| sp.person ? sp.person.display_name : nil}.compact
 		if peeps.length > 1
@@ -51,6 +50,11 @@ class Show < ActiveRecord::Base
 		else
 			peeps.first.to_s
 		end
+	end
+
+	# TODO:
+	def bust_director_cache
+
 	end
 	
 	def cast

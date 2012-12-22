@@ -61,6 +61,7 @@ function removeBlockAudition(e) {
 	send_destroy($.makeArray(aud_ids));
 }
 
+// Make a destroy call to remove the passed ids
 function send_destroy(ids) {
 	var url = $("form.auditions").attr("action");
 	$.ajax({
@@ -101,6 +102,7 @@ function datify(parent_el) {
 	});
 }
 
+// Submit on poster upload so we can see changes immediately (sort of)
 function handleFileChange() {
 	// This seems jank, but I guess it's how the plugin works for validations
 	var $form = $('form.edit_show');
@@ -115,6 +117,7 @@ function handleFileChange() {
 	}
 }
 
+// Set the ordering (if applicable) of cast and crew
 function setPositionOrderingAndSubmit(e) {
 	if($("input[name=order_crew]").is(":checked")) {
 		$("#show_positions input[name*=listing_order]").each(function(i) {
@@ -140,13 +143,14 @@ $(document).ready(function() {
 	// Add a holder for the required asterisks
 	$("input.required, select.required, textarea.required").after("<span class='required' />");
 
-	// Bind the live-preview updates
+	// Bind accent color changer to change the css class
 	var available_colors = $.makeArray($("input[name*=accent_color]").map(function() { return $(this).attr("value") }));
 	$("input[name*=accent_color]").on("change", function() {
 		$(".frontpage-preview").find(".item .row").removeClass(available_colors.join(" ")).addClass($(this).val());
 	});
 
-	// Bind color changer to change the css class
+
+	// Bind the live-preview updates, change data-fields equal to input id
 	$("form").on("change", "input, textarea, select", function() {
 		$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
 	});
@@ -168,8 +172,7 @@ $(document).ready(function() {
 	watchTechOps();
 
 	// Manage showing/hiding of the audition groups
-	$("#aud_enabled_wrapper").toggle( $(this).is(":checked") );
-	$("#submit").on('click', setPositionOrderingAndSubmit);
+	$("#aud_enabled_wrapper").toggle( $("#show_auditions_enabled").is(":checked") );
 	$("#show_auditions_enabled").on('change',function() { $("#aud_enabled_wrapper").toggle( $(this).is(":checked") )});
 
 	// Make the audition form submit the correct form
@@ -178,6 +181,7 @@ $(document).ready(function() {
 	$("#audition_slots").on("click", ".block-remove .btn", removeBlockAudition);
 
 	// Allow sorting of people/shows
+	$("#submit").on('click', setPositionOrderingAndSubmit);
   $( "#show_positions, #show_cast" ).sortable();
   $( "#show_positions, #show_cast" ).disableSelection();
 

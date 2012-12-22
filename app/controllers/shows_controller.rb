@@ -56,7 +56,6 @@ class ShowsController < ApplicationController
 		update
 	end
 	
-	#TODO: Add ordering to the cast/crew fields to allow a custom ordering
 	#TODO: Prompt them on submit if they are altering showtimes or something
 	def edit
 		@page_name = " - Edit Show"

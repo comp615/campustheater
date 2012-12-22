@@ -13,7 +13,7 @@ class ShowtimesController < ApplicationController
 		@confirmed = []
 		@waitlist = []
 		count = 0
-		#TODO: test this doesn't alter things
+		
 		@showtime.reservations.sort_by(&:updated_at).each do |r|
 			@waitlist << r and next if count >= @show.cap
 			@confirmed << r

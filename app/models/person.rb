@@ -12,10 +12,8 @@ class Person < ActiveRecord::Base
      		:s3_credentials => "#{Rails.root}/config/aws.yml",
     		:path => "/people/:id/picture/:style/:filename"
 	
-	after_create :populateLDAP
-	#TODO: Where appropriate, redirect to user dashboard, check for name matches, etc.
-	#TODO: Build out salt,pw stuff to allow them to edit themselves once gone!
-	#Write a custom typo/distance algo and something else for nicknames
+	# TODO: Write a custom typo/distance algo and something else for nicknames
+  # TODO: maybe allow a password for when they are gone? But we always have CAS right?
 	
 	attr_accessible :fname, :lname, :email, :year, :college, :bio, :email_allow, :picture
 	
