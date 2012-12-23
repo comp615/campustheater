@@ -22,54 +22,68 @@
 </head>
 <body>
 
-<div class="header">
-	<div class="navbar">
-    <div class="navbar-inner">
-	   <ul class="nav">
-				<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
-				<li><%= link_to "Calendar", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
-				<li><%= link_to "Auditions", auditions_url, :class => @active_nav == :auditions ? "active" : "" %></li>
-				<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
-				<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
-			</ul>
-			<form class="navbar-search pull-left" method="GET" action="/search">
-	    	<input type="text" class="search-query" name="name">
-	    	<i class="icon-search icon-white"></i>
-	    	<input type="hidden" name="header_search" value="1">
-	    </form>
-	    <ul class="nav pull-right">
-		    <% if @current_user %>
-					<li><%= link_to "My Dashboard", dashboard_path %></li>
-				<% else %>
-					<li><%= link_to "Login", dashboard_path %></li>
-				<% end %>
-			</ul>
-    </div>
-  </div>
-</div>
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', '<%= GA_ACCOUNT %>']);
+	  // _gaq.push(['_setDomainName', 'yaledramacoalition.org']);
+	  _gaq.push(['_trackPageview']);
 
-<div class="content <%= params[:controller] %> <%= params[:action] %>">
-	<% if flash[:notice] %>
-    <div class="alert alert-info"><%= flash[:notice] %></div>
-  <% end %>
-  <% if flash[:error] %>
-    <div class="alert alert-error"><%= flash[:error] %></div>
-  <% end %>
-	<%= yield %>
-</div>
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
 
-<div class="footer row">
-	<div class="span6 offset3">
-		<hr />
-		<p>
-		Site coded by Charlie Croom<br />
-		Design by Jared Shenson<br /><br /><br />
-		Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site.
-		Show specific questions should be directed to the appropriate show's director or producer.
-		</p>
+	<div class="header">
+		<div class="navbar">
+	    <div class="navbar-inner">
+		   <ul class="nav">
+					<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
+					<li><%= link_to "Calendar", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
+					<li><%= link_to "Auditions", auditions_url, :class => @active_nav == :auditions ? "active" : "" %></li>
+					<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
+					<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
+				</ul>
+				<form class="navbar-search pull-left" method="GET" action="/search">
+		    	<input type="text" class="search-query" name="name">
+		    	<i class="icon-search icon-white"></i>
+		    	<input type="hidden" name="header_search" value="1">
+		    </form>
+		    <ul class="nav pull-right">
+			    <% if @current_user %>
+						<li><%= link_to "My Dashboard", dashboard_path %></li>
+					<% else %>
+						<li><%= link_to "Login", dashboard_path %></li>
+					<% end %>
+				</ul>
+	    </div>
+	  </div>
+	</div>																																					
+
+	<div class="content <%= params[:controller] %> <%= params[:action] %>">
+		<% if flash[:notice] %>
+	    <div class="alert alert-info"><%= flash[:notice] %></div>
+	  <% end %>
+	  <% if flash[:error] %>
+	    <div class="alert alert-error"><%= flash[:error] %></div>
+	  <% end %>
+		<%= yield %>
 	</div>
-</div>
 
-<%= render :partial => "shared/dialogs" %>
+	<div class="footer row">
+		<div class="span6 offset3">
+			<hr />
+			<p>
+			Site coded by Charlie Croom<br />
+			Design by Jared Shenson<br /><br /><br />
+			Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site.
+			Show specific questions should be directed to the appropriate show's director or producer.
+			</p>
+		</div>
+	</div>
+
+	<%= render :partial => "shared/dialogs" %>
 </body>
 </html>
