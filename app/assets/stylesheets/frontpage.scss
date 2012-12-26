@@ -31,8 +31,9 @@
       width: 260px;
     }
 
+    div[class*="span"] { margin: 0px; }
+
     .item {
-      &[class*="span"] { margin: 0px; }
       & + .item { margin-left: 20px; }
       .title {
         font-family: 'Bitter', serif;

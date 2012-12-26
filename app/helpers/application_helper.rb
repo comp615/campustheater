@@ -8,12 +8,13 @@ module ApplicationHelper
 			str = start.strftime("%B #{start.day.ordinalize}")
 		elsif start.month == stop.month
 			str = start.strftime("%B %e")
-			str += "-" + stop.day.to_s
+			str += " &ndash; " + stop.day.to_s
 		else
 			str = start.strftime("%B %e")
-			str += " - "
+			str += " &ndash; "
 			str += stop.strftime("%B %e")
 		end
+		str.html_safe
 	end
 	
 	def format_showtime_full(timestamp)
@@ -28,12 +29,13 @@ module ApplicationHelper
 			str = start.strftime("%B #{start.day.ordinalize} %Y")
 		elsif start.month == stop.month
 			str = start.strftime("%B #{start.day.ordinalize}")
-			str += "-" + stop.strftime("#{stop.day.ordinalize} %Y")
+			str += " &ndash; " + stop.strftime("#{stop.day.ordinalize} %Y")
 		else
 			str = start.strftime("%B #{start.day.ordinalize}")
-			str += " - "
+			str += " &ndash; "
 			str += stop.strftime("%B #{stop.day.ordinalize} %Y")
 		end
+		str.html_safe
 	end
 	
 	def full_timestamp(time)

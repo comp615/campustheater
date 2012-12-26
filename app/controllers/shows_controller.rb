@@ -147,7 +147,7 @@ class ShowsController < ApplicationController
 	      	if params[:id].blank?
 	      		redirect_to(show_edit_people_path(@show))
 	      	else
-	      		redirect_to(@show, :notice => 'Show was successfully updated.')
+	      		redirect_to(show_dashboard_path(@show), :notice => 'Show was successfully updated.')
 	      	end
 	      end
 	      format.json { render :json => {:success => true} }

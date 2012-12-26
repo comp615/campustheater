@@ -18,7 +18,7 @@ class Showtime < ActiveRecord::Base
 				status = "CONFIRMED"
 			end
 			ReservationMailer.reservation_time_change_email(self,r,status).deliver
-			num_before += self.num
+			num_before += r.num
 		end
 	end
 

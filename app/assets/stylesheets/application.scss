@@ -46,6 +46,17 @@ h5 {
 h1,h2,h3 {
 	font-family: "Bitter", sans;
 }
+
+h2 {
+	display: inline-block;
+	padding: 5px 20px;
+	color: white;
+	border-radius: 2px;
+	&.no_color {
+		color: inherit;
+	}
+}
+
 .faded {
 	color: #d4d7f3;
 }
@@ -54,6 +65,7 @@ h1,h2,h3 {
 	font-family: "depot-new-web", sans;
 	background-color: #6f79d8;
 	width: 100%;
+	z-index: 10;
 	position: fixed;
 	padding: 5px 0px;
 	top: 0px;

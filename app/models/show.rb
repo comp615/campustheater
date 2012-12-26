@@ -29,8 +29,7 @@ class Show < ActiveRecord::Base
 	validates_format_of :url_key, :with => /\A[a-z0-9_]+\Z/i, :message => "The url key should contain only letters and numbers", :allow_blank => true
 	validates_uniqueness_of :url_key, :allow_blank => true, :case_sensitive => false, :message => "Sorry, the desired url is already taken. Please try another!"
 	validates_columns :category
-	# TODO: Validate alt_tix to be url or email address...
-	validates :alt_tix, :email_format => true, :allow_blank => true, :unless => Proc.new { |s| s.tix_enabled }
+	validates_format_of :alt_tix, :message => "must be an email address or full url", :with => /^(((ht|f)tp(s?):\/\/)|(www\.[^ \[\]\(\)\n\r\t]+)|(([012]?[0-9]{1,2}\.){3}[012]?[0-9]{1,2})\/)([^ \[\]\(\),;&quot;'&lt;&gt;\n\r\t]+)([^\. \[\]\(\),;&quot;'&lt;&gt;\n\r\t])|(([012]?[0-9]{1,2}\.){3}[012]?[0-9]{1,2})|([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :allow_blank => true, :unless => Proc.new { |s| s.tix_enabled }
 	validates :contact, :email_format => true
 	validates :seats, :cap, :freeze_mins_before, :on_sale, :presence => true, :if => Proc.new { |s| s.tix_enabled }
 	validates :showtimes, :length => { :minimum => 1, :too_short => "needs to have at least 1 showtime given" }
@@ -42,21 +41,38 @@ class Show < ActiveRecord::Base
 		self.joins(:showtimes).where(:showtimes => {:timestamp => range})
 	end
 	
-	# TODO: Wrap in cache
 	def director
-		peeps = self.directors.map{|sp| sp.person ? sp.person.display_name : nil}.compact
-		if peeps.length > 1
-			peeps[0..-2].join(", ") + " and " + peeps[-1]
-		else
-			peeps.first.to_s
+		Rails.cache.fetch 'show-directors-' + self.id.to_s do
+			peeps = self.directors.map{|sp| sp.person ? sp.person.display_name : nil}.compact
+			if peeps.length > 1
+				peeps[0..-2].join(", ") + " and " + peeps[-1]
+			else
+				peeps.first.to_s
+			end
 		end
 	end
 
-	# TODO:
 	def bust_director_cache
+		Rails.cache.delete 'show-directors-' + self.id.to_s
+	end
 
+	def alt_tix_link
+		if self.alt_tix =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i			
+			"mailto:" + self.alt_tix
+		else
+			if alt_tix =~ /^http/i
+				alt_tix
+			else
+				"http://" + alt_tix
+			end
+		end
 	end
 	
+	def poster_ratio
+		return nil unless self.poster.exists?
+		self.poster.width(:medium).to_f / self.poster.height(:medium).to_f
+	end
+
 	def cast
 		self.show_positions.select {|sp| sp.position_id == 17 && !sp.character.blank?}
 	end

@@ -1,13 +1,46 @@
-THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah. THe list of upcoming shows, blah blah blah.
+<nav>
 
-<hr />
-<h2>Showing this Week</h2>
-<%= render :partial => "shared/show_group_with_images", :locals => { :shows => @this_week } %>
+</nav>
 
-<hr />
-<h2>Coming this Semester</h2>
-<%= render :partial => "shared/show_group", :locals => { :shows => @this_semester} %>
 
-<hr />
-<h2>Next Semester</h2>
-<%= render :partial => "shared/show_group", :locals => { :shows => @other} %>
+<div class="divider">
+	<h2>Opening Soon</h2>
+</div>
+<div class="this_week">
+	<% @this_week.in_groups_of(4, false) do |items| %>
+		<div class="row">
+			<% items.each do |item| %>
+				<div class="span3 item">
+					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","orange", "light_blue") } %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+
+<div class="divider">
+	<h2>This Semester</h2>
+</div>
+<% @this_semester.in_groups_of(3, false) do |items| %>
+	<div class="row">
+		<% items.each do |item| %>
+			<div class="span4">
+				<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","orange", "light_blue") } %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+
+
+<div class="divider">
+	<h2>Beyond</h2>
+</div>
+<% @other.in_groups_of(3, false) do |items| %>
+	<div class="row">
+		<% items.each do |item| %>
+			<div class="span4">
+				<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","orange", "light_blue") } %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
