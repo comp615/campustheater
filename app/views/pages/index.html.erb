@@ -20,7 +20,7 @@
 		<% items.each do |item| %>
 			<div class="<%= this_class %> item">
 				<% if item.is_a? Show %>
-					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","orange", "light_blue") } %>
+					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 				<% else %>
 					<%= item %>
 				<% end %>
