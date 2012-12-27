@@ -50,7 +50,7 @@ class Showtime < ActiveRecord::Base
 	
 	# Cap waitlist at 2x number of seats
 	def is_waitlist_full?
-		!self.show.waitlist || self.reservations.sum(:num) >= self.show.seats * 2
+		self.is_full? && (!self.show.waitlist || self.reservations.sum(:num) >= self.show.seats * 2)
 	end
 	
 	def remaining_tickets

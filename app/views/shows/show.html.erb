@@ -26,7 +26,7 @@
 
 <div class="row">
 	<div class="span6 offset3 description">
-		<%= h(@show.description).gsub(/\n/, '<br/>').html_safe %>
+		<%= sanitize(@show.description, :tags => %w(b i em strong a br)).gsub(/\n/, '<br/>').html_safe %>
 	</div>
 </div>
 
@@ -49,7 +49,7 @@
 		<h5>Cast</h5>
 		<table>
 			<% @show.cast.select{|sp| sp.person }.each do |sp| %>
-				<tr><td><%= link_to sp.person.display_name, sp.person %></td><td><%= sp.display_name %></td></tr>
+				<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>
 			<% end %>
 		</table>
 		<% if @show.auditions.where(["`timestamp` > ?", Time.now]).count > 0 %>
@@ -74,7 +74,7 @@
 
 <% if @s3_objects.count > 0 || !@show.flickr_id.blank? %>
 	<div class="row">
-		<div class="span6 offset3 media">
+		<div class="span8 offset2 media">
 			<h5>Media & Downloads</h5>
 			<% @s3_objects.in_groups_of(3) do |arr| %>
 				<div class="row">

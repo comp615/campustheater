@@ -10,13 +10,15 @@ This dashboard is your hub for everything on the site. Here you can manage all y
 	  <%= @current_user.college %> <%= @current_user.year %><br />
 	  <%= @current_user.bio %>
 		<br /><br />
-		<b>Profile Takeover Notifications</b><br />
+		<b>Names Similar to Yours</b> &nbsp;
+		<a href="#" rel="tooltip" title="People might sometimes list you under nicknames or aliases, or you might have had an account on the old YDC site. By requesting to merge these names, all your show credits will be unified under the same profile, this one!">What's this?</a>
+		<br />
 		<% if @similar_people.empty? %>
 			No people found right now
 		<% else %>
 			<%= form_tag takeover_request_path(@current_user) do %>
 				<% @similar_people.each do |p| %>
-					<label><%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %></label><br />
+					<label><%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %> <%= "(#{p.college} #{p.year})" if p.college || p.year %></label><br />
 				<% end %>
 				<%= submit_tag "Request Names" %>
 			<% end %>

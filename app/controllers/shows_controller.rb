@@ -128,16 +128,27 @@ class ShowsController < ApplicationController
 				obj.delete(:name)
 			end
 		end
+
+		if !@show.id
+			post_create = {}
+			post_create[:permissions_attributes] = params[:show][:permissions_attributes]
+			params[:show].delete(:permissions_attributes)
+		end
 		
 		#Process on_sale time
 		params[:show][:on_sale] = DateTime.strptime(params[:show][:on_sale], '%m/%d/%Y') if params[:show][:on_sale]
 		
 		respond_to do |format|
 	    if @show.update_attributes(params[:show])
-	    	#Add permissions for this person to the show if they tried to delete them
+	    	# Add permissions for this person to the show if they tried to delete them
 	    	if !@current_user.site_admin? && !@show.permissions.detect{|sp| sp.person_id == @current_user.id && sp.level == :full}
 	    		@show.permissions.create(:person_id => @current_user.id, :level => :full)
 	    		@show.save!
+	    	end
+
+	    	# If it is a new show, now we can ammend permissions and other related models
+	    	if post_create
+	    		 @show.update_attributes(post_create)
 	    	end
 
 	    	# Tell the ShowMailer to send an approval Email to the admin after save

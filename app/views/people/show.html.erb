@@ -1,31 +1,34 @@
-<div class="person info">
-  <h3><%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :fname, :type => :input %> <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :lname, :type => :input %></h3>
-  <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
-  <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :bio, :type => :textarea %>
-  
-  <% if @current_user && @person.id == @current_user.id %>
-    <br /><br />
-    <h4>This portion is only visible to you:</h4><br />
-    Email: <%= best_in_place @person, :email, :type => :input %><br />
-    Allow people to email me: <%= best_in_place @person, :email_allow, :type => :checkbox %><br />
-    Associated NetID: <%= @person.netid %>
-    Upload Picture:
-    <%= form_for @person, :html => { :multipart => true } do |f| %>
-      <%= f.file_field :picture %>
-      <%= f.submit "Submit New Photo" %>
+<div class="span8 offset2">
+  <div class="person info">
+    <h3><%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :fname, :type => :input %> <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :lname, :type => :input %></h3>
+    <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :college, :type => :select, :collection => YALE_COLLEGES.to_a %> <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :year, :type => :input %><br /><br />
+    <%= best_in_place_if @current_user && @person.id == @current_user.id, @person, :bio, :type => :textarea, :display_with => lambda { |v| sanitize(v, :tags => %w(b i em strong a br)).gsub(/\n/, '<br/>').html_safe } %>
+    
+    <% if @current_user && @person.id == @current_user.id %>
+      <br /><br />
+      <h4>This portion is only visible to you:</h4><br />
+      Email: <%= best_in_place @person, :email, :type => :input %><br />
+      Allow people to email me: <%= best_in_place @person, :email_allow, :type => :checkbox %><br />
+      Associated NetID: <%= @person.netid %>
+      Upload Picture:
+      <%= form_for @person, :html => { :multipart => true } do |f| %>
+        <%= f.file_field :picture %>
+        <%= f.submit "Submit New Photo" %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<% if @person.picture.exists? %>
-  <div class="poster"><%= image_tag @person.picture.url(:medium) %></div>
-<% end %>
-<hr />
-<h3>Show History</h3>
-<table>
-  <tr><th>Show Name</th><th>Role</th><th>Dates</th></tr>
-  <% @person.show_positions.includes(:show,:position).sort_by{|sp| sp.show ? sp.show.showtimes.first.timestamp : 0}.reverse.each do |sp| %>
-  <tr><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= sp.display_name %></td><td><%= format_long_rundates(sp.show) %></td></tr>
+
+  <% if @person.picture.exists? %>
+    <div class="poster"><%= image_tag @person.picture.url(:medium) %></div>
   <% end %>
-</table>
+  <hr />
+  <h3>Show History</h3>
+  <table>
+    <tr><th>Show Name</th><th>Role</th><th>Dates</th></tr>
+    <% @person.show_positions.includes(:show,:position).sort_by{|sp| sp.show ? sp.show.showtimes.first.timestamp : 0}.reverse.each do |sp| %>
+    <tr><td><%= link_to sp.show.title, best_link(sp.show) %></td><td><%= sp.display_name %></td><td><%= format_long_rundates(sp.show) %></td></tr>
+    <% end %>
+  </table>
+</div>
 
