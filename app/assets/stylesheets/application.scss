@@ -11,6 +11,7 @@
  *= require bootstrap.min
  *= require_self
  *= require frontpage
+ *= require auditions
  *= require shows
  *= require people
  *= require reservations
@@ -48,12 +49,8 @@ h1,h2,h3 {
 }
 
 h2 {
-	display: inline-block;
-	padding: 5px 20px;
+	margin-bottom: 20px;
 	border-radius: 2px;
-	&.no_color {
-		color: inherit;
-	}
 }
 
 .faded {

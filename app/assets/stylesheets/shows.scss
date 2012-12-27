@@ -30,6 +30,12 @@
 	.show-header {
 		h2 { 
 			color: white;
+			display: inline-block;
+			padding: 5px 20px;
+			margin: 0px auto;
+	    &.no_color {
+				color: inherit;
+			}
 		}
 		.writer { 
 			font-weight: bold;
@@ -303,10 +309,15 @@
 	}
 
 	h2 {
+		display: inline-block;
+		padding: 5px 20px;
 		text-align: center;
 		margin: 0px auto;
     background-color: #d4d7f3;
     color: #6F79D8;
+    &.no_color {
+			color: inherit;
+		}
 	}
 
 	.row {

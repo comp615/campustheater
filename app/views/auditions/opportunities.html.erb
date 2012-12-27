@@ -1,10 +1,13 @@
 <% @opportunities.each do |position,sp_arr| %>
-	<h4><%= position %></h4>
-	<% sp_arr.each do |sp| %>
-		<div class="show">
-			<%= link_to sp.show.title, best_link(sp.show) %><br />
-			<%= format_long_rundates(sp.show) %><br />
-			Contact: <%= link_to sp.show.contact, "mailto:#{sp.show.contact}" %>
-		</div>
-	<% end %>
+	<div class="position_group">
+		<h3><%= position %></h3>
+		<% sp_arr.each do |sp| %>
+			<div class="show">
+				<h4><%= link_to sp.show.title, best_link(sp.show) %></h4>
+				<%= format_long_rundates(sp.show) %><br />
+				Contact: <%= link_to sp.show.contact, "mailto:#{sp.show.contact}" %>
+			</div>
+		<% end %>
+	</div>
+	<br />
 <% end %>

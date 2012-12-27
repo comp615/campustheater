@@ -1,0 +1,41 @@
+.auditions {
+
+	table {
+		width: 50%;
+		&.admin { width: 100% }
+	}
+
+	td,th {
+		padding: 3px;
+		text-align: center;
+	}
+
+	h4 {
+		margin: 0px;
+		font-family: "Bitter";
+		a {
+			color: inherit;
+			&:hover {
+				color: inherit;
+			}
+		}
+	}
+}
+
+.auditions.opportunities {
+	-webkit-column-count: 3;
+	-mox-column-count: 3;
+	column-count: 3;
+
+	h3 {
+		line-height: 24px;
+	}
+
+	.position_group {
+		display: inline-block;
+		margin-bottom: 20px;
+		.show {
+			margin-bottom: 10px;
+		}
+	}
+}
