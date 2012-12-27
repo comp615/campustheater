@@ -88,7 +88,7 @@ class Show < ActiveRecord::Base
 	# All shows till the next Sunday
 	def self.this_week
 		range = (Time.now .. Time.now.sunday)
-		range = (Time.now .. Time.now.next_week(:sunday)) if(Time.now.sunday?)
+		range = (Time.now .. Time.now.next_week(:sunday)) if Time.now.sunday?
 		
 		self.shows_in_range(range)
 	end
