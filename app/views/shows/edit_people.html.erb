@@ -8,8 +8,9 @@
 	</ul>
 <% end %>
 
-<%= form_for @show, :validate => true do |f| %>
-	<div class="row show-form people">
+
+<div class="row show-form people">
+	<%= form_for @show, :validate => true do |f| %>
 	  <div class="span6">
 	  	<h5>Production Staff</h5>
 	  	<p>Tell the community about who's making your show happen. Leave the name field blank to list the position as a tech opportunity.</p>
@@ -32,61 +33,66 @@
 				<li><%= link_to_cast_fields "Add Cast", f, :show_positions %></li>
 			</ul>
 	  </div>
-	</div>
-	<hr />
-	<div class="row show-form people">
-	  <div class="span6">
-	  	<h5>Tech Opportunities</h5>
-	  	<p>These positions will be listed on our tech opportunities page.</p>
-	  	<ol id="tech_ops">
-	  	</ol>
-	  </div>
-	  <div class="span6">
-	  	<h5>Auditions</h5>
-	  	<p>Easily organize cast auditions with the YDC's built-in scheduling, or manage the process on your own.</p>
+	  <% end %>
+</div>
+<hr />
+<div class="row show-form people">
+  <div class="span6">
+  	<h5>Tech Opportunities</h5>
+  	<p>These positions will be listed on our tech opportunities page.</p>
+  	<ol id="tech_ops">
+  	</ol>
+  </div>
+  <div class="span6">
+  	<h5>Auditions</h5>
+  	<p>Easily organize cast auditions with the YDC's built-in scheduling, or manage the process on your own.</p>
+  	<%= form_for @show, :validate => true, :remote => true do |f| %>
 	  	<%= f.check_box :auditions_enabled %>
 			<%= f.label :auditions_enabled, "Enable YDC Audition System" %>
-			<div id="aud_enabled_wrapper">
-				<%= f.text_area :aud_info, :class => "required", :placeholder => "Audition Info" %><br />
-	<% end %>
-				Create Audition Slots
-				<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :remote => true, :class => "datepair auditions" do |f| %>
-					<%= text_field_tag :location, "", :placeholder => "Location" %>
-					<br />
-					<div class="row">
-						<div class="span3">
-							Date: <%= text_field_tag :date, nil, :class => "date" %>
-						</div>
-						<div class="span2">
-							Start Time: <%= text_field_tag :start_time, nil, :class => "time start" %>
-						</div>
+		<% end %>
+		<div id="aud_enabled_wrapper">
+			<%= form_for @show, :validate => true, :remote => true do |f| %>
+				<%= f.text_area :aud_info, :class => "required", :placeholder => "Audition Info" %>
+			<% end %>
+			<br />
+			Create Audition Slots
+			<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :validate => false, :remote => true, :class => "datepair auditions" do |f| %>
+				<%= text_field_tag :location, "", :placeholder => "Location", :validate => false %>
+				<br />
+				<div class="row">
+					<div class="span3">
+						Date: <%= text_field_tag :date, nil, :class => "date", :validate => false %>
 					</div>
-					<div class="row">
-						<div class="span3">
-							Slot Length: <%= number_field_tag :duration %>
-						</div>
-						<div class="span2">
-							End Time: <%= text_field_tag :end_time, nil, :class => "time end" %>
-						</div>
-					</div>				
-					<%= submit_tag "Create Slots" %>
-				<% end %>
-
-				<%= @show.title %>'s Audition Slots
-				<div id="audition_slots">
-					<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>
+					<div class="span2">
+						Start Time: <%= text_field_tag :start_time, nil, :class => "time start", :validate => false %>
+					</div>
 				</div>
+				<div class="row">
+					<div class="span3">
+						Slot Length: <%= number_field_tag :duration, :validate => false %>
+					</div>
+					<div class="span2">
+						End Time: <%= text_field_tag :end_time, nil, :class => "time end", :validate => false %>
+					</div>
+				</div>				
+				<%= submit_tag "Create Slots" %>
+			<% end %>
+
+			<%= @show.title %>'s Audition Slots
+			<div id="audition_slots">
+				<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>
 			</div>
-	  </div>
-	</div>
-  <hr />
-  <div class="clearfix" style="text-align: center;">
-  	<a class="btn" href="<%= dashboard_path %>">
-  		Cancel
-  	</a>
-  	<div class="btn btn-primary" id="submit">
-  		Save cast & crew
-  	</div>
+		</div>
   </div>
+</div>
+<hr />
+<div class="clearfix" style="text-align: center;">
+	<a class="btn" href="<%= dashboard_path %>">
+		Cancel
+	</a>
+	<div class="btn btn-primary" id="submit">
+		Save cast & crew
+	</div>
+</div>
 	
 

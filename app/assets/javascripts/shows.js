@@ -135,7 +135,13 @@ function setPositionOrderingAndSubmit(e) {
 		$("#show_cast input[name*=listing_order]").removeAttr("value");
 	}
 
-	$("form.edit_show")[0].submit();
+	// TODO: This is a disgusting hack. It really should just be one form...not sure how to pull that off
+	// copy over other inputs
+	$primary_form = $("form.edit_show").eq(0);
+	$("form.edit_show").eq(1).find("input:not([type=hidden]),select,textarea").appendTo($primary_form);
+	$("form.edit_show").eq(2).find("input:not([type=hidden]),select,textarea").appendTo($primary_form);
+
+	$primary_form[0].submit();
 }
 
 // Hookup the autocompletes on page load
