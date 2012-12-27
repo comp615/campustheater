@@ -91,6 +91,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	rename_column :show_positions, :pos_id, :position_id
   	remove_column :show_positions, :name
   	change_column :show_positions, :character, :string, :null => true
+    change_column :show_positions, :person_id, :integer, :null => true, :default => nil
   	add_column :show_positions, :new_assistant, :enum, :limit => [:Associate,:Assistant], :null => true
     add_column :show_positions, :listing_order, :int, :limit => 2, :default => nil, :null => true
   	
