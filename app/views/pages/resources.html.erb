@@ -1,54 +1,291 @@
-<?PHP
+<div class="row">
+	<div class="span7">
+		<h2>Help with the new site!</h2>
 
-require_once("init.php");
+		<p class="question">TL;DR</p>
+		<p class="answer">
+				<ul>
+					<li>You'll be asked to login through CAS and make an account on this site. It's easy and prefilled. Do it.</li>
+					<li>We'll suggest names similar to yours, if they are you, let us know!</li>
+					<li>All your reservations, auditions, and shows now live in <%= link_to "My Dashboard", dashboard_path %></li>
+					<li>List a <%= link_to "new show", new_show_path %> from your dashboard</li>
+				</ul>
+		</p>
 
-disp_header("resources");
-?>
+		<p class="question">Why am I being asked to login?</p>
+		<p class="answer">We're using CAS authentication now for all accounts. This means you no longer need to remember your profile password, show password and all that other garbage. Instead, use the login you already use.</p>
 
-<!--
-<b>Information for Incoming Freshmen</b><br><br>
-Congratulations to the coming class of 2014!  Since you worked so hard to get to Yale, we decided to make your life a little easier by compiling information to guide any of you interested in theater:
-<br><br><b><a href="files/YDC_freshmen_2013.doc">The Yale Drama Coalition Letter for Freshmen</a> </b>(Word document)
-<br><br><hr><br>
--->
+		<p class="question">Are there any advantages to this?</p>
+		<p class="answer">OK, that was a leading question. But yes! You now have "My Dashboard", this is accessible from the top right of every page when logged in. From your dashboard you can access:
+			<ul>
+				<li>Reservations you've made while logged in</li>
+				<li>Auditions you've scheduled</li>
+				<li>Shows that you have permission to manage</li>
+			</ul>
+			We encourage you to login before you make reservations so that they appear on your dashboard!
+		</p>
 
-<b>Dummies' Guide to Theater at Yale</b><br><br>
-We're all of us dummies. This section of the YDC website is dedicated to facilitating the creation of theatre at Yale by disseminating knowledge and experiences. This is by no means a flawless document; rather, it is a collection of dynamic information that aims to help you accomplish your goals. Our desire is to help each other create top quality theater at Yale. Please help us by reading through the Dummies' Guide and emailing the YDC with comments or suggestions.
-<br>
+		<p class="question">These dashboards sound cool! Are there any other dashboards?</p>
+		<p class="answer">If you create or have permission to manage a show, you'll also have access to that shows dashboard (acessible from "my dashboard"). On each show's dashboard you can:
+			<ul>
+				<li>Access literally everything you might need to know about the show. It's all on this page!</li>
+				<li>Get a list of people who will be auditioning for you</li>
+				<li>Manage reservations to your show; see who's coming</li>
+				<li>Change any of the information about your show</li>
+				<li>See files you've uploaded, add more, or remove existing ones</li>
+			</ul>
+			In summary, everything about your show, is on its dashboard
+		</p>
 
-<ol>
-<li><%= link_to "How to Abide by the Undergraduate Guidelines", guides_path('guidelines') %></li>
-<li><%= link_to "How to Act", guides_path('acting') %></li>
-<li><%= link_to "How to Produce", guides_path('produce') %></li>
-<li><%= link_to "How to Get a Theater Space", guides_path('spaces') %></li>
-<li><%= link_to "How to Write", guides_path('writing') %></li>
-<li><%= link_to "How to Fill Your Stage With Props", guides_path('props') %></li>
-<li><%= link_to "How to Sound Design", guides_path('sound') %></li>
-<li><%= link_to "How to Light a Show", guides_path('light') %></li>
-<li><%= link_to "How to Costume a Show", guides_path('costumes') %></li>
-<li><%= link_to "How to Market a Show", guides_path('market') %></li>
-<li><%= link_to "How to Direct a Show", guides_path('directing') %></li>
-<li><%= link_to "How to Get Sudler Funding", guides_path('sudler') %></li>
-</ol>
+		<p class="question">How do I access my show from the old site? I used a password before!</p>
+		<p class="answer">
+			Indeed. Make sure you've created an account on the new site, then email the <a hred="mailto:#{YDC_EMAIL}">webmaster</a> with the name of your show. They'll give you full permission to edit the show and things should be peachy.
+		</p>
 
-<table cellpadding="20" border="0"><tr><td>
-</td></tr></table><hr><br>
-<b>Other Resources</b><br><br>
-1) <a href="http://www.yale.edu/oup/" target="new">The OFFICE OF UNDERGRADUATE PRODUCTIONS Website</a><br>
-2) <a href="http://www.yale.edu/oup/spaces/matrix.html" target="new">Locations of Theater Spaces at Yale</a><br>
-3) <a href="http://www.yale.edu/oup/forms/index.html" target="new">Off-Broadway Theater Proposal Form</a><br>
-4) <a href="#" onClick="window.open('./static/guides/recommendedreading.html','mywindow','width=600,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes')">Recommended Reading (et al) from Theater Studies Professors</a><br>
-5) <a href="#" onClick="window.open('./archives/arch-alumni.html','mywindow','width=600,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes')">YDC Alumni</a><br>
+		<br />
+		<br />
+		<hr />
+		<br />
+		<br />
+		<h2>About the YDC</h2>
+			<b>The Yale Drama Coalition (YDC)</b> was founded in 1999 to foster a union of student voices impassioned by theater at Yale. The YDC seeks to foster communication and collaboration within the undergraduate theater community, between extra-curricular theater at Yale and the Theater Studies department, and between the Yale student body and the larger New Haven community. The YDC offers the means, in the form of the YDC board, through which students can actively engage in work on year-long projects to better theatrical life on campus. The board consists of a president, secretary, treasurer, and several members who act as project coordinators. Elections of board members are held at the beginning of spring semesters. The organization has an open membership and welcomes input and participation from all interested Yale students.  Roughly 250 undergraduates will be actively involved with YDC activities.
+			<br><br><hr><br>
 
-<br><hr><br>
+			<b>YDC Executive Board & Staff 2012</b>:<br>
+			<table border="0"><tr><td>
+			<br><b>Board Members</b>
+			<ul>
 
-<b>Theater Studies Information</b><br><br>
-<i>Introduction (from the Theater Studies website):</i><br>
-As a major within the humanities and as a complex cultural practice, theater claims a rich history and literature and an equally rich repertoire of embodied knowledge and theory. Theater Studies emphasizes the reciprocal relationship between practice and scholarly study. The content of required courses in the major is almost equally divided between theory and practice. Students are encouraged to engage intellectual and physical approaches to explore diverse cultural forms, historical traditions, and contemporary life.
-<br><br>
-The study of theater is interdisciplinary in scope and global in perspective. Students are expected to take courses also in cognate disciplines such as history, philosophy, anthropology, political science, film, art, music, literature, and foreign languages. Faculty members are affiliated with a range of departments and programs; their diverse expertise lends breadth and depth to course offerings and enables students to devise a course of study reflective of their developing interests.
-<br><br>
-<a href="http://www.yale.edu/theaterstudies/" target="new">Theater Studies Department Home</a><br>
-<a href="#" onClick="window.open('thst-contacts.html',Theater Studies Contact Info</a><br>
-<br>
-The equivalents for the rehearsal studios in 254 York Street this year are the acting studio on the second floor at 212 York and the ballroom in the Fence Club, 220 York. Audrey Healy (<a href="mailto:audrey.healy@yale.edu">audrey.healy@yale.edu</a>) has sign-up sheets, guidelines, and keys to issue when you're ready to start thinking about booking time in these spaces. 
+			<li><img class="board_pic" src="/static/images/board2012/irene.png"><a href="mailto:irene.casey@yale.edu">Irene Casey</a>, President,  Morse 2014 (Director, Dramaturg)
+			<li><img class="board_pic" src="/static/images/board2012/heaney.png"><a href="mailto:kate.heaney@yale.edu">Kate Heaney</a>, Vice President/Alumni Affairs,  Silliman 2014 (Director, Actor, Dramaturg, Playwright)
+			<li><img class="board_pic" src="/static/images/board2012/Tess.png"><a href="mailto:tess.mccann@yale.edu">Tess McCann</a>, Secretary,  Saybrook 2015 (Stage Manager)
+			<li><img class="board_pic" src="/static/images/board2012/sara.png"><a href="mailto:sarah.hendle@yale.edu">Sara Hendel</a>, Treasurer,   Davenport 2014 (Actor)
+			<li><img class="board_pic" src="/static/images/board2012/gabrielle.png"><a href="mailto:gabrielle.hoyt-disick@yale.edu">Gabrielle Hoyt-Disick</a>, Events Coordinator,   Branford 2015 (Playwright, Director, Actor)  <br /> <img class="board_pic" src="/static/images/board2012/jessica.png"><a href="mailto:jessica.miller@yale.edu">Jessica Miller</a>, Events Coordinator,  Calhoun 2015 (Actor)    <br /> <img class="board_pic" src="/static/images/board2012/ali.png"><a href="mailto:ali.viterbi@yale.edu">Ali Viterbi</a>, Events Coordinator
+			<li><img class="board_pic" src="/static/images/board2012/shannon.png"><a href="mailto:shannon.csorny@yale.edu">Shannon Csorny</a>, Publicity Chair, Saybrook 2015 (Producer, Lights, Dance)
+			<li><img class="board_pic" src="/static/images/board2012/nathan.jpg"><a href="mailto:nathan.kohrman@yale.edu">Nathan Kohrman</a>,  Freshman Coordinator  Saybrook 2015 (Actor) <br /> <img class="board_pic" src="/static/images/board2012/lucie.png"><a href="mailto:lucie.ledbetter@yale.edu">Lucie Ledbetter</a>, Freshman Coordinator  Pierson 2015 (Actor)   <br /> <img class="board_pic" src="/static/images/board2012/kyle.png"><a href="mailto:kyle.yoder@yale.edu">Kyle Yoder</a>, Freshman Coordinator  Branford 2015 (Actor, Director, Lights)
+			<li><img class="board_pic" src="/static/images/board2012/adela.jpg"><a href="mailto:adela.jaffe@yale.edu">Adela Jaffe</a>, YSD Liaison
+			<li><img class="board_pic" src="/static/images/board2012/javier.png"><a href="mailto:javier.cienfuegos@yale.edu">Javier Cienfuegos</a>, Social Chair, Calhoun 2015
+			<!-- <li><img class="board_pic" src="/static/images/board2012/sarah.jpg"><a href="mailto:sarah.maslin@yale.edu">Sarah Maslin</a>, Outreach Coordinator,    Trumbull 2014 (Actor, Director) -->
+			<li><img class="board_pic" src="/static/images/board2012/stuart.png"> <a href="mailto:stuart.teal@yale.edu">Stuart Teal</a> , Webmaster  (Master Electrician, Sound Engineer)
+			<li><img class="board_pic" src="/static/images/board2012/zeke.jpg"><a href="mailto:zeke.blackwell@yale.edu">Zeke Blackwell, </a> Llama(Member)-at-Large  (Actor, Improvisor, Set Designer, Playwright)   <br />  <img class="board_pic" src="/static/images/board2012/andrew.jpg"><a href="mailto:andrew.freeburg@yale.edu">Andrew Freeburg</a>, Llama-ambassador-to-Russia
+
+
+			<br />
+			</ul></td></table> <br />
+			<!--
+			<b>YDC Executive Board & Staff 2011</b>:<br>
+			<table border="0"><tr><td>
+			<br><b>Board Members</b>
+			<ul>
+			Presidents - Katharine Pitt, Charlie Croom
+			Secretary - Ali Viterbi
+			Treasurer â€“ Melinda Paul
+			Workshop Coordinators  â€“ Andrew Freeburg, Kate Heaney 
+			Production Officers â€“ Amelia Urry, Sarah Maslin 
+			Publicity Chair â€“ Irene Casey 
+			Freshmen Coordinators â€“ Chris Bakes, Melissa Cail, Sara Hendel 
+			YSD Mentorship Officerâ€“ Peregrine Heard 
+			Assistant Mentorship Officer â€“ McKay Nield
+			Social Chair â€“ Peter Kaufman 
+			At Large Membersâ€“ Zeke Blackwell, Marlene Tempchin -->
+			<!--
+			<b>YDC Executive Board & Staff 2010</b>:<br>
+			<table border="0"><tr><td>
+			<br><b>Board Members</b>
+			<ul>
+
+			<li><a href="mailto:david.eisenman@yale.edu">David Eisenman</a> and <a href="mailto:marlene.tempchin@yale.edu">Marlene Tempchin</a>, Co-Presidents
+			<li><a href="mailto:katharine.pitt@yale.edu">Kate Pitt</a>, Secretary
+			<li><a href="mailto:melinda.paul@yale.edu">Melinda Paul</a>, Treasurer
+			<li><a href="mailto:andrew.freeburg@yale.edu">Andrew Freeburg</a>, Production Officer
+			<li><a href="mailto:elle.ramel@yale.edu">Elle Ramel</a> and <a href="mailto:ezekiel.blackwell@yale.edu">Zeke Blackwell</a>, Freshman Affairs Officers
+			<li><a href="mailto:monica.qiu@yale.edu">Monica Qiu</a> and <a href="mailto:amelia.urry@yale.edu">Amelia Urry</a>, Special Events Coordinators
+			<li><a href="mailto:leah.osterman@yale.edu">Leah Osterman</a>, YSD Liaison
+			<li><a href="mailto:olivia.coates@yale.edu">Liv Coates</a>, Publicity Manager
+			<li><a href="mailto:peter.kaufman@yale.edu">Peter Kaufman</a>, Social Chair
+			<li><a href="mailto:charlie.croom@yale.edu">Charlie Croom</a>, Webmaster
+			<li><a href="mailto:rachel.marcus@yale.edu">Rachel Marcus</a>, Member at Large
+			<li><a href="mailto:isabel.siragusa@yale.edu">Isabel Siragusa</a>, Member at Large
+
+			<br />
+			</ul></td></table>
+			<hr><br />
+			-->
+
+
+			<!--
+			<b>YDC Executive Board & Staff 2009</b>:<br>
+			<table border="0"><tr><td>
+			<br><b>Board Members</b>
+			<ul>
+
+			<li><a href="mailto:oren.stevens@yale.edu">Oren Stevens</a> and <a href="mailto:david.eisenman@yale.edu">David Eisenman</a>, Co-Presidents
+			<li><a href="mailto:leticia.perez@yale.edu">Leticia Perez</a>, Secretary
+			<li><a href="mailto:kyle.eichner@yale.edu">Kyle Eichner</a>, Treasurer
+			<li><a href="mailto:david.demres@yale.edu">David Demres</a> and <a href="mailto:marlene.tempchin@yale.edu">Marlene Tempchin</a>, Special Events Coordinators
+			<li><a href="mailto:samuel.lasman@yale.edu">Sam Lasman</a> and <a href="mailto:allison.collins@yale.edu">Allison Collins</a>, Masterclass Coordinators
+			<li><a href="mailto:rachel.marcus@yale.edu">Rachel Marcus</a>, Freshman Affairs
+			<li><a href="mailto:victoria.rogers@yale.edu">Victoria Rogers</a>, Outreach
+			<li><a href="mailto:isabel.siragusa@yale.edu">Isabel Siragusa</a>, Administrative and Theater Studies Liaison
+			<li><a href="mailto:ella.dershowitz@yale.edu">Ella Dershowitz</a>, Publicity
+			<li><a href="mailto:charlie.croom@yale.edu">Charlie Croom</a>, Webmaster
+			<br />
+			</ul></td></table>
+			-->
+
+
+
+			<!--
+			<hr><br />
+			<b>YDC Executive Board & Staff 2008</b>:<br>
+			<table border="0"><tr><td>
+			<br><b>Permanent Board Positions</b>
+			<ul>
+			<li><a href="mailto:michael.leibenluft@yale.edu">Mike Leibenluft</a>, President<br>
+			<li><a href="mailto:catherine.blades@yale.edu">O'hagan Blades</a>, Vice-President<br>
+			<li><a href="mailto:gwynedd.davis@yale.edu">Gwynedd Davis</a>, Secretary<br>
+			<li><a href="mailto:kaley.sullivan@yale.edu">Kaley Sullivan</a>, Treasurer<br>
+			<li><a href="mailto:peregrine.heard@yale.edu">Peregrine Heard</a>, Archivist<br>
+			<li><a href="mailto:charles.croom@yale.edu">Charlie Croom</a>, Webmaster<br>
+			<li><a href="mailto:gary.jaffe@yale.edu">Gary Jaffe</a> and <a href="mailto:elizabeth.sutton-stone@yale.edu">Liz Sutton-Stone</a>, Administrative Liaisons<br>
+			<li><a href="mailto:cooper.lewis@yale.edu">Cooper Lewis</a>, Special Events<br>
+			<li><a href="mailto:sinead.daly@yale.edu">Sinead Daly</a>, Student Affairs<br>
+			<li><a href="mailto:avital.rutenbergschoenberg@yale.edu">Avital Rutenberg Schoenberg</a>, Alumni Relations and Senior Affairs<br>
+			<li><a href="mailto:kate.berman@yale.edu">Kate Berman</a>, Community Outreach<br>
+			<li><a href="mailto:john.yates@yale.edu">John Yates</a>, Publicity
+			</ul>
+			</td><td valign="top">
+
+			<br><b>Project Coordinators & Staff</b>
+			<ul>
+			<li><a href="mailto:elizabeth.woods@yale.edu">Liz Woods</a><br>
+			<li><a href="mailto:emily.hoffman@yale.edu">Emily Hoffman</a><br>
+			<li><a href="mailto:danielle.frimer@yale.edu">Danielle Frimer</a><br>
+			<li><a href="mailto:lian.walden@yale.edu">Lian Walden</a>
+			</ul>
+			</td></tr></table>
+			<br><br>
+			-->
+
+			<hr><br>
+
+			<b>Constitution</b>
+			<div class="constitution">
+			<ol>
+			<li>Statement of Purpose
+				<ol>
+				<li>The YDC seeks to foster communication and collaboration within the undergraduate theater community, between extra-curricular theater at Yale and the Theater Studies department, and between the Yale student body and the larger New Haven community.
+				</ol>
+			<li>Membership Requirements
+				<ol>
+				<li>All students on the YDC mailing list are considered members of the Drama Coalition. Membership is not exclusive. Students should mail the current Secretary of the organization to have their names added to our mailing list. There is no membership fee and membership lasts as long as a student is an undergraduate.
+				<li>The YDC board consists of a President, Secretary, Treasurer, Theater Studies Liaison, and several other varying positions assigned by the outgoing board and according to the needs of current YDC projects.  Each member serves for one year before seeking possible reelection. All board members are responsible for attending weekly meetings of the YDC. In addition to our permanent board members, any Yale student may join the YDC as a staff member to assist temporarily with a specific project.  Board members help plan for and attend YDC sponsored events. Staff and board members are limited to currently enrolled undergraduates. Staff Positions are not elected. Anyone who attends at least one meeting of the YDC per semester or helps out on a YDC related project is considered a staff member of the YDC.
+				<li>The President, Secretary, Treasurer, and other board positions are elected from the Yale student body.  All positions serve year-long terms. Elections are held at the beginning of the spring semester and are open to all Yale students. Each candidate prepares a statement of purpose and has the chance to deliver this statement to all attending the meeting. Ballots will be passed out and collected by the current President and Secretary. The President and Secretary will count the votes. A candidate needs a majority of the vote to be elected. In the case of a run-off, a second informal ballot will be held. If either President or Secretary is running for another position then he or she will ask a substitute who is not running for office to count the votes.
+				<li>Specific responsibilities:
+					<ol>
+					<li>The <b>President</b> is responsible for maintaining the day to day operations of the organization and for delegating these tasks when appropriate. The President must re-register the organization at the beginning of every academic year and is the organization's primary liaison to the Dean's Office. The President prepares a weekly meeting agenda and serves as a primary source of support for individual board members by supervising coordination among board members. The President maintains records for the YDC and must write up a "President's Report" at the end of every semester outlining the accomplishments and continuing goals of the board and evaluating these accomplishments and goals with recommendations for the future. The President coordinates the Bulldog Days Bazaar and the Freshman Bazaar and helps the Secretary plan elections. The President also oversees any YDC publications.
+					<li>The <b>Secretary</b> supervises communication with the YDC membership. On the first day of every academic month, the Secretary sends out a monthly update from the YDC, detailing the projects we have been working on that month. The Secretary also mails out all announcements about YDC events to the mailing list. The Secretary maintains the YDC email list using the Pantheon List Management tool: http://panlists.yale.edu/panlist/index.jsp and is responsible for adding or removing subscribers. The Secretary additionally facilitates communication within the YDC board by taking meeting minutes, or delegating this responsibility on a week by week basis, and sending the meeting minutes out to the board after the meeting. The Secretary also maintains the YDC bulletin board in Theater Studies and serves as a contact person for questions about the YDC. Finally, the Secretary supervises YDC social events such as the semester retreat and supervises elections with the President.
+					<li>The <b>Treasurer</b> handles the finances of the YDC. The Treasurer is responsible for maintaining a record of all income and expenses and supporting documentation. In addition, the Treasurer is required to file a Comprehensive Financial Report with the Office of Student Affairs (by mid-January and mid-May). The form for this financial report is available on-line at www.yale.edu/studentaffairs. The Treasurer is also responsible for maintaining the organization's bank account and for reimbursing board members for YDC related expenses by collecting receipts and writing out reimbursement checks to the individuals who spent the organization's money. The Treasurer drafts a yearly budget and approves all spending. The Treasurer submits Undergraduate Organization Funding Committee funding applications when necessary. The Treasurer additionally supervises the publicity of the YDC. Publicity responsibilities include maintaining contact with a graphic designer and providing a poster for each YDC event, distributing posters, publicizing on-line and maintaining the YDC signboard.
+					<li>The <b>Theater Studies Liaison</b> serves as a liaison to the Theater Studies department and arranges regular meetings with the DUS of Theater Studies. The Theater Studies liaison organizes the Faculty Forum and the Student Forum once a year each and supervises the Mentoring Program. The Theater Studies Liaison additionally maintains the Theater Studies page of the YDC's website and ensures on a weekly basis that the information on the page is up to date. The Theater Studies Liaison organizes the Faculty Forum and the Student Forum along with the Forums Coordinator once a year.
+					</ol>
+				</ol>
+
+			<li>Dissolution Clause
+				<ol>
+				<li>In the event that the Yale Drama Coalition: An Undergraduate Organization should dissolve, any remaining assets shall be distributed to the Theater Studies Program.
+				</ol>
+			<li>How Funds are Used
+				<ol>
+				<li>The YDC uses funds to provide refreshments at YDC sponsored events, publicize events, purchase supplies and any other event-related expenses. The following is a list of YDC sponsored activities:
+					<ol>
+					<li>YDC Theater Publication
+					<li>Student-Teacher Forum
+					<li>Freshman Information Session
+					<li>Professional Forum
+					<li>Master's Teas (additional expenses not covered by Master's offices)
+					<li>All events are funded by the Undergraduate Organization Funding Committee.
+					</ol>
+				</ol>
+			</ol>
+			</div>
+			<hr><br>
+			<b><strong>Donate</strong></b>
+			<ul>
+			<li>Make checks payable to:
+				<ul>
+				<li><FONT color="#070D48">Yale Drama Coalition: An Undergraduate Organization
+				</ul>
+			<li><FONT color="#070D48">Mail to:
+				<ul>
+				<li>Y. Drama Coalition
+				<li>Sarah Hendel, Treasurer
+				<li><FONT color="#070D48">PO Box 201313
+				<li> New Haven, CT 06520-1313
+				</ul>
+			<li>Note that donations to the YDC are not tax-deductable.
+			</ul>
+
+			<br><hr><br>
+			<b>Web Design Information</b>
+			<ul>
+			<li>For more information, please send an email to:
+				<ul>
+				<li> former webmaster and site coder, <a href="mailto:charlie.croom@gmail.com">Charlie Croom</a>
+				<li> or the current webmaster <a href="mailto:stuart.teal@yale.edu">Stuart Teal</a>
+				</ul>
+			<li>(C) 2005-2013 The Yale Drama Coalition. All rights reserved.
+			</ul>
+
+
+	</div>
+	<div class="span4 offset1">
+		<h3>Help with Yale Theater</h3>
+		<!--
+		<b>Information for Incoming Freshmen</b><br><br>
+		Congratulations to the coming class of 2014!  Since you worked so hard to get to Yale, we decided to make your life a little easier by compiling information to guide any of you interested in theater:
+		<br><br><b><a href="files/YDC_freshmen_2013.doc">The Yale Drama Coalition Letter for Freshmen</a> </b>(Word document)
+		<br><br><hr><br>
+		-->
+
+		<b>Dummies' Guide to Theater at Yale</b><br><br>
+		We're all of us dummies. This section of the YDC website is dedicated to facilitating the creation of theatre at Yale by disseminating knowledge and experiences. This is by no means a flawless document; rather, it is a collection of dynamic information that aims to help you accomplish your goals. Our desire is to help each other create top quality theater at Yale. Please help us by reading through the Dummies' Guide and emailing the YDC with comments or suggestions.
+		<br>
+
+		<ol>
+		<li><%= link_to "How to Abide by the Undergraduate Guidelines", guides_path('guidelines') %></li>
+		<li><%= link_to "How to Act", guides_path('acting') %></li>
+		<li><%= link_to "How to Produce", guides_path('produce') %></li>
+		<li><%= link_to "How to Get a Theater Space", guides_path('spaces') %></li>
+		<li><%= link_to "How to Write", guides_path('writing') %></li>
+		<li><%= link_to "How to Fill Your Stage With Props", guides_path('props') %></li>
+		<li><%= link_to "How to Sound Design", guides_path('sound') %></li>
+		<li><%= link_to "How to Light a Show", guides_path('light') %></li>
+		<li><%= link_to "How to Costume a Show", guides_path('costumes') %></li>
+		<li><%= link_to "How to Market a Show", guides_path('market') %></li>
+		<li><%= link_to "How to Direct a Show", guides_path('directing') %></li>
+		<li><%= link_to "How to Get Sudler Funding", guides_path('sudler') %></li>
+		</ol>
+
+		<table cellpadding="20" border="0"><tr><td>
+		</td></tr></table><hr><br>
+		<b>Other Resources</b><br><br>
+		1) <a href="http://www.yale.edu/oup/" target="new">The OFFICE OF UNDERGRADUATE PRODUCTIONS Website</a><br>
+		2) <a href="http://www.yale.edu/oup/spaces/matrix.html" target="new">Locations of Theater Spaces at Yale</a><br>
+		3) <a href="http://www.yale.edu/oup/forms/index.html" target="new">Off-Broadway Theater Proposal Form</a><br>
+		4) <a href="#" onClick="window.open('./static/guides/recommendedreading.html','mywindow','width=600,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes')">Recommended Reading (et al) from Theater Studies Professors</a><br>
+		5) <a href="#" onClick="window.open('./archives/arch-alumni.html','mywindow','width=600,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes')">YDC Alumni</a><br>
+
+		<br><hr><br>
+
+		<b>Theater Studies Information</b><br><br>
+		<i>Introduction (from the Theater Studies website):</i><br>
+		As a major within the humanities and as a complex cultural practice, theater claims a rich history and literature and an equally rich repertoire of embodied knowledge and theory. Theater Studies emphasizes the reciprocal relationship between practice and scholarly study. The content of required courses in the major is almost equally divided between theory and practice. Students are encouraged to engage intellectual and physical approaches to explore diverse cultural forms, historical traditions, and contemporary life.
+		<br><br>
+		The study of theater is interdisciplinary in scope and global in perspective. Students are expected to take courses also in cognate disciplines such as history, philosophy, anthropology, political science, film, art, music, literature, and foreign languages. Faculty members are affiliated with a range of departments and programs; their diverse expertise lends breadth and depth to course offerings and enables students to devise a course of study reflective of their developing interests.
+		<br><br>
+		<a href="http://www.yale.edu/theaterstudies/" target="new">Theater Studies Department Home</a><br>
+		<a href="#" onClick="window.open('thst-contacts.html',Theater Studies Contact Info)"></a><br>
+		<br>
+		The equivalents for the rehearsal studios in 254 York Street this year are the acting studio on the second floor at 212 York and the ballroom in the Fence Club, 220 York. Audrey Healy (<a href="mailto:audrey.healy@yale.edu">audrey.healy@yale.edu</a>) has sign-up sheets, guidelines, and keys to issue when you're ready to start thinking about booking time in these spaces. 
+	</div>
+</div>
