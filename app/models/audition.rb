@@ -8,6 +8,7 @@ class Audition < ActiveRecord::Base
 	
 	validates :location, :presence => true
 	
+	default_scope :order => "timestamp ASC"
 	scope :future, where(["timestamp > ?", Time.now + 10.minutes])
 	
 	def is_taken?
