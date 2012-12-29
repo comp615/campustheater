@@ -3,7 +3,7 @@
 		<h3><%= position %></h3>
 		<% sp_arr.each do |sp| %>
 			<div class="show">
-				<h4><%= link_to sp.show.title, best_link(sp.show) %></h4>
+				<b><%= link_to sp.show.title, best_link(sp.show) %></b><br />
 				<%= format_long_rundates(sp.show) %><br />
 				Contact: <%= link_to sp.show.contact, "mailto:#{sp.show.contact}" %>
 			</div>

@@ -1,9 +1,26 @@
-<nav>
+<% content_for :body_tag_content do %>
+	 data-spy="scroll" data-target="#show-nav" data-offset="150"
+<% end %>
 
-</nav>
+<div id="show-nav" class="navbar">
+  <div class="navbar-inner">
+    <div class="container" style="width: auto;">
+      <ul class="nav">
+        <li class=""><a href="#opening">Opening Soon</a></li>
+        <li class=""><a href="#this_semester"><%= oci_id_to_text(current_oci_id) %></a></li>
+        <li class=""><a href="#next_semester"><%= oci_id_to_text(next_oci_id) %></a></li>
+        <li class="divider-vertical"></li>
+        <% (2008..Time.now.year).to_a.reverse.each do |year| %>
+					<li class=""><a href="#<%= year.to_s + (year == Time.now.year && Time.now.month < 8 ? "01" : "03") %>"><%= year %></a></li>
+				<% end %>
+				<li class=""><a href="#ancient">Ancient</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
-<div class="divider">
+<div class="divider" id="opening">
 	<h2>Opening Soon</h2>
 </div>
 <div class="this_week">
@@ -11,14 +28,14 @@
 		<div class="row">
 			<% items.each do |item| %>
 				<div class="span3 item">
-					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
+					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 				</div>
 			<% end %>
 		</div>
 	<% end %>
 </div>
 
-<div class="divider">
+<div class="divider" id="this_semester">
 	<h2>This Semester</h2>
 </div>
 <% @this_semester.in_groups_of(3, false) do |items| %>
@@ -32,7 +49,7 @@
 <% end %>
 
 
-<div class="divider">
+<div class="divider" id="next_semester">
 	<h2>Beyond</h2>
 </div>
 <% @other.in_groups_of(3, false) do |items| %>
@@ -44,3 +61,20 @@
 		<% end %>
 	</div>
 <% end %>
+
+<% (2008..Time.now.year).to_a.reverse.each do |year| %>
+	<% ["03","01"].each do |term| %>
+		<% if Time.now.year == year && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
+
+		<% elsif year == Time.now.year %>
+			<% cache(:action => "index", :action_suffix => "#{year}#{term}", :expires_in => 12.hours) do %>
+				<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
+			<% end %>
+		<% else %>
+			<% cache(:action => "index", :action_suffix => "#{year}#{term}") do %>
+				<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<%= render :partial => "shows/archives", :locals => {:term => "ancient"} %>

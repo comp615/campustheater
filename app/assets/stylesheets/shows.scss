@@ -1,3 +1,9 @@
+#show-nav {
+	position: fixed;
+	z-index: 10;
+	top: 60px;
+}
+
 .content.shows {
 	h5 {
 		color: #2B3169;
@@ -302,6 +308,7 @@
 }
 
 .shows.index {
+	padding-top: 40px;
 
 	.divider {
 		text-align: center;

@@ -20,7 +20,7 @@
 
 	<%= yield :head %>
 </head>
-<body>
+<body <%= yield :body_tag_content %>>
 
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -41,7 +41,7 @@
 	    <div class="navbar-inner">
 		   <ul class="nav">
 					<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
-					<li><%= link_to "Calendar", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
+					<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
 					<li><%= link_to "Auditions", auditions_url, :class => @active_nav == :auditions ? "active" : "" %></li>
 					<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
 					<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>

@@ -1,0 +1,30 @@
+<% if term == "ancient" %>
+	<div class="divider" id="ancient">
+		<h2>Ancient Shows</h2>
+	</div>
+	<strong>Yearly archives from long ago:</strong><br />
+	<a target="_blank" href="/static_archives/pastarchive.html">1997-2003</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive03-04.html">2003-2004</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive04-05.html">2004-2005</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive05-06.html">2005-2006</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive06-07.html">2006-2007</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive07-08.html">2007-2008</a> &nbsp; &nbsp;
+<% else %>
+	<% 
+		# This is bad to put logic in a view...
+		shows = Show.where(:archive => true).shows_in_term(term).select(&:has_closed?)
+	%>
+	<div class="divider" id="<%= term %>">
+		<h2><%= oci_id_to_text(term) %></h2>
+	</div>
+	<% shows.in_groups_of(3, false) do |items| %>
+		<div class="row">
+			<% items.each do |item| %>
+				<div class="span4">
+					<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
+

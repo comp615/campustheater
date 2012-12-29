@@ -108,4 +108,19 @@ module ApplicationHelper
   def javascript(*files)
     content_for(:head) { javascript_include_tag(*files) }
   end
+
+  def oci_id_to_text(term)
+  	year = term.first(4).to_i
+  	term.last(2).to_i == 1 ? "Spring #{year}" : "Fall #{year}"
+  end
+
+  def current_oci_id
+  	today = Time.now
+  	"#{today.year}" + (today.month > 6 ? "03" : "01")
+  end
+
+  def next_oci_id
+  	today = Time.now
+  	today.month > 6 ? "#{today.year + 1}01" : "#{today.year}03"
+  end
 end

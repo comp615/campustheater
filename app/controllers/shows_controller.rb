@@ -16,15 +16,6 @@ class ShowsController < ApplicationController
 		@other = @shows - @this_week - @this_semester
 	end
 	
-	# Similar to upcoming shows, but just the past ones, optionally grouped by oci_term. I.E. 201203
-	def archives
-		@active_nav = :calendar
-		@page_name = " - Archives"
-		
-		@term = params[:term] || Time.now.year.to_s + (Time.now.month < 7 ? "01" : "03")
-		@shows = Show.where(:archive => true).shows_in_term(@term).select(&:has_closed?)
-	end
-	
 	def show
 		# Do something with @show?
 		#redirect_to root_url

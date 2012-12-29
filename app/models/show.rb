@@ -8,7 +8,7 @@ class Show < ActiveRecord::Base
      		:s3_credentials => "#{Rails.root}/config/aws.yml",
     		:path => "/shows/:id/poster/:style/:filename"
 	
-	has_many :directors, :class_name => :ShowPosition, :conditions => {:position_id => 1, :assistant => false}, :include => :person
+	has_many :directors, :class_name => :ShowPosition, :conditions => {:position_id => 1, :assistant => nil}, :include => :person
 	
 	default_scope :include => :showtimes
 	default_scope where(:approved => true)

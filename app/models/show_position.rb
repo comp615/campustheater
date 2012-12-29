@@ -32,7 +32,7 @@ class ShowPosition < ActiveRecord::Base
 	private
 	
 	def recache_director
-		self.show.bust_director_cache if self.position_id == 1 || self.position_id_was == 1
+		self.show.bust_director_cache if (self.position_id == 1 || self.position_id_was == 1) && self.show
 	end
 	
 	# TODO: verify this does what it's supposed to

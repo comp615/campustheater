@@ -33,6 +33,13 @@ $(document).ready(function() {
   	e.preventDefault();
   });
 
+  // Smooth scrolling handler for calendar page, maybe other stuff too?
+  $("#show-nav li a[href*=#]").click(function () {
+    this.blur();
+    smoothScrollTo(this.hash);
+    return false;
+  });
+
   /* Setup audition module, TODO: pull out elsewhere...only in two places */
   $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
 
@@ -79,4 +86,10 @@ function reservationOpenHandler(e) {
 
 function reservationSubmitHandler(e) {
   $(this).closest(".modal").find("form").submit();
+}
+
+function smoothScrollTo(hash) {
+    $("html:not(:animated),body:not(:animated)").animate({
+        scrollTop: $(hash).offset().top - 125
+    }, 650);
 }
