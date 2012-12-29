@@ -4,14 +4,14 @@
 	</script>
 <% end %>
 
-<div class="row" style="text-align: center">
-	<div class="span12 cal-intro">
+<div class="row">
+	<div id="cal-intro" class="span12">
 		Coming soon in <b>Yale Theater</b>
 		<hr />
 	</div>
 </div>
 
-<div class="this_week">
+<div id="this_week">
 	<% @rows.each do |items| %>
 		<% this_class = items.length == 2 ? "span6" : "span4" %>
 		<% this_class = "span6 offset3" if items.length == 1 %>
@@ -36,7 +36,7 @@
 If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
 
 <hr />
-<div class="news">
+<div id="news" class="row">
 	<% @news.each do |news| %>
 		<h2><%= news.title %></h2>
 		<h4>Posted by: <%= news.poster %></h4>

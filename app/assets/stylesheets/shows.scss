@@ -10,8 +10,8 @@
 		}
 		.nav > li.active > a {
 			background-color: #d4d7f3;
-   		color: #6F79D8;
-   		font-weight: bold;
+       		color: #6F79D8;
+       		font-weight: bold;
 		}
 		border: none;
 		border-radius: 0px;
@@ -338,9 +338,9 @@
 		padding: 5px 20px;
 		text-align: center;
 		margin: 0px auto;
-    background-color: #d4d7f3;
-    color: #6F79D8;
-    &.no_color {
+        background-color: #d4d7f3;
+        color: #6F79D8;
+        &.no_color {
 			color: inherit;
 		}
 	}
