@@ -113,7 +113,8 @@ class Show < ActiveRecord::Base
 	
 	# Get the OCI term of the show's opening night, can help for categorizing
 	def semester
-		opens = self.showtimes.first
+		return nil unless self.showtimes.first
+		opens = self.showtimes.first.timestamp
 		if(opens.month < 7)
 			opens.year.to_s + "01"
 		else
@@ -164,7 +165,6 @@ class Show < ActiveRecord::Base
 	end
 
 	def check_archive_caching
-		puts self.changed
 		return unless (self.changed & ['title','writer','location','poster']).length > 0
 		expire_fragment(:controller => "shows", 
                 :action => "index", 

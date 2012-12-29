@@ -64,7 +64,7 @@
 
 <% (2008..Time.now.year).to_a.reverse.each do |year| %>
 	<% ["03","01"].each do |term| %>
-		<% if Time.now.year == year && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
+		<% if Time.now.year == year && Time.now.month < 7 && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
 
 		<% elsif year == Time.now.year %>
 			<% cache(:action => "index", :action_suffix => "#{year}#{term}", :expires_in => 12.hours) do %>
