@@ -4,6 +4,7 @@ CampusTheater
 A site to help campuses manage vibrant theater and performing arts communities
 
 == TODOs
+- Auditions timestamps prolly broken too
 - responsive layout and mobile test
 - archives caching and onto the show calendar pag with navbar
 - CSV Downloads and stuff

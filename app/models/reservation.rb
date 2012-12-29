@@ -24,8 +24,8 @@ class Reservation < ActiveRecord::Base
 	end
 	
 	def generate_MD5
-		# TODO: Figure out what it is
-		# Digest::MD5.hexdigest()
+		require 'digest/md5'
+		Digest::MD5.hexdigest(self.id.to_s + self.email)
 	end
 
 	def status_line

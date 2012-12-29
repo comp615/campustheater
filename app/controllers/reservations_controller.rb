@@ -72,24 +72,33 @@ class ReservationsController < ApplicationController
 	
 	private
 	
+	# auth_code is the new generated string attached to each model
+	# auth is the old MD5 hash based on id and email...so used to preserve old addresses
 	def fetch_show
+		return if !params[:show_id] && params[:auth]
 		@show = Show.includes(:showtimes).find(params[:show_id])
-		redirect_to @show if !@show.ok_to_ticket?
+		redirect_to @show, :notice => "Sorry this shows tickets can no longer be changed!" if !@show.ok_to_ticket?
 	end
 	
 	def auth_reservation
+		params[:id] ||= params[:tix_id]
 		@reservation = Reservation.find(params[:id])
-		return false unless @show.showtime_ids.include? @reservation.showtime_id
-		# 
+		return false unless params[:auth] || @show.showtime_ids.include?(@reservation.showtime_id)
+		
+		if(params[:auth] == @reservation.generate_MD5)
+			# make a token
+			@reservation.update_attribute('token', rand(36**8).to_s(36)) unless @reservation.token
+
+			# Redirect them to the new url structure
+			@show = @reservation.showtime.show
+			redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => "We've updated our website. Please use the new address shown above for future reference!"
+		end
+
 		return true if (@current_user && @current_user.has_permission?(@show, :full)) || 
 										@reservation.person_id == @current_user.id ||
-										params[:auth_code] == @reservation.generate_MD5 || 
 										params[:auth_code] == @reservation.token
 		
-		if(params[:auth_code] == @reservation.generate_MD5)
-			# Redirect them to the new url structure
-			redirect_to [@show,@reservation], :auth_code => @reservation.token
-		end
+		
 		
 		# Still hanging around? That means it isn't authed
 		raise ActionController::RoutingError.new('Not Found')		

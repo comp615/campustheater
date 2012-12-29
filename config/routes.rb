@@ -95,6 +95,11 @@ Ydc::Application.routes.draw do
   match 'resources' => 'pages#resources'
   match 'guides/:static_file' => 'pages#guides', :as => :guides
   
+  # Add legacy routes here
+  # TODO: These can be removed probably a month or so after launch, remove supporting code too
+  match 'audition_signup.php', :controller => :auditions, :action => :index
+  match 'view_reservation.php', :controller => :reservations, :action => :show
+
   # Detect show slugs last, some legacy support for now
   # TODO: build out /tickets, /reserve, etc.
   match ':url_key' => 'shows#show', :as => "vanity"
@@ -105,5 +110,6 @@ Ydc::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
-  # TODO: Add legacy routes here
+  
+
 end

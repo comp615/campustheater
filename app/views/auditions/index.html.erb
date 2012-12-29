@@ -4,6 +4,7 @@
 	<h2><%= @show.title %> <span class="faded">auditions</span></h2>
 	<br />
 	<% if @aud_admin %>
+	<!-- 
 		<b>Batch add Audition Times</b>
 		<%= form_tag (url_for :controller => 'auditions', :action => 'create'), :class => "datepair", :remote => true do |f| %>
 			<%= label :audition, :location %>
@@ -15,9 +16,9 @@
 			Audition Length (minutes): <%= number_field_tag :duration %>
 			<%= submit_tag "Submit" %>
 		<% end %>
-		
-		
 		<hr />
+		-->
+
 		<!--
 		Add a Single Audition Time
 		<%= form_for Audition.new, :class => "datepair" do |f| %>

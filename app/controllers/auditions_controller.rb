@@ -26,9 +26,20 @@ class AuditionsController < ApplicationController
 	
 	def index
 		@active_nav = :auditions
-		@auditions = @show.auditions.future.includes(:person)
+		@auditions = @show.auditions.select{|a| a.timestamp > Time.now}
 		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
 		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id}
+
+		# Legacy support, check and reassociate audition if given
+		if params[:aud_id]
+			legacy_aud =  @show.auditions.find(params[:aud_id])
+			require 'digest/md5'
+			if Digest::MD5.hexdigest(legacy_aud.name) == params[:aud_hash] || legacy_aud.person_id == @current_user.id
+				legacy_aud.update_attribute('person_id', @current_user.id) unless !legacy_aud.person_id.blank?
+				redirect_to show_auditions_path(@show), :notice => 'We\'ve associated you audition with your account on the new site. You can now access your audition for this show using the URL above or from the My Dashboard link'
+			end
+		end
+
 		@user_audition ||= {}
 	end
 	
@@ -38,9 +49,12 @@ class AuditionsController < ApplicationController
 	
 	def create
 		#expect batch processing so figure out what we're iterating on
-		start = DateTime.strptime("#{params[:date]} #{params[:start_time]}", '%m/%d/%Y %l:%M%P')
-		stop = DateTime.strptime("#{params[:date]} #{params[:end_time]}", '%m/%d/%Y %l:%M%P')
-		
+		# Assume they gave us Eastern Time Zone stuff
+		that_date = DateTime.strptime("#{params[:date]} #{params[:start_time]}", '%m/%d/%Y %l:%M%P')
+		start = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
+		that_date = DateTime.strptime("#{params[:date]} #{params[:end_time]}", '%m/%d/%Y %l:%M%P')
+		stop = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
+
 		# Validate things here
 		# ensure there's no other time in this span, custom validator
 		if @show.auditions.where(:timestamp => (start...stop)).count > 0
@@ -136,9 +150,9 @@ class AuditionsController < ApplicationController
 		# Check permissions, if admin, pre-load the people too
 		if logged_in? && @current_user.has_permission?(params[:show_id], :auditions)
 			@aud_admin = true
-			@show = Show.includes(:auditions).find(params[:show_id])
-		else
 			@show = Show.includes(:auditions => [:person]).find(params[:show_id])
+		else
+			@show = Show.includes(:auditions).find(params[:show_id])
 		end
 	end	
 end
