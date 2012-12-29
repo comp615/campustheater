@@ -27,7 +27,7 @@
 	<% @this_week.in_groups_of(4, false) do |items| %>
 		<div class="row">
 			<% items.each do |item| %>
-				<div class="span3 item">
+				<div class="span3 item clearfix">
 					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 				</div>
 			<% end %>
@@ -41,7 +41,7 @@
 <% @this_semester.in_groups_of(3, false) do |items| %>
 	<div class="row">
 		<% items.each do |item| %>
-			<div class="span4">
+			<div class="span4 clearfix">
 				<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 			</div>
 		<% end %>
@@ -55,7 +55,7 @@
 <% @other.in_groups_of(3, false) do |items| %>
 	<div class="row">
 		<% items.each do |item| %>
-			<div class="span4">
+			<div class="span4 clearfix">
 				<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 			</div>
 		<% end %>

@@ -20,7 +20,7 @@
 	<% shows.in_groups_of(3, false) do |items| %>
 		<div class="row">
 			<% items.each do |item| %>
-				<div class="span4">
+				<div class="span4 clearfix">
 					<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
 				</div>
 			<% end %>
