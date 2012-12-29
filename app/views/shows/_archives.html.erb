@@ -12,7 +12,7 @@
 <% else %>
 	<% 
 		# This is bad to put logic in a view...
-		shows = Show.where(:archive => true).shows_in_term(term).select(&:has_closed?)
+		shows = Show.where(:archive => true).shows_in_term(term).select(&:has_closed?).sort_by{|show| show.showtimes.first.timestamp}
 	%>
 	<div class="divider" id="<%= term %>">
 		<h2><%= oci_id_to_text(term) %></h2>

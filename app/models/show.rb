@@ -35,6 +35,7 @@ class Show < ActiveRecord::Base
 	validates :showtimes, :length => { :minimum => 1, :too_short => "needs to have at least 1 showtime given" }
 
 	after_update :check_to_notify_changes
+	after_update :check_archive_caching
 	
 	
 	def self.shows_in_range(range)
@@ -160,6 +161,14 @@ class Show < ActiveRecord::Base
 			# Send OUP a note about the new show. Maybe send the show a note too!
 			ShowMailer.show_approved_email(self).deliver
 		end
+	end
+
+	def check_archive_caching
+		puts self.changed
+		return unless (self.changed & ['title','writer','location','poster']).length > 0
+		expire_fragment(:controller => "shows", 
+                :action => "index", 
+                :action_suffix => self.semester)
 	end
 	
 	# Helper function to convert a static oci_term into a rails date range for querying
