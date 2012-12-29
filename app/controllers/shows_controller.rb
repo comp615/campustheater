@@ -3,6 +3,8 @@ class ShowsController < ApplicationController
 	before_filter :force_auth, :except => [:show, :index, :archives]
 	before_filter :fetch_show, :only => [:show, :edit, :edit_people, :edit_files, :update, :destroy, :show_showtime, :dashboard]
 	before_filter :auth, :except => [:index, :show, :archives, :new, :create, :dashboard]
+
+	cache_sweeper :show_sweeper
 	
 	
 	# upcoming shows, grouped by week, semester, others
