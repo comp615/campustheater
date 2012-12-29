@@ -23,9 +23,11 @@
  *= require jquery.timepicker.css
 */
 
+@import "bits";
+
 body {
-	color: #070d4b;
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
+	color: $dk-purple;
 }
 
 iframe {
@@ -40,7 +42,7 @@ iframe {
 
 .alt-text {
 	font-size: 14px;
-	color: #6F79D8;
+	color: $purple;
 	th {
 		font-weight: normal;
 		text-align: left;
@@ -48,7 +50,7 @@ iframe {
 }
 
 h5 {
-	color: #6f79d8;
+	color: $purple;
 }
 
 h1,h2,h3 {
@@ -61,12 +63,12 @@ h2 {
 }
 
 .faded {
-	color: #d4d7f3;
+	color: $lt-purple;
 }
 
 .header {
 	font-family: "depot-new-web", sans;
-	background-color: #6f79d8;
+	background-color: $purple;
 	width: 100%;
 	z-index: 10;
 	position: fixed;
@@ -86,7 +88,7 @@ h2 {
 		margin: 0 auto;
 		border: none;
 		box-shadow: none;
-		background-color: #6f79d8;
+		background-color: $purple;
 		text-transform: uppercase;
 		background-image: none;
 		.nav > li > a {
@@ -122,7 +124,7 @@ h2 {
 .btn {
   background-image: none;
   border: none;
-  background-color: #6f79d8;
+  background-color: $purple;
   color: white;
   text-shadow: none;
   &:hover {
