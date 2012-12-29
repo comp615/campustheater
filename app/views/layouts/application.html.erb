@@ -13,21 +13,24 @@
     <link rel="shortcut icon" href="<%= image_path 'favicon.ico' %>">
     <link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
     
-    <!--Fonts-->
+    <!--[if lt IE 9]>
+        <%= javascript_include_tag "html5shiv-p" %>
+    <![endif]-->
     
+    <!--Fonts-->    
     <link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    
+
     <%= yield :head %>
 </head>
 
 <body <%= yield :body_tag_content %>>
 
-	<div class="header">
+	<header>
 	  <div class="navbar">
 	    <div class="navbar-inner">
-		   <ul class="nav">
+		    <ul class="nav">
 				<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
 				<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
 				<li><%= link_to "Auditions", auditions_path, :class => @active_nav == :auditions ? "active" : "" %></li>
@@ -48,9 +51,9 @@
     		</ul>
 	    </div>
 	  </div>
-	</div>																																					
+	</header>																																					
 
-	<div class="content <%= params[:controller] %> <%= params[:action] %>">
+	<div class="container <%= params[:controller] %> <%= params[:action] %>">
     	<% if flash[:notice] %>
 	       <div class="alert alert-info"><%= flash[:notice] %></div>
 	    <% end %>
@@ -60,17 +63,19 @@
 		<%= yield %>
 	</div>
 
-	<div class="footer row">
-		<div class="span6 offset3">
-			<hr />
-			<p>
-			Site coded by Charlie Croom<br />
-			Design by Jared Shenson<br /><br /><br />
-			Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site.
-			Show specific questions should be directed to the appropriate show's director or producer.
-			</p>
+	<footer class="container">
+		<div class="row">
+    		<div class="span6 offset3">
+    			<hr />
+    			<p>
+    			Site coded by Charlie Croom<br />
+    			Design by Jared Shenson<br /><br /><br />
+    			Please note that the YDC is simply a coordinating organization and does not produce any of the shows listed on this site.
+    			Show specific questions should be directed to the appropriate show's director or producer.
+    			</p>
+    		</div>
 		</div>
-	</div>
+	</footer>
 
 	<%= render :partial => "shared/dialogs" %>
 	
