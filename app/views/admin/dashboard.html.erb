@@ -35,7 +35,7 @@
 
 <br /><br />
 <b>Select a show to edit:</b>
-<form method="get" action="/shows/id/edit">
+<form method="get" action="/shows/id/dashboard">
   <%= select_tag :show_edit_id, options_from_collection_for_select(@shows, :id, :title) %>
   <%= submit_tag "Edit"%>
 </form>
