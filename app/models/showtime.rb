@@ -8,6 +8,7 @@ class Showtime < ActiveRecord::Base
 	before_destroy :notify_delete_reservations
 	
 	def notify_reservations
+		return unless self.timestamp_changed?
 		num_before = 0
 		self.reservations.order("`updated_at` ASC").each do |r|
 			if num_before >= self.show.cap
@@ -36,6 +37,7 @@ class Showtime < ActiveRecord::Base
 	end
 
 	def notify_oup
+		return unless self.timestamp_changed?
 		@show = self.show rescue nil # will error if show can't be found, meaning not approved
 		ShowtimeMailer.notify_oup_email(@show,self).deliver if @show && @show.approved		
 	end
