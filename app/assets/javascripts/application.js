@@ -90,6 +90,6 @@ function reservationSubmitHandler(e) {
 
 function smoothScrollTo(hash) {
     $("html:not(:animated),body:not(:animated)").animate({
-        scrollTop: $(hash).offset().top - 125
+        scrollTop: $(hash).offset().top - 110
     }, 650);
 }

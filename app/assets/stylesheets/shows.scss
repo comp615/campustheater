@@ -1,7 +1,25 @@
 #show-nav {
 	position: fixed;
 	z-index: 10;
-	top: 60px;
+	top: 50px;
+	width: 940px;
+	.navbar-inner {
+		.nav > li > a {
+			color: #6F79D8;
+			text-shadow: none;
+		}
+		.nav > li.active > a {
+			background-color: #d4d7f3;
+   		color: #6F79D8;
+   		font-weight: bold;
+		}
+		border: none;
+		border-radius: 0px;
+		box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 8px 1px;
+		background-color: rgba(255,255,255,.93);
+		text-transform: uppercase;
+		background-image: none;
+	}
 }
 
 .content.shows {
