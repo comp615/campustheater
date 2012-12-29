@@ -1,75 +1,62 @@
 <!DOCTYPE html>
 <head>
-  <title>Yale Drama Coalition<%= @page_name %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-
-  <meta name="description" content="The Yale Drama Coalition is an organization for the furthering of theater at Yale University.">
-	<meta name="keywords" content="Yale, theater, information, theatre, dramat, drama, coalition, University, repertory, mailing">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!--Favicon-->
-	<link rel="shortcut icon" href="<%= image_path 'favicon.ico' %>">
-	<link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
-
-	<!--Fonts-->
-	
-	<link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-	<%= yield :head %>
+    <title>Yale Drama Coalition<%= @page_name %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    
+    <meta name="description" content="The Yale Drama Coalition is an organization for the furthering of theater at Yale University.">
+    <meta name="keywords" content="Yale, theater, information, theatre, dramat, drama, coalition, University, repertory, mailing">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" href="<%= image_path 'favicon.ico' %>">
+    <link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
+    
+    <!--Fonts-->
+    
+    <link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+    <%= yield :head %>
 </head>
+
 <body <%= yield :body_tag_content %>>
 
-	<!-- Google Analytics -->
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', '<%= GA_ACCOUNT %>']);
-	  // _gaq.push(['_setDomainName', 'yaledramacoalition.org']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	</script>
-
 	<div class="header">
-		<div class="navbar">
+	  <div class="navbar">
 	    <div class="navbar-inner">
 		   <ul class="nav">
-					<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
-					<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
-					<li><%= link_to "Auditions", auditions_url, :class => @active_nav == :auditions ? "active" : "" %></li>
-					<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
-					<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
-				</ul>
-				<form class="navbar-search pull-left" method="GET" action="/search">
-		    	<input type="text" class="search-query" name="name">
-		    	<i class="icon-search icon-white"></i>
-		    	<input type="hidden" name="header_search" value="1">
-		    </form>
-		    <ul class="nav pull-right">
-			    <% if @current_user %>
-						<li><%= link_to "My Dashboard", dashboard_path %></li>
-					<% else %>
-						<li><%= link_to "Login", dashboard_path %></li>
-					<% end %>
-				</ul>
+				<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
+				<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
+				<li><%= link_to "Auditions", auditions_path, :class => @active_nav == :auditions ? "active" : "" %></li>
+				<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
+				<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
+			</ul>
+			<form class="navbar-search pull-left" method="GET" action="/search">
+    	    	<input type="text" class="search-query" name="name">
+    	    	<i class="icon-search icon-white"></i>
+    	    	<input type="hidden" name="header_search" value="1">
+    	    </form>
+    	    <ul class="nav pull-right">
+    		    <% if @current_user %>
+    				<li><%= link_to "My Dashboard", dashboard_path %></li>
+    			<% else %>
+    				<li><%= link_to "Login", dashboard_path %></li>
+    			<% end %>
+    		</ul>
 	    </div>
 	  </div>
 	</div>																																					
 
 	<div class="content <%= params[:controller] %> <%= params[:action] %>">
-		<% if flash[:notice] %>
-	    <div class="alert alert-info"><%= flash[:notice] %></div>
-	  <% end %>
-	  <% if flash[:error] %>
-	    <div class="alert alert-error"><%= flash[:error] %></div>
-	  <% end %>
+    	<% if flash[:notice] %>
+	       <div class="alert alert-info"><%= flash[:notice] %></div>
+	    <% end %>
+	    <% if flash[:error] %>
+	       <div class="alert alert-error"><%= flash[:error] %></div>
+	    <% end %>
 		<%= yield %>
 	</div>
 
@@ -86,5 +73,19 @@
 	</div>
 
 	<%= render :partial => "shared/dialogs" %>
+	
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', '<%= GA_ACCOUNT %>']);
+	  // _gaq.push(['_setDomainName', 'yaledramacoalition.org']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
 </body>
 </html>
