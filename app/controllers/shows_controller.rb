@@ -86,7 +86,7 @@ class ShowsController < ApplicationController
 
 				# Format the date properly into a time object and use the current server TS to get UTC offset they meant
 				that_date =  DateTime.strptime("#{obj[:date]} #{obj[:time]}", '%m/%d/%Y %l:%M%P')
-				obj = { :id => obj[:id], :timestamp => Time.new(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute), :_destroy => obj[:_destroy] }
+				obj = { :id => obj[:id], :timestamp => Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute), :_destroy => obj[:_destroy] }
 				params[:show][:showtimes_attributes][key] = obj	
 			end
 		end
