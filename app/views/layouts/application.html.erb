@@ -52,13 +52,14 @@
 	   </nav>
 	</header>																																					
 
-	<div class="container <%= params[:controller] %> <%= params[:action] %>">
+	<div id="main" class="container <%= params[:controller] %> <%= params[:action] %>">
     	<% if flash[:notice] %>
 	       <div class="alert alert-info"><%= flash[:notice] %></div>
 	    <% end %>
 	    <% if flash[:error] %>
 	       <div class="alert alert-error"><%= flash[:error] %></div>
 	    <% end %>
+	    
 		<%= yield %>
 	</div>
 
