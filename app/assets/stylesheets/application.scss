@@ -160,15 +160,15 @@ nav {
 }
 
 .btn {
-  background-image: none;
-  border: none;
-  background-color: $purple;
-  color: white;
-  text-shadow: none;
-  &:hover {
-  	color: white;
-  	background-color: #070d4b;
-  }
+    background-image: none;
+    border: none;
+    background-color: $purple;
+    color: white;
+    text-shadow: none;
+    &:hover {
+    	color: white;
+    	background-color: #070d4b;
+    }
 }
 
 .best_in_place {
@@ -194,7 +194,30 @@ nav {
 /* 	Footer Stuff	*/
 footer {
 	background: $dk-purple;
-	color: white;
+	color: $lt-purple;
+	
+	.center { 
+	   text-align: center; 
+	   margin-bottom: -5px;
+    }
+	.right { text-align: right; }
+}
+
+#footer-umbrella {
+    display: inline-block;
+    margin-top: -5px;
+    
+    -webkit-transition: -webkit-transform 0.8s ease-in-out;
+    -moz-transition: -moz-transform 0.8s ease-in-out;
+    -o-transition: -o-transform 0.8s ease-in-out;
+    transition: transform 0.8s ease-in-out;
+    
+    &:hover { 
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg); 
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }  
 }
 
 /*  End Footer		*/
