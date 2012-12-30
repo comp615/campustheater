@@ -35,14 +35,6 @@ iframe {
 	border: none;
 }
 
-/*
-.content {
-	width: 940px;
-	margin: 0 auto;
-	margin-top: 80px;
-}
-*/
-
 .alt-text {
 	font-size: 14px;
 	color: $purple;
@@ -74,14 +66,20 @@ nav {
 	   background: $purple;
 	   border: none;
 	   box-shadow: none !important;
-       padding: 0 20px !important;	   
+       padding: 0 20px !important;
+       
+       .brand {
+           text-indent: -9999px;
+           background: image-url("umbrella.png") no-repeat;
+           margin: 9px 14px 0 0;
+       }   
 	   
 	   .nav > li > a {
     	   color: $lt-purple;
     	   text-transform: uppercase;
     	   text-shadow: none;
     	   line-height: 30px;
-    	   padding: 9px 15px 11px;
+    	   padding: 9px 16px 11px;
     	   
     	   &:hover {
         	   color: white;
@@ -99,6 +97,7 @@ nav {
 		border-radius: 3px;
 		line-height: 30px;
 		margin-top: 9px;
+		margin-left: 6px;
 		
 		.input-append { margin: 0; }
 		

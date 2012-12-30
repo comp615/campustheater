@@ -18,3 +18,5 @@
 /public/guides
 /public/static_guides
 Gemfile.lock
+
+app/assets/images/.DS_Store
