@@ -30,7 +30,7 @@
 	<header>
 	   <nav class="navbar navbar-static-top">
 	       <div class="navbar-inner">
-	            <%= link_to "YDC", root_path, :class => "brand" %>
+	            <%= link_to "YDC", root_path, :class => "brand", :title => "Yale Drama Coalition" %>
                 <ul class="nav">
                 	<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
                 	<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
@@ -67,7 +67,7 @@
 		<div class="container">
 		<div class="row">
     		<div class="span5">
-    			Code by <a href="http://charliecroom.com" target="_blank">CC</a> with Design by <a href="http://jaredshenson.com" target="_blank">JS</a>
+    			Code by <a href="http://charliecroom.com" title="Charlie Croom" target="_blank">CC</a> with Design by <a href="http://jaredshenson.com" title="Jared Shenson" target="_blank">JS</a>
     		</div>
     		<div class="span2 center">
         		<%= image_tag "umbrella-foot.png", :id => "footer-umbrella" %>

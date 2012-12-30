@@ -211,13 +211,15 @@ footer {
 #footer-umbrella {
     display: inline-block;
     margin-top: -5px;
+    opacity: 0.85;
     
-    -webkit-transition: -webkit-transform 0.8s ease-in-out;
-    -moz-transition: -moz-transform 0.8s ease-in-out;
-    -o-transition: -o-transform 0.8s ease-in-out;
-    transition: transform 0.8s ease-in-out;
+    -webkit-transition: all 0.8s ease-in-out;
+    -moz-transition: all 0.8s ease-in-out;
+    -o-transition: all 0.8s ease-in-out;
+    transition: all 0.8s ease-in-out;
     
-    &:hover { 
+    &:hover {
+        opacity: 1.0;
         -webkit-transform: rotate(360deg);
         -moz-transform: rotate(360deg); 
         -o-transform: rotate(360deg);
