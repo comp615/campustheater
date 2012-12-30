@@ -4,18 +4,16 @@
 
 <div id="show-nav" class="navbar">
   <div class="navbar-inner">
-    <div class="container" style="width: auto;">
-      <ul class="nav">
-        <li class=""><a href="#opening">Opening Soon</a></li>
-        <li class=""><a href="#this_semester"><%= oci_id_to_text(current_oci_id) %></a></li>
-        <li class=""><a href="#next_semester"><%= oci_id_to_text(next_oci_id) %></a></li>
-        <li class="divider-vertical"></li>
-        <% (2008..Time.now.year).to_a.reverse.each do |year| %>
-					<li class=""><a href="#<%= year.to_s + (year == Time.now.year && Time.now.month < 8 ? "01" : "03") %>"><%= year %></a></li>
-				<% end %>
-				<li class=""><a href="#ancient">Ancient</a></li>
-      </ul>
-    </div>
+    <ul class="nav">
+      <li class=""><a href="#opening">Opening Soon</a></li>
+      <li class=""><a href="#this_semester"><%= oci_id_to_text(current_oci_id) %></a></li>
+      <li class=""><a href="#next_semester"><%= oci_id_to_text(next_oci_id) %></a></li>
+      <li class="divider-vertical"></li>
+      <% (2008..Time.now.year).to_a.reverse.each do |year| %>
+				<li class=""><a href="#<%= year.to_s + (year == Time.now.year && Time.now.month < 8 ? "01" : "03") %>"><%= year %></a></li>
+			<% end %>
+			<li class=""><a href="#ancient">Ancient</a></li>
+    </ul>
   </div>
 </div>
 
