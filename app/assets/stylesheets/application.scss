@@ -28,6 +28,7 @@
 body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;
+	padding-top: 50px;
 }
 
 iframe {
@@ -68,51 +69,79 @@ h2 {
 	color: $lt-purple;
 }
 
-.header {
-	font-family: "depot-new-web", sans;
-	background-color: $purple;
-	width: 100%;
-	z-index: 10;
-	position: fixed;
-	padding: 5px 0px;
-	top: 0px;
-	h1,h2,h3,h4,h5 { display: inline; }
-	.active { font-weight: bold; }
+nav {
+	.navbar-inner { 
+	   background: $purple;
+	   border: none;
+	   box-shadow: none !important;
+       padding: 0 20px !important;	   
+	   
+	   .nav > li > a {
+    	   color: $lt-purple;
+    	   text-transform: uppercase;
+    	   text-shadow: none;
+    	   line-height: 30px;
+    	   padding: 9px 15px 11px;
+    	   
+    	   &:hover {
+        	   color: white;
+    	   }
+    	   
+    	   &.active { 
+    	       font-weight: bold;
+    	       color: white;
+    	   }
+	   }
+    }
+    
+    .navbar-search {
+		background-color: #8891df;
+		border-radius: 3px;
+		line-height: 30px;
+		margin-top: 9px;
+		
+		.input-append { margin: 0; }
+		
+		.btn {
+    		background: none;
+    		padding: 5px 8px 4px 5px;
+    		box-shadow: none;
+		}
+        
+    	.search-query {
+    		border-radius: 0;
+    		box-shadow: none;
+    		background: none;
+    		padding: 4px 10px;
+    		color: white;
+    		width: 150px;
+    		border: none;
+    	}
+	}
+	
+	#nav-user {
+    	margin-top: 9px;
+	
+    	a {
+        	padding: 0 10px 2px;
+        	background: #8891df;
+        	border-radius: 3px;
+        	line-height: 28px;
+        	text-transform: none;
+        	
+        	&:hover {
+            	background: $dk-purple;
+        	}
+    	}
+    }
+	
+   /* h1,h2,h3,h4,h5 { display: inline; }
 	h4 { 
 		margin-left: 20px; 
 		font-weight: normal;
 		color: #6D6E70;
-	}
+	}*/
 
-	.navbar { margin: 0px; }
-	.navbar-inner {
-		width: 940px;
-		margin: 0 auto;
-		border: none;
-		box-shadow: none;
-		background-color: $purple;
-		text-transform: uppercase;
-		background-image: none;
-		.nav > li > a {
-			color: white;
-			text-shadow: none;
-		}
-
-		.navbar-search {
-			background-color: #8891df;
-			padding-right: 5px;
-			border-radius: 2px;
-			i { margin-top: 4px; margin-right: 4px; }
-		}
-
-		.search-query {
-			border-radius: 2px;
-			background-color: #8891df;
-			color: white;
-			width: 150px;
-			border: none;
-		}
-	}
 }
 
 .text-on-image {
