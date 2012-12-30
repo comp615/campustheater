@@ -1,45 +1,59 @@
 @import "bits";
 
-#show-nav {
-	&:not(.fixed) {
-		margin-top: -40px;
-	}
+#nav-shows {
 	z-index: 10;
-	width: 940px;
+	background-color: rgba(255,255,255,.93);
+	
+	&.fixed { 
+	   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 8px 1px;
+    }
+		
 	.navbar-inner {
+	    .nav > li {
+    	    padding: 10px 0;
+	    }
 		.nav > li > a {
-			color: #6F79D8;
+			color: $purple;
 			text-shadow: none;
+			padding: 6px 15px 7px;
+			
+			&:hover {
+    		    color: $dk-purple;	
+			}
 		}
-		.nav > li.active > a {
-			background-color: #d4d7f3;
-       		color: #6F79D8;
+		.nav > .active > a {
+			background-color: $lt-purple;
+       		color: $purple;
        		font-weight: bold;
+       		box-shadow: none;
+       		border-radius: 3px;
 		}
+    	max-width: 940px;
+    	padding: 0;
+    	margin: 0 auto;
 		border: none;
 		border-radius: 0px;
-		box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 8px 1px;
-		background-color: rgba(255,255,255,.93);
+		background: none;
 		text-transform: uppercase;
-		background-image: none;
+		box-shadow: none;
 	}
 }
 
 #archives {
-	background: $lt-purple;
+	background: $pale-purple;
 }
 
-.content.shows {
+.container.shows {
 	h5 {
 		color: #2B3169;
 		font-size: 14pt;
 		text-transform: uppercase;
 		font-weight: normal;
-		a { color: #6F79D8; }
+		a { color: $purple; }
 	}
 
 	&.show h5 {
-		color: #6F79D8;
+		color: $purple;
 	}
 
 	.reservations {
@@ -122,7 +136,7 @@
 				font-size: 18pt;
 				color: #2B3169;
 				.location {
-					color: #6F79D8;
+					color: $purple;
 					font-size: 14pt;
 				}
 			}
@@ -134,7 +148,7 @@
 					color: #BE1E2D;
 				}
 				.past {
-					color: #D4D7F3;
+					color: $lt-purple;
 				}
 			}
 			.condensed, .hide-all {
@@ -143,16 +157,16 @@
 		}
 
 	.show-form {
-		color: #6F79D8;
+		color: $purple;
 		line-height: 40px;
 
 		input[type=text], input[type=number], textarea, select {
 			width: 90%;
-			background-color: #D4D7F3;
-			color: #6F79D8;
+			background-color: $lt-purple;
+			color: $purple;
 
 			&:focus {
-				background-color: #6F79D8;
+				background-color: $purple;
 				color: #FFF;
 			}
 		}
@@ -209,7 +223,7 @@
 		#tech_ops {
 			font-size: 18px;
 			color: #2B3169;
-			span { color: #6F79D8; }
+			span { color: $purple; }
 		}
 
 		label + input, input + label {
@@ -229,7 +243,7 @@
 		}
 
 		label {
-			color: #6F79D8;
+			color: $purple;
 			font-size: 18px;
 			display: inline;
 		}
@@ -298,7 +312,7 @@
 				padding: 0px 10px;
 			}
 			.past {
-				color: #D4D7F3;
+				color: $lt-purple;
 			}
 		}
 
@@ -333,7 +347,6 @@
 }
 
 .shows.index {
-	padding-top: 40px;
 
 	.divider {
 		text-align: center;
@@ -345,8 +358,8 @@
 		padding: 5px 20px;
 		text-align: center;
 		margin: 0px auto;
-        background-color: #d4d7f3;
-        color: #6F79D8;
+        background-color: $lt-purple;
+        color: $purple;
         &.no_color {
 			color: inherit;
 		}
