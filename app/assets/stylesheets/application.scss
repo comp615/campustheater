@@ -34,6 +34,27 @@ iframe {
 	border: none;
 }
 
+h1,h2,h3 {
+	font-family: "Bitter", sans;
+}
+
+h2 {
+	margin-bottom: 20px;
+	border-radius: 2px;
+}
+
+h5 {
+	color: $purple;
+}
+
+a {
+    color: $purple;
+    &:hover {
+        color: darken($purple, 15%);
+        text-decoration: none;
+    }
+}
+
 .container {
     padding: 20px 0;
 }
@@ -45,19 +66,6 @@ iframe {
 		font-weight: normal;
 		text-align: left;
 	}
-}
-
-h5 {
-	color: $purple;
-}
-
-h1,h2,h3 {
-	font-family: "Bitter", sans;
-}
-
-h2 {
-	margin-bottom: 20px;
-	border-radius: 2px;
 }
 
 .faded {
@@ -196,6 +204,8 @@ footer {
 	   margin-bottom: -5px;
     }
 	.right { text-align: right; }
+	
+	a:hover { color: lighten($purple, 15%); }
 }
 
 #footer-umbrella {
