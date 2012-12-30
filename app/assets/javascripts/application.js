@@ -40,6 +40,19 @@ $(document).ready(function() {
     return false;
   });
 
+  // When scrolled down, move the bar with the window
+  var $scrollers = $('.scroll-fixed-top');
+  var positions = $('.scroll-fixed-top').map(function() { return $(this).offset().top; });
+  $(window).bind('scroll', function() {
+    $scrollers.each(function(i) {
+      if ($(window).scrollTop() > positions[i]) {
+        $(this).addClass('fixed');
+      } else {
+        $(this).removeClass('fixed');
+      }
+    });
+  });
+
   /* Setup audition module, TODO: pull out elsewhere...only in two places */
   $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
 
@@ -90,6 +103,6 @@ function reservationSubmitHandler(e) {
 
 function smoothScrollTo(hash) {
     $("html:not(:animated),body:not(:animated)").animate({
-        scrollTop: $(hash).offset().top - 110
+        scrollTop: $(hash).offset().top - 60
     }, 650);
 }

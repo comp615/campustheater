@@ -72,6 +72,10 @@ a {
 	color: $lt-purple;
 }
 
+.fixed {
+	position: fixed;
+	top: 0px;
+}
 nav {
 	.navbar-inner { 
 	   background: $purple;

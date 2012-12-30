@@ -1,9 +1,10 @@
 @import "bits";
 
 #show-nav {
-	position: fixed;
+	&:not(.fixed) {
+		margin-top: -40px;
+	}
 	z-index: 10;
-	top: 50px;
 	width: 940px;
 	.navbar-inner {
 		.nav > li > a {
