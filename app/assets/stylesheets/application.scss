@@ -35,6 +35,10 @@ iframe {
 	border: none;
 }
 
+.container {
+    padding: 20px 0;
+}
+
 .alt-text {
 	font-size: 14px;
 	color: $purple;
@@ -59,6 +63,10 @@ h2 {
 
 .faded {
 	color: $lt-purple;
+}
+
+header {
+    padding: 0 !important;
 }
 
 nav {
@@ -143,10 +151,6 @@ nav {
 
 }
 
-#main {
-    margin-top: 20px;
-}
-
 .text-on-image {
 	background-color: rgba(0,0,0,.3);
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -189,7 +193,8 @@ nav {
 
 /* 	Footer Stuff	*/
 footer {
-	margin-top: 40px;
+	background: $dk-purple;
+	color: white;
 }
 
 /*  End Footer		*/

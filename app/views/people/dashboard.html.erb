@@ -1,14 +1,14 @@
 <%= link_to "Site Admin Dashboard<br/><br />".html_safe, admin_dashboard_path if @current_user.site_admin? %>
 <h3>Welcome <%= @current_user.fname %>!</h3>
-This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!<br /><br />
+<p>This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!</p>
 
 
 <div class="row">
 	<div class="span6">
 		<h5>My Profile  &nbsp; <%= link_to "(Edit)", @current_user %></h5> 
 		<b><%= @current_user.display_name %></b><br />
-	  <%= @current_user.college %> <%= @current_user.year %><br />
-	  <%= sanitize(@current_user.bio, :tags => %w(b i em strong a br)).gsub(/\n/, '<br/>').html_safe %>
+	    <%= @current_user.college %> <%= @current_user.year %><br />
+	    <%= sanitize(@current_user.bio, :tags => %w(b i em strong a br)).gsub(/\n/, '<br/>').html_safe %>
 		<br /><br />
 		<b>Names Similar to Yours</b> &nbsp;
 		<a href="#" rel="tooltip" title="People might sometimes list you under nicknames or aliases, or you might have had an account on the old YDC site. By requesting to merge these names, all your show credits will be unified under the same profile, this one!">What's this?</a>

@@ -36,7 +36,10 @@
 If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
 
 <hr />
-<div id="news" class="row">
+</div>
+<!-- End of #main -->
+<div id="news">
+    <div class="container">
 	<% @news.each do |news| %>
 		<h2><%= news.title %></h2>
 		<h4>Posted by: <%= news.poster %></h4>
@@ -45,4 +48,4 @@ If you haven't already, we recommend you sign up for our weekly wailing list! TO
 		<br /><br />
 		<hr />
 	<% end %>
-</div>
+    </div>
