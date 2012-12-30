@@ -34,7 +34,7 @@ $(document).ready(function() {
   });
 
   // Smooth scrolling handler for calendar page, maybe other stuff too?
-  $("#show-nav li a[href*=#]").click(function () {
+  $("#nav-shows li a[href*=#]").click(function () {
     this.blur();
     smoothScrollTo(this.hash);
     return false;
@@ -104,7 +104,7 @@ function reservationSubmitHandler(e) {
 
 function smoothScrollTo(hash) {
     $("html:not(:animated),body:not(:animated)").animate({
-        scrollTop: $(hash).offset().top - 60
+        scrollTop: $(hash).offset().top - ($("#nav-shows").is(".fixed") ? 0 : $("#nav-shows").outerHeight() + 20) - 60
     }, 650);
 }
 
