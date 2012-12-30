@@ -42,16 +42,17 @@ $(document).ready(function() {
 
   // When scrolled down, move the bar with the window
   var $scrollers = $('.scroll-fixed-top');
-  var positions = $('.scroll-fixed-top').map(function() { return $(this).offset().top; });
-  $(window).bind('scroll', function() {
+  var positions = $scrollers.map(function() { return $(this).offset().top; });
+  $(window).debounce('scroll', function() {
+    var st = $(window).scrollTop();
     $scrollers.each(function(i) {
-      if ($(window).scrollTop() > positions[i]) {
+      if (st > positions[i]) {
         $(this).addClass('fixed');
       } else {
         $(this).removeClass('fixed');
       }
     });
-  });
+  }, 50);
 
   /* Setup audition module, TODO: pull out elsewhere...only in two places */
   $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
@@ -106,3 +107,6 @@ function smoothScrollTo(hash) {
         scrollTop: $(hash).offset().top - 60
     }, 650);
 }
+
+// jQuery.debounce from https://github.com/diaspora/jquery-debounce
+(function(a){function b(a,b){var c=this,d,e;return function(){return e=Array.prototype.slice.call(arguments,0),d=clearTimeout(d,e),d=setTimeout(function(){a.apply(c,e),d=0},b),this}}a.extend(a.fn,{debounce:function(a,c,d){this.bind(a,b.apply(this,[c,d]))}})})(jQuery)
