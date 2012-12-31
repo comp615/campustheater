@@ -95,7 +95,7 @@ class ReservationsController < ApplicationController
 		end
 
 		return true if (@current_user && @current_user.has_permission?(@show, :full)) || 
-										@reservation.person_id == @current_user.id ||
+										(@current_user && @reservation.person_id == @current_user.id) ||
 										params[:auth_code] == @reservation.token
 		
 		

@@ -82,6 +82,8 @@ class PeopleController < ApplicationController
 	end
 	
 	def logout
+		@current_user = nil
+		reset_session
 		CASClient::Frameworks::Rails::Filter.logout(self)
 	end
 	
