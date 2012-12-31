@@ -28,16 +28,16 @@
 		<% end %>
 		</div>
 	<% end %>
+	
+	<div class="row aligncenter">
+	   <%= link_to "See the Full Calendar", shows_path, :id => "full-calendar", :class => "btn btn-light" %>
+	</div>
 </div>
-<br />
 
-    Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.
-<br><br>
-If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
 
-<hr />
-</div>
-<!-- End of #main -->
+
+</div><!-- End of #main -->
+
 <div id="news">
     <div class="container">
 	<% @news.each do |news| %>
