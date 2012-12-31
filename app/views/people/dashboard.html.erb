@@ -1,6 +1,7 @@
 <%= link_to "Site Admin Dashboard<br/><br />".html_safe, admin_dashboard_path if @current_user.site_admin? %>
-<h3>Welcome <%= @current_user.fname %>!</h3>
-<p>This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!</p>
+<h3>Welcome <%= @current_user.fname %>!</h3> 
+<p>This dashboard is your hub for everything on the site. Here you can manage all your activity in the theater community at Yale!<br />
+<%= link_to "(Logout)", logout_path %></p>
 
 
 <div class="row">

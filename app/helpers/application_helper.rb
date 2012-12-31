@@ -23,8 +23,9 @@ module ApplicationHelper
 	
 	def format_long_rundates(show)
 		return "" unless show.showtimes.count > 0
-		start = show.showtimes.first.timestamp
-		stop = show.showtimes.last.timestamp
+		showtimes = show.showtimes.sort_by{|st| st.timestamp}
+		start = showtimes.first.timestamp
+		stop = showtimes.last.timestamp
 		if start.month == stop.month && start.day == stop.day
 			str = start.strftime("%B #{start.day.ordinalize} %Y")
 		elsif start.month == stop.month
