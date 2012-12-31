@@ -5,8 +5,8 @@
 <% end %>
 
 <div class="row">
-	<div id="cal-intro" class="span12">
-		Coming soon in <b>Yale Theater</b>
+	<div class="section-intro">
+		Coming soon in <strong>Yale Theater</strong>
 		<hr />
 	</div>
 </div>
@@ -40,12 +40,10 @@
 
 <div id="news">
     <div class="container">
-	<% @news.each do |news| %>
-		<h2><%= news.title %></h2>
-		<h4>Posted by: <%= news.poster %></h4>
-		<h5><%= full_timestamp(news.created_at) %></h5>
-		<%= raw news.text %>
-		<br /><br />
-		<hr />
-	<% end %>
+        <div class="section-intro">
+    		Yale Drama Coalition's <strong>Latest News</strong>
+    		<hr />
+    	</div>
+    
+    	<%= render :partial => "news", :collection => @news %>
     </div>

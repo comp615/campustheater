@@ -1,11 +1,11 @@
 @import "bits";
 
-#cal-intro {
+.section-intro {
   text-transform: uppercase;
   text-align: center;
   hr {
     width: 100px; 
-    margin: 10px auto; 
+    margin: 10px auto 20px; 
     border-top-color: #110D3F;
   }
 }
@@ -122,5 +122,21 @@
 
 #news {
     background: $pale-purple;
-    h2 { margin-bottom: 0px; }
+}
+
+.news-item {
+    margin-bottom: 30px;
+
+    > .date {
+        text-align: right;
+        padding: 8px 10px 0 0;
+    }
+    
+    .day {
+        display: block;
+        font-size: 52px;
+        line-height: 52px;
+    }
+    
+    .month { text-transform: uppercase; }
 }
