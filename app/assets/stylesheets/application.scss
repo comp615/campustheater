@@ -28,7 +28,10 @@
 body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;
+	background: $dk-purple;
 }
+
+#main { background: white; }
 
 iframe {
 	border: none;

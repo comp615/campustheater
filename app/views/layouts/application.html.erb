@@ -52,7 +52,8 @@
 	   </nav>
 	</header>																																					
 
-	<div id="main" class="container <%= params[:controller] %> <%= params[:action] %>">
+	<div id="main" class="<%= params[:controller] %> <%= params[:action] %>">
+    	<div class="container">
     	<% if flash[:notice] %>
 	       <div class="alert alert-info"><%= flash[:notice] %></div>
 	    <% end %>
@@ -61,6 +62,7 @@
 	    <% end %>
 	    
 		<%= yield %>
+    	</div>
 	</div>
 
 	<footer>
