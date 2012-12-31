@@ -10,7 +10,7 @@
   }
 }
 
-#this_week, .frontpage-preview {
+.this_week, .frontpage-preview {
   .poster-bg {
     position: relative;
     background-repeat: no-repeat;
@@ -67,7 +67,7 @@
   }
 }
 
-#this_week .row, .frontpage-preview .row, .swatch, h2 {
+.this_week .row, .frontpage-preview .row, .swatch, h2 {
   &.red {
     background-color: #ee4036;
     .btn {

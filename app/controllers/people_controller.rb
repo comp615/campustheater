@@ -94,7 +94,6 @@ class PeopleController < ApplicationController
 	end
 	
 	def verify_user
-		puts @current_user.inspect
 		raise ActionController::RoutingError.new('Forbidden')	unless @current_user && (@current_user.id == params[:id].to_i || @current_user.site_admin?)
 	end
 	
