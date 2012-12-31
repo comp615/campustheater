@@ -1,16 +1,16 @@
 @import "bits";
 
-#cal-intro {
+.section-intro {
   text-transform: uppercase;
   text-align: center;
   hr {
     width: 100px; 
-    margin: 10px auto; 
+    margin: 10px auto 20px; 
     border-top-color: #110D3F;
   }
 }
 
-.this_week, #this_week, .frontpage-preview {
+.this_week, .frontpage-preview {
   .poster-bg {
     position: relative;
     background-repeat: no-repeat;
@@ -67,7 +67,7 @@
   }
 }
 
-#this_week .row, .this_week .row, .frontpage-preview .row, .swatch, h2 {
+.this_week .row, .frontpage-preview .row, .swatch, h2 {
   &.red {
     background-color: #ee4036;
     .btn {
@@ -118,7 +118,25 @@
   }
 }
 
+#full-calendar { margin: 20px 0; }
+
 #news {
     background: $pale-purple;
-    h2 { margin-bottom: 0px; }
+}
+
+.news-item {
+    margin-bottom: 30px;
+
+    > .date {
+        text-align: right;
+        padding: 8px 10px 0 0;
+    }
+    
+    .day {
+        display: block;
+        font-size: 52px;
+        line-height: 52px;
+    }
+    
+    .month { text-transform: uppercase; }
 }

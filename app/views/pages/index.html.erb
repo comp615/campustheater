@@ -5,13 +5,13 @@
 <% end %>
 
 <div class="row">
-	<div id="cal-intro" class="span12">
-		Coming soon in <b>Yale Theater</b>
+	<div class="section-intro">
+		Coming soon in <strong>Yale Theater</strong>
 		<hr />
 	</div>
 </div>
 
-<div id="this_week">
+<div class="this_week">
 	<% @rows.each do |items| %>
 		<% this_class = items.length == 2 ? "span6" : "span4" %>
 		<% this_class = "span6 offset3" if items.length == 1 %>
@@ -28,24 +28,22 @@
 		<% end %>
 		</div>
 	<% end %>
+	
+	<div class="row aligncenter">
+	   <%= link_to "See the Full Calendar", shows_path, :id => "full-calendar", :class => "btn btn-light" %>
+	</div>
 </div>
-<br />
 
-    Welcome to the website of the <b>Yale Drama Coalition</b>, an organization for the coordination of undergraduate theater at Yale. This site contains everything students need to find information on current shows at Yale, as well as resources for producing shows.
-<br><br>
-If you haven't already, we recommend you sign up for our weekly wailing list! TODO: Insert Link/Form Here <br /><br />
 
-<hr />
-</div>
-<!-- End of #main -->
+
+</div><!-- End of #main -->
+
 <div id="news">
     <div class="container">
-	<% @news.each do |news| %>
-		<h2><%= news.title %></h2>
-		<h4>Posted by: <%= news.poster %></h4>
-		<h5><%= full_timestamp(news.created_at) %></h5>
-		<%= raw news.text %>
-		<br /><br />
-		<hr />
-	<% end %>
+        <div class="section-intro">
+    		Yale Drama Coalition's <strong>Latest News</strong>
+    		<hr />
+    	</div>
+    
+    	<%= render :partial => "news", :collection => @news %>
     </div>
