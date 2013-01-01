@@ -2,7 +2,7 @@ class Audition < ActiveRecord::Base
 	belongs_to :show
 	belongs_to :person
 	
-	after_update :update_auditioner
+	after_update :audition_confirmation
 	after_update :update_show
 	after_destroy :update_auditioner #They can't destroy it, so show did
 	
@@ -40,6 +40,11 @@ class Audition < ActiveRecord::Base
 	
 	private
 		
+	def audition_confirmation
+		return unless self.person_id_changed? && self.person_id
+		AuditionMailer.confirmation_email(self).deliver
+	end
+
 	#TODO: check both of these against the *OLD* audition timestamp
 	# Notify the auditioner of a change
 	def update_auditioner
