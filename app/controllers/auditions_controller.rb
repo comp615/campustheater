@@ -25,6 +25,7 @@ class AuditionsController < ApplicationController
 	end
 	
 	def index
+		@auditions = [] and return if request.format == :csv && !@current_user.has_permission?(params[:show_id], :auditions)
 		@active_nav = :auditions
 		@auditions = @show.auditions.select{|a| a.timestamp > Time.now}
 		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
