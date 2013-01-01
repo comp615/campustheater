@@ -15,10 +15,10 @@ class ShowtimesController < ApplicationController
 		count = 0
 		
 		@showtime.reservations.sort_by(&:updated_at).each do |r|
-			@waitlist << r and next if count >= @show.cap
+			@waitlist << r and next if count >= @show.seats
 			@confirmed << r
 			count += r.num
-			if count > @show.cap
+			if count > @show.seats
 				#we just passed it, so let's fix the last entry, push the rest to waitlist
 				r2 = r.clone
 				r.num -= count - @show.cap

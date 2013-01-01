@@ -1,7 +1,22 @@
-.reservation_block {
-	margin-bottom: 15px;
-	cursor: pointer;
-	.checked {
-		text-decoration: line-through;
+.showtimes.show {
+	.confirmed, .waitlist {
+		float: left;
+		margin-right: 20px;
+	}
+
+	.confirmed {
+		width: 75%;
+		.reservation_block {
+			display: inline-block;
+		}
+	}
+
+	.reservation_block {
+		margin-bottom: 15px;
+		cursor: pointer;
+		.checked {
+			text-decoration: line-through;
+		}
 	}
 }
+

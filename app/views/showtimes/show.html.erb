@@ -3,19 +3,20 @@
 <div class="title"><%= @show.title %></div>
 <%= full_timestamp(@showtime.timestamp) %>
 <br /><br />
-TODO: THIS WILL USE MULTI-COLUMNS TO MANAGE FLOW
-<br /><br />
 <div class="reservations">
-	<div class="confirmed">
+	<% column_count = @confirmed.length > 25 ? 3 : 2 %>
+	<h3>Confirmed</h3>
+	<div class="confirmed" style="-webkit-column-count: <%= column_count %>; -moz-column-count: <%= column_count %>; column-count:<%= column_count %>;">
 		<% @confirmed.sort_by(&:fname).each do |reservation| %>
 		<div class="reservation_block">
 			<% reservation.num.times do %>
 				<div class="listing"><%= reservation.fname %> <%= reservation.lname %></div>
 			<% end %>
-		</div>
+		</div><br />
 		<% end %>
 	</div>
 	<div class="waitlist">
+		<h3>Waitlist</h3>
 		<% @waitlist.each do |reservation| %>
 		<div class="reservation_block">
 			<% reservation.num.times do %>

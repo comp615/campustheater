@@ -43,7 +43,7 @@
 	background: $pale-purple;
 }
 
-.container.shows, .shows.edit, .shows.show {
+.container.shows, .shows.edit, .shows.show, .shows.edit_people {
 	h5 {
 		color: #2B3169;
 		font-size: 14pt;
@@ -127,34 +127,6 @@
 	*:not([class*="span"]) > .row {
 		margin-bottom: 30px;
 	}
-
-	#audition_slots {
-			line-height: 20px;
-			.date { 
-				width: 100px;
-				float: left;
-				font-size: 18pt;
-				color: #2B3169;
-				.location {
-					color: $purple;
-					font-size: 14pt;
-				}
-			}
-			.entries {
-				font-size: 18px;
-				width: 510px;
-				float: left;
-				a.remove {
-					color: #BE1E2D;
-				}
-				.past {
-					color: $lt-purple;
-				}
-			}
-			.condensed, .hide-all {
-				display: none;
-			}
-		}
 
 	.show-form {
 		color: $purple;
@@ -306,42 +278,70 @@
 		}
 	}
 
-	.show-dashboard {
-		table {
-			td, th {
-				padding: 0px 10px;
-			}
-			.past {
-				color: $lt-purple;
-			}
-		}
-
-		.staff {
-			& > a {
-				text-decoration: underline;
-				color: inherit;
-			}
-		}
-
-		#audition_slots {
-			.block-remove, .remove {
-				display: none;
-			}
-			table td {
-				padding: 0px;
-				&:first-child { width: 70px; }
-				&.name { width: 180px;}
-				&.phone { width: 180px;}
-				&.email { width: 80px}
-			}
-		}
-	}
-
 	#flickr_show {
 		height:550px; 
 		width: 100%;
 		.flickrshow-container {
 			z-index: -1;
+		}
+	}
+}
+
+#audition_slots {
+	line-height: 20px;
+	.date { 
+		width: 100px;
+		float: left;
+		font-size: 18pt;
+		color: #2B3169;
+		.location {
+			color: $purple;
+			font-size: 14pt;
+		}
+	}
+	.entries {
+		font-size: 18px;
+		width: 510px;
+		float: left;
+		a.remove {
+			color: #BE1E2D;
+		}
+		.past {
+			color: $lt-purple;
+		}
+	}
+	.condensed, .hide-all {
+		display: none;
+	}
+}
+
+.show-dashboard {
+	table {
+		td, th {
+			padding: 0px 10px;
+		}
+		.past {
+			color: $lt-purple;
+		}
+	}
+
+	.staff {
+		& > a {
+			text-decoration: underline;
+			color: inherit;
+		}
+	}
+
+	#audition_slots {
+		.block-remove, .remove {
+			display: none;
+		}
+		table td {
+			padding: 0px;
+			&:first-child { width: 70px; }
+			&.name { width: 180px;}
+			&.phone { width: 180px;}
+			&.email { width: 80px}
 		}
 	}
 }
