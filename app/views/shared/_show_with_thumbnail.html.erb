@@ -1,20 +1,20 @@
-<div class="show_listing">
+<div class="show-listing span4">
 	<div class="poster">
 		<% if show.poster.exists? %>
-			<%= link_to (image_tag show.poster.url(:thumb)), best_link(show) %>
+			<%= link_to square_show_thumb(show.poster), best_link(show) %>
 		<% else %>
-			<div class="swatch <%= color_palette %>">
-			</div>
+			<div class="swatch <%= color_palette %>"></div>
 		<% end %>
 	</div>
 	<div class="info">
 		<h4>
-			<%= link_to show.title, best_link(show) unless show.id.blank? %>
+			<%= link_to_show_title show%>
 		</h4>
-		<p data-field="show_writer">
-			<b>by <%= show.writer %></b>
+		<p class="show-writer">by <%= show.writer %></p>
+		<p><%= format_long_rundates(show) %>
+    		<% if !show.location.blank? %>
+    		  <br />@ <%= show.location %>
+    		<% end %>
 		</p>
-		<p><span data-field="show_showtimes"><%= format_long_rundates(show) %></span><br />
-		@ <span data-field="show_location"><%= show.location %></span></p>
 	</div>
 </div>

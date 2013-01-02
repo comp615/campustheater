@@ -27,14 +27,14 @@ module ApplicationHelper
 		start = showtimes.first.timestamp
 		stop = showtimes.last.timestamp
 		if start.month == stop.month && start.day == stop.day
-			str = start.strftime("%B #{start.day.ordinalize} %Y")
+			str = start.strftime("%b %-d, %Y")
 		elsif start.month == stop.month
-			str = start.strftime("%B #{start.day.ordinalize}")
-			str += " &ndash; " + stop.strftime("#{stop.day.ordinalize} %Y")
+			str = start.strftime("%b %-d")
+			str += " &ndash; " + stop.strftime("%-d, %Y")
 		else
-			str = start.strftime("%B #{start.day.ordinalize}")
+			str = start.strftime("%b %-d")
 			str += " &ndash; "
-			str += stop.strftime("%B #{stop.day.ordinalize} %Y")
+			str += stop.strftime("%b %-d, %Y")
 		end
 		str.html_safe
 	end
@@ -66,6 +66,23 @@ module ApplicationHelper
 		end
 	end
 	
+	def square_show_thumb(poster)
+	    c = (poster.height(:thumb) > poster.width(:thumb)) ? "poster-vertical" : "poster-horizontal"
+	    image_tag poster.url(:thumb), :class => c
+	end
+	
+	def link_to_show_title(show)
+       # truncate long titles
+       title = (show.archive && show.title.length > 45) ? show.title[0,45] + "..." : show.title
+       tag_title = (show.archive && show.title.length > 45) ? show.title : ""
+       
+       if show.id.blank?
+           return "<span title=\"#{show.title}\">#{title}</span>"
+       else
+           return link_to title, best_link(show), :title => tag_title
+       end
+	end
+	
 	def get_reservation_line(show, block = false)
 		if show.showtimes.length > 0 && Time.now > Time.at(show.showtimes.last.timestamp)
 			"Show no longer running"
@@ -84,7 +101,7 @@ module ApplicationHelper
 		end
 	end
 	
-	def link_to_remove_fields(name, f)
+  def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)", :class => "remove")
   end
   
