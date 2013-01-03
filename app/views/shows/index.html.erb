@@ -11,19 +11,14 @@
 <nav id="nav-shows" class="navbar scroll-fixed-top">
   <div class="navbar-inner">
     <ul class="nav nav-pills">
-      <li><a href="#opening">Opening Soon</a></li>
-      <li><a href="#this_semester"><%= oci_id_to_text(current_oci_id) %></a></li>
-      <li><a href="#next_semester"><%= oci_id_to_text(next_oci_id) %></a></li>
-      
-      <% (2008..Time.now.year).to_a.reverse.each do |year| %>
-		<li><a href="#<%= year.to_s + (year == Time.now.year && Time.now.month < 8 ? "01" : "03") %>"><%= year %></a></li>
-	  <% end %>
-	  <li><a href="#ancient">Ancient</a></li>
+      <% nav_items_for_index().each do |item| %>
+        <li><a href="<%= item[:link] %>"><%= item[:text] %></a></li>
+      <% end %>
     </ul>
   </div>
 </nav>
 
-
+<% if ! @this_week.empty? %>
 <div class="divider" id="opening">
 	<h3>Opening Soon</h3>
 </div>
@@ -38,7 +33,9 @@
 		</div>
 	<% end %>
 </div>
+<% end %>
 
+<% if ! @this_semester.empty? %>
 <div class="divider" id="this_semester">
 	<h3>This Semester</h3>
 </div>
@@ -49,8 +46,9 @@
 		<% end %>
 	</div>
 <% end %>
+<% end %>
 
-
+<% if ! @other.empty? %>
 <div class="divider" id="next_semester">
 	<h3>Beyond</h3>
 </div>
@@ -61,12 +59,12 @@
 		<% end %>
 	</div>
 <% end %>
+<% end %>
 
 </div>
 <!-- End of #main -->
 <div id="archives">
 	<div class="container shows index">
-
 	<% (2008..Time.now.year).to_a.reverse.each do |year| %>
 		<% ["03","01"].each do |term| %>
 			<% if Time.now.year == year && Time.now.month < 7 && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
@@ -82,5 +80,15 @@
 			<% end %>
 		<% end %>
 	<% end %>
-	<%= render :partial => "shows/archives", :locals => {:term => "ancient"} %>
+	
+    	<div class="divider" id="ancient">
+    		<h3>Ancient Shows</h3>
+    	</div>
+    	<strong>Yearly archives from long ago:</strong><br />
+    	<a target="_blank" href="/static_archives/pastarchive.html">1997-2003</a> &nbsp; &nbsp;
+    	<a target="_blank" href="/static_archives/archive03-04.html">2003-2004</a> &nbsp; &nbsp;
+    	<a target="_blank" href="/static_archives/archive04-05.html">2004-2005</a> &nbsp; &nbsp;
+    	<a target="_blank" href="/static_archives/archive05-06.html">2005-2006</a> &nbsp; &nbsp;
+    	<a target="_blank" href="/static_archives/archive06-07.html">2006-2007</a> &nbsp; &nbsp;
+    	<a target="_blank" href="/static_archives/archive07-08.html">2007-2008</a> &nbsp; &nbsp;
 	</div>
