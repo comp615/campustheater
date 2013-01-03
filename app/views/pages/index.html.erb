@@ -4,11 +4,10 @@
 	</script>
 <% end %>
 
-<div class="row">
-	<div class="section-intro">
-		Coming soon in <strong>Yale Theater</strong>
-		<hr />
-	</div>
+<% if @rows.length %>
+<div class="section-intro">
+	Coming soon in <strong>Yale Theater</strong>
+	<hr />
 </div>
 
 <div class="this_week">
@@ -33,8 +32,7 @@
 	   <%= link_to "See the Full Calendar", shows_path, :id => "full-calendar", :class => "btn btn-light" %>
 	</div>
 </div>
-
-
+<% end %>
 
 </div><!-- End of #main -->
 
