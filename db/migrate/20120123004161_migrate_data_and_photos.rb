@@ -10,7 +10,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 	  Net::FTP.open(conf["host"],conf["user"],conf["password"]) do |ftp|
 		  #Images sit directly in this directory
 		  files = ftp.chdir('people_images')
-		  Person.where("`pic` IS NOT NULL").all.first(5).each do |person|
+		  Person.where("`pic` IS NOT NULL").all.each do |person|
 		  	begin
 			  	ftp.getbinaryfile(person.pic, "tmp/" + person.pic)
 			  	
@@ -33,7 +33,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 		  #Check to see which folders exist
 		  valid_dirs = ftp.nlst.map(&:to_i)
 		  
-		  Show.where(:id => valid_dirs).first(2).each do |show|
+		  Show.where(:id => valid_dirs).each do |show|
 		  	
 		  	ftp.chdir("#{show.id}")
 		  	filelist = ftp.nlst
