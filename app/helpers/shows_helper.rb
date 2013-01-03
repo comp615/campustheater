@@ -1,7 +1,7 @@
 module ShowsHelper
 
     # generate nav items for shows#index
-    def nav_items_for_index()
+    def nav_items_for_index
         items = []
         items << {:link => "#opening", :text => "Opening Soon"} unless @this_week.empty?
         items << {:link => "#this_semester", :text => oci_id_to_text(current_oci_id)} unless @this_semester.empty?

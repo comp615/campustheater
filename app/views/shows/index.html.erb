@@ -11,7 +11,7 @@
 <nav id="nav-shows" class="navbar scroll-fixed-top">
   <div class="navbar-inner">
     <ul class="nav nav-pills">
-      <% nav_items_for_index().each do |item| %>
+      <% nav_items_for_index.each do |item| %>
         <li><a href="<%= item[:link] %>"><%= item[:text] %></a></li>
       <% end %>
     </ul>
