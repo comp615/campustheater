@@ -99,11 +99,11 @@ class Show < ActiveRecord::Base
 	end
 	
 	def has_opened?
-		self.showtimes.first.timestamp.to_time >= Time.now
+		self.showtimes.sort_by{|st| st.timestamp}.first.timestamp.to_time >= Time.now
 	end
 	
 	def has_closed?
-		self.showtimes.last.timestamp.to_time < Time.now
+		self.showtimes.sort_by{|st| st.timestamp}.last.timestamp.to_time < Time.now
 	end
 	
 	def ok_to_ticket?

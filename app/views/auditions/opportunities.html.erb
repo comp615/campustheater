@@ -1,7 +1,7 @@
 <% @opportunities.each do |position,sp_arr| %>
 	<div class="position_group">
 		<h3><%= position %></h3>
-		<% sp_arr.each do |sp| %>
+		<% sp_arr.sort_by{|sp| sp.show.showtimes.map{|st| st.timestamp}.min}.each do |sp| %>
 			<div class="show">
 				<b><%= link_to sp.show.title, best_link(sp.show) %></b><br />
 				<%= format_long_rundates(sp.show) %><br />

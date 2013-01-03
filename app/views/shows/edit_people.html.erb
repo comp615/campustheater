@@ -13,8 +13,8 @@
 	<%= form_for @show, :validate => true do |f| %>
 	  <div class="span6">
 	  	<h5>Production Staff</h5>
-	  	<p>Tell the community about who's making your show happen. Leave the name field blank to list the position as a tech opportunity.</p>
-	  	<input type="checkbox" name="order_crew" <%= "checked" if @show.crew.detect{|c| c.listing_order != nil} %>> Use custom ordering below for crew<br />
+	  	<p>Tell the community about who's making your show happen. Leave the name field blank to list the position as a tech opportunity below.</p>
+	  	<input type="checkbox" name="order_crew" <%= "checked" if @show.crew.detect{|c| c.listing_order != nil} %>> Use custom ordering below for staff<br />
 		  	<ul id="show_positions">
 				<%= f.fields_for :show_positions, @show.show_positions.select {|sp| sp.position_id != 17} do |builder| %>
 					<%= render 'show_position_fields', :f => builder %>
@@ -39,7 +39,7 @@
 <div class="row show-form people">
   <div class="span6">
   	<h5>Tech Opportunities</h5>
-  	<p>These positions will be listed on our tech opportunities page.</p>
+  	<p>These positions (if any) will be listed on our tech opportunities page.</p>
   	<ol id="tech_ops">
   	</ol>
   </div>
