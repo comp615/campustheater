@@ -2,7 +2,7 @@
 	<div class="span6 offset3">
 		<h3>Welcome to the NEW YDC Website!</h3>
 		<p>
-			<%= image_tag("welcome_llama.png", :style => "float: right;") %>
+		<%= image_tag("welcome_llama.png", :style => "float: right;") %>
 		You either tried to access something on the site that requires registration, or you just happened to be logged in to CAS. Either way, we're glad you got here!
 		</p>
 		<p>
@@ -29,10 +29,10 @@
 				</div>
 			</div>
 			<br />
-			<h4>This portion will only visible to you:</h4><br />
+			<h4>This portion will only visible to you:</h4>
 			<%= f.label :email, "Email Address" %><%= f.text_field :email %><br />
 			Allow people to email me: <%= f.check_box :email_allow %> (they won't see your address)<br /><br />
-			<%= f.submit "Get Started!" %>
+			<%= f.submit "Get Started!", :class => "btn" %>
 			
 		<% end %>
 	</div>
