@@ -6,7 +6,7 @@
 			<br />
 			<br />
 			<span class="email alt-text">
-				<i class="icon-envelope"></i><%= link_to "Email", "mailto:" + group.map{|a| a.email }.reject!(&:blank?).join(",") %>
+				<i class="icon-envelope"></i><%= link_to "Email", "mailto:" + group.map{|a| a.email }.reject(&:blank?).join(",") %>
 			</span>
 		</div>
 		<div class="entries">

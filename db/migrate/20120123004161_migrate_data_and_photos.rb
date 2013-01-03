@@ -30,21 +30,29 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 
 		  #reset directory
 		  files = ftp.chdir('../')
-=end		  files = ftp.chdir('show_images')
+=end		  
+			files = ftp.chdir('show_images')
 		  
 		  #Check to see which folders exist
 		  valid_dirs = ftp.nlst.map(&:to_i)
 		  
 		  Show.where(:id => valid_dirs).each do |show|
-		  	next if show.poster.exists? || s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/").count > 0
-		  	
+		  	next if show.id == 468 #idk...
 		  	ftp.chdir("#{show.id}")
 		  	filelist = ftp.nlst
+
+		  	if show.poster.exists? || (s3_bucket.objects.with_prefix("shows/#{show.id}/misc/").count > 0 && filelist.grep(/small_poster_[0-9]+\.jpg/).blank?)
+		  		puts "skipping #{show.id}"
+		  		ftp.chdir("../")
+		  		next
+		  	else
+		  		puts "running #{show.id}"
+		  	end		  	
 		  	
 		  	# Deal with the poster first
-		  	if !show.old_poster.blank? || filelist.include?("small_poster.jpg")
-		  		ts = show.old_poster[/[0-9]+/].to_i
-		  		ts = ftp.mtime("small_poster.jpg").to_i if show.old_poster.blank?
+		  	if (show.respond_to?(:old_poster) && !show.old_poster.blank?) || filelist.grep(/small_poster_[0-9]+\.jpg/).length > 0
+		  		ts = show.old_poster[/[0-9]+/].to_i unless !show.respond_to?(:old_poster) || show.old_poster.blank?
+		  		ts = filelist.grep(/small_poster_[0-9]+\.jpg/).first[/[0-9]+/].to_i if !show.respond_to?(:old_poster) || show.old_poster.blank?
 		  		
 		  		ts_range = (ts - 5..ts + 5)
 		  		# Figure out which file is the poster since we can't tell
@@ -54,6 +62,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 		  				file_ts = ftp.mtime(filename).to_i
 		  			rescue
 		  				puts "error reading #{filename}"
+		  				ftp.chdir("../")
 		  				next
 		  			end
 		  			
@@ -105,7 +114,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 		end
 		
 		# Remove old_poster
-		remove_column :shows, :old_poster
+		#remove_column :shows, :old_poster
   end
   
   def down

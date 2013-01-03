@@ -56,7 +56,7 @@ class PeopleController < ApplicationController
 	def takeover_request
 		# Asking to match people, let's do it
 		# We'll allow multiple requests for a name and let the admin sort it out...
-		
+		params[:person_ids] ||= []
 		params[:person_ids].each do |person_id|
 			TakeoverRequest.create(:person => @current_user, :requested_person_id => person_id, :approved => false)
 		end
