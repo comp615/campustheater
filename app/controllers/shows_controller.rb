@@ -14,6 +14,10 @@ class ShowsController < ApplicationController
 		
 		@shows = Show.future
 		@this_week = @shows.select{|s| s.this_week?}
+
+		@showtime_data = {}
+		@this_week.each {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
+
 		@this_semester = (@shows - @this_week).select{|s| s.this_semester?}
 		@other = @shows - @this_week - @this_semester
 	end

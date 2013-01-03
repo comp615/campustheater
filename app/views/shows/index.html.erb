@@ -2,6 +2,12 @@
 	 data-spy="scroll" data-target="#nav-shows" data-offset="140"
 <% end %>
 
+<% content_for :head do %>
+	<script>
+		var show_showtimes = <%= raw @showtime_data.to_json %>;
+	</script>
+<% end %>
+
 <nav id="nav-shows" class="navbar scroll-fixed-top">
   <div class="navbar-inner">
     <ul class="nav nav-pills">

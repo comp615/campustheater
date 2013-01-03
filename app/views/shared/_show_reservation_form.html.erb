@@ -1,5 +1,5 @@
 <% no_submit ||= false %>
-<% if show.showtimes.detect{|st| !st.is_waitlist_full? && !st.reservations_frozen? } %>
+<% if no_submit || show.showtimes.detect{|st| !st.is_waitlist_full? && !st.reservations_frozen? } %>
 	<%= form_for :reservation, :url => (show.id ? show_reservation_path(show,"") : "") do |f| %>
 		<%= f.collection_select(:showtime_id, show.showtimes.select{|st| !st.is_waitlist_full? && !st.reservations_frozen? }, :id, :short_display_time) %><br />
 		Reserve <%= f.number_field :num, :min => 1, :max => show.cap %> Seats (Max <span data-field="cap"><%= show.cap %></span>)<br />

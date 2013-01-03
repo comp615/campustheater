@@ -17,7 +17,7 @@ class PagesController < ApplicationController
 		@shows = Show.readonly.this_week
 
 		@showtime_data = {}
-		@shows.map {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
+		@shows.each {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
 
 		# TODO: Algorithmically re-arrange posters to be in rows of 2
 
