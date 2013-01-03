@@ -82,6 +82,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	rename_column :tickets, :created, :updated_at
   	add_column :tickets, :created_at, :datetime
   	add_column :tickets, :person_id, :integer
+    add_column :tickets, :used, :integer, :default => 0, :null => false
   	add_column :tickets, :token, :text, :null => true
   	rename_table :tickets, :reservations
   	
