@@ -3,12 +3,12 @@
 <h5>Upload a New File:</h5>
 <%= form_for @show, :remote => true do |f| %>
 	<%= f.file_field :file %>
+	<%= f.submit "Upload" %>
 <% end %>
 
 <hr />
 <h5>Current Files:</h5>
 <%= form_tag(:method => :post) do %>
-	<input type=submit name=destroy value="Delete Selected Files">
 	<table>
 		<tr><th>File</th><th>Remove?</th></tr>
 	<% @s3_objects.each do |obj| %>

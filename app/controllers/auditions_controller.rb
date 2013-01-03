@@ -65,6 +65,8 @@ class AuditionsController < ApplicationController
 			render :action => 'index'
 			return
 		end
+
+		raise if params[:duration] < 0
 		
 		while start < stop do
 			@show.auditions.build(:timestamp => start, :location => params[:location])	

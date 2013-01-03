@@ -189,7 +189,9 @@ $(document).ready(function() {
 	// Allow sorting of people/shows
 	$("#submit").on('click', setPositionOrderingAndSubmit);
   $( "#show_positions, #show_cast" ).sortable();
-  $( "#show_positions, #show_cast" ).disableSelection();
+
+  // Broken in FF. Also, even needed?
+  //$( "#show_positions, #show_cast" ).disableSelection();
 
 	// Since the timepicker is nested in a label, we need to prevent
 	// label clicks from doing anything if they are on the time select list

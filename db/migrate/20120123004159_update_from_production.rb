@@ -98,6 +98,7 @@ class UpdateFromProduction < ActiveRecord::Migration
   	# Migrate the nulls out of show_positions, switch to enum prefixes for "assistant"
   	ShowPosition.reset_column_information
   	ShowPosition.where(:character => "").update_all(:character => nil)
+    ShowPosition.where(:person_id => "").update_all(:person_id => nil)
   	ShowPosition.where(:assistant => true).update_all(:new_assistant => :assistant)
   	
   	remove_column :show_positions, :assistant

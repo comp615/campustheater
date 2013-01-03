@@ -10,7 +10,7 @@ class ShowPosition < ActiveRecord::Base
 	
 	validates :person, :character, :presence => true, :if => Proc.new { |sp| sp.position_id == 17 }
 	
-	scope :vacant, where(:person_id => "")
+	scope :vacant, where(:person_id => nil)
 	scope :not_vacant, where("person_id IS NOT NULL && person_id != 0")
 	scope :crew, where("position_id != 17")
 	scope :cast, where("position_id = 17")
