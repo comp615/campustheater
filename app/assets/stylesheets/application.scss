@@ -215,7 +215,9 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 
 	&:focus {
 		background-color: $purple;
+		border-color: $purple;
 		color: #FFF;
+    	box-shadow: 0 0 2px 1px $lt-purple;		
 	}
 }
 
