@@ -25,8 +25,11 @@
 				Your show will be accessible at
 				<span id="url-key-preview">http://<%= request.host_with_port %>/<span data-field="show_url_key">your-url</span></span>
 			</p>
-
-
+			
+			<hr />
+			
+			<h5>Design Details</h5>
+			<p>Help sell your show by making it stand out in the crowd</p>
 
 			<% if @current_user.site_admin? %>
 			<%= f.text_field :flickr_id, :placeholder => "Flickr Gallery ID" %>
@@ -35,7 +38,6 @@
 			</p>
 			<% end %>
 
-			<b>Upload a poster</b><br />
 			<span id="btn-upload" class="btn">
 				<%= f.file_field :poster %>
 				<span class="btn-text" data-default-text="Upload a poster" data-selected-text="Choose a different file">Upload a poster</span>
@@ -43,20 +45,23 @@
             <span id="upload-file" class="field_explanation"></span>
             <br />
 
-			<b>Choose an accent color...</b><br />
+			<b>Choose an accent color...</b>
+			<div class="row" style="padding-left: 20px;">
 			<% @show.column_for_attribute(:accent_color).limit.each do |color| %>
 				<div class="color-item">
-						<%= label_tag("show_accent_color_#{color.to_s}", "<div class='swatch #{color.to_s}'></div>".html_safe) %>
-						<%= f.radio_button(:accent_color, color.to_s) %>
+					<%= label_tag("show_accent_color_#{color.to_s}", "<div class='swatch #{color.to_s}'></div>".html_safe) %>
+					<%= f.radio_button(:accent_color, color.to_s) %>
 				</div>
 			<% end %>
-			<br />
+			</div>
+
 			<hr />
+
 			<h5>Scheduling and Tickets</h5>
 			<p>Fill in what you know, but we'll need at least one date and time to get started</p>
 
 			<%= f.text_field :location, :class => "required", :placeholder => "Location", :validate => true %><br />
-	  	<ol class="showtimes">
+	  	    <ol class="showtimes">
 				<%= f.fields_for :showtimes do |builder| %>
 					<%= render 'showtime_fields', :f => builder %>
 				<% end %>
