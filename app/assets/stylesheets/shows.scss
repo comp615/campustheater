@@ -43,7 +43,7 @@
 	background: $pale-purple;
 }
 
-.container.shows, .shows.edit, .shows.show, .shows.edit_people {
+.container.shows, .shows.new .shows.edit, .shows.show, .shows.edit_people {
 	h5 {
 		color: #2B3169;
 		font-size: 14pt;
@@ -59,8 +59,6 @@
 	.reservations {
 		input {
 			display: inline;
-			border: none;
-			box-shadow: none;
 			border-radius: 0px;
 			border-bottom: 1px #2B3169 solid;
 			&[type=number] { width: 50px; }
@@ -127,163 +125,177 @@
 	*:not([class*="span"]) > .row {
 		margin-bottom: 30px;
 	}
+}
 
-	.show-form {
-		color: $purple;
-		line-height: 40px;
+.show-form {
+	color: $purple;
+	line-height: 40px;
 
-		input[type=text], input[type=number], textarea, select {
-			width: 90%;
-			background-color: $lt-purple;
-			color: $purple;
+	input[type=text], input[type=number], textarea, select {
+		width: 90%;
+	}
 
-			&:focus {
-				background-color: $purple;
-				color: #FFF;
-			}
+	input[type=checkbox] {
+		margin-top: -5px;
+	}
+
+	.field_with_errors {
+		background-color: red;
+	}
+
+	h5 {
+		margin-bottom: 0px;
+		color: $dk-purple;
+		text-transform: uppercase;
+    }
+
+	h5 + p {
+		line-height: 20px;
+		margin-bottom: 15px;
+	}
+
+	&.people, .permissions {
+		input[type=text] {
+			width: 30%;
 		}
 
-		input[type=checkbox] {
-			margin-top: -5px;
+		select{
+			width: 25%;
 		}
-
-		.field_with_errors {
-			background-color: red;
-		}
-
-		h5 {
-				margin-bottom: 0px;
-			}
-
-		h5 + p {
-			line-height: 20px;
-			margin-bottom: 15px;
-		}
-
-		&.people, .permissions {
-			input[type=text] {
-				width: 30%;
-			}
-
-			select{
-				width: 25%;
-			}
-			
-			ul {
-				margin-left: 5px;
-				list-style-type: none;
-			}
-		}
-
-		.auditions {
-			input[name=location] { width: 90%; }
-			input.time { width: 55px; }
-			.span2, .span3 {
-				text-align: right;
-			}
-		}
-
-		#audition_slots {
-			.email, .phone, .audition-actions {
-				display: none;
-			}
-			.entries {
-				width: 310px;
-			}
-		}
-
-		#tech_ops {
-			font-size: 18px;
-			color: #2B3169;
-			span { color: $purple; }
-		}
-
-		label + input, input + label {
-			margin-left: 10px;
-		}
-
-		#show_freeze_mins_before {
-			margin: 0 5px;
-		}
-
-		input[type=number] {
-			width: 45px;
-		}
-
-		input.date {
-			width: 100px;
-		}
-
-		label {
-			color: $purple;
-			font-size: 18px;
-			display: inline;
-		}
-
-		.showtimes {
-
-			input[type=text] {
-				width: 100px;
-				margin-left: 7px;
-			}
-			label {
-				margin-right: 15px;
-			}
-		}
-
-		textarea {
-			height: 150px;
-			resize: vertical;
-		}
-
-		span.required:after {
-			color: red;
-			font-size: 32px;
-			content: " *"; 
-		}
-
-		.field_explination {
-			line-height: 20px;
-			position: relative;
-			top: -10px;
-		}
-
-		[rel=tooltip] {
-			border-bottom: 1px dotted;
-			font-size: 14px;
-			margin-left: 20px;
-
-			&:hover {
-				text-decoration: none;
-			}
-		}
-
-		.color-item {
-			text-align: center;
-			line-height: 20px;
-			float: left;
-			margin: 5px;
-			input { margin: 0px; }
-			.swatch {
-				width: 55px;
-				height: 25px;
-			}
-		}
-
-		.frontpage-preview {
-			line-height: 20px;
-			position: fixed;
-			[class*="span"] { margin-left: 0px; }
-			.poster { margin: 0px; }
+		
+		ul {
+			margin-left: 5px;
+			list-style-type: none;
 		}
 	}
 
-	#flickr_show {
-		height:550px; 
-		width: 100%;
-		.flickrshow-container {
-			z-index: -1;
+	.auditions {
+		input[name=location] { width: 90%; }
+		input.time { width: 55px; }
+		.span2, .span3 {
+			text-align: right;
 		}
+	}	
+
+	label + input, input + label {
+		margin-left: 10px;
+	}
+
+	input[type=number] {
+		width: 45px;
+	}
+
+	input.date {
+		width: 100px;
+	}
+
+	label {
+		color: $purple;
+		font-size: 18px;
+		display: inline;
+	}
+
+	.showtimes {
+
+		input[type=text] {
+			width: 100px;
+			margin-left: 7px;
+		}
+		label {
+			margin-right: 15px;
+		}
+	}
+
+	textarea {
+		height: 150px;
+		resize: vertical;
+	}
+
+	span.required:after {
+		color: red;
+		font-size: 26px;
+		content: " *"; 
+	}
+
+	.field_explanation {
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	[rel=tooltip] {
+		border-bottom: 1px dotted;
+		font-size: 14px;
+		margin-left: 20px;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.color-item {
+		text-align: center;
+		line-height: 20px;
+		float: left;
+		margin: 5px;
+		input { margin: 0px; }
+		.swatch {
+			width: 55px;
+			height: 25px;
+		}
+	}
+
+	.frontpage-preview {
+		line-height: 20px;
+		position: fixed;
+		[class*="span"] { margin-left: 0px; }
+		.poster { margin: 0px; }
+	}
+}
+
+#tech_ops {
+	font-size: 18px;
+	color: #2B3169;
+	span { color: $purple; }
+}
+
+#show_freeze_mins_before {
+	margin: 0 5px;
+}
+
+#url-key-preview {
+	text-decoration: underline;
+	span { color: $dk-purple; }
+}
+
+#btn-upload {
+    background: $lt-purple;
+	color: $purple;
+	border: 1px solid $lt-purple;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	margin-right: 6px;
+	
+	&:hover {
+    	border-color: $purple;
+	}
+	
+	input {
+    	position: absolute;
+    	left: 0px;
+    	top: 0px;
+    	font-size: 100px;
+    	filter: alpha(opacity=1);
+        -moz-opacity: 0.01;
+    	opacity: 0.01;
+	}
+}
+
+#flickr_show {
+	height:550px; 
+	width: 100%;
+	.flickrshow-container {
+		z-index: -1;
 	}
 }
 
@@ -312,6 +324,13 @@
 	}
 	.condensed, .hide-all {
 		display: none;
+	}
+	
+	.email, .phone, .audition-actions {
+		display: none;
+	}
+	.entries {
+		width: 310px;
 	}
 }
 

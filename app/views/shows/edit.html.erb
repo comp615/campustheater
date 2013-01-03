@@ -21,20 +21,27 @@
 			<%= f.text_area :description, :class => "required", :placeholder => "Summary/History/Other Info", :validate => true %><br />
 			<%= f.text_field :contact, :class => "required", :placeholder => "Contact Email Address", :validate => true %><br />
 			<%= f.text_field :url_key, :placeholder => "Unique URL" %><br />
-			<div class="field_explination">
+			<p class="field_explanation">
 				Your show will be accessible at
-				http://<%= request.host_with_port %>/<span data-field="show_url_key">url_key</span>
-			</div>
+				<span id="url-key-preview">http://<%= request.host_with_port %>/<span data-field="show_url_key">your-url</span></span>
+			</p>
 
 
 
-			<%= f.text_field :flickr_id, :placeholder => "Flickr Gallery ID" if @current_user.site_admin? %>
-			<div class="field_explination">
+			<% if @current_user.site_admin? %>
+			<%= f.text_field :flickr_id, :placeholder => "Flickr Gallery ID" %>
+			<p class="field_explanation">
 				If this show has a Flickr gallery, please enter the ID here
-			</div>
+			</p>
+			<% end %>
 
 			<b>Upload a poster</b><br />
-			<%= f.file_field :poster %><br />
+			<span id="btn-upload" class="btn">
+				<%= f.file_field :poster %>
+				<span class="btn-text" data-default-text="Upload a poster" data-selected-text="Choose a different file">Upload a poster</span>
+            </span>
+            <span id="upload-file" class="field_explanation"></span>
+            <br />
 
 			<b>Choose an accent color...</b><br />
 			<% @show.column_for_attribute(:accent_color).limit.each do |color| %>
@@ -62,9 +69,9 @@
 
 			<div class="tix_off">
 				<%= f.text_field :alt_tix, :placeholder => "Alternate Ticketing Address" %><br />
-				<div class="field_explination">
+				<p class="field_explanation">
 					An optional URL or email address where users will be sent to request tickets
-				</div>
+				</p>
 			</div>
 
 			<div class="tix_on">
@@ -91,7 +98,7 @@
 				</ul>
 			</div>			
 	
-			<p><%= f.submit @show.id ? "Submit" : "Next Step" %></p>
+			<p><%= f.submit @show.id ? "Submit" : "Next Step", :class => "btn" %></p>
 		</div>
 
 		<div class="span6">

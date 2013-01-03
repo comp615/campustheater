@@ -197,6 +197,28 @@ a {
 	color: red;
 }
 
+input[type=text], input[type=number], input[type=file], textarea, select, .faux-input {
+	border-radius: 3px;
+	background: $lt-purple;
+	color: $purple;
+	border: 1px solid $lt-purple;
+	box-shadow: none;
+	padding: 4px 10px;
+	
+	&::-webkit-input-placeholder, &::-moz-placeholder {
+    	color: $purple;
+	}
+	
+	&:hover {
+    	border-color: $purple;
+	}
+
+	&:focus {
+		background-color: $purple;
+		color: #FFF;
+	}
+}
+
 /* 	Footer Stuff	*/
 footer {
 	background: $dk-purple;

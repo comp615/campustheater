@@ -104,6 +104,22 @@ function datify(parent_el) {
 
 // Submit on poster upload so we can see changes immediately (sort of)
 function handleFileChange() {
+	// First, handle custom display of file select
+	var $this = $(this),
+      $val = $this.val(),
+      valArray = $val.split('\\'),
+      newVal = valArray[valArray.length-1],
+      $button = $this.siblings('.btn-text'),
+      $fileName = $("#upload-file");
+      
+    if(newVal !== '') {
+        $button.text( $button.attr('data-selected-text') );
+        $fileName.html("Selected file: <em>" + newVal + "</em>");
+    } else {
+        $button.text( $button.attr('data-default-text') );
+        $fileName.empty();
+    }
+	
 	// This seems jank, but I guess it's how the plugin works for validations
 	var $form = $('form.edit_show');
 	var id = $form.attr("id");
@@ -188,8 +204,8 @@ $(document).ready(function() {
 
 	// Allow sorting of people/shows
 	$("#submit").on('click', setPositionOrderingAndSubmit);
-  $( "#show_positions, #show_cast" ).sortable();
-  $( "#show_positions, #show_cast" ).disableSelection();
+    $( "#show_positions, #show_cast" ).sortable();
+    $( "#show_positions, #show_cast" ).disableSelection();
 
 	// Since the timepicker is nested in a label, we need to prevent
 	// label clicks from doing anything if they are on the time select list
