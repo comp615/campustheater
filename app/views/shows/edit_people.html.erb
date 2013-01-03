@@ -16,7 +16,7 @@
 	  	<p>Tell the community about who's making your show happen. Leave the name field blank to list the position as a tech opportunity.</p>
 	  	<input type="checkbox" name="order_crew" <%= "checked" if @show.crew.detect{|c| c.listing_order != nil} %>> Use custom ordering below for crew<br />
 		  	<ul id="show_positions">
-				<%= f.fields_for :show_positions, @show.crew do |builder| %>
+				<%= f.fields_for :show_positions, @show.show_positions.select {|sp| sp.position_id != 17} do |builder| %>
 					<%= render 'show_position_fields', :f => builder %>
 				<% end %>
 				<li><%= link_to_add_fields "Add Crew", f, :show_positions %></li>
@@ -69,7 +69,7 @@
 					</div>
 					<div class="row">
 						<div class="span3">
-							Slot Length: <%= number_field_tag :duration, :validate => false %>
+							Slot Length: <%= number_field_tag :duration %>
 						</div>
 						<div class="span2">
 							End Time: <%= text_field_tag :end_time, nil, :class => "time end", :validate => false %>

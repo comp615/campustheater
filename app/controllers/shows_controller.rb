@@ -60,15 +60,34 @@ class ShowsController < ApplicationController
 
 	def edit_files
 		@page_name = " - Edit Show"
-		params[:destroy_files].each { |item| AWS::S3Object.delete "shows/#{@show.id}/misc/#{item}", 'yaledramacoalition' } unless params[:destroy_files].blank?
+		
 		s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
+   	s3_bucket.objects.delete(params[:destroy_files].map { |item| "shows/#{@show.id}/misc/#{item}" })
 		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
+	end
+
+	def handle_file_upload(data)
+	  orig_filename =  data.original_filename
+	  filename = sanitize_filename(orig_filename)
+	  s3 = AWS::S3.new
+   	s3_bucket = s3.buckets['yaledramacoalition']
+	  o = s3_bucket.objects["shows/#{@show.id}/misc/" + filename]
+		o.write(:file => data.tempfile, :access => :public_read)
+		# @s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
+	  redirect_to show_edit_files_path(@show), :notice => "File uploaded"
 	end
 	
 	def update
 		#Process blanks to nils
 		params[:show].each {|key,val| val = nil if val.blank? }
+
+		# handle file uploads
+		# TODO: move into it's own controlleR?
+		if (params[:show][:file])
+			handle_file_upload(params[:show][:file])
+			return
+		end
 		
 		#Process showtimes to timestamps
 		if params[:show][:showtimes_attributes].blank? && @show.showtimes.count == 0
@@ -132,6 +151,7 @@ class ShowsController < ApplicationController
 		
 		#Process on_sale time
 		params[:show][:on_sale] = DateTime.strptime(params[:show][:on_sale], '%m/%d/%Y') if params[:show][:on_sale]
+		params[:show][:freeze_mins_before] = (params[:show][:freeze_mins_before].to_f * 60.0).to_i if params[:show][:freeze_mins_before]
 		
 		respond_to do |format|
 	    if @show.update_attributes(params[:show])
@@ -180,6 +200,12 @@ class ShowsController < ApplicationController
 		@show = Show.unscoped.includes(:show_positions => [:person, :position]).find_by_url_key(params[:url_key]) if(params[:url_key])
 		raise ActionController::RoutingError.new('Not Found') unless @show && (@show.approved || @current_user.has_permission?(@show, :full))
 	end
+
+	def sanitize_filename(file_name)
+      just_filename = File.basename(file_name)
+      just_filename.sub(/[^\w\.\-]/,'_')
+    end
+
 	
 	def auth
 		return true if @current_user.has_permission?(@show, :full)

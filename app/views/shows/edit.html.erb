@@ -79,7 +79,7 @@
 				<%= f.number_field :cap %><%= f.label :cap, "Max seats per resevation" %><br />
 				<%= f.label :on_sale, "Allow ticket reservations starting" %><%= f.text_field :on_sale, :class => "date", :value => @show.on_sale ? @show.on_sale.strftime("%m/%d/%Y") : Time.now.strftime("%m/%d/%Y") %><br />
 				<%= f.label :freeze_mins_before do 
-							("Freeze ticket sales " + f.number_field(:freeze_mins_before) + " minutes before showtime(s)").html_safe
+							("Freeze ticket sales " + f.number_field(:freeze_mins_before, :value => @show.freeze_mins_before ? (@show.freeze_mins_before / 60.0).round(1) : 2) + " hours before showtime(s)").html_safe
 						end
 				%><br />
 				<%= f.check_box :waitlist %>

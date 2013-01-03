@@ -112,7 +112,7 @@
   		<%= link_to techie.person.name, techie.person %> (<%= techie.display_name %>)<br />
   	<% end %>
   	<br />
-  	<span class="alt-text">Open Opportunities</span>
+  	<span class="alt-text">Open Opportunities</span><br />
   	<% @show.show_positions.select {|sp| sp.position_id != 17 && !sp.person}.each do |techie| %>
   		(<%= techie.display_name %>)<br />
   	<% end %>
