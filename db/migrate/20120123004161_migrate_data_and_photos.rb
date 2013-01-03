@@ -10,6 +10,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 	  Net::FTP.open(conf["host"],conf["user"],conf["password"]) do |ftp|
 	  	ftp.passive = true
 		  #Images sit directly in this directory
+=begin		  
 		  files = ftp.chdir('people_images')
 		  Person.where("`pic` IS NOT NULL").all.each do |person|
 		  	begin
@@ -29,12 +30,13 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 
 		  #reset directory
 		  files = ftp.chdir('../')
-		  files = ftp.chdir('show_images')
+=end		  files = ftp.chdir('show_images')
 		  
 		  #Check to see which folders exist
 		  valid_dirs = ftp.nlst.map(&:to_i)
 		  
 		  Show.where(:id => valid_dirs).each do |show|
+		  	next if show.poster.exists? || s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/").count > 0
 		  	
 		  	ftp.chdir("#{show.id}")
 		  	filelist = ftp.nlst
@@ -48,7 +50,12 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
 		  		# Figure out which file is the poster since we can't tell
 		  		filelist.each do |filename|
 		  			next if (filename =~ /\Asmall_/ || filename =~ /\Athumb_/ || filename =~ /\.+\Z/) && filename != "small_poster.jpg"
-		  			file_ts = ftp.mtime(filename).to_i
+		  			begin
+		  				file_ts = ftp.mtime(filename).to_i
+		  			rescue
+		  				puts "error reading #{filename}"
+		  				next
+		  			end
 		  			
 		  			if ts_range.include? file_ts
 		  				# Got it. Lez go

@@ -74,6 +74,8 @@ class ShowsController < ApplicationController
 	def handle_file_upload(data)
 	  orig_filename =  data.original_filename
 	  filename = sanitize_filename(orig_filename)
+	  ext = File.extname(filename).downcase
+	  raise unless [".jpg",".jpeg",".gif",".png",".doc",".docx",".xls",".xlsx",".pdf",".txt"].include? ext
 	  s3 = AWS::S3.new
    	s3_bucket = s3.buckets['yaledramacoalition']
 	  o = s3_bucket.objects["shows/#{@show.id}/misc/" + filename]

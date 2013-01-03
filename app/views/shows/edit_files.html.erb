@@ -1,6 +1,9 @@
 <h4>Edit files for <%= @show.title %></h4>
  
 <h5>Upload a New File:</h5>
+Note: acceptible file formats are:<br />
+ jpg, jpeg, gif, png, doc, docx, xls, xlsx, pdf
+
 <%= form_for @show, :remote => true do |f| %>
 	<%= f.file_field :file %>
 	<%= f.submit "Upload" %>
