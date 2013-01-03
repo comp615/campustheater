@@ -1,5 +1,9 @@
 @import "bits";
 
+.pages.index .container {
+    padding-top: 40px;
+}
+
 .section-intro {
   text-transform: uppercase;
   text-align: center;
@@ -117,6 +121,8 @@
     }
   }
 }
+
+#no-upcoming { color: $dk-purple; }
 
 #full-calendar { margin: 20px 0; }
 
