@@ -39,7 +39,7 @@
 			<h4>Your Information:</h4><br />
 			Name: <%= @current_user.display_name %> &nbsp; &nbsp; Not you? <%= link_to "Logout", logout_path %><br />
 			Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s if @user_audition %>" /><br />
-			Email: <input type="text" name="email" value="<%= if @user_audition ? @user_audition[:email].to_s : @current_user.email %>" />
+			Email: <input type="text" name="email" value="<%= @user_audition ? @user_audition[:email].to_s : @current_user.email %>" />
 			<br />
 			<br />
 			<h4>Audition Times:</h4>
