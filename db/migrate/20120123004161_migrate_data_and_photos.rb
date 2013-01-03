@@ -8,6 +8,7 @@ class MigrateDataAndPhotos < ActiveRecord::Migration
    	conf = YAML.load_file("#{::Rails.root}/config/ftp.yml")[Rails.env]
 
 	  Net::FTP.open(conf["host"],conf["user"],conf["password"]) do |ftp|
+	  	ftp.passive = true
 		  #Images sit directly in this directory
 		  files = ftp.chdir('people_images')
 		  Person.where("`pic` IS NOT NULL").all.each do |person|
