@@ -10,7 +10,7 @@
 </div>
 
 <div class="this_week">
-    <% if false %>
+    <% if ! @rows.empty? %>
 	<% @rows.each do |items| %>
 		<% this_class = items.length == 2 ? "span6" : "span4" %>
 		<% this_class = "span6 offset3" if items.length == 1 %>
