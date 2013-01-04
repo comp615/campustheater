@@ -7,8 +7,19 @@ var cycleStrikethrough = function() {
 	var count = $(this).children().length;
 	var current = $(this).children(".checked").length;
 	if(count == current) {
+		current = 0;
 		$(this).children().removeClass("checked");
 	}	else {
-		$(this).children(":lt(" + (current + 1) + ")").addClass("checked");
+		current += 1;
+		$(this).children(":lt(" + (current) + ")").addClass("checked");
 	}
+
+	$.ajax({
+		url: document.location.href + "/update_attendance",
+		data: {
+			reservation_id: $(this).data("id"),
+			num_used: current
+		}
+	});
+
 }

@@ -27,6 +27,11 @@ class ShowtimesController < ApplicationController
 			end
 		end
 	end
+
+	def update_attendance
+		@reservation = @show.showtimes.find(params[:showtime_id]).reservations.find(params[:reservation_id])
+		render :json => {:success => @reservation.update_column(:used, params[:num_used])}
+	end
 	
 	private
 	

@@ -8,9 +8,9 @@
 	<h3>Confirmed</h3>
 	<div class="confirmed" style="-webkit-column-count: <%= column_count %>; -moz-column-count: <%= column_count %>; column-count:<%= column_count %>;">
 		<% @confirmed.sort_by(&:fname).each do |reservation| %>
-		<div class="reservation_block">
-			<% reservation.num.times do %>
-				<div class="listing"><%= reservation.fname %> <%= reservation.lname %></div>
+		<div class="reservation_block" data-id="<%= reservation.id %>">
+			<% reservation.num.times do |i| %>
+				<div class="listing <%= 'checked' if i < reservation.used %>"><%= reservation.fname %> <%= reservation.lname %></div>
 			<% end %>
 		</div><br />
 		<% end %>
@@ -18,9 +18,9 @@
 	<div class="waitlist">
 		<h3>Waitlist</h3>
 		<% @waitlist.each do |reservation| %>
-		<div class="reservation_block">
-			<% reservation.num.times do %>
-			<div class="listing"><%= reservation.fname %> <%= reservation.lname %></div>
+		<div class="reservation_block" data-id="<%= reservation.id %>">
+			<% reservation.num.times do |i| %>
+			<div class="listing <%= 'checked' if i < reservation.used %>"><%= reservation.fname %> <%= reservation.lname %></div>
 			<% end %>
 		</div>
 		<% end %>
