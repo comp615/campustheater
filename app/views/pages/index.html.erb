@@ -4,14 +4,13 @@
 	</script>
 <% end %>
 
-<div class="row">
-	<div class="section-intro">
-		Coming soon in <strong>Yale Theater</strong>
-		<hr />
-	</div>
+<div class="section-intro">
+	Coming soon in <strong>Yale Theater</strong>
+	<hr />
 </div>
 
 <div class="this_week">
+    <% if ! @rows.empty? %>
 	<% @rows.each do |items| %>
 		<% this_class = items.length == 2 ? "span6" : "span4" %>
 		<% this_class = "span6 offset3" if items.length == 1 %>
@@ -28,13 +27,13 @@
 		<% end %>
 		</div>
 	<% end %>
-	
+	<% else %>
+       <h5 id="no-upcoming" class="aligncenter">There are no upcoming shows... yet. Please check back soon.</h5>
+	<% end %>
 	<div class="row aligncenter">
 	   <%= link_to "See the Full Calendar", shows_path, :id => "full-calendar", :class => "btn btn-light" %>
 	</div>
 </div>
-
-
 
 </div><!-- End of #main -->
 

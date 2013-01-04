@@ -66,8 +66,9 @@ class ShowsController < ApplicationController
 		@page_name = " - Edit Show"
 		
 		s3 = AWS::S3.new
-   	s3_bucket = s3.buckets['yaledramacoalition']
-   	s3_bucket.objects.delete(params[:destroy_files].map { |item| "shows/#{@show.id}/misc/#{item}" })
+   		s3_bucket = s3.buckets['yaledramacoalition']
+   		params[:destroy_files] ||= []
+   		s3_bucket.objects.delete(params[:destroy_files].map { |item| "shows/#{@show.id}/misc/#{item}" })
 		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 	end
 

@@ -14,7 +14,7 @@
 			Start Time: <%= text_field_tag :start_time, nil, :class => "time start" %><br />
 			End Time: <%= text_field_tag :end_time, nil, :class => "time end" %><br />
 			Audition Length (minutes): <%= number_field_tag :duration %>
-			<%= submit_tag "Submit" %>
+			<%= submit_tag "Submit", :class => "btn" %>
 		<% end %>
 		<hr />
 		-->
@@ -24,7 +24,7 @@
 		<%= form_for Audition.new, :class => "datepair" do |f| %>
 			<%= f.text_field :location %>
 			<%= f.datetime_select :timestamp %>
-			<%= f.submit "Submit" %>
+			<%= f.submit "Submit", :class => "btn" %>
 		<% end %>
 		-->
 	<% end %>
@@ -39,7 +39,7 @@
 			<h4>Your Information:</h4><br />
 			Name: <%= @current_user.display_name %> &nbsp; &nbsp; Not you? <%= link_to "Logout", logout_path %><br />
 			Phone: <input type="text" name="phone" value="<%= @user_audition[:phone].to_s if @user_audition %>" /><br />
-			Email: <input type="text" name="email" value="<%= if @user_audition ? @user_audition[:email].to_s : @current_user.email %>" />
+			Email: <input type="text" name="email" value="<%= @user_audition ? @user_audition[:email].to_s : @current_user.email %>" />
 			<br />
 			<br />
 			<h4>Audition Times:</h4>
@@ -67,7 +67,7 @@
 		  <% end %>
 		  <% if @aud_admin %>
 		  <tr><td colspan="6"></td><td>
-		  <%= submit_tag "Delete Selected" if @aud_admin %>
+		  <%= submit_tag "Delete Selected", :class => "btn" if @aud_admin %>
 		  <td></tr>
 		  <% end %>
 		  

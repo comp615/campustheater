@@ -10,7 +10,7 @@ class AuditionsController < ApplicationController
 	# Cast Opportunities
 	def all
 		@active_nav = :auditions
-		@shows = Audition.future.includes(:show).group_by(&:show)
+		@shows = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
 	end
 	
 	# Crew opportunities
@@ -66,7 +66,7 @@ class AuditionsController < ApplicationController
 			return
 		end
 
-		raise if params[:duration] < 0
+		raise if params[:duration].to_i < 0
 		
 		while start < stop do
 			@show.auditions.build(:timestamp => start, :location => params[:location])	

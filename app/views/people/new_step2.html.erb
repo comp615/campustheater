@@ -9,7 +9,7 @@
 				<%= check_box_tag 'person_ids[]', p.id %> <%= p.display_name %><%= "(#{p.college} #{p.year})" if p.college || p.year %><br />
 			<% end %>
 			<br />
-			<%= submit_tag "Request Names" %>
+			<%= submit_tag "Request Names", :class => "btn" %>
 		<% end %>
 	</div>
 </div>
