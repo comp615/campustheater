@@ -52,7 +52,7 @@ $(document).ready(function() {
         $(this).removeClass('fixed');
       }
     });
-  }, 50);
+  }, 20);
 
   /* Setup audition module, TODO: pull out elsewhere...only in two places */
   $("#audition_slots").on('click', '.hide-all,.show-all', manageAuditionEllipsis);
