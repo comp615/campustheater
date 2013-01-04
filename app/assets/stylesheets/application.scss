@@ -44,7 +44,6 @@ h1,h2,h3 {
 
 h2 {
 	margin-bottom: 20px;
-	border-radius: 2px;
 }
 
 h5 {
@@ -56,6 +55,10 @@ a {
     &:hover {
         color: darken($purple, 15%);
         text-decoration: none;
+    }
+    &.ul {
+        border-bottom: 1px solid;
+        color: inherit;
     }
 }
 
