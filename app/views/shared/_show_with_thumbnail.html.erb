@@ -1,7 +1,7 @@
 <div class="show-listing span4">
 	<div class="poster">
 		<% if show.poster.exists? %>
-			<%= link_to raw(square_show_thumb(show.poster)), best_link(show) %>
+			<%= link_to raw(square_show_thumb(show.poster, lazy)), best_link(show) %>
 		<% else %>
 			<%= link_to "", best_link(show), :class => "swatch #{color_palette}" %>
 		<% end %>
