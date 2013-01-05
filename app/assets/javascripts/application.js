@@ -17,6 +17,7 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.sortable
 //= require jquery.timepicker.js
+//= require jquery.lazyload.min.js
 //= require bootstrap
 //= require rails.validations
 //= require rails.validations.custom

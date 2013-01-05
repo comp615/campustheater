@@ -171,7 +171,6 @@ $(document).ready(function() {
 		$(".frontpage-preview").find(".item .row").removeClass(available_colors.join(" ")).addClass($(this).val());
 	});
 
-
 	// Bind the live-preview updates, change data-fields equal to input id
 	$("form").on("change", "input, textarea, select", function() {
 		$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
@@ -217,12 +216,17 @@ $(document).ready(function() {
 	   }
 	});
 
-
 	hookupPersonAutoComplete();
 	$("#show_on_sale").datepicker({ 'dateFormat': 'm/d/yy' })
 	
 	$("#show_tix_enabled").on("change", updateTixFieldVisibility);
 	updateTixFieldVisibility();
+	
+	// Initialize lazyload on shows#index
+	$(".shows.index .show-listing img").lazyload({
+	    threshold: 400, // picks up images up to 400px "below the fold"
+	    failure_limit: 6 // ensures up to 6 images can be queued to load at once
+	});
 });
 
 var updateTixFieldVisibility = function() {

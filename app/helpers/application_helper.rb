@@ -79,7 +79,7 @@ module ApplicationHelper
 	
 	def square_show_thumb(poster)
 	    c = (poster.height(:thumb) > poster.width(:thumb)) ? "poster-vertical" : "poster-horizontal"
-	    image_tag poster.url(:thumb), :class => c
+	    "<img src="/assets/placeholder.gif" data-original=\"#{poster.url(:thumb)}\" class=\"#{c}\">"
 	end
 	
 	def link_to_show_title(show)
