@@ -50,7 +50,7 @@
         line-height: 24px;
     }
 
-	h5 {
+	h4, h5 {
 		color: $dk-purple;
 		font-size: 14px;
 		text-transform: uppercase;
@@ -58,13 +58,13 @@
 		a { color: $purple; }
 	}
 
-	&.show h5 {
+	h5 {
 		color: $purple;
 	}
 
 	.show-header {
-		margin: 10px 0 20px 0;
-		text-align: center;	
+		margin-top: 10px;
+		text-align: center;
 	
 		h2 { 
 			color: white;
@@ -87,9 +87,14 @@
 	}
 
 	.poster {
-		margin-bottom: 40px;
 		text-align: center;
+		max-height: 450px;
+		overflow: hidden;
 		img { max-height: 450px; }
+	}
+	
+	.description {
+		margin-top: 20px;
 	}
 	
 	.performances-past {
@@ -115,22 +120,18 @@
 		}
 	}	
 
-	.cast, .crew {
-		text-align: center;
+	.cast-crew {
 		table {
-			width: 100%;
 			td { 
 				vertical-align: top;
 				padding: 3px 0px; 
 			}
 			td:first-child {
-				width: 50%;
-				text-align: right;
 				font-weight: bold;
 				padding-right: 10px;
+				max-width: 140px;
 			}
 			td:last-child {
-				width: 50%;
 				text-align: left;
 				padding-left: 10px;
 			}
@@ -158,13 +159,11 @@
 		background-color: red;
 	}
 
-	h5 {
+	h4 {
 		margin-bottom: 0px;
-		color: $dk-purple;
-		text-transform: uppercase;
     }
 
-	h5 + p {
+	h4 + p {
 		line-height: 20px;
 		margin-bottom: 15px;
 	}

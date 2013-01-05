@@ -11,7 +11,7 @@
 <%= form_for @show, :validate => true, :html => { :multipart => true } do |f| %>
 	<div class="row show-form">
 	  <div class="span6">
-			<h5>Show Details</h5>
+			<h4>Show Details</h4>
 			<p>Tell us a bit about your awesome new show!</p>
 
 			<%= f.enum_select :category %><br />
@@ -28,7 +28,7 @@
 			
 			<hr />
 			
-			<h5>Design Details</h5>
+			<h4>Design Details</h4>
 			<p>Help sell your show by making it stand out in the crowd</p>
 
 			<% if @current_user.site_admin? %>
@@ -57,7 +57,7 @@
 
 			<hr />
 
-			<h5>Scheduling and Tickets</h5>
+			<h4>Scheduling and Tickets</h4>
 			<p>Fill in what you know, but we'll need at least one date and time to get started</p>
 
 			<%= f.text_field :location, :class => "required", :placeholder => "Location", :validate => true %><br />
@@ -92,7 +92,7 @@
 				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the number of seats given above">What's this?</a>
 			</div>
 			<hr />
-			<h5>Permissions</h5>
+			<h4>Permissions</h4>
 			<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>
 			<div class="permissions">
 				<ul>
@@ -107,7 +107,7 @@
 		</div>
 
 		<div class="span6">
-			<h5>Design Preview</h5>
+			<h4>Design Preview</h4>
 			<p>See what your shows will look like on the YDC Homepage</p>
 			<div class="frontpage-preview">
 				<div class="row">

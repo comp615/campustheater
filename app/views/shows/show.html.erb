@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="span12 show-header">
 		<% if !@show.approved %>
-			<h1>DRAFT VIEW - Awaiting Approval</h1>
+			<div class="alert alert-info"><strong>DRAFT VIEW - Awaiting Approval</strong></div>
 		<% end %>
 		<h2 class="<%= @show.accent_color ? @show.accent_color.to_s : 'no_color' %>"><%= @show.title %></h2>
 		<p class="writer lg">by <%= @show.writer %></p>
@@ -16,8 +16,8 @@
 </div>
 
 <% if @show.poster.exists? %>
-	<div class="row poster">
-		<div class="span10 offset1">
+	<div class="row">
+		<div class="span12 poster">
 			<%= image_tag @show.poster.url %>
 		</div>
 	</div>
@@ -43,11 +43,11 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="cast span4 offset2">
+<div class="row cast-crew">
+	<div class="span4 offset2 cast">
 		<h5>Cast</h5>
 		<table>
-			<% @show.cast.select{|sp| sp.person }.each do |sp| %>
+			<% @show.cast.select(&:person).each do |sp| %>
 				<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>
 			<% end %>
 		</table>
@@ -57,10 +57,10 @@
 		<% end %>
 	</div>
 
-	<div class="crew span4">
+	<div class="span4 crew">
 		<h5>Production Staff</h5>
 		<table>
-			<% @show.crew.select{|sp| sp.person }.each do |sp| %>
+			<% @show.crew.select(&:person).each do |sp| %>
 				<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>
 			<% end %>
 		</table>
@@ -74,7 +74,7 @@
 <% if @s3_objects.count > 0 || !@show.flickr_id.blank? %>
 	<div class="row">
 		<div class="span8 offset2 media">
-			<h5>Media & Downloads</h5>
+			<h5>Media &amp; Downloads</h5>
 			<% @s3_objects.in_groups_of(3) do |arr| %>
 				<div class="row">
 					<% arr.each do |obj| %>
