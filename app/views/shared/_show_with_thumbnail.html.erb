@@ -3,7 +3,7 @@
 		<% if show.poster.exists? %>
 			<%= link_to square_show_thumb(show.poster), best_link(show) %>
 		<% else %>
-			<div class="swatch <%= color_palette %>"></div>
+			<%= link_to "", best_link(show), :class => "swatch #{color_palette}" %>
 		<% end %>
 	</div>
 	<div class="info">

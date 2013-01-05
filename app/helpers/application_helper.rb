@@ -18,7 +18,18 @@ module ApplicationHelper
 	end
 	
 	def format_showtime_full(timestamp)
-		timestamp.strftime("%b #{timestamp.day.ordinalize} %-l:%M %p")
+		timestamp.strftime("%B %-d at %-l:%M%P")
+	end
+	
+	def style_full_showtime(timestamp)
+	    @is_next ||= false
+	    fs = format_showtime_full(timestamp)
+	    cl = (timestamp < Time.now) ? "performances-past" : ""
+	    if timestamp > Time.now && !@is_next
+	       @is_next = true
+	       cl = "performances-next"
+	    end
+	    "<span class=\"#{cl}\">#{fs}</span>"
 	end
 	
 	def format_long_rundates(show)
@@ -40,11 +51,11 @@ module ApplicationHelper
 	end
 	
 	def full_timestamp(time)
-		time.strftime("%B #{time.day.ordinalize} at %-l:%M %p")
+		time.strftime("%B #{time.day.ordinalize} at %-l:%M %P")
 	end
 	
 	def small_timestamp(time)
-		time.strftime("%b %d %-l:%M %p")
+		time.strftime("%b %d %-l:%M %P")
 	end
 
 	# (517) 648-8850
