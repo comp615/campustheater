@@ -104,7 +104,7 @@ Ydc::Application.routes.draw do
 
   # Detect show slugs last, some legacy support for now
   # TODO: build out /tickets, /reserve, etc.
-  match ':url_key' => 'shows#show', :as => "vanity", :url_key => /\A[a-z0-9_]+\Z/i
+  match ':url_key' => 'shows#show', :as => "vanity", :url_key => /[a-z0-9_]+/i
 
   # See how all your routes lay out with "rake routes"
 
