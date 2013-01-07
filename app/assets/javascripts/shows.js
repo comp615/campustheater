@@ -221,12 +221,7 @@ $(document).ready(function() {
 	
 	$("#show_tix_enabled").on("change", updateTixFieldVisibility);
 	updateTixFieldVisibility();
-	
-	// Initialize lazyload on shows#index
-	$(".shows.index .show-listing img.lazy").lazyload({
-	    threshold: 400, // picks up images up to 400px "below the fold"
-	    failure_limit: 6 // ensures up to 6 images can be queued to load at once
-	});
+
 });
 
 var updateTixFieldVisibility = function() {
