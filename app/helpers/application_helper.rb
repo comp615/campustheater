@@ -80,7 +80,7 @@ module ApplicationHelper
 	def square_show_thumb(poster, lazy = false)
 	    c = (poster.height(:thumb) > poster.width(:thumb)) ? "poster-vertical" : "poster-horizontal"
 	    if lazy
-	        "<img src="/assets/placeholder.gif" data-original=\"#{poster.url(:thumb)}\" class=\"#{c} lazy\">"
+	        "<img src=\"/assets/placeholder.gif\" data-original=\"#{poster.url(:thumb)}\" class=\"#{c} lazy\">"
 	    else
 	        "<img src=\"#{poster.url(:thumb)}\" class=\"#{c}\">"
 	end
