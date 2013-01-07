@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
 	def force_auth
 		session[:last_ts] = nil
 		CASClient::Frameworks::Rails::Filter.filter self unless @current_user
+		# TODO: Put in place to try to avoid errors when coming from a login, might need to be in a seperate filter
+		@current_user = Person.where(:netid => session[:cas_user]).first
+		raise if !@current_user
 	end
 	
 	def check_user

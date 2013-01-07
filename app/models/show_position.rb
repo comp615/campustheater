@@ -37,11 +37,11 @@ class ShowPosition < ActiveRecord::Base
 	
 	# TODO: verify this does what it's supposed to
 	def cleanup_old_person
-		self.person_was.destroy if self.person_was.show_positions.count == 0 && self.person_was.netid.blank?
+		self.person_was.destroy if self.person_was && self.person_was.show_positions.count == 0 && self.person_was.netid.blank?
 	end
 	
 	def cleanup_person
-		self.person.destroy if self.person.show_positions.count == 0 && self.person.netid.blank?
+		self.person.destroy if self.person && self.person.show_positions.count == 0 && self.person.netid.blank?
 	end
 	
 end

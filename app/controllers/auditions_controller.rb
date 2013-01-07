@@ -29,7 +29,7 @@ class AuditionsController < ApplicationController
 		@active_nav = :auditions
 		@auditions = @show.auditions.select{|a| a.timestamp > Time.now}
 		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
-		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id}
+		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id }
 
 		# Legacy support, check and reassociate audition if given
 		if params[:aud_id]
