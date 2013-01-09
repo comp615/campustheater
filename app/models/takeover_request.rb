@@ -5,6 +5,8 @@ class TakeoverRequest < ActiveRecord::Base
 	def fulfill
 		return false if self.requested_person.netid
 		
+		stray_requests = TakeoverRequest.where(:requested_person_id => self.requested_person_id)
+
 		# Transfer over all the data for the other person
 		# They cannot have any auditions or reservations since they have no netid
 		self.person.permissions << self.requested_person.permissions
@@ -14,6 +16,8 @@ class TakeoverRequest < ActiveRecord::Base
 		self.requested_person.reload
 		self.requested_person.destroy
 		self.approved = true
-		self.save
+		self.save!
+
+		stray_requests.delete_all
 	end	
 end
