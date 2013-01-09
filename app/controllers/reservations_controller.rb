@@ -1,5 +1,6 @@
 class ReservationsController < ApplicationController  
 
+	skip_before_filter :force_auth
 	before_filter :fetch_show
 	before_filter :auth_reservation, :except => [:index, :new, :create]	
 	

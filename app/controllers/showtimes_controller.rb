@@ -1,6 +1,5 @@
 class ShowtimesController < ApplicationController  
 	
-	before_filter :force_auth
 	before_filter :fetch_show
 	before_filter :auth	
 	

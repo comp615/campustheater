@@ -2,7 +2,7 @@
 
 class AuditionsController < ApplicationController  
 	
-	before_filter :force_auth, :except => [:all, :opportunities]
+	skip_before_filter :force_auth, :only => [:all, :opportunities]
 	#before_filter :verify_show_admin, :only => [:new, :create, :destroy]
 	#before_filter :verify_permission, :only => [:edit, :update]
 	before_filter :fetch_show, :except => [:all, :opportunities]	

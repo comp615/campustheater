@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
 	# Add this before filter to force CAS Authentication on all controllers + actions
+	before_filter :force_auth
 	before_filter :check_user	
 	
 	def logged_in?

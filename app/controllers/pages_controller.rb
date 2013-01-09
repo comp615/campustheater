@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-
+	skip_before_filter :force_auth
+	
 	# The page users hit when they first visit in browser.
 	def index
 		# Select and load active modules from config DB (if any)

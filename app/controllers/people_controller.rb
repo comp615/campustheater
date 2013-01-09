@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController  
 
-	before_filter :force_auth, :except => [:show, :logout]
+	skip_before_filter :force_auth, :only => [:show, :logout]
 	before_filter :verify_user, :except => [:show, :dashboard, :logout, :new, :create]
 	before_filter :fetch_user, :except => [:dashboard, :logout, :new, :create]
 	

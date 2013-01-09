@@ -1,5 +1,7 @@
 class SearchController < ApplicationController  
 
+	skip_before_filter :force_auth
+
 	def index
 		# Make sure we appropriately fill in the dates
 		start = DateTime.strptime(params[:start], '%m/%d/%Y') unless params[:start].blank?
