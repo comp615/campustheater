@@ -12,7 +12,10 @@
 			Current Status: <b>
 			<% num_before = @reservation.showtime.reservations.where(["updated_at < ?", @reservation.updated_at]).sum(:num)  %>
 			<%= @reservation.status_line %>
-			</b><br />
+			</b><br /><br />
+			<%= link_to image_tag("iCal_icon.gif"), show_reservation_path(@show, @reservation, :auth_code => @reservation.token, :format => :ics) %> &nbsp;
+			<%= gcal_link_from_reservation(@reservation).html_safe %>
+			<br /><br />
 			Please refer to the url of this page to edit your reservation<br />
 			<br />
 			NOTICE: Changing your reservation in any way, except for lowering the number of ticket, will move you to the back of the waitlist. Please ensure this is what you want before submitting.<br /><br />

@@ -21,6 +21,7 @@ gem 'remotipart'
 
 gem 'net-ldap'
 gem 'rubycas-client'
+gem 'ri_cal'
 
 # Gems used only for assets and not required
 # in production environments by default.

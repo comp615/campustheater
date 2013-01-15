@@ -142,6 +142,20 @@ module ApplicationHelper
     content_for(:head) { javascript_include_tag(*files) }
   end
 
+  def gcal_link_from_reservation(reservation)
+  	event = {
+  		:action => "TEMPLATE",
+  		:text => reservation.showtime.show.title,
+  		:details => "You have " + reservation.num.to_s + " tickets to this show.\n\nYou may edit/cancel this reservation by visiting:\n" + show_reservation_url(reservation.showtime.show, reservation, :auth_code => reservation.token),
+  		:location => reservation.showtime.show.location,
+  		:dates => reservation.showtime.timestamp.utc.strftime("%Y%m%dT%H%M%SZ") + "/" + (reservation.showtime.timestamp + 2.hours).utc.strftime("%Y%m%dT%H%M%SZ"),
+  		:sprop => "name: Yale Drama Coalition",
+  	}
+
+  	link = "http://www.google.com/calendar/event?" + event.to_query + "&sprop=name:Yale%20Drama%20Coalition"
+  	"<a href=\"" + link + "\" target='_blank'><img src=\"http://www.google.com/calendar/images/ext/gc_button6.gif\" border=0></a>"
+  end
+
   def oci_id_to_text(term)
   	year = term.first(4).to_i
   	term.last(2).to_i == 1 ? "Spring #{year}" : "Fall #{year}"

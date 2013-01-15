@@ -45,6 +45,18 @@ class ReservationsController < ApplicationController
 	
 	# Show a specific reservation. (Requires auth code or login)
 	def show
+		if request.format == :ics
+			res = @reservation
+			ical_event = RiCal.Event do |event|
+	      event.description = res.showtime.show.title
+	      event.dtstart  =   @reservation.showtime.timestamp
+	      event.dtend = @reservation.showtime.timestamp + 2.hours
+	     	event.location = @reservation.showtime.show.location
+	    end
+	    filename = "ydc_tickets_" + @reservation.id.to_s + ".ics"
+	    send_data(ical_event.export, :filename => filename, :disposition=>"inline; filename=" + filename, :type=>"text/calendar")
+	    return
+		end
 		render :edit
 	end
 	
