@@ -11,6 +11,7 @@
  * TODO: Add in require bootstrap-responsive.min later and make things work again
  *
  *= require bootstrap.min
+ *= require bootstrap-responsive.min
  *= require_self
  *= require frontpage
  *= require auditions
@@ -86,19 +87,19 @@ a {
 	width: 100%;
 }
 
+@media (max-width: 767px) {
+    #nav-main { 
+        margin-left: 0px;
+    }
+}
+
 #nav-main {
 	.navbar-inner { 
 	   background: $purple;
 	   border: none;
 	   box-shadow: none !important;
        padding: 0 20px !important;
-       
-       .brand {
-           text-indent: -9999px;
-           background: image-url("umbrella.png") no-repeat;
-           margin: 9px 14px 0 0;
-       }   
-	   
+
 	   .nav > li > a {
     	   color: $lt-purple;
     	   text-transform: uppercase;
