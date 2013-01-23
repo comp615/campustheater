@@ -38,6 +38,9 @@ body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;
 	background: $dk-purple;
+    @media (max-width: 767px) {
+        background: white;
+    }
 }
 
 #main { background: white; }

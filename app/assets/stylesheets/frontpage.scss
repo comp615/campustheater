@@ -22,7 +22,7 @@
     background-repeat: no-repeat;
   }
 
-  /* Media Query for mobile stuff */
+  /* Media Query for mobile frontpage listings */
   .poster.left { 
     float: left;
     margin-right: 20px;
@@ -148,7 +148,10 @@
 #full-calendar { margin: 20px 0; }
 
 #news {
-    background: $pale-purple;
+  background: $pale-purple;
+  @media (max-width: 767px) {
+    padding: 0 20px;
+  }
 }
 
 .news-item {
