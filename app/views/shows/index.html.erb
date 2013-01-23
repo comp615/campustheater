@@ -21,7 +21,9 @@
   <div class="navbar-inner">
     <ul class="nav nav-pills">
       <% nav_items_for_index.each_with_index do |item, i| %>
-        <li<%= i == 0 ? " class=active" : "" %>><a href="<%= item[:link] %>"><%= item[:text] %></a></li>
+      	<% classes = item[:phone] ? [] : ["hidden-phone"]
+      		classes += ["active"] if i == 0 %>
+        <li class="<%= classes.join(' ') %>"><a href="<%= item[:link] %>"><%= item[:text] %></a></li>
       <% end %>
     </ul>
   </div>
@@ -72,7 +74,7 @@
 
 </div>
 <!-- End of #main -->
-<div id="archives">
+<div id="archives hidden-phone">
 	<div class="container shows index">
 	<% (2008..Time.now.year).to_a.reverse.each do |year| %>
 		<% ["03","01"].each do |term| %>

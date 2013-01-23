@@ -1,7 +1,9 @@
 @import "bits";
 
-.pages.index > .container {
-    padding-top: 40px;
+@media (min-width: 767px) {
+  .pages.index > .container {
+      padding-top: 40px;
+  }
 }
 
 .section-intro {

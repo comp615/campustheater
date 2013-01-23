@@ -94,6 +94,15 @@ a {
 }
 
 #nav-main {
+    .btn-navbar { margin-top: 12px; }
+    
+    .brand {
+        text-shadow: none;
+        color: $lt-purple;
+        text-shadow: 0 1px 0 $dk-purple;
+        &.hidden-desktop { line-height: 28px; }
+    }
+
 	.navbar-inner { 
 	   background: $purple;
 	   border: none;
