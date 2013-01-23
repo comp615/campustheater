@@ -27,6 +27,13 @@
 
 @import "bits";
 
+/* TODO: this is a bug in responsive bootstrap, remove if it ever gets fixed? */
+@media (max-width: 767px) {
+  .modal.fade.in {
+    top: 5%;
+  }
+}
+
 body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;

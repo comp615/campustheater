@@ -1,0 +1,34 @@
+<!-- The ROW class needs to contain the color sets -->
+<% if show.poster.exists? %>
+	<div class="row <%= css_classes %>">
+		<div class="left poster"><%= image_tag show.poster.url(:medium) %></div>
+		<div class="right info">
+<% else # No Poster %>
+	<div class="row info full <%= css_classes %>">
+
+<% end %>
+		<p data-field="show_title" class="title"><%= link_to show.title, best_link(show) unless show.id.blank? %></p>
+		<p data-field="show_writer"><%= show.writer %></p>
+
+		<p><span data-field="show_showtimes"><%= format_long_rundates(show) %></span><br />
+		@ <span data-field="show_location"><%= show.location %></span></p>
+		<a class="btn btn-primary" href="<%= best_link(show) %>">
+			<i class="icon-arrow-right icon-white"></i>
+			Details
+		</a>
+		<% if !show.tix_enabled && !show.alt_tix.blank? %>
+			<a class="btn btn-primary" href="<%= show.alt_tix_link %>">
+				<i class="icon-ok icon-white"></i>
+				Tickets*
+			</a>
+		<% elsif show.ok_to_ticket? %>
+			<a class="btn btn-primary" href="#reservations" role="button" data-toggle="modal" data-show-id="<%= show.id %>">
+				<i class="icon-ok icon-white"></i>
+				Tickets
+			</a><!-- Button to trigger modal -->
+		<% end %>
+	</div>
+
+<% if show.poster.exists? %>
+	</div>
+<% end %>

@@ -22,28 +22,52 @@
     background-repeat: no-repeat;
   }
 
+  /* Media Query for mobile stuff */
+  .poster.left { 
+    float: left;
+    margin-right: 20px;
+
+    @media (max-width: 767px) {
+      img {
+        max-width: 350px;
+        max-height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      img {
+        max-width: 225px;
+        max-height: 275px;
+      }
+    }
+  }
+
+  /* End mobile */
+
   .row {
-    margin: 0px;
     color: white;
 
     + .row {
       margin-top: 20px;
     }
 
-    .span3 {
-      &.poster, &.info {
-        width: 210px;
-      }
+    .info {
+      box-sizing: border-box;
     }
 
-    .span4.info {
-      width: 260px;
-    }
-
-    div[class*="span"] { margin: 0px; }
 
     .item {
-      & + .item { margin-left: 20px; }
+
+      /* Repair the spacing so backgrounds work */
+      .poster[class*="span"] { 
+        margin-left: 0px; 
+        & + .info {
+          padding-left: 0px;
+        }
+      }
+      > .row { margin-left: 0px; }
+
+
       .title {
         font-family: 'Bitter', serif;
         line-height: 30px;
@@ -53,16 +77,11 @@
       }
       .info {
         padding: 15px 20px;
-        &.span4 {
-
-        }
+        
         &.full {
           padding-top: 100px;
         }
-        &.offset3 {
-          margin-left: 210px;
-          min-height: 250px;
-        }
+       
       }
     }
 

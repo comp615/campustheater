@@ -112,12 +112,12 @@
 			<div class="frontpage-preview">
 				<div class="row">
 					<div class="span6 item">
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :color_palette => @show.accent_color ? @show.accent_color.to_s : "black" } %>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :css_classes => @show.accent_color ? @show.accent_color.to_s : "black" } %>
 					</div>
 				</div>
 				<div class="row">
 					<div class="span4 item">
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :color_palette => @show.accent_color ? @show.accent_color.to_s : "black" } %>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :css_classes => @show.accent_color ? @show.accent_color.to_s : "black" } %>
 					</div>
 				</div>
 			</div>

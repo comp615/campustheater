@@ -38,7 +38,14 @@
 		<div class="row">
 			<% items.each do |item| %>
 				<div class="span3 item clearfix">
-					<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue"), :lazy => false } %>
+					<% 
+							# Same hack as frontpage
+						 color_class = item.accent_color ? [item.accent_color] : [cycle("red", "blue","yellow","black","dark_blue","green", "light_blue")] 
+						 css_classes = color_class + ['hidden-phone']
+					%>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :css_classes => css_classes.join(' ') } %>
+					<% css_classes = color_class + ['visible-phone'] %>
+						<%= render :partial => 'shared/show_frontpage_mobile', :locals => { :show => item, :css_classes => css_classes.join(' ') } %>
 				</div>
 			<% end %>
 		</div>

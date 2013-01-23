@@ -19,7 +19,15 @@
 			<% items.each do |item| %>
 				<div class="<%= this_class %> item">
 					<% if item.is_a? Show %>
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue") } %>
+						<% 
+								# OK, you caught me. This is a sudo-hack. We need to render the front page item twice, once for normal clients, and once for phones
+								# The top one is phone-hidden, while the bottom is the one we show on phones, hacked to display more prettily
+							 color_class = item.accent_color ? [item.accent_color] : [cycle("red", "blue","yellow","black","dark_blue","green", "light_blue")] 
+							 css_classes = color_class + ['hidden-phone']
+						%>
+						<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => items.length, :css_classes => css_classes.join(' ') } %>
+						<% css_classes = color_class + ['visible-phone'] %>
+						<%= render :partial => 'shared/show_frontpage_mobile', :locals => { :show => item, :css_classes => css_classes.join(' ') } %>
 					<% else %>
 						<%= item %>
 					<% end %>

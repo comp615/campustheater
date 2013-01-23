@@ -15,7 +15,8 @@ class PagesController < ApplicationController
 		# TODO: Change this, duh!
 
 		# Group things appropriately. Cannot be more than 2 modules
-		@shows = Show.readonly.this_week
+		#@shows = Show.readonly.this_week
+		@shows = Show.find([1,2,3,4,563])
 
 		@showtime_data = {}
 		@shows.each {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
