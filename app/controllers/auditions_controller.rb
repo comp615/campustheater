@@ -51,10 +51,15 @@ class AuditionsController < ApplicationController
 	def create
 		#expect batch processing so figure out what we're iterating on
 		# Assume they gave us Eastern Time Zone stuff
-		that_date = DateTime.strptime("#{params[:date]} #{params[:start_time]}", '%m/%d/%Y %l:%M%P')
-		start = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
-		that_date = DateTime.strptime("#{params[:date]} #{params[:end_time]}", '%m/%d/%Y %l:%M%P')
-		stop = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
+		begin
+			that_date = DateTime.strptime("#{params[:date]} #{params[:start_time]}", '%m/%d/%Y %l:%M%P')
+			start = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
+			that_date = DateTime.strptime("#{params[:date]} #{params[:end_time]}", '%m/%d/%Y %l:%M%P')
+			stop = Time.find_zone('Eastern Time (US & Canada)').local(that_date.year, that_date.month, that_date.day, that_date.hour, that_date.minute)
+		rescue ArgumentError 
+			render :js => "alert('Invalid date format, please try again and be sure to use the dropdowns!')"
+			return
+		end
 
 		# Validate things here
 		# ensure there's no other time in this span, custom validator
