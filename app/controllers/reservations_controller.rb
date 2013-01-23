@@ -71,7 +71,7 @@ class ReservationsController < ApplicationController
 			if @reservation.update_attributes(params[:reservation])
 				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully updated.' }
 			else
-				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again!'
+				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again! You may only make one reservation per email per show'
 				format.html { render :action => "edit" }
 			end
 		end

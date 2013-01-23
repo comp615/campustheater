@@ -14,7 +14,7 @@ Num Tickets: <%= @reservation.num %><br />
 	You can access your reservation at the link below:
 <% end %>
 <br />
-<%= link_to "Edit/View Reservation", (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}") %><br />
+<%= link_to "Edit/View Reservation", (show_reservation_url(@show,@reservation) + "?auth_code=#{@reservation.token}") %><br />
 <br />
 Enjoy the show!<br />
 YDC
