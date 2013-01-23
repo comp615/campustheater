@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
 	attr_accessible :fname, :lname, :email, :year, :college, :bio, :email_allow, :picture
 	
     validates :fname, :lname, :presence => true
-	validates :year, :numericality => { :only_integer => true, :greater_than_or_equal_to => 2006, :less_than_or_equal_to => Time.now.year + 8 }, :allow_nil => true
+	validates :year, :numericality => { :only_integer => true, :greater_than_or_equal_to => 1970, :less_than_or_equal_to => Time.now.year + 8 }, :allow_nil => true
 	validates :college, :inclusion => { :in => YALE_COLLEGES.flatten }, :allow_nil => true
 	validates_format_of :email, :with => /^$|\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
                               :message => "Must enter a valid email address."

@@ -1,0 +1,64 @@
+<%
+	# Unconventional, but we are going to define css "classes" here, because for emailing, they must be inlined
+	topbar = "background-color: #6F79D8; color: #D4D7F3; text-transform: uppercase; vertical-align: middle;"
+	navItem = "float: left; margin-right: 25px;"
+	link = "text-decoration: none;"
+	nav = "list-style-type: none;"
+
+%>
+<html>
+	<head>
+		<style type="text/css" media="screen">
+			a:visited { color:inherit; text-decoration: none; }
+		</style>
+	</head>
+	<body style="margin: 0; padding: 0; font-family: 'Lucida Grande',sans-serif;">
+		<table width="100%">
+			<tr style="<%= topbar %>">
+				<td colspan="2">
+					<ul style="<%= nav %>">
+						<li style="<%= navItem %>"><%= link_to image_tag("umbrella.png"), root_path, :title => "Yale Drama Coalition", :style => "position: relative; top: -6px;" %></li>
+						<li style="<%= navItem %>"><%= link_to "Home", root_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Shows", shows_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Auditions", auditions_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Opportunities", opportunities_url, :style => link %></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="vertical-align: top;">
+					<h2>This Week's Shows</h2>
+					<% if @shows.length == 0 %>
+						No shows this week, check out the <%= link_to "full calendar", shows_url %> for more information!
+					<% else %>
+						<% @shows.each do |show| %>
+							<p style="clear: both; margin-bottom: 15px;">
+								<% if show.poster.exists? %>
+									<%= link_to image_tag(show.poster.url(:thumb)), best_link(show), :style => "float: left; margin-right: 10px;" %>
+								<% end %>
+								<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
+								<strong>By:</strong> <%= show.writer %><br />
+								<%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
+								<strong>Directed By:</strong> <%= show.director %><br />
+								<strong>Place:</strong> <%= show.location %><br />
+								<% show.showtimes.each do |showtime| %>
+									<%= raw style_full_showtime(showtime.timestamp) %><br />
+								<% end %>
+							</p>
+						<% end %>
+						<br />Check out the <%= link_to "full calendar", shows_url %> for even more shows!
+					<% end %>
+
+					<hr />
+
+
+					<h2>Auditions</h2>
+				</td>
+				<td width="50%" style="vertical-align: top;">
+					<h2>Announcements</h2>
+					<hr />
+					<h2>Opportunities (subdivide)</h2>
+				</td>
+		</table>
+	</body>
+</html>
