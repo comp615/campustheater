@@ -34,6 +34,12 @@
   }
 }
 
+@media (max-width: 480px) {
+  .brand.hidden-desktop {
+    font-size: 14px;
+  }
+}
+
 body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;
@@ -128,6 +134,9 @@ a {
     	   
     	   &:hover {
         	   color: white;
+               @media (max-width: 767px) {
+                    background-color: $dk-purple;
+               }
     	   }
     	   
     	   &.active { 
