@@ -85,6 +85,10 @@ class Show < ActiveRecord::Base
 		!!self.show_positions.detect {|sp| sp.position_id != 17 && !sp.person_id}
 	end
 	
+	def has_future_auditions?
+	   self.auditions.where(["`timestamp` > ?", Time.now]).count > 0
+	end
+	
 	# All shows till the next Sunday
 	def self.this_week
 		range = (Time.now .. Time.now.sunday)

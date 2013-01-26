@@ -51,7 +51,7 @@
 				<tr><td><%= sp.display_name %></td><td><%= link_to sp.person.display_name, sp.person %></td></tr>
 			<% end %>
 		</table>
-		<% if @show.auditions.where(["`timestamp` > ?", Time.now]).count > 0 %>
+		<% if @show.has_future_auditions? %>
 			<br />
 			<%= link_to "Audition Information", show_auditions_path(@show) %>
 		<% end %>
@@ -102,7 +102,7 @@
 				        set: '<%= @show.flickr_id %>'
 				    });
 				});
-			  </script>
+			    </script>
 			<% end %>
 		</div>
 	</div>
