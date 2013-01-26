@@ -4,9 +4,7 @@
 
 <% content_for :head do %>
 	<script>
-		var show_showtimes = <%= raw @showtime_data.to_json %>;
-	</script>
-	<script>
+	  var show_showtimes = <%= raw @showtime_data.to_json %>;
 	  $(document).ready(function(){ 	
 	   	// Initialize lazyload on shows#index
     	$(".shows.index .show-listing img.lazy").lazyload({

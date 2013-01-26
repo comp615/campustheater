@@ -44,9 +44,7 @@ body {
 	font-family: "depot-new-web", "Lucida Grande", sans-serif;
 	color: $dk-purple;
 	background: $dk-purple;
-    @media (max-width: 767px) {
-        background: white;
-    }
+    padding: 0;
 }
 
 #main { background: white; }
@@ -103,97 +101,9 @@ a {
 	width: 100%;
 }
 
-@media (max-width: 767px) {
-    #nav-main { 
-        margin-left: 0px;
-    }
-}
-
-#nav-main {
-    .btn-navbar { margin-top: 12px; }
-    
-    .brand {
-        text-shadow: none;
-        color: $lt-purple;
-        text-shadow: 0 1px 0 $dk-purple;
-        &.hidden-desktop { line-height: 28px; }
-    }
-
-	.navbar-inner { 
-	   background: $purple;
-	   border: none;
-	   box-shadow: none !important;
-       padding: 0 20px !important;
-
-	   .nav > li > a {
-    	   color: $lt-purple;
-    	   text-transform: uppercase;
-    	   text-shadow: none;
-    	   line-height: 30px;
-    	   padding: 9px 16px 11px;
-    	   
-    	   &:hover {
-        	   color: white;
-               @media (max-width: 767px) {
-                    background-color: $dk-purple;
-               }
-    	   }
-    	   
-    	   &.active { 
-    	       font-weight: bold;
-    	       color: white;
-    	   }
-	   }
-    }
-    
-    .navbar-search {
-		background-color: #8891df;
-		border-radius: 3px;
-		line-height: 30px;
-		margin-top: 9px;
-		margin-left: 6px;
-		
-		.input-append { margin: 0; }
-		
-		.btn {
-    		background: none;
-    		padding: 5px 8px 4px 5px;
-    		box-shadow: none;
-		}
-        
-    	.search-query {
-    		border-radius: 0;
-    		box-shadow: none;
-    		background: none;
-    		padding: 4px 10px;
-    		color: white;
-    		width: 150px;
-    		border: none;
-    	}
-	}
-	
-	#nav-user {
-    	margin-top: 9px;
-	
-    	a {
-        	padding: 0 10px 2px;
-        	background: #8891df;
-        	border-radius: 3px;
-        	line-height: 28px;
-        	text-transform: none;
-        	
-        	&:hover {
-            	background: $dk-purple;
-        	}
-    	}
-    }
-}
-
 .text-on-image {
 	background-color: rgba(0,0,0,.3);
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+	@include box-sizing;
 	width: 100%;
 }
 
@@ -202,7 +112,10 @@ a {
     border: none;
     background-color: $purple;
     color: white;
+    
     text-shadow: none;
+    @include box-shadow(none);
+    
     &:hover {
     	color: white;
     	background-color: #070d4b;
@@ -234,7 +147,7 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 	background: $lt-purple;
 	color: $purple;
 	border: 1px solid $lt-purple;
-	box-shadow: none;
+	@include box-shadow(none);
 	padding: 4px 10px;
 	
 	&::-webkit-input-placeholder, &::-moz-placeholder {
@@ -249,8 +162,108 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 		background-color: $purple;
 		border-color: $purple;
 		color: #FFF;
-    	box-shadow: 0 0 2px 1px $lt-purple;		
+    	@include box-shadow(#{0 0 2px 1px $lt-purple});		
 	}
+}
+
+#nav-main {
+    @media (max-width: 767px) {
+        margin-left: 0px;
+    }
+    
+    .btn-navbar { 
+        @extend .btn;
+        margin: 10px 0 0 0;
+        background-color: $muted-purple;
+        
+        .icon-bar {
+            @include box-shadow(none);
+        }
+    }
+    
+    .brand {
+        text-shadow: none;
+        color: $lt-purple;
+        text-shadow: 0 1px 0 $dk-purple;
+        &.hidden-desktop { line-height: 28px; }
+    }    
+
+	.navbar-inner { 
+	   background: $purple;
+	   border: none;
+	   @include box-shadow(#{none !important});
+       padding: 0 20px !important;
+
+	   .nav > li > a {
+    	   color: $lt-purple;
+    	   text-transform: uppercase;
+    	   text-shadow: none;
+    	   line-height: 30px;
+    	   padding: 9px 16px 11px;
+    	   
+    	   &:hover {
+        	   color: white;
+               @media (max-width: 767px) {
+                    background-color: $dk-purple;
+               }
+    	   }
+    	   
+    	   &.active { 
+    	       font-weight: bold;
+    	       color: white;
+    	   }
+	   }
+    }
+    
+    .navbar-search {
+		background-color: $muted-purple;
+		border-radius: 3px;
+		line-height: 30px;
+		margin-top: 9px;
+		border: none !important;		
+		@include box-shadow(#{none !important});
+		
+		.input-append { margin: 0; }
+		
+		.btn {
+    		background: none;
+    		padding: 5px 8px 4px 5px;
+    		@include box-shadow(none);
+    		float: right;
+    		margin-right: -27px;
+		}
+		
+		> .input-append {
+    		padding-right: 27px;
+		}
+        
+    	.search-query {
+    		border-radius: 0;
+    		@include box-shadow(none);
+    		background: none;
+    		padding: 4px 0 4px 10px;
+    		color: white;
+    		width: 100%;
+    		border: none;
+    		@include box-sizing;
+    	}
+	}
+	
+	#nav-user {
+    	margin-top: 9px;
+	
+    	a {
+        	padding: 0 10px 2px;
+        	background: $muted-purple;
+        	border-radius: 3px;
+        	line-height: 28px;
+        	text-transform: none;
+        	
+        	&:hover {
+            	background: $dk-purple;
+        	}
+    	}
+    }
 }
 
 /* 	Footer Stuff	*/

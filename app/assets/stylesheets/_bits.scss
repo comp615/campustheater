@@ -5,4 +5,16 @@ $purple: #6F79D8;
 $lt-purple: #D4D7F3;
 $dk-purple: #2B3169;
 $pale-purple: lighten($lt-purple, 7%);
+$muted-purple: #8891df;
 
+@mixin box-shadow($props) {
+    -webkit-box-shadow: $props;
+    -moz-box-shadow: $props;
+    box-shadow: $props;
+}
+
+@mixin box-sizing {
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}

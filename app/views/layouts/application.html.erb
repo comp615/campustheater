@@ -39,9 +39,6 @@
                 <%= link_to root_path, :class=> "brand", :title => "Yale Drama Coalition" do %>
                     <%= image_tag('umbrella.png') %>
                 <% end %>
-                 <%= link_to root_path, :class=> "brand hidden-desktop", :title => "Yale Drama Coalition" do %>
-                    <span>&nbsp; Yale Drama Coalition</span>
-                <% end %>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                     	<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
@@ -52,7 +49,7 @@
                     </ul>
                     <form class="navbar-search pull-left" method="GET" action="/search">
                         <div class="input-append">
-                        	<input type="text" class="search-query" name="name">
+                        	<input type="text" class="search-query input-block-level" name="name">
                         	<button type="submit" class="btn"><i class="icon-search icon-white"></i></button>
                         </div>
                     	<input type="hidden" name="header_search" value="1">
