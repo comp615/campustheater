@@ -176,6 +176,8 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
         margin: 10px 0 0 0;
         background-color: $muted-purple;
         
+        &:not(.collapsed) { background-color: $dk-purple; }
+        
         .icon-bar {
             @include box-shadow(none);
         }
@@ -193,6 +195,10 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 	   border: none;
 	   @include box-shadow(#{none !important});
        padding: 0 20px !important;
+       
+       .nav-collapse.in {
+           margin-bottom: 20px;
+       }
 
 	   .nav > li > a {
     	   color: $lt-purple;
@@ -222,6 +228,10 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 		margin-top: 9px;
 		border: none !important;		
 		@include box-shadow(#{none !important});
+		
+		@media (max-width: 979px) {
+    		padding: 10px 15px 10px 8px !important;
+		}
 		
 		.input-append { margin: 0; }
 		
