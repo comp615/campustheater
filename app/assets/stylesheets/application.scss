@@ -192,6 +192,8 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     .brand {
         text-shadow: none;
         color: $lt-purple;
+        padding: 10px 20px 10px !important;
+        margin-left: -20px !important;
     }    
 
 	.navbar-inner { 
