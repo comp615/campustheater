@@ -81,6 +81,12 @@ a {
     padding: 20px 0;
 }
 
+#main > .container {
+    @media (max-width: 767px) {
+        padding: 20px;
+    }
+}
+
 .alt-text {
 	font-size: 14px;
 	color: $purple;

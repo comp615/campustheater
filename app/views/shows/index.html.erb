@@ -28,83 +28,82 @@
 </nav>
 
 <% if ! @this_week.empty? %>
-<div class="divider" id="opening">
-	<h3>Opening Soon</h3>
-</div>
-<div class="this_week">
-	<% @this_week.in_groups_of(4, false) do |items| %>
-		<div class="row">
-			<% items.each do |item| %>
-				<div class="span3 item clearfix">
-					<% 
-							# Same hack as frontpage
-						 color_class = item.accent_color ? [item.accent_color] : [cycle("red", "blue","yellow","black","dark_blue","green", "light_blue")] 
-						 css_classes = color_class + ['hidden-phone']
-					%>
-						<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :css_classes => css_classes.join(' ') } %>
-					<% css_classes = color_class + ['visible-phone'] %>
-						<%= render :partial => 'shared/show_frontpage_mobile', :locals => { :show => item, :css_classes => css_classes.join(' ') } %>
-				</div>
-			<% end %>
-		</div>
-	<% end %>
-</div>
+    <div class="divider" id="opening">
+    	<h3>Opening Soon</h3>
+    </div>
+    <div class="this_week">
+    	<% @this_week.in_groups_of(4, false) do |items| %>
+    		<div class="row">
+    			<% items.each do |item| %>
+    				<div class="span3 item clearfix">
+    					<% 
+    							# Same hack as frontpage
+    						 color_class = item.accent_color ? [item.accent_color] : [cycle("red", "blue","yellow","black","dark_blue","green", "light_blue")] 
+    						 css_classes = color_class + ['hidden-phone']
+    					%>
+    						<%= render :partial => 'shared/show_frontpage', :locals => { :show => item, :row_count => 4, :css_classes => css_classes.join(' ') } %>
+    					<% css_classes = color_class + ['visible-phone'] %>
+    						<%= render :partial => 'shared/show_frontpage_mobile', :locals => { :show => item, :css_classes => css_classes.join(' ') } %>
+    				</div>
+    			<% end %>
+    		</div>
+    	<% end %>
+    </div>
 <% end %>
 
 <% if ! @this_semester.empty? %>
-<div class="divider" id="this_semester">
-	<h3>This Semester</h3>
-</div>
-<% @this_semester.in_groups_of(3, false) do |items| %>
-	<div class="row">
-		<% items.each do |item| %>
-			<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue"), :lazy => false } %>
-		<% end %>
-	</div>
-<% end %>
+    <div class="divider" id="this_semester">
+    	<h3>This Semester</h3>
+    </div>
+    <% @this_semester.in_groups_of(3, false) do |items| %>
+    	<div class="row">
+    		<% items.each do |item| %>
+    			<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue"), :lazy => false } %>
+    		<% end %>
+    	</div>
+    <% end %>
 <% end %>
 
 <% if ! @other.empty? %>
-<div class="divider" id="next_semester">
-	<h3>Beyond</h3>
-</div>
-<% @other.in_groups_of(3, false) do |items| %>
-	<div class="row">
-		<% items.each do |item| %>
-			<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue"), :lazy => true } %>
-		<% end %>
-	</div>
-<% end %>
+    <div class="divider" id="next_semester">
+    	<h3>Beyond</h3>
+    </div>
+    <% @other.in_groups_of(3, false) do |items| %>
+    	<div class="row">
+    		<% items.each do |item| %>
+    			<%= render :partial => 'shared/show_with_thumbnail', :locals => { :show => item, :row_count => items.length, :color_palette => item.accent_color ? item.accent_color.to_s : cycle("red", "blue","yellow","black","dark_blue","green", "light_blue"), :lazy => true } %>
+    		<% end %>
+    	</div>
+    <% end %>
 <% end %>
 
-</div>
-<!-- End of #main -->
-<div id="archives hidden-phone">
-	<div class="container shows index">
-	<% (2008..Time.now.year).to_a.reverse.each do |year| %>
-		<% ["03","01"].each do |term| %>
-			<% if Time.now.year == year && Time.now.month < 7 && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
+</div><!-- End of .container -->
 
-			<% elsif year == Time.now.year && Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
-				<% cache({:action => "index", :action_suffix => "#{year}#{term}"}, {:expires_in => 12.hours}) do %>
-					<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
-				<% end %>
-			<% else %>
-				<% cache(:action => "index", :action_suffix => "#{year}#{term}") do %>
-					<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
-				<% end %>
+<div id="archives" class="container hidden-phone">
+<% (2008..Time.now.year).to_a.reverse.each do |year| %>
+	<% ["03","01"].each do |term| %>
+		<% if Time.now.year == year && Time.now.month < 7 && !Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
+
+		<% elsif year == Time.now.year && Show.term_to_range("#{year}#{term}").cover?(Time.now) %>
+			<% cache({:action => "index", :action_suffix => "#{year}#{term}"}, {:expires_in => 12.hours}) do %>
+				<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
+			<% end %>
+		<% else %>
+			<% cache(:action => "index", :action_suffix => "#{year}#{term}") do %>
+				<%= render :partial => "shows/archives", :locals => {:term => "#{year}#{term}"} %>
 			<% end %>
 		<% end %>
 	<% end %>
-	
-    	<div class="divider" id="ancient">
-    		<h3>Ancient Shows</h3>
-    	</div>
-    	<strong>Yearly archives from long ago:</strong><br />
-    	<a target="_blank" href="/static_archives/pastarchive.html">1997-2003</a> &nbsp; &nbsp;
-    	<a target="_blank" href="/static_archives/archive03-04.html">2003-2004</a> &nbsp; &nbsp;
-    	<a target="_blank" href="/static_archives/archive04-05.html">2004-2005</a> &nbsp; &nbsp;
-    	<a target="_blank" href="/static_archives/archive05-06.html">2005-2006</a> &nbsp; &nbsp;
-    	<a target="_blank" href="/static_archives/archive06-07.html">2006-2007</a> &nbsp; &nbsp;
-    	<a target="_blank" href="/static_archives/archive07-08.html">2007-2008</a> &nbsp; &nbsp;
+<% end %>
+
+	<div class="divider" id="ancient">
+		<h3>Ancient Shows</h3>
 	</div>
+	<strong>Yearly archives from long ago:</strong><br />
+	<a target="_blank" href="/static_archives/pastarchive.html">1997-2003</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive03-04.html">2003-2004</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive04-05.html">2004-2005</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive05-06.html">2005-2006</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive06-07.html">2006-2007</a> &nbsp; &nbsp;
+	<a target="_blank" href="/static_archives/archive07-08.html">2007-2008</a> &nbsp; &nbsp;
+</div>
