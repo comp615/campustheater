@@ -27,18 +27,15 @@
     float: left;
     margin-right: 20px;
 
-    @media (max-width: 767px) {
-      img {
-        max-width: 350px;
-        max-height: 300px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      img {
-        max-width: 150px;
-        max-height: 250px;
-      }
+    img {
+        @media (max-width: 767px) {
+            max-width: 350px;
+            max-height: 300px;
+        }
+        @media (max-width: 480px) {
+            max-width: 150px;
+            max-height: 250px;
+        }
     }
   }
 

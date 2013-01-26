@@ -186,8 +186,6 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     .brand {
         text-shadow: none;
         color: $lt-purple;
-        text-shadow: 0 1px 0 $dk-purple;
-        &.hidden-desktop { line-height: 28px; }
     }    
 
 	.navbar-inner { 
@@ -280,33 +278,47 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 footer {
 	background: $dk-purple;
 	color: $lt-purple;
+	position: relative;
 	
-	.center { 
-	   text-align: center; 
-	   margin-bottom: -5px;
-    }
+	.container {
+    	@media (max-width: 767px) {
+        	padding-top: 54px;
+    	}
+	}
+	
+	.row > div {
+    	text-align: center;
+	}
+
 	.right { text-align: right; }
 	
 	a:hover { color: lighten($purple, 15%); }
 }
 
 #footer-umbrella {
-    display: inline-block;
-    margin-top: -5px;
-    opacity: 0.4;
+    position: absolute;
+    top: 14px;
+    left: 50%;
     
-    -webkit-transition: all 0.8s ease-in-out;
-    -moz-transition: all 0.8s ease-in-out;
-    -o-transition: all 0.8s ease-in-out;
-    transition: all 0.8s ease-in-out;
+    img {
+        width: 63px;
+        height: 30px;
+        margin-left: -20px;
+        opacity: 0.4;
     
-    &:hover {
-        opacity: 1.0;
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg); 
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }  
+        -webkit-transition: all 0.8s ease-in-out;
+        -moz-transition: all 0.8s ease-in-out;
+        -o-transition: all 0.8s ease-in-out;
+        transition: all 0.8s ease-in-out;
+        
+        &:hover {
+            opacity: 1.0;
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg); 
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
 }
 
 /*  End Footer		*/

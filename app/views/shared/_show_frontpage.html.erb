@@ -1,4 +1,3 @@
-<!-- The ROW class needs to contain the color sets -->
 <% if show.poster.exists?  && show.poster.height(:medium) >= show.poster.width(:medium) && row_count <= 2 # vertical/square poster 2-item row %>
 	<div class="row <%= css_classes %>">
 		<div class="span3 poster"><%= image_tag show.poster.url(:medium) %></div>
