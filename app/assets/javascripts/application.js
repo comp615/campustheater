@@ -63,7 +63,7 @@ $(document).ready(function() {
   $('#reservations').on('click', '.btn-primary', reservationSubmitHandler);
   $('a[data-toggle=modal][href=#reservations]').on("click", function(e) { 
     $("#reservations").data("show-id", $(this).data("show-id"));
-    $("#reservations .show_title").text($(this).closest(".item").find("[data-field=show_title]").text());
+    $("#reservations .show_title").text($(this).closest(".item").find("[data-field=show_title]").first().text());
   });
 });
 

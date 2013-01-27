@@ -56,7 +56,7 @@ class Person < ActiveRecord::Base
   end
   
   def site_admin?
-  	["cpc2","sbt3","ijc5","ebb37","eck4"].include? self.netid
+  	["cpc2","sbt3","ijc5","ebb37","eck4","jas24"].include? self.netid
   end
   
   def needs_registration?

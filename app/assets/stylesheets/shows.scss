@@ -1,5 +1,37 @@
 @import "bits";
 
+
+/* MEDIA QUERIES  for things smaller than portrait tablets */
+.shows.show {
+	@media (max-width: 767px) {
+    .performances, .reservations, .cast, .crew, .media { 
+        text-align: center;
+    }
+
+    table {
+    	margin: 0 auto;
+    	text-align: left;
+    }
+
+    .performances, .cast {
+    	margin-bottom: 60px;
+    }
+	}
+}
+
+.shows.index {
+	@media (max-width: 767px) {
+		.show-listing .info {
+			width: 230px;
+		}
+
+		.span4 {
+			margin: 3px 0;
+		}
+	}
+}
+
+
 #nav-shows {
 	z-index: 10;
 	background-color: rgba(255,255,255,.93);
@@ -37,10 +69,6 @@
 		text-transform: uppercase;
 		box-shadow: none;
 	}
-}
-
-#archives {
-	background: $pale-purple;
 }
 
 .shows.new, .shows.edit, .shows.show, .shows.edit_people {

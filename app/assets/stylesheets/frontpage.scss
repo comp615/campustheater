@@ -1,7 +1,9 @@
 @import "bits";
 
-.pages.index > .container {
-    padding-top: 40px;
+@media (min-width: 767px) {
+  .pages.index > .container {
+      padding-top: 40px;
+  }
 }
 
 .section-intro {
@@ -20,28 +22,49 @@
     background-repeat: no-repeat;
   }
 
+  /* Media Query for mobile frontpage listings */
+  .poster.left { 
+    float: left;
+    margin-right: 20px;
+
+    img {
+        @media (max-width: 767px) {
+            max-width: 350px;
+            max-height: 300px;
+        }
+        @media (max-width: 480px) {
+            max-width: 150px;
+            max-height: 250px;
+        }
+    }
+  }
+
+  /* End mobile */
+
   .row {
-    margin: 0px;
     color: white;
 
     + .row {
       margin-top: 20px;
     }
 
-    .span3 {
-      &.poster, &.info {
-        width: 210px;
-      }
+    .info {
+      box-sizing: border-box;
     }
 
-    .span4.info {
-      width: 260px;
-    }
-
-    div[class*="span"] { margin: 0px; }
 
     .item {
-      & + .item { margin-left: 20px; }
+
+      /* Repair the spacing so backgrounds work */
+      .poster[class*="span"] { 
+        margin-left: 0px; 
+        & + .info {
+          padding-left: 0px;
+        }
+      }
+      > .row { margin-left: 0px; }
+
+
       .title {
         font-family: 'Bitter', serif;
         line-height: 30px;
@@ -51,16 +74,11 @@
       }
       .info {
         padding: 15px 20px;
-        &.span4 {
-
-        }
+        
         &.full {
           padding-top: 100px;
         }
-        &.offset3 {
-          margin-left: 210px;
-          min-height: 250px;
-        }
+       
       }
     }
 
@@ -127,7 +145,10 @@
 #full-calendar { margin: 20px 0; }
 
 #news {
-    background: $pale-purple;
+  background: $pale-purple;
+  @media (max-width: 767px) {
+    padding: 0 20px;
+  }
 }
 
 .news-item {

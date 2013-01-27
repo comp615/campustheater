@@ -30,24 +30,34 @@
 	<header>
 	   <nav id="nav-main" class="navbar navbar-static-top">
 	       <div class="navbar-inner">
-	            <%= link_to "YDC", root_path, :class => "brand", :title => "Yale Drama Coalition" %>
-                <ul class="nav">
-                	<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
-                	<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
-                	<li><%= link_to "Auditions", auditions_path, :class => @active_nav == :auditions ? "active" : "" %></li>
-                	<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
-                	<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
-                </ul>
-                <form class="navbar-search pull-left" method="GET" action="/search">
-                    <div class="input-append">
-                    	<input type="text" class="search-query" name="name">
-                    	<button type="submit" class="btn"><i class="icon-search icon-white"></i></button>
-                    </div>
-                	<input type="hidden" name="header_search" value="1">
-                </form>
-                <ul id="nav-user" class="nav pull-right">
-                    <li><%= link_to (@current_user ? "My Dashboard" : "Sign In"), dashboard_path %></li>
-                </ul>
+                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <%= link_to root_path, :class=> "brand", :title => "Yale Drama Coalition" do %>
+                    <%= image_tag('umbrella.png') %>
+                <% end %>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                    	<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
+                    	<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
+                    	<li><%= link_to "Auditions", auditions_path, :class => @active_nav == :auditions ? "active" : "" %></li>
+                    	<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
+                    	<li><%= link_to "Learn", resources_path, :class => @active_nav == :learn ? "active" : "" %></li>
+                    </ul>
+                    <form class="navbar-search pull-left" method="GET" action="/search">
+                        <div class="input-append">
+                        	<input type="text" class="search-query input-block-level" name="name">
+                        	<button type="submit" class="btn"><i class="icon-search icon-white"></i></button>
+                        </div>
+                    	<input type="hidden" name="header_search" value="1">
+                    </form>
+                    <ul id="nav-user" class="nav pull-right">
+                        <li><%= link_to (@current_user ? "My Dashboard" : "Sign In"), dashboard_path %></li>
+                    </ul>
+                </div>
 	       </div>
 	   </nav>
 	</header>																																					
@@ -66,15 +76,15 @@
 	</div>
 
 	<footer>
+        <div id="footer-umbrella">
+    		<%= image_tag "umbrella-foot.png", :width => "40px", :height => "30px" %>
+		</div>	
 		<div class="container">
 		<div class="row">
-    		<div class="span5">
+    		<div class="span6">
     			Code by <a href="http://charliecroom.com" title="Charlie Croom" target="_blank">CC</a> with Design by <a href="http://jaredshenson.com" title="Jared Shenson" target="_blank">JS</a>
     		</div>
-    		<div class="span2 center">
-        		<%= image_tag "umbrella-foot.png", :id => "footer-umbrella" %>
-    		</div>
-    		<div class="span5 right">
+    		<div class="span6 right">
     		    &copy; 2013 Yale Drama Coalition
     		</div>
 		</div>

@@ -1,10 +1,11 @@
 <div class="row news-item">
-    <div class="span2 date">
+    <div class="span2 date visible-desktop">
         <span class="day"><%= news.created_at.strftime("%-d") %></span>
         <span class="month"><%= news.created_at.strftime("%B") %></span>
     </div>
     <div class="span8 post">
         <h2><%= news.title %></h2>
+        <h4 class="hidden-desktop"><%= news.created_at.strftime("%B %-d") %></h4>
 		<%= raw news.text %>
     </div>
 </div>

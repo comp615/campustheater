@@ -1,5 +1,5 @@
-$(".span6.item").html("<%= escape_javascript(render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :color_palette => 'blue' }) %>");
-$(".span4.item").html("<%= escape_javascript(render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :color_palette => 'blue' }) %>");
+$(".span6.item").html("<%= escape_javascript(render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 2, :css_classes => 'blue' }) %>");
+$(".span4.item").html("<%= escape_javascript(render :partial => 'shared/show_frontpage', :locals => { :show => @show, :row_count => 3, :css_classes => 'blue' }) %>");
 
 // Update the path with our new info
 $("form").attr("action","<%= show_path @show %>");
