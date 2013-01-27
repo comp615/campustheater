@@ -44,6 +44,13 @@
 								<% show.showtimes.each do |showtime| %>
 									<%= raw style_full_showtime(showtime.timestamp) %><br />
 								<% end %>
+								<% if !show.tix_enabled && !show.alt_tix.blank? %>
+									<a href="<%= show.alt_tix_link %>">
+										Tickets*
+									</a>
+								<% elsif show.ok_to_ticket? %>
+									<%= link_to "Tickets", new_show_reservation_url(show) %>
+								<% end %>
 							</p>
 						<% end %>
 						<br />Check out the <%= link_to "full calendar", shows_url %> for even more shows!
