@@ -10,7 +10,7 @@ class AuditionsController < ApplicationController
 	# Cast Opportunities
 	def all
 		@active_nav = :auditions
-		@shows = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
+		@shows = Audition.future.order(:timestamp).includes(:show).select{|a| a.show}.group_by(&:show)
 	end
 	
 	# Crew opportunities
