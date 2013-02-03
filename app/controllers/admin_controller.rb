@@ -14,7 +14,7 @@ class AdminController < ApplicationController
 		@auditions = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
 		future_show_ids = Show.future.pluck("`shows`.`id`")
 		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show).select{|show, arr| show}.sort_by{|s,arr| s.open_date}
-		@announcements = params[:subject].zip params[:message]
+		@announcements = params[:subject] && params[:message] ? params[:subject].zip params[:message] : []
 		render :file => 'newsletter_mailer/newsletter_email.html.erb', :layout => false
 	end
 	
