@@ -8,6 +8,15 @@ class AdminController < ApplicationController
 		@shows = Show.unscoped.select([:id,:title]).order(:title).all
 		@news = News.order(:created_at).all.reverse
 	end
+
+	def newsletter
+		@shows = Show.readonly.this_week
+		@auditions = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
+		future_show_ids = Show.future.pluck("`shows`.`id`")
+		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show).select{|show, arr| show}.sort_by{|s,arr| s.open_date}
+		@announcements = params[:subject].zip params[:message]
+		render :file => 'newsletter_mailer/newsletter_email.html.erb', :layout => false
+	end
 	
 	def approve_takeover
 		req = TakeoverRequest.find(params[:id])

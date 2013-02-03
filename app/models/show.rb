@@ -117,18 +117,22 @@ class Show < ActiveRecord::Base
 	# Get the OCI term of the show's opening night, can help for categorizing
 	def semester
 		return nil unless self.showtimes.first
-		opens = self.showtimes.first.timestamp
+		opens = self.open_date
 		if(opens.month < 7)
 			opens.year.to_s + "01"
 		else
 			opens.year.to_s + "03"
 		end
 	end
+
+	def open_date
+		self.showtimes.first.timestamp
+	end
 	
 	# Helper for figuring out if it's this academic semester.
 	# @note Expects that shows won't span semesters, only uses opening date
 	def this_semester?
-		opens = self.showtimes.first.timestamp
+		opens = self.open_date
 		today = Time.now
 		
 		# TODO: rewrite into a range so it's a bit cleaner

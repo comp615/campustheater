@@ -1,0 +1,185 @@
+<%
+	# Unconventional, but we are going to define css "classes" here, because for emailing, they must be inlined
+	topbar = "background-color: #6F79D8; color: #D4D7F3; text-transform: uppercase; vertical-align: middle;"
+	navItem = "float: left; margin-right: 25px;"
+	link = "text-decoration: none;"
+	nav = "list-style-type: none;"
+
+%>
+<html>
+	<head>
+		<style type="text/css" media="screen">
+			a:visited { color:inherit; text-decoration: none; }
+		</style>
+		<% if true %>
+			<%= javascript_include_tag "application" %>
+			<script>
+				$(document).ready(function() {
+					$(document).on("click",".delete", function(e) {
+						e.preventDefault();
+						$(this).closest("li").remove();
+					});
+
+					$(document).on("click","a.add", function(e) {
+						e.preventDefault();
+						var $newNode = $("li.announcement:first").clone();
+						$newNode.find("textarea").val("");
+						$newNode.find("input").val("");
+						$("ul.announcements").append($newNode);
+					});
+
+					$("ul.announcements").sortable();
+
+					$("ul.announcements").on("change", "input, textarea", updatePreview);
+					$("ul.announcements").on("sortupdate", updatePreview);
+
+					function updatePreview() {
+						$("#announcements").html("");
+						$("ul.announcements li").each(function() {
+							var $node = $("<p><strong style='font-size: 18px;''></strong><br /></p>");
+							$node.find("strong").text($(this).find("input").val());
+							$node.append($(this).find("textarea").val());					
+							$("#announcements").append($node);
+						})
+					}
+				});
+			</script>
+		<% end %>
+	</head>
+	<body style="margin: 0; padding: 0; font-family: 'Lucida Grande',sans-serif;">
+		<% if true %>
+			<h3>Announcements go here! Preview the rest of the newsletter below</h3>
+			<%= form_tag do |f| %>
+				<ul class="announcements">
+					<li class="announcement">
+						<input type="name" name="subject[]"><br />
+						<textarea name="message[]"></textarea><br />
+						<a class="delete" href="#">Delete Announcement</a>
+					</li>
+				</ul><br /><br />
+				<a class="add" href="#">
+					Add another announcement
+				</a><br /><br />
+				<input type="submit" value="Send this bad boy!" />
+			<% end %>
+		<% end %>
+		<table width="100%">
+			<tr style="<%= topbar %>">
+				<td colspan="2">
+					<ul style="<%= nav %>">
+						<li style="<%= navItem %>"><%= link_to image_tag("umbrella.png"), root_path, :title => "Yale Drama Coalition", :style => "position: relative; top: -6px;" %></li>
+						<li style="<%= navItem %>"><%= link_to "Home", root_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Shows", shows_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Auditions", auditions_url, :style => link %></li>
+						<li style="<%= navItem %>"><%= link_to "Opportunities", opportunities_url, :style => link %></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<% if Time.now.sunday? %>
+						<h2>YDC Newsletter Week of <%= Time.now.strftime("%B %e") %> - <%= Time.now.next_week.strftime("%B %e") %></h2>
+					<% else %>
+						<h2>YDC Newsletter Week of <%= Time.now.strftime("%B %e") %> - <%= Time.now.sunday.strftime("%B %e") %></h2>
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="vertical-align: top; padding: 0 25px;">
+					<h2>This Week's Shows</h2>
+					<% if @shows.length == 0 %>
+						No shows this week, check out the <%= link_to "full calendar", shows_url %> for more information!
+					<% else %>
+						<table>
+							<% @shows.each do |show| %>
+								<tr>
+									<% if show.poster.exists? %>
+										<td>
+											<%= link_to image_tag(show.poster.url(:thumb)), best_link(show), :style => "float: left; margin-right: 10px;" %>
+										</td>
+										<td style="padding: 10px 0;">
+									<% else %>
+										<td colspan="2" style="padding: 10px 0;">
+									<% end %>
+											<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
+											<strong>By:</strong> <%= show.writer %><br />
+											<%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
+											<strong>Directed By:</strong> <%= show.director %><br />
+											<strong>Place:</strong> <%= show.location %><br />
+											<% show.showtimes.each do |showtime| %>
+												<%= raw style_full_showtime(showtime.timestamp) %><br />
+											<% end %>
+											<% if !show.tix_enabled && !show.alt_tix.blank? %>
+												<a href="<%= show.alt_tix_link %>">
+													Tickets*
+												</a>
+											<% elsif show.ok_to_ticket? %>
+												<%= link_to "Tickets", new_show_reservation_url(show) %>
+											<% end %>
+										</td>
+								</tr>
+							<% end %>
+						</table>
+						<br />Check out the <%= link_to "full calendar", shows_url %> for even more shows!
+					<% end %>
+
+					<hr />
+
+					<h2>Auditions</h2>
+					<% @auditions.each do |show, auditions| %>
+						<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
+						<strong>By:</strong> <%= show.writer %><br />
+						<strong>Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
+						<strong>Directed By:</strong> <%= show.director %><br />
+						<b>Audition Dates:</b> <%= format_showtimes auditions %><br />
+						<b>Audition Signup:</b> <%= link_to auditions.select{|a| !a.person_id}.count.to_s + " Slots Available", show_auditions_url(show) %><br /><br />
+					<% end %>
+				</td>
+				<td width="50%" style="vertical-align: top; padding: 0 25px;">
+					<h2>Announcements</h2>
+						<div id="announcements">
+							<% @announcements.each do |subject, message| %>
+								<p>
+									<strong style="font-size: 18px;"><%= subject %></strong><br />
+									<%= message %>
+								</p>
+							<% end %>
+						</div>
+					<hr />
+					<h2>Opportunities</h2>
+					<table>
+						<% @opportunities.each do |show, ops| %>
+							<tr>
+								<td width="40%" style="padding: 5px 0;">
+									<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
+									<strong>By:</strong> <%= show.writer %><br />
+									<strong>Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
+									<strong>Directed By:</strong> <%= show.director %><br />
+								</td>
+								<% if ops.length > 5 %>
+									<td width="30%" style="padding-left: 30px; vertical-align: top;">
+										<% ops.slice!(0, (ops.length / 2.0).ceil).each do |o| %>
+											<%= o.display_name %><br />
+										<% end %>
+									</td>
+									<td width="30%" style="vertical-align: top;">
+										<% ops.each do |o| %>
+											<%= o.display_name %><br />
+										<% end %>
+									</td>
+								<% else %>
+									<td colspan="2" style="padding-left: 80px; vertical-align: top;">
+										<% ops.each do |o| %>
+											<%= o.display_name %><br />
+										<% end %>
+									</td>
+
+								<% end %>
+								
+							</tr>
+						<% end %>
+				</table>
+				</td>
+		</table>
+	</body>
+</html>
