@@ -15,7 +15,13 @@ class AdminController < ApplicationController
 		future_show_ids = Show.future.pluck("`shows`.`id`")
 		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show).select{|show, arr| show}.sort_by{|s,arr| s.open_date}
 		@announcements = params[:subject] && params[:message] ? params[:subject].zip(params[:message]) : []
-		render :file => 'newsletter_mailer/newsletter_email.html.erb', :layout => false
+		@preview = true
+		if params[:send]
+			NewsletterMailer.newsletter_email(@shows, @auditions, @announcements, @opportunities).deliver
+			redirect_to admin_dashboard_path, :notice => "Email sent"
+		else
+			render :file => 'newsletter_mailer/newsletter_email.html.erb', :layout => false
+		end
 	end
 	
 	def approve_takeover

@@ -3,8 +3,17 @@ class NewsletterMailer < ActionMailer::Base
 
   default :from => YDC_EMAIL
 
-  def newsletter_email(data)
-    #@audition = audition
-    #mail(:to => audition.email, :subject => "[YDC Site] Audition Confirmation: " + audition.show.title) unless audition.email.blank?
+  def newsletter_email(shows, auditions, announcements, opportunities)
+  	@shows = shows
+  	@auditions = auditions
+  	@announcements = announcements
+  	@opportunities = opportunities
+
+  	subject = if Time.now.sunday?
+			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.next_week.strftime("%B %e")
+		else
+			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.sunday.strftime("%B %e")
+		end
+    mail(:to => ["charlie.croom@gmail.com","eli.block@yale.edu","stuart.teal@yale.edu", "lucie.ledbetter@gmail.com"], :subject => subject)
   end
 end
