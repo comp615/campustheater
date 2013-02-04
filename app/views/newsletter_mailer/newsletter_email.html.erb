@@ -68,7 +68,7 @@
 			<tr style="<%= topbar %>">
 				<td colspan="2">
 					<ul style="<%= nav %>">
-						<li style="<%= navItem %>"><%= link_to image_tag("umbrella.png"), root_path, :title => "Yale Drama Coalition", :style => "position: relative; top: -6px;" %></li>
+						<li style="<%= navItem %>"><%= link_to image_tag(request.protocol + request.host_with_port + asset_path("umbrella.png")), root_path, :title => "Yale Drama Coalition", :style => "position: relative; top: -6px;" %></li>
 						<li style="<%= navItem %>"><%= link_to "Home", root_url, :style => link %></li>
 						<li style="<%= navItem %>"><%= link_to "Shows", shows_url, :style => link %></li>
 						<li style="<%= navItem %>"><%= link_to "Auditions", auditions_url, :style => link %></li>
