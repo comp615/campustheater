@@ -38,7 +38,7 @@
 						$("ul.announcements li").each(function() {
 							var $node = $("<p><strong style='font-size: 18px;''></strong><br /></p>");
 							$node.find("strong").text($(this).find("input").val());
-							$node.append($(this).find("textarea").val());					
+							$node.append($(this).find("textarea").val().replace(/\n/g,"<br />"));					
 							$("#announcements").append($node);
 						})
 					}
@@ -50,6 +50,7 @@
 		<% if @preview %>
 			<h3>Announcements go here! Preview the rest of the newsletter below</h3>
 			<form method="POST">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
 				<ul class="announcements">
 					<li class="announcement">
 						<input type="name" name="subject[]"><br />
@@ -141,7 +142,7 @@
 							<% @announcements.each do |subject, message| %>
 								<p>
 									<strong style="font-size: 18px;"><%= subject %></strong><br />
-									<%= message %>
+									<%= message.gsub(/\n/,"<br />").html_safe %>
 								</p>
 							<% end %>
 						</div>
