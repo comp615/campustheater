@@ -13,7 +13,10 @@ class AdminController < ApplicationController
 		@shows = Show.readonly.this_week
 		@auditions = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
 		future_show_ids = Show.future.pluck("`shows`.`id`")
-		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show).select{|show, arr| show}.sort_by{|s,arr| s.open_date}
+		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show)
+		@opportunities = @opportunities.select{|show, arr| show.open_date >= Time.now + 11.days && show.open_date <= Time.now + 60.days}.sort_by{|s,arr| s.open_date}
+
+
 		@announcements = params[:subject] && params[:message] ? params[:subject].zip(params[:message]) : []
 		@preview = true
 		if params[:send]

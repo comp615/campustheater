@@ -1,6 +1,6 @@
 <%
 	# Unconventional, but we are going to define css "classes" here, because for emailing, they must be inlined
-	topbar = "background-color: #6F79D8; color: #D4D7F3; text-transform: uppercase; vertical-align: middle;"
+	topbar = "background-color: #6F79D8; color: white; text-transform: uppercase; vertical-align: middle;"
 	navItem = "float: left; margin-right: 25px;"
 	link = "text-decoration: none;"
 	nav = "list-style-type: none;"
@@ -130,7 +130,7 @@
 					<% @auditions.each do |show, auditions| %>
 						<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
 						<strong>By:</strong> <%= show.writer %><br />
-						<strong>Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
+						<strong>Show Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
 						<strong>Directed By:</strong> <%= show.director %><br />
 						<b>Audition Dates:</b> <%= format_showtimes auditions %><br />
 						<b>Audition Signup:</b> <%= link_to auditions.select{|a| !a.person_id}.count.to_s + " Slots Available", show_auditions_url(show) %><br /><br />
@@ -151,10 +151,10 @@
 					<table>
 						<% @opportunities.each do |show, ops| %>
 							<tr>
-								<td width="40%" style="padding: 5px 0;">
+								<td width="40%" style="padding: 5px 0; vertical-align: top;">
 									<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
 									<strong>By:</strong> <%= show.writer %><br />
-									<strong>Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
+									<strong>Show Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
 									<strong>Directed By:</strong> <%= show.director %><br />
 								</td>
 								<% if ops.length > 5 %>
@@ -174,12 +174,11 @@
 											<%= o.display_name %><br />
 										<% end %>
 									</td>
-
 								<% end %>
-								
 							</tr>
 						<% end %>
 				</table>
+				<br />View <%= link_to "all opportunities", opportunities_url %> on the full website!
 				</td>
 		</table>
 	</body>
