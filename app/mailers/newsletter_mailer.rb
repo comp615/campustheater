@@ -14,6 +14,6 @@ class NewsletterMailer < ActionMailer::Base
 		else
 			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.sunday.strftime("%B %e")
 		end
-    mail(:to => ["charlie.croom@gmail.com","eli.block@yale.edu","stuart.teal@yale.edu", "lucie.ledbetter@gmail.com"], :subject => subject)
+    mail(:to => ["not_alpaca@mailman.yale.edu"], :subject => subject)
   end
 end
