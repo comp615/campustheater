@@ -15,7 +15,7 @@ class AdminController < ApplicationController
 		future_show_ids = Show.future.pluck("`shows`.`id`")
 		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show)
 		@opportunities = @opportunities.select{|show, arr| show.open_date >= Time.now + 11.days && show.open_date <= Time.now + 60.days}.sort_by{|s,arr| s.open_date}
-
+		@request = request
 
 		@announcements = params[:subject] && params[:message] ? params[:subject].zip(params[:message]) : []
 		@preview = true

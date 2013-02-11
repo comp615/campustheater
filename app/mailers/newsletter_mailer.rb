@@ -8,6 +8,7 @@ class NewsletterMailer < ActionMailer::Base
   	@auditions = auditions
   	@announcements = announcements
   	@opportunities = opportunities
+    @request = request
 
   	subject = if Time.now.sunday?
 			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.next_week.strftime("%B %e")
