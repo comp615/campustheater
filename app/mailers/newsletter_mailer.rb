@@ -3,7 +3,7 @@ class NewsletterMailer < ActionMailer::Base
 
   default :from => YDC_EMAIL
 
-  def newsletter_email(shows, auditions, announcements, opportunities)
+  def newsletter_email(shows, auditions, announcements, opportunities, request)
   	@shows = shows
   	@auditions = auditions
   	@announcements = announcements
@@ -14,6 +14,6 @@ class NewsletterMailer < ActionMailer::Base
 		else
 			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.sunday.strftime("%B %e")
 		end
-    mail(:to => ["not_alpaca@mailman.yale.edu"], :subject => subject)
+    mail(:to => ["charlie.croom@gmail.com"], :subject => subject)
   end
 end

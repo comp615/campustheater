@@ -20,7 +20,7 @@ class AdminController < ApplicationController
 		@announcements = params[:subject] && params[:message] ? params[:subject].zip(params[:message]) : []
 		@preview = true
 		if params[:send]
-			NewsletterMailer.newsletter_email(@shows, @auditions, @announcements, @opportunities).deliver
+			NewsletterMailer.newsletter_email(@shows, @auditions, @announcements, @opportunities, request).deliver
 			redirect_to admin_dashboard_path, :notice => "Email sent"
 		else
 			render :file => 'newsletter_mailer/newsletter_email.html.erb', :layout => false
