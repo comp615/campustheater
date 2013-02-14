@@ -33,7 +33,7 @@ module ApplicationHelper
 	end
 	
 	def format_long_rundates(show)
-		return "" unless show.showtimes.count > 0
+		return "" unless show.showtimes.length > 0
 		showtimes = show.showtimes.sort_by{|st| st.timestamp}
 		start = showtimes.first.timestamp
 		stop = showtimes.last.timestamp

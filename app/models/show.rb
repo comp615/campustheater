@@ -38,7 +38,8 @@ class Show < ActiveRecord::Base
 	
 	
 	def self.shows_in_range(range)
-		self.joins(:showtimes).where(:showtimes => {:timestamp => range})
+		ids = Showtime.where(:timestamp => range).pluck(:show_id)
+		Show.find(ids)
 	end
 	
 	def director
@@ -100,6 +101,10 @@ class Show < ActiveRecord::Base
 	# All shows which haven't yet closed
 	def self.future
 		self.joins(:showtimes).where(["showtimes.timestamp >= ?",Time.now]).order("showtimes.timestamp")
+	end
+
+	def self.future_ids
+		Showtime.where(["showtimes.timestamp >= ?",Time.now]).pluck(:show_id)
 	end
 	
 	def has_opened?
