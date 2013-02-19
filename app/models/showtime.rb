@@ -5,6 +5,7 @@ class Showtime < ActiveRecord::Base
 	after_update :notify_reservations
 	after_create :notify_oup
 	after_update :notify_oup
+	before_destroy :prevent_last_show_deletion
 	before_destroy :notify_delete_reservations
 	
 	def notify_reservations
@@ -21,6 +22,10 @@ class Showtime < ActiveRecord::Base
 			ReservationMailer.reservation_time_change_email(self,r,status).deliver
 			num_before += r.num
 		end
+	end
+
+	def prevent_last_showtime_deletion
+		return false if self.show.showtimes.count == 1
 	end
 
 	def notify_delete_reservations
