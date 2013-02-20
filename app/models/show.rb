@@ -39,7 +39,7 @@ class Show < ActiveRecord::Base
 	
 	def self.shows_in_range(range)
 		ids = Showtime.where(:timestamp => range).pluck(:show_id)
-		Show.find(ids)
+		Show.where(:id => ids) # TODO: verify hotfix to handle shows which aren't approved yet
 	end
 	
 	def director
