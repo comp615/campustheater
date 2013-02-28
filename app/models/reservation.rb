@@ -33,7 +33,7 @@ class Reservation < ActiveRecord::Base
 		if num_before >= self.show.seats
 			"WAITLISTED (Show up anyways as many waitlist spots usually free up)"
 		elsif num_before + self.num > self.show.seats
-			"PARTIALLY RESERVED (#{@self.show.seats - num_before} CONFIRMED)"
+			"PARTIALLY RESERVED (#{self.show.seats - num_before} CONFIRMED)"
 		else
 			"CONFIRMED"
 		end
