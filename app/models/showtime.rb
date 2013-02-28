@@ -5,7 +5,7 @@ class Showtime < ActiveRecord::Base
 	after_update :notify_reservations
 	after_create :notify_oup
 	after_update :notify_oup
-	before_destroy :prevent_last_show_deletion
+	before_destroy :prevent_last_showtime_deletion
 	before_destroy :notify_delete_reservations
 	
 	def notify_reservations
