@@ -6,11 +6,11 @@
 	No requests at this time!
 <% else %>
 	<table>
-		<tr><th>Show</th><th>Approve</th><th>Approve, but don't archive</th><th>Delete</th></tr>
+		<tr><th>Show</th>   <th>Approve</th>   <th>Approve, but don't archive</th>   <th>Delete</th></tr>
 		<% @pending_shows.each do |s| %>
-			<tr><td><%= link_to s.title, edit_show_path(s) %></td>
-				<td><%= link_to "Approve", approve_show_path(s.id) + "?archive=1" %></td>
-				<td><%= link_to "Approve (no archive)", approve_show_path(s.id) %></td>
+			<tr><td><%= link_to s.title, edit_show_path(s) %></td>   
+				<td><%= link_to "Approve", approve_show_path(s.id) + "?archive=1" %></td>   
+				<td><%= link_to "Approve (no archive)", approve_show_path(s.id) %></td>   
 				<td><%= form_for(:show, :url => show_path(s.id), :html => {:method => :delete}) do  %>
 			  <%= submit_tag "Delete", :confirm => "Are you sure you want to delete the selected show?" %>
 			<% end %></td>
