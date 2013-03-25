@@ -96,13 +96,13 @@
 								<tr>
 									<% if show.poster.exists? %>
 										<td>
-											<%= link_to image_tag(show.poster.url(:thumb)), best_link(@show, true), :style => "float: left; margin-right: 10px;" %>
+											<%= link_to image_tag(show.poster.url(:thumb)), best_link(show), :style => "float: left; margin-right: 10px;" %>
 										</td>
 										<td style="padding: 10px 0;">
 									<% else %>
 										<td colspan="2" style="padding: 10px 0;">
 									<% end %>
-											<strong><%= link_to show.title, best_link(@show, true), :class => 'title' %></strong><br />
+											<strong><%= link_to show.title, best_link(show), :class => 'title' %></strong><br />
 											<strong>By:</strong> <%= show.writer %><br />
 											<%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
 											<strong>Directed By:</strong> <%= show.director %><br />
