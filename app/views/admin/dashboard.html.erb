@@ -6,7 +6,7 @@
 	No requests at this time!
 <% else %>
 	<table>
-		<tr><th>Show</th><th> </th><th>Approve</th><th> </th><th>Approve, but don't archive</th><<th> </th>th>Delete</th></tr>
+		<tr><th>Show</th><th>- - -</th><th>Approve</th><th>- - -</th><th>Approve, but don't archive</th><th>- - -</th><th>Delete</th></tr>
 		<% @pending_shows.each do |s| %>
 			<tr><td><%= link_to s.title, edit_show_path(s) %></td>
 				<td> </td>
