@@ -25,7 +25,7 @@ class Showtime < ActiveRecord::Base
 	end
 
 	def prevent_last_showtime_deletion
-		return false if self.show.showtimes.count == 1
+		return false if self.show && self.show.showtimes.count == 1
 	end
 
 	def notify_delete_reservations

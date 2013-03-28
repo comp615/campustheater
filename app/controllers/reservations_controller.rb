@@ -95,6 +95,10 @@ class ReservationsController < ApplicationController
 	
 	def auth_reservation
 		params[:id] ||= params[:tix_id]
+		if params[:reservation]
+			params[:auth_code] ||= params[:reservation][:auth_code]
+			params[:reservation].delete(:auth_code)
+		end
 		@reservation = Reservation.find(params[:id])
 		return false unless params[:auth] || @show.showtime_ids.include?(@reservation.showtime_id)
 		
@@ -110,8 +114,6 @@ class ReservationsController < ApplicationController
 		return true if (@current_user && @current_user.has_permission?(@show, :full)) || 
 										(@current_user && @reservation.person_id == @current_user.id) ||
 										params[:auth_code] == @reservation.token
-		
-		
 		
 		# Still hanging around? That means it isn't authed
 		raise ActionController::RoutingError.new('Not Found')		

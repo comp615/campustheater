@@ -34,6 +34,7 @@
 			<%= f.label :email, "Email" %> <%= f.text_field :email %><br />
 			<%= f.label :num, "Number of Tickets" %> <%= f.number_field :num, :min => 1, :max => @show.cap %><br />
 			<%= f.label :reservation_type, "Who are you?" %> <%= f.select :reservation_type_id, options_from_collection_for_select(ReservationType.all, :id, :tix_type) %><br />
+			<%= f.hidden_field :auth_code, :value => params[:auth_code] unless params[:auth_code].blank? %>
 			<%= f.submit "Submit", :confirm => "Are you sure the information is correct?" %>
 		<% end %>
 		<% if !@reservation.id.blank? %>
