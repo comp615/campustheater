@@ -7,6 +7,7 @@ class ReservationsController < ApplicationController
 	# Show all shows for which reservations are currently open or upcoming, also shows user's if logged in
 	def index
 		# Right now just do new
+		redirect_to @show, :notice => "Sorry all showtimes for this show are completely full" and return if !@show.showtimes.detect{|st| !st.is_waitlist_full? }
 		@reservation = Reservation.new
 		render :edit
 	end
@@ -20,6 +21,7 @@ class ReservationsController < ApplicationController
 	
 	end
 	
+	# Not actually used I think, supersceded by index for routing cleanliness
 	def new
 		@reservation = Reservation.new
 		render :edit
