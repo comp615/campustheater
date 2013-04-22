@@ -47,7 +47,7 @@ class PagesController < ApplicationController
 		else
 			#more than 8? Pshew. Good luck
 			while @shows.length > 0
-				@rows += @shows.slice!(0,2 + @rows.length % 2)
+				@rows += [@shows.slice!(0,2 + @rows.length % 2)]
 			end
 		end
 
