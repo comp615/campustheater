@@ -181,6 +181,9 @@ $(document).ready(function() {
 			$("[data-field=" + $(this).attr("id") + "]").text($(this).val());
 	});
 
+	// Watch for title and tagline changes to warn them about long titles
+	$("#show_title, #show_tagline").on("change", watchForLongTitles);
+
 	$("#show_positions").on("change", "input, select", watchTechOps);
 	$("#show_positions").on("click", ".remove", watchTechOps);
 	$("form").on("change","[name*=name]",protectAutocomplete);
@@ -227,6 +230,16 @@ $(document).ready(function() {
 var updateTixFieldVisibility = function() {
 	$(".tix_on").toggle($("#show_tix_enabled").is(":checked"));
 	$(".tix_off").toggle(!$("#show_tix_enabled").is(":checked"));
+}
+
+var watchForLongTitles = function() {
+	var title = $("#show_title").val();
+	var tagline = $("#show_tagline").val();
+	if (!tagline && (title.indexOf(":") >= 0 && title.length > 30 || title.length > 40)) {
+		$("#title_length_warning").show();
+	} else {
+		$("#title_length_warning").hide();
+	}
 }
 
 //Function used to render an indiviudal entry in the auto complete

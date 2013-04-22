@@ -16,6 +16,10 @@
 
 			<%= f.enum_select :category %><br />
 			<%= f.text_field :title, :class => "required", :placeholder => "Title", :validate => true %><br />
+			<div id="title_length_warning" class="alert" style="display:none; width: 85%; line-height: 18px;">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+  			<strong>Warning!</strong> Consider using a tagline below to keep your title short. Longer titles may not appear as nicely throughout the site.
+			</div>
 			<%= f.text_field :writer, :class => "required", :placeholder => "Writer", :validate => true %><br />
 			<%= f.text_field :tagline, :placeholder => "Tagline" %><br />
 			<%= f.text_area :description, :class => "required", :placeholder => "Summary/History/Other Info", :validate => true %><br />
