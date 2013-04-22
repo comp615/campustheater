@@ -210,7 +210,7 @@ class ShowsController < ApplicationController
 
 	def sanitize_filename(file_name)
       just_filename = File.basename(file_name)
-      just_filename.sub(/[^\w\.\-]/,'_')
+      just_filename.gsub(/[^\w\.\-]/,'_')
     end
 
 	
