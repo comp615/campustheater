@@ -240,7 +240,7 @@ var watchForLongTitles = function() {
 	} else {
 		$("#title_length_warning").hide();
 	}
-}
+};
 
 //Function used to render an indiviudal entry in the auto complete
 var renderItem = function( ul, item ) {
