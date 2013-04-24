@@ -264,6 +264,6 @@ var hookupPersonAutoComplete = function() {
 					$(this).parent().find(".person_id").val(ui.item.id);
 					return false;
 				}
-			}).data( "autocomplete" )._renderItem = renderItem;
+			}).data( "ui-autocomplete" )._renderItem = renderItem;
 	});
 }
