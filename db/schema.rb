@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20120123004161) do
   end
 
   create_table "shows", :force => true do |t|
-    t.enum     "category",              :limit => [:theater, :dance, :film, :comedy, :casting, :graduate],                    :default => :theater, :null => false
+    t.enum     "category",              :limit => [:theater, :dance, :film, :comedy, :casting],                    :default => :theater, :null => false
     t.string   "title",                                                                                                                  :null => false
     t.string   "writer",                                                                                                                 :null => false
     t.string   "tagline"
