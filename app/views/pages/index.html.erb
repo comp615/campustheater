@@ -12,6 +12,61 @@
 		</div>
 -->
 
+<!-- ADDED FOR SUMMER 2013 -->
+
+<center>
+	<font size="1000"><strong>WELCOME</strong></font> <br />
+	<img class="board_pic" src="/static/images/summer/Y2017.jpg">
+</center>
+<table border="0" cellpadding="3">
+	<tr>
+		<td width="50%">
+			<p><strong>The Yale Drama Coalition (YDC)</strong> was founded in 1999 and seeks to foster communication and collaboration within the undergraduate theater community and provides guidance and resources for theatrical productions. We’re here to help you get connected in the theater world at school.</p>
+			<p>We’re so excited to be your resource in discovering the wealth of theatrical opportunities at Yale. We hope this guide will be useful in your first weeks at school – but please don’t hesitate to be in touch – you can click <a href="http://yaledramacoalition.org/resources#board">here</a> to see our full board and click our names to shoot us an email.</p>
+			<p>Be sure to bookmark our website and check back in August as more and more fall shows will be listed. In the days just before school, <a href="http://yaledramacoalition.org/auditions">audition information</a> and <a href="http://yaledramacoalition.org/opportunities">tech opportunities</a> will begin to be posted. So stay tuned!</p>
+		</td>
+		<td width="50%">
+			<p>If you haven’t already, subscribe to our newsletter by following the instructions on our <a href="http://yaledramacoalition.org/resources#FAQ">learn</a> page. During the school year we send out weekly bulletins with audition information, tech opportunities, and other important info for the theater community.</p>
+			<p>While the date is still TBD, we’ll be having our YDC Season Preview within your first few days of arriving at Yale. This is an event you won’t want to miss, where the directors and/or producers of all the fall shows will speak briefly to introduce their shows and give information about auditions and tech opportunities. Afterwards, everyone mingles and it’s a great way for you to find collaborators and join the teams of fall shows. Check our website for more info in late August.</p>
+			<p>Scroll around our website – we just redid it this year and are proud of the new interface. Take a look at the <a href="http://yaledramacoalition.org/shows">SHOWS</a> page to learn about previous productions.</p>
+		</td>
+	</tr>
+</table>
+<table border="0" cellpadding="10">
+  	<th><font size="4">FOR ACTORS:</font></th>
+  	<th><font size="4">FOR TECHIES:</font></th>
+  	<th><font size="4">FOR DIRECTORS, STAGE MANAGERS, and PRODUCERS:</font></th>
+  	<tr>
+	    <td width="33%">
+			<p>Read about <%= link_to "the audition process at Yale", guides_path('auditioning') %> here.</p>
+			<p>Short version? It’s good to have a monologue prepared over the summer, and songs for musicals. Be 15 minutes early. Dress comfortably. Bring water. Have fun.</p>
+		</td>
+	    <td width="33%">
+			<p>The Season Preview will be your best time to meet all of the producers and see what tech positions they’re looking to fill. You’ll also find the <a href="http://yaledramacoalition.org/opportunities">OPPORTUNITIES</a> page useful – don’t be afraid to email producers and offer your skills. It’s great to assist a more experienced upperclassman your freshman fall (i.e. be an assistant master electrician, or assistant set designer -- don't know what those are? No worries!) so you can learn the ropes.</p>
+		</td>
+	    <td width="34%">
+			<p>Our best advice is to assistant direct/produce/stage manage a show or two in the fall to learn the ropes from upperclassmen. Go to the season preview and see which shows spark your interest, then chat with those directors or producers to figure out where you fit best. You can use the YDC site to see what shows they’ve worked on in the past – simply search their name using the search bar at the top of the page. Directors may conduct interviews to select assistant directors.</p>
+		</td>
+ 	</tr>
+</table>
+<p>Regardless of what you're interested in, take a look at our newly updated How-To guides on the right-hand side of the <a href="http://yaledramacoalition.org/resources">resources</a> page. And if you have any questions... feel free to email any of the YDC <a href="http://yaledramacoalition.org/resources#board">board members</a> - our interests are listed right next to our names.</p>
+<hr />
+
+
+<center> 
+	<font size="1000"><strong>Not in the class of 2017?</strong></font> <br />
+	<strong>The YDC has new stuff for you too!</strong><br />
+	Here's a brief preview!
+</center>
+<ul>
+	<li>New show types are now allowed on the YDC! Starting Fall, 2013, YDC is the go-to advertising and ticketing site for all undergraduate theater, dance, and <i>improv</i> shows!</li>
+	<li>The <strong>Yale Theater Wiki</strong> will launch this fall - a place to store and pass down tips and tricks we learn!</li>
+	<li>New and improved How-To section (see the sidebar on the <a href="http://yaledramacoalition.org/resources">resources</a> page).</li>
+</ul>
+<hr />
+<!-- END ADDED FOR SUMMER 2013 -->
+
+
 <div class="section-intro">
 	Coming soon in <strong>Yale Theater</strong>
 	<hr />
@@ -30,6 +85,7 @@
 						<% 
 								# OK, you caught me. This is a sudo-hack. We need to render the front page item twice, once for normal clients, and once for phones
 								# The top one is phone-hidden, while the bottom is the one we show on phones, hacked to display more prettily
+								# dammit charlie...
 							 color_class = item.accent_color ? [item.accent_color] : [cycle("red", "blue","yellow","black","dark_blue","green", "light_blue")] 
 							 css_classes = color_class + ['hidden-phone']
 						%>

@@ -5,8 +5,8 @@
 			<br />
 			<strong>For more information, please read our full <%= link_to "constitution", guides_path('constitution') %></strong>
 			<br /><br /><hr />
-		<h2>New On the YDC Site!</h2>
-		<p  class="answer"> First and foremost, our new website features a snazzy design and infinitely simpler navigation. But there are some other important new features: </p>
+		<h2>How to use the YDC Site!</h2>
+		<!--<p  class="answer"> First and foremost, our new website features a snazzy design and infinitely simpler navigation. But there are some other important new features: </p>-->
 		<p class="answer">
 				<ul>
 					<li>You'll be asked to login through CAS and make an account on this site. It's easy and prefilled. Do it.</li>
@@ -16,9 +16,9 @@
 				</ul>
 		</p>
 		<p class="question">CAS Authentication</p>
-		<p class="answer">We're using CAS authentication now on the YDC site. This means you no longer need to remember your profile password, show password and all that other garbage. Instead, use the login you already use for all your other Yale accounts.</p>
+		<p class="answer">We're using CAS authentication on the YDC site - you<!--. This means you no longer need to remember your profile password, show password and all that other garbage. Instead, -->use the login you already use for all your other Yale accounts.</p>
 		<p class="question">My Dashboard</p>
-		<p class="answer">Your dashboard is your new account space on YDC, accessible from the top right corner of the page. From your 		dashboard you can access: 
+		<p class="answer">Your dashboard is your new account space on YDC, accessible from the top right corner of the page. From your dashboard you can access: 
 			<ul>
 				<li> Reservations you've made while logged in. </li> 
 				<li> Auditions you've scheduled. </li> 
@@ -44,7 +44,7 @@
 		<p class="question"> Show Pages </p>
 		<p class="answer"> You’ll notice that show pages now have a different look and feel, including accent colors, associate positions, and a reservation widget built right in. We hope these new features will make your show an even greater success, and they can all be managed through the Show Dashboard. </p>
 
-		<h2> FAQs </h2>
+		<a id="FAQ"></a><h2> FAQs </h2>
 		<p class="question">Where do I sign up for the weekly newsletter? </p>
 		<p class="answer">
 			Every week the YDC sends out a newsletter to update you on the theater scene at Yale - it's the go-to place for all there is to know about undergraduate theater: auditions, tech info, and special workshops! There are two ways you can join or list:
@@ -53,6 +53,7 @@
 				<li>Add yourself! Navigate to your <a href="http://messages.yale.edu/Subscribe/MySubscriptions" target="new">Yale Subscription Management page</a>, click Undergraduate Organizations, Performance, and then find us under "Drama Coalition, Yale: An Undergrad. Organization" <br /> It's super-easy: we promise!</li>
 			</ul>
 		</p>
+		<!--
 		<p class="question">How do I access my show from the old site? </p>
 		<p class="answer">
 			After you've created an account on the new site email the <a href="mailto:<%= YDC_EMAIL %>">webmaster</a> with the name of your show. They'll give you full permission to edit the show and things should be peachy.
@@ -62,11 +63,23 @@
 		<p class="answer">
 			Correct! From the show dashboard you can manage your show’s permissions, allowing any number of production staff members to have access to the show - no need to share passwords.
 		</p>
+	-->
 		<p class="question">Do I need to use my CAS login? </p>
 		<p class="answer">
 			In order to manage a show page and/or your YDC profile, you must login with your CAS credentials. Trust us, things will be a whole lot easier this way. It will also expedite the process of signing up for audition slots and reserving tickets for shows, as the YDC site will remember your information.
 		</p>
-			<br /><br /><hr><br />
+		<p class="question">Help! When I look at my bio it is missing a bunch of shows!</p>
+		<p class="answer">
+			Don't worry! You probably accidentally ended up with multiple bio-pages accidentally. To re-assure yourself go ahead and search for your name in the search bar above. Look! You're there multiple times!
+		</p>
+		<p class="answer">
+			To fix this navigate to your dashboard, and click the link on the left hand side to request names that are "similar to yours." Stay calm and wait, the requests can take a few days to process... but we'll have you linked up and running in no time!
+		</p>
+		<p class="question">I'm in charge of a show... does it belong on your site?</p>
+		<p class="answer">The short answer is that most undergraduate theater, dance, and improv shows can be listed on our site. For the official policies (or if you don't fall into one of those categories and would like to know what's appropriate), click <%= link_to "here", guides_path('postingPolicy') %>. The Yale Drama Coalition reserves the right to refuse listing for any show at their discretion.</p>
+			<br />
+			<a id="board"></a>
+			<br /><hr><br />
 			<b>YDC Executive Board & Staff 2013</b>:<br />
 			<table border="0"><tr><td>
 				<br /><b>Board Members</b>
@@ -247,6 +260,7 @@
 		<h4>Other Resources</h4><br /><br />
 		<ul type="none">
 			<li><%= link_to "Theater Groups at Yale", guides_path('theaterGroups') %></li>
+			<li><%= link_to "YDC Website Listing Policy", guides_path('postingPolicy') %></li>
 			<li><a href="http://up.yalecollege.yale.edu/" target="new">The UNDERGRADUATE PRODUCTION Website</a></li>
 			<li><a href="http://up.yalecollege.yale.edu/performance-rehearsal-venues" target="new">Locations of Theater Spaces at Yale</a></li>
 			<li><a href="http://up.yalecollege.yale.edu/sites/default/files/imce/UP%20Forms_%20ProductionApplication%20OBT.Co-op12.3.12F.pdf" target="new">Off-Broadway Theater Proposal Form</a></li>
