@@ -40,7 +40,12 @@ class Reservation < ActiveRecord::Base
 	end
 	
 	def other_validations
-		other_showtime_ids = self.show.showtime_ids
+		if self.show
+			other_showtime_ids = self.show.showtime_ids
+		else
+			errors.add(:showtime_id, "must be chosen")
+			return false
+		end
 		user_other_reservations_count = Reservation.where(:email => self.email, :showtime_id => other_showtime_ids)
 		if self.id
 			user_other_reservations_count = user_other_reservations_count.where(["id != ?", self.id]).count
