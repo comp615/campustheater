@@ -73,8 +73,7 @@ Ydc::Application.configure do
   config.middleware.use ExceptionNotifier,
 	  :email_prefix => "[YDC Site] ",
 	  :sender_address => %{"YDC Bug Notifier" <ydc123@gmail.com>},
-	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu},
-	  :ignore_exceptions => ExceptionNotifier.default_ignore_exceptions
+	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu, eli.block@yale.edu},
 end
 
 ActionMailer::Base.delivery_method = :smtp
