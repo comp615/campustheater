@@ -70,10 +70,12 @@ Ydc::Application.configure do
   config.action_mailer.default_url_options = { :host => "yaledramacoalition.org" }
   
   #Use notifier plugin gem
-  config.middleware.use ExceptionNotifier,
-	  :email_prefix => "[YDC Site] ",
-	  :sender_address => %{"YDC Bug Notifier" <ydc123@gmail.com>},
-	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu, eli.block@yale.edu}
+  config.middleware.use ExceptionNotification::Rack,
+  	:email => { 
+      :email_prefix => "[YDC Site] ",
+  	  :sender_address => %{"YDC Bug Notifier" <ydc123@gmail.com>},
+  	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu, eli.block@yale.edu}
+    }
 end
 
 ActionMailer::Base.delivery_method = :smtp
