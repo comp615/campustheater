@@ -37,6 +37,7 @@
 			<%= f.hidden_field :auth_code, :value => params[:auth_code] unless params[:auth_code].blank? %>
 			<%= f.submit "Submit", :confirm => "Are you sure the information is correct?" %>
 		<% end %>
+		<br />Please arrive at the theater 15 minutes before the performance to claim your reservation. On <%= full_timestamp(@showtime.timestamp) %>, patrons will be let in off of the waitlist based on when they signed up on the YDC website. Patrons with reservations arriving after this time will be treated as if they are at the top of the waitlist. Please see the full policy <%= link_to "here", "http://up.yalecollege.yale.edu/ticketing-policy-ydc-reserved-shows" %>.<br />
 		<% if !@reservation.id.blank? %>
 			<br />
 			<%= button_to "Cancel Reservation", [@show,@reservation], :method => :delete, :confirm => "Are you sure you want to cancel this reservation?" %>
