@@ -16,5 +16,7 @@ Num Tickets: <%= @reservation.num %><br />
 <br />
 <%= link_to "Edit/View Reservation", (show_reservation_url(@show,@reservation) + "?auth_code=#{@reservation.token}") %><br />
 <br />
+Patrons should arrive at the theater 15 minutes before the performance to claim their reservation. At the scheduled performance time, patrons will be let in off of the waitlist based on when they signed up on the YDC website. Patrons with reservations arriving after this time will be treated as if they are at the top of the waitlist. Please see the full policy <a href="http://up.yalecollege.yale.edu/ticketing-policy-ydc-reserved-shows">here</a>.
+<br />
 Enjoy the show!<br />
 YDC
