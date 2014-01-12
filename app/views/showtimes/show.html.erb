@@ -3,6 +3,7 @@
 <div class="title"><%= @show.title %></div>
 <%= full_timestamp(@showtime.timestamp) %>
 <br /><br />
+<h3>Please do <strong>not</strong> click on any of the names below. This feature of the reservation system is not fully functional and may lead to issues.</h3>
 <div class="reservations">
 	<% column_count = @confirmed.length > 25 ? 3 : 2 %>
 	<h3>Confirmed</h3>
