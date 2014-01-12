@@ -79,7 +79,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<% if Time.now.sunday? %>
-						<h2>YDC Newsletter Week of <%= Time.now.strftime("%B %e") %> - <%= Time.now.next_week.strftime("%B %e") %></h2>
+					<% time_next_week = Time.now + 7.days %>
+						<h2>YDC Newsletter Week of <%= Time.now.strftime("%B %e") %> - <%= time_next_week.strftime("%B %e") %></h2>
 					<% else %>
 						<h2>YDC Newsletter Week of <%= Time.now.strftime("%B %e") %> - <%= Time.now.sunday.strftime("%B %e") %></h2>
 					<% end %>

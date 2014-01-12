@@ -56,7 +56,8 @@ class Person < ActiveRecord::Base
   end
   
   def site_admin?
-  	["cpc2","sbt3","ijc5","ebb37","eck4","jas24","lfl23"].include? self.netid
+  	["cpc2","sbt3","ebb37","jas24","nat2","iag6"].include? self.netid #netIDs of current site admins
+    #[Charlie Croom, Stuart Teal, Eli Block, Jared Shenson, Nikki Teran, Isabella Giovannini]
   end
   
   def needs_registration?

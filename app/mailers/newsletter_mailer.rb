@@ -11,7 +11,8 @@ class NewsletterMailer < ActionMailer::Base
     @request = request
 
   	subject = if Time.now.sunday?
-			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.next_week.strftime("%B %e")
+      time_next_week = Time.now + 7.days
+			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + time_next_week.strftime("%B %e")
 		else
 			"YDC Newsletter - Week of " + Time.now.strftime("%B %e") + " - " + Time.now.sunday.strftime("%B %e")
 		end
