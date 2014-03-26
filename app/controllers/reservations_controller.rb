@@ -92,7 +92,7 @@ class ReservationsController < ApplicationController
 	def fetch_show
 		return if !params[:show_id] && params[:auth]
 		@show = Show.includes(:showtimes).find(params[:show_id])
-		redirect_to @show, :notice => "Sorry this shows tickets can no longer be changed!" if !@show.ok_to_ticket?
+		redirect_to @show, :notice => "Sorry this show's tickets can no longer be changed!" if !@show.ok_to_ticket?
 	end
 	
 	def auth_reservation
