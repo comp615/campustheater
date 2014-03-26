@@ -102,7 +102,7 @@ module ApplicationHelper
 		if show.showtimes.length > 0 && Time.now > Time.at(show.showtimes.last.timestamp)
 			"Show no longer running"
 		elsif !show.tix_enabled && show.alt_tix
-			show.alt_tix
+			link_to show.alt_tix, show.alt_tix_link, :class => 'btn btn-primary', :target => '_blank'
 		elsif !show.approved
 			"Show not yet approved"
 		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
