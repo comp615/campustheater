@@ -112,7 +112,7 @@
 												<%= raw style_full_showtime(showtime.timestamp) %><br />
 											<% end %>
 											<% if !show.tix_enabled && !show.alt_tix.blank? %>
-												<a href="<%= show.alt_tix_link %>">
+												<a href="<%= show.alt_tix_link %>" target="_blank">
 													Tickets*
 												</a>
 											<% elsif show.ok_to_ticket? %>
