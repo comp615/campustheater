@@ -3,8 +3,8 @@ class AdminMailer < ActionMailer::Base
 
 	default :from => YDC_EMAIL
 
-	def confirmation_email(audition)
-		@audition = audition
-		mail(:to => audition.email, :subject => "[YDC Site] Audition Confirmation: " + audition.show.title) unless audition.email.blank?
+	def staff_email(people, subject, message)
+		recipients = people.pluck(:email)
+		mail(:to => recipients, :subject => subject) unless recipients.blank?
 	end
 end
