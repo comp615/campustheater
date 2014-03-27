@@ -10,7 +10,7 @@ class AdminController < ApplicationController
 	end
 
 	def newsletter
-		@shows = Show.readonly.shows_on_coming_soon.this_week
+		@shows = Show.readonly.coming_soon.this_week
 		@auditions = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
 		future_show_ids = Show.future.pluck("`shows`.`id`")
 		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show)

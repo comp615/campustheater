@@ -12,7 +12,7 @@ class ShowsController < ApplicationController
 		@active_nav = :calendar
 		@page_name = " - Upcoming Shows"
 		
-		@shows = Show.future
+		@shows = Show.on_show_page.future
 		@this_week = @shows.select{|s| s.this_week?}
 
 		@showtime_data = {}

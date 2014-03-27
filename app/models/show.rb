@@ -193,15 +193,15 @@ class Show < ActiveRecord::Base
 		where(:category => category)
 	end
 
-	def self.shows_on_coming_soon
+	def self.coming_soon
 		in_category([:comedy, :dance, :theater])
 	end
 
-	def self.shows_in_this_semester
+	def self.on_show_page
 		in_category([:dance, :theater])
 	end
 
-	def self.shows_on_show_history
+	def self.on_people_page
 		in_category([:dance, :theater])
 	end
 	
