@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123004161) do
+ActiveRecord::Schema.define(:version => 20140327174348) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
-    t.timestamp "timestamp",                 :default => '2003-01-01 00:00:00', :null => false
+    t.timestamp "timestamp",                 :default => '2003-01-01 08:00:00', :null => false
     t.string    "name",       :limit => 100
     t.string    "phone",      :limit => 50
     t.string    "email"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20120123004161) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.enum     "accent_color",          :limit => [:red, :yellow, :green, :dark_blue, :blue, :light_blue, :black]
+    t.boolean  "charges_at_door"
   end
 
   create_table "showtimes", :force => true do |t|
