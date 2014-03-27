@@ -51,7 +51,7 @@
 				<th>Person</th>
 				<th>Email</th>
 				<th>Phone</th>
-				<th><%= submit_tag "Delete Selected", :class => "btn" %></th>
+				<th><%= submit_tag "Delete Selected", :class => "btn", :data => { :confirm => "This will delete the selected auditions. There is no undo. Are you sure?" } %></th>
 			<% end %>
 			</tr>
 			<tr><td colspan="4">
@@ -67,7 +67,7 @@
 		  <% end %>
 		  <% if @aud_admin %>
 		  <tr><td colspan="6"></td><td>
-		  <%= submit_tag "Delete Selected", :class => "btn" if @aud_admin %>
+		  <%= submit_tag "Delete Selected", :class => "btn", :data => { :confirm => "This will delete the selected auditions. There is no undo. Are you sure?" } if @aud_admin %>
 		  <td></tr>
 		  <% end %>
 		  
