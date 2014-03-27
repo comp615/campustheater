@@ -50,15 +50,19 @@ function watchTechOps() {
 }
 
 function removeSingleAudition(e) {
-	e.preventDefault();
-	var aud_id = $(this).closest("tr").data("audition-id");
-	send_destroy([aud_id]);
+	if (confirm("This audition will be deleted. There is no undo. Are you sure?")) {
+		e.preventDefault();
+		var aud_id = $(this).closest("tr").data("audition-id");
+		send_destroy([aud_id]);
+	}
 }
 
 function removeBlockAudition(e) {
-	e.preventDefault();
-	var aud_ids = $(this).closest(".audition-group").find("tr").map(function() { return $(this).data("audition-id"); });
-	send_destroy($.makeArray(aud_ids));
+	if (confirm("These auditions will be deleted. There is no undo. Are you sure?")) {
+		e.preventDefault();
+		var aud_ids = $(this).closest(".audition-group").find("tr").map(function() { return $(this).data("audition-id"); });
+		send_destroy($.makeArray(aud_ids));
+	}
 }
 
 // Make a destroy call to remove the passed ids
