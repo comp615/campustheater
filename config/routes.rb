@@ -61,6 +61,7 @@ Ydc::Application.routes.draw do
   match 'admin/approve_takeover/:id' => 'admin#approve_takeover', :as => :approve_takeover
   match 'admin/reject_takeover/:id' => 'admin#reject_takeover', :as => :reject_takeover
   match 'admin/approve_show/:id' => 'admin#approve_show', :as => :approve_show
+  match 'admin/email_all' => 'admin#email_all', :as => :email_all
   
   
   match 'login' => 'people#dashboard', :as => :login

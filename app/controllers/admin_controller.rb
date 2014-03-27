@@ -52,6 +52,11 @@ class AdminController < ApplicationController
 			redirect_to admin_dashboard_path, :error => "There was a problem, please try again..."
 		end
 	end
+
+	def email_all
+		flash[:notice] = "Email sent. #{params.inspect}"
+		redirect_to :action => :dashboard
+	end
 	
 	private
 	
