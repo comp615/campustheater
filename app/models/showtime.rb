@@ -36,6 +36,10 @@ class Showtime < ActiveRecord::Base
 		end
 	end
 
+	def self.future
+		where(["showtimes.timestamp >= ?",Time.now])
+	end
+	
 	# hack helper...don't use this, use application_helper instead
 	def short_display_time
 		self.timestamp.strftime("%b %d %-l:%M %p") + (self.is_full? ? " (Waitlist)" : "")

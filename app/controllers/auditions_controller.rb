@@ -18,8 +18,7 @@ class AuditionsController < ApplicationController
 	# ^ TODO: Auto-prune old shows with vacant positions so they don't end up clogging this query
 	def opportunities
 		@active_nav = :opportunities
-		future_show_ids = Show.future_ids
-		@opportunities = ShowPosition.crew.vacant.includes(:show, :position).where(:show_id => future_show_ids)
+		@opportunities = ShowPosition.crew.vacant.includes({:show => :showtimes}, :position).where(:show_id => Showtime.future.select(:show_id))
 		@opportunities.select!{|o| o.show && o.show.showtimes.first.timestamp > Time.now }
 		@opportunities = @opportunities.group_by(&:display_name)
 		# TODO: Replace show.contact with the email of the producer?

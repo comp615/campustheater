@@ -38,8 +38,8 @@ class Show < ActiveRecord::Base
 	
 	
 	def self.shows_in_range(range)
-		ids = Showtime.where(:timestamp => range).pluck(:show_id)
-		Show.where(:id => ids) # TODO: verify hotfix to handle shows which aren't approved yet
+		# TODO: verify hotfix to handle shows which aren't approved yet
+		Show.where(:id => Showtime.select(:show_id).where(:timestamp => range))
 	end
 	
 	def director
@@ -103,10 +103,6 @@ class Show < ActiveRecord::Base
 		self.joins(:showtimes).where(["showtimes.timestamp >= ?",Time.now]).order("showtimes.timestamp")
 	end
 
-	def self.future_ids
-		Showtime.where(["showtimes.timestamp >= ?",Time.now]).pluck(:show_id)
-	end
-	
 	def has_opened?
 		self.showtimes.sort_by{|st| st.timestamp}.first.timestamp.to_time >= Time.now
 	end
@@ -188,6 +184,25 @@ class Show < ActiveRecord::Base
 			range = (Time.new(year,7,1).. Time.new(year,12,31))
 		end
 		range
+	end
+
+	#### New code added by steve@commonmedia.com March 2013.
+
+	# Conditionally exclude or include certain event types.
+	def self.in_category(category)
+		where(:category => category)
+	end
+
+	def self.shows_on_coming_soon
+		in_category([:comedy, :dance, :theater])
+	end
+
+	def self.shows_in_this_semester
+		in_category([:dance, :theater])
+	end
+
+	def self.shows_on_show_history
+		in_category([:dance, :theater])
 	end
 	
 end
