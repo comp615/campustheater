@@ -2,6 +2,7 @@
 <% @shows.each do |show,auditions| %>
 	<div class="show">
 		<%= render :partial => "shared/show_listing", :locals => {:show => show} %><br />
+		<strong>Auditions:</strong> <%= format_showtimes(show.auditions) %><br />
 		Slots available: <%= "#{auditions.select{|a| a.person_id == nil}.count} / #{auditions.count}" %><br />
 		<%= link_to "Signup Here", show_auditions_path(show) %>
 	</div>
