@@ -40,6 +40,9 @@
 	<div class="span4 reservations">
 		<h5>Reservations</h5>
 		<%= get_reservation_line(@show, true) %>
+		<% if @show.charges_at_door -%>
+		<h6>Show charges at the door (needs content).</h6>
+		<% end -%>
 	</div>
 </div>
 
