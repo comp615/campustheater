@@ -204,5 +204,19 @@ class Show < ActiveRecord::Base
 	def self.on_people_page
 		in_category([:dance, :theater])
 	end
-	
+
+	# Find shows by semester and academic year.
+	def self.upcoming
+		# not reusing self.future because joins break subqueries
+		where(:id => Showtime.select(:show_id).upcoming)
+	end
+
+	def self.this_semester
+		where(:id => Showtime.select(:show_id).this_semester)
+	end
+
+	def self.this_year
+		where(:id => Showtime.select(:show_id).this_year)
+	end
+
 end

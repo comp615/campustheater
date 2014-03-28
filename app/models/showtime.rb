@@ -67,5 +67,58 @@ class Showtime < ActiveRecord::Base
 	def remaining_tickets
 		[self.show.seats - self.reservations.sum(:num),0].max
 	end
+
+	#### New code added by steve@commonmedia.com March 2013.
+
+	# Find showtimes by semester and academic year.
+	YEAR_START_MONTH = 8 # August is in the second semester, July is in the first
+
+	def self.semester_start
+		today = Date.today
+		if today.month >= YEAR_START_MONTH
+			Date.new today.year, YEAR_START_MONTH, 1
+		else
+			Date.new today.year, 1, 1
+		end
+	end
+
+	def self.semester_end
+		today = Date.today
+		if today.month >= YEAR_START_MONTH
+			Date.new today.year + 1, 1, 1
+		else
+			Date.new today.year, YEAR_START_MONTH, 1
+		end
+	end
+
+	def self.year_start
+		today = Date.today
+		if today.month >= YEAR_START_MONTH
+			Date.new today.year, YEAR_START_MONTH, 1
+		else
+			Date.new today.year - 1, YEAR_START_MONTH, 1
+		end
+	end
+
+	def self.year_end
+		today = Date.today
+		if today.month >= YEAR_START_MONTH
+			Date.new today.year + 1, YEAR_START_MONTH, 1
+		else
+			Date.new today.year, YEAR_START_MONTH, 1
+		end
+	end
+
+	def self.this_semester
+		where('timestamp BETWEEN ? AND ?', self.semester_start, self.semester_end)
+	end
+
+	def self.this_year
+		where('timestamp BETWEEN ? AND ?', self.year_start, self.year_end)
+	end
+
+	def self.upcoming
+		self.future
+	end
 	
 end

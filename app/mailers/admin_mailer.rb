@@ -1,10 +1,6 @@
 class AdminMailer < ActionMailer::Base
-	add_template_helper(ApplicationHelper)
-
 	default :from => YDC_EMAIL
-
-	def staff_email(people, subject, message)
-		recipients = people.pluck(:email)
-		mail(:to => recipients, :subject => subject) unless recipients.blank?
+	def staff_email(recipients, subject, message)
+		mail(:to => recipients, :subject => subject, :body => message) unless recipients.blank?
 	end
 end
