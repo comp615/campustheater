@@ -143,6 +143,7 @@ class AuditionsController < ApplicationController
 		 	# render :action => "create_success"
 			# return
 
+			# Updated delete from Auditions page deletion form.
 			destroy_ids = params[:auditions].collect {|id, values| id if values[:_destroy] == "1"}.compact
 			@show.auditions.destroy(*destroy_ids) unless destroy_ids.empty?
 
