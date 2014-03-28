@@ -137,11 +137,15 @@ class AuditionsController < ApplicationController
 			# Mass delete, wish I could have managed this more cleanly
 			# @show.audition_ids = params[:auditions].select {|id,values| values[:_destroy] != "1"}.map{|id,values| id}	
 
-			# New way form edit page
-			@show.auditions.find(params[:destroy_ids]).each{|a| a.destroy}
-			@show.auditions(true)
-		 	render :action => "create_success"
-			return
+			# New way form edit page -- did this work at one point?
+			# @show.auditions.find(params[:destroy_ids]).each{|a| a.destroy}
+			# @show.auditions(true)
+		 	# render :action => "create_success"
+			# return
+
+			destroy_ids = params[:auditions].collect {|id, values| id if values[:_destroy] == "1"}.compact
+			@show.auditions.destroy(*destroy_ids) unless destroy_ids.empty?
+
 		end
 		redirect_to show_auditions_path(@show), :notice => 'Audition successfully updated.'
 	end
