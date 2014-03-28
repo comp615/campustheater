@@ -91,7 +91,8 @@
 	  			</td>
 	  		</tr>
 	  		<% end %>
-	  	</table>
+	  	</table><br />
+      <p><%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %></p>
 	  <% else %>
 	  	<% @show.showtimes.each do |showtime| %>
 	  		<%= small_timestamp(showtime.timestamp) %><br />

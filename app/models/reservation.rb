@@ -10,6 +10,8 @@ class Reservation < ActiveRecord::Base
 	validates :num, :numericality => { :only_integer => true, :greater_than => 0 }
 	validate :other_validations
 	validates_columns :showtime_id
+
+	attr_accessor :show_token
 	
 	def show
 		self.showtime.show
@@ -40,27 +42,34 @@ class Reservation < ActiveRecord::Base
 	end
 	
 	def other_validations
+
 		if self.show
 			other_showtime_ids = self.show.showtime_ids
 		else
 			errors.add(:showtime_id, "must be chosen")
 			return false
 		end
+
 		user_other_reservations_count = Reservation.where(:email => self.email, :showtime_id => other_showtime_ids)
+		
 		if self.id
 			user_other_reservations_count = user_other_reservations_count.where(["id != ?", self.id]).count
 		else
 			user_other_reservations_count = user_other_reservations_count.where("id IS NOT NULL").count
 		end
+
 		if user_other_reservations_count > 0
-      errors.add(:email, "cannot make multiple reservations to the same show")
-    end
-    if num && num > self.show.cap
-    	errors.add(:num, "is too large")
-    end
-    # TODO: add more stuff, check freeze time...etc.
-    if !self.show.ok_to_ticket?
-    	error.add(:showtime_id, "is not for a reservable show")
-    end
+	      errors.add(:email, "cannot make multiple reservations to the same show")
+	    end
+
+	    if num && num > self.show.cap
+	    	errors.add(:num, "is too large")
+	    end
+
+	    if !self.show.ok_to_ticket?(show_token)
+	    	errors.add(:showtime_id, "is not for a reservable show")
+	    end
+
+	    # TODO: add more stuff, check freeze time...etc.
 	end
 end

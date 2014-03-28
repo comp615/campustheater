@@ -111,8 +111,20 @@ class Show < ActiveRecord::Base
 		self.showtimes.sort_by{|st| st.timestamp}.last.timestamp.to_time < Time.now
 	end
 	
-	def ok_to_ticket?
-		self.tix_enabled && self.on_sale.to_time <= Time.now && !self.has_closed?
+	def ok_to_ticket?(token = nil)
+		if token and token == private_registration_token
+			self.tix_enabled
+		else
+			self.tix_enabled && self.on_sale.to_time <= Time.now && !self.has_closed?
+		end
+	end
+
+	def private_registration_token
+		unless self[:private_registration_token]
+			self[:private_registration_token] = SecureRandom.hex
+			save
+		end
+		self[:private_registration_token]
 	end
 	
 	# Get the OCI term of the show's opening night, can help for categorizing
