@@ -41,14 +41,17 @@ class ShowsController < ApplicationController
 		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
 	end
 
-	def email_all
-		emails_sent = 0
+	def remind
+		unless params[:showtime_id] && @showtime = @show.showtimes.find(params[:showtime_id])
+			flash[:error] = "No showtime selected!"
+			redirect_to :action => :dashboard
+			return
+		end
 		if request.post?
-			@show.showtimes.each do |showtime|
-				showtime.reservations.each do |reservation|
-					ReservationMailer.reminder_email(@show, showtime, reservation, params[:message]).deliver
-					emails_sent += 1
-				end
+			emails_sent = 0
+			@showtime.reservations.each do |reservation|
+				ReservationMailer.reminder_email(@show, @showtime, reservation, params[:message]).deliver
+				emails_sent += 1
 			end
 			flash[:notice] = "Reminder emails sent to #{view_context.pluralize emails_sent, 'attendee'}."
 			redirect_to :action => :dashboard

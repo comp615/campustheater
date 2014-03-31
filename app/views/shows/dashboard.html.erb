@@ -89,12 +89,14 @@
 	  			<td colspan="3">
 	  				<i class='icon-download-alt'></i> <%= link_to "Download Reservations (excel file)", show_showtime_path(@show, showtime, "csv") %>
 	  			</td>
+          <td>
+              <%= link_to "Email reminders", :action => :remind, :showtime_id => showtime.id %>
+          </td>
 	  		</tr>
 	  		<% end %>
 	  	</table><br />
       <p>
-          <%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %> &bull;
-          <%= link_to "Email all", :action => :email_all %>
+          <%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %>
       </p>
 	  <% else %>
 	  	<% @show.showtimes.each do |showtime| %>

@@ -1,0 +1,38 @@
+<h3>Email Reminders to All Attendees</h3>
+
+<style>
+textarea {padding:0px;margin:0px;height:100px;width:600px;font-size:12px;}
+</style>
+<%= form_tag(:action => :remind, :showtime_id => @showtime.id) do %>
+
+<h4>Your email will look like:</h4>
+
+<div style="background-color: #eee; border: 1px solid #ddd; padding: 10px; margin: 4px;">
+
+	<p>Dear <em>ATTENDEE</em>,</p>
+
+	<p>This is a reminder that you have # tickets reserved for our upcoming performance:</p>
+
+	<blockquote>
+		<p><%= @show.title %></p>
+		<p>on <%= @showtime.timestamp.strftime '%A %B %e' %></p>
+		<p>at <%= @showtime.timestamp.strftime '%l:%m %p' %></p>
+		<p>at the <%= @show.location %></p>
+	</blockquote>
+
+	<p>
+		A brief note from the <%= @show.title.strip %> team:
+		<strong>(optional)</strong>
+		<br />
+		<%= text_area_tag :message %>
+	</p>
+
+	<p>We hope you enjoy the show!</p>
+
+	<p>Sincerely,<br />The Yale Drama Coalition</p>
+
+</div>
+
+<%= submit_tag "Send" %>
+or <%= link_to "Cancel", :action => :dashboard %>
+<% end %>
