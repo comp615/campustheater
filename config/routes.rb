@@ -73,6 +73,7 @@ Ydc::Application.routes.draw do
   resources :shows do
     get 'edit_people', :controller => :shows, :action => :edit_people, :as => :edit_people
     match 'edit_files', :controller => :shows, :action => :edit_files, :as => :edit_files, :via => [:get, :post]
+    match 'email_all', :controller => :shows, :action => :email_all, :as => :email_all, :via => [:get, :post]
     get 'dashboard', :controller => :shows, :action => :dashboard, :as => :dashboard
 		resources :showtimes, :only => [:show, :index]  do #Used as reservation viewer for admin
       get 'update_attendance'

@@ -13,6 +13,10 @@ class Reservation < ActiveRecord::Base
 
 	attr_accessor :show_token
 	
+	def full_name
+		[self.fname, self.lname].compact.join(' ')
+	end
+
 	def show
 		self.showtime.show
 	end

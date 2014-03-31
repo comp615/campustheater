@@ -1,0 +1,18 @@
+<p>Dear <%= @reservation.full_name %>,</p>
+
+<p>This is a reminder that you have <%= pluralize @reservation.num, "ticket" %> reserved for our upcoming performance:</p>
+
+<blockquote>
+	<p><%= @show.title %></p>
+	<p>on <%= @showtime.timestamp.strftime '%A %B %e' %></p>
+	<p>at <%= @showtime.timestamp.strftime '%l:%m %p' %></p>
+	<p>at the <%= @show.location %></p>
+</blockquote>
+
+<% unless @message.blank? -%>
+<p>A brief note from the <%= @show.title %> team:<br /><%= @message %></p>
+<% end -%>
+
+<p>We hope you enjoy the show!</p>
+
+<p>Sincerely,<br />The Yale Drama Coalition</p>

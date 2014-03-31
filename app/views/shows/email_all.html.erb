@@ -1,0 +1,36 @@
+<h3>Email All Attendees</h3>
+
+<style>
+textarea {padding:0px;margin:0px;height:100px;width:600px;font-size:12px;}
+</style>
+<%= form_tag(:action => :email_all) do %>
+
+<h4>Your email will look like:</h4>
+
+<pre>
+Dear ATTENDEE NAME,
+
+This is a reminder that you have # tickets reserved for our upcoming performance:
+
+<%= @show.title.strip %>
+
+on DATE OF PERFORMANCE
+
+at TIME OF PERFORMANCE
+
+at the <%= @show.location.strip %>
+
+A brief note from the <%= @show.title.strip %> team:
+<%= text_area_tag :message %>
+(optional)
+
+We hope you enjoy the show!
+
+Sincerely,
+
+The Yale Drama Coalition
+</pre>
+
+<%= submit_tag "Send" %>
+or <%= link_to "Cancel", :action => :dashboard %>
+<% end %>

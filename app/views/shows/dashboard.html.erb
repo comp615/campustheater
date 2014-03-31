@@ -92,7 +92,10 @@
 	  		</tr>
 	  		<% end %>
 	  	</table><br />
-      <p><%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %></p>
+      <p>
+          <%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %> &bull;
+          <%= link_to "Email all", :action => :email_all %>
+      </p>
 	  <% else %>
 	  	<% @show.showtimes.each do |showtime| %>
 	  		<%= small_timestamp(showtime.timestamp) %><br />

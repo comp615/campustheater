@@ -36,9 +36,23 @@ class ShowsController < ApplicationController
 		@page_name = " - Show Dashboard"
 		# People can see this as long as they have SOME permission
 		s3 = AWS::S3.new
-   	s3_bucket = s3.buckets['yaledramacoalition']
+	   	s3_bucket = s3.buckets['yaledramacoalition']
 		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
+	end
+
+	def email_all
+		emails_sent = 0
+		if request.post?
+			@show.showtimes.each do |showtime|
+				showtime.reservations.each do |reservation|
+					ReservationMailer.reminder_email(@show, showtime, reservation, params[:message]).deliver
+					emails_sent += 1
+				end
+			end
+			flash[:notice] = "Reminder emails sent to #{view_context.pluralize emails_sent, 'attendee'}."
+			redirect_to :action => :dashboard
+		end
 	end
 	
 	def new

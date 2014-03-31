@@ -1,0 +1,22 @@
+Dear <%= @reservation.full_name %>,
+
+This is a reminder that you have <%= pluralize @reservation.num, "ticket" %> reserved for our upcoming performance:
+
+<%= @show.title.strip %>
+
+on <%= @showtime.timestamp.strftime('%A %B %e').strip %>
+
+at <%= @showtime.timestamp.strftime('%l:%m %p').strip %>
+
+at the <%= @show.location.strip %>
+
+<% unless @message.blank? -%>
+A brief note from the <%= @show.title.strip %> team:
+<%= @message %>
+
+<% end -%>
+We hope you enjoy the show!
+
+Sincerely,
+
+The Yale Drama Coalition
