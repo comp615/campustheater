@@ -27,9 +27,10 @@ class AuditionsController < ApplicationController
 	def index
 		@auditions = [] and return if request.format == :csv && !@current_user.has_permission?(params[:show_id], :auditions)
 		@active_nav = :auditions
-		@auditions = @show.auditions.select{|a| a.timestamp > Time.now}
+		@auditions = @show.auditions.immediate_future
 		redirect_to '/auditions' if @auditions.blank? && !@current_user.has_permission?(params[:show_id], :auditions)
 		@user_audition = @auditions.detect{|a| a.person_id == @current_user.id }
+		@recent_auditions = @show.auditions.recent_past
 
 		# Legacy support, check and reassociate audition if given
 		if params[:aud_id]
@@ -42,6 +43,14 @@ class AuditionsController < ApplicationController
 		end
 
 		@user_audition ||= {}
+	end
+
+	def recent
+		@active_nav = :auditions
+		@auditions = @show.auditions.recent_past
+		if !@aud_admin || @auditions.empty?
+			redirect_to :action => :index, :show_id => @show.id
+		end
 	end
 	
 	#def new

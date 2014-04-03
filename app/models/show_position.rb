@@ -59,4 +59,6 @@ class ShowPosition < ActiveRecord::Base
 		where(:position_id => [1,2,3])
 	end
 	
+	####
+	
 end

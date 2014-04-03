@@ -121,4 +121,6 @@ class Showtime < ActiveRecord::Base
 		self.future
 	end
 	
+	####
+	
 end

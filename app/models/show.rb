@@ -231,4 +231,6 @@ class Show < ActiveRecord::Base
 		where(:id => Showtime.select(:show_id).this_year)
 	end
 
+	####
+
 end

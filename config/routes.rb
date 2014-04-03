@@ -78,7 +78,9 @@ Ydc::Application.routes.draw do
 		resources :showtimes, :only => [:show, :index]  do #Used as reservation viewer for admin
       get 'update_attendance'
     end
-		resources :auditions
+		resources :auditions do
+      get 'recent', :on => :collection
+    end
 		resources :reservations
 		member do
 	    put 'auditions', :controller => :auditions, :action => :update
