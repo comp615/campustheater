@@ -90,7 +90,11 @@
 	  				<i class='icon-download-alt'></i> <%= link_to "Download Reservations (excel file)", show_showtime_path(@show, showtime, "csv") %>
 	  			</td>
           <td>
+              <% if showtime.reminder_sent -%>
+              Reminders sent
+              <% else -%>
               <%= link_to "Email reminders", :action => :remind, :showtime_id => showtime.id %>
+              <% end -%>
           </td>
 	  		</tr>
 	  		<% end %>

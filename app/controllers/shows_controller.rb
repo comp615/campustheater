@@ -42,8 +42,14 @@ class ShowsController < ApplicationController
 	end
 
 	def remind
-		unless params[:showtime_id] && @showtime = @show.showtimes.find(params[:showtime_id])
+		@showtime = @show.showtimes.find_by_id(params[:showtime_id]) if params[:showtime_id]
+		if @showtime.nil?
 			flash[:error] = "No showtime selected!"
+			redirect_to :action => :dashboard
+			return
+		end
+		if @showtime.reminder_sent
+			flash[:error] = "Reminders have already been sent for this showtime"
 			redirect_to :action => :dashboard
 			return
 		end
@@ -53,6 +59,7 @@ class ShowsController < ApplicationController
 				ReservationMailer.reminder_email(@show, @showtime, reservation, params[:message]).deliver
 				emails_sent += 1
 			end
+			@showtime.update_attribute :reminder_sent, true
 			flash[:notice] = "Reminder emails sent to #{view_context.pluralize emails_sent, 'attendee'}."
 			redirect_to :action => :dashboard
 		end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140328181137) do
+ActiveRecord::Schema.define(:version => 20140403174239) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
@@ -150,9 +150,10 @@ ActiveRecord::Schema.define(:version => 20140328181137) do
   end
 
   create_table "showtimes", :force => true do |t|
-    t.integer  "show_id",                       :null => false
-    t.boolean  "email_sent", :default => false, :null => false
+    t.integer  "show_id",                          :null => false
+    t.boolean  "email_sent",    :default => false, :null => false
     t.datetime "timestamp"
+    t.boolean  "reminder_sent"
   end
 
   add_index "showtimes", ["show_id"], :name => "show_index"
