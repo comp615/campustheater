@@ -37,7 +37,7 @@ class ReservationsController < ApplicationController
 		        ReservationMailer.reservation_confirmation_email(@reservation.showtime, @reservation, @reservation.status_line).deliver
 				format.html { redirect_to show_reservation_path(@show, @reservation, :auth_code => @reservation.token), :notice => 'Reservation was successfully created. You should receive an email confirmation shortly with a link to this page.' }
 			else
-				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again!'
+				flash.now[:error] = "Sorry, there was a problem with the data you entered. #{@reservation.errors.full_messages.to_sentence}."
 				format.html { render :action => "edit" }
 			end
 		end
