@@ -67,7 +67,7 @@
 		  <% end %>
 		  <% if @aud_admin %>
 		  <tr>
-		  	<td colspan="6" style="text-align:left"><%= link_to "View #{pluralize @recent_auditions.count, "recent auditions"}", :show_id => @show.id, :action => :recent if @recent_auditions.any? %></td>
+		  	<td colspan="6" style="text-align:left"><%= link_to "View #{pluralize @recent_auditions.count, "recent auditions"}", :action => :recent, :show_id => @show.id if @recent_auditions.any? %></td>
 		  	<td><%= submit_tag "Delete Selected", :class => "btn", :data => { :confirm => "This will delete the selected auditions. There is no undo. Are you sure?" } %><td>
 	  	  </tr>
 		  <% end %>

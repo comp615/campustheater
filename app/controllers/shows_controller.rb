@@ -28,8 +28,8 @@ class ShowsController < ApplicationController
 		@active_nav = :calendar
 		@page_name = " - #{@show.title}"
 		s3 = AWS::S3.new
-   	s3_bucket = s3.buckets['yaledramacoalition']
-   	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
+	   	s3_bucket = s3.buckets['yaledramacoalition']
+   		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 	end
 
 	def dashboard
@@ -39,6 +39,7 @@ class ShowsController < ApplicationController
 	   	s3_bucket = s3.buckets['yaledramacoalition']
 		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
+		@recent_auditions = @show.auditions.recent_past
 	end
 
 	def remind
