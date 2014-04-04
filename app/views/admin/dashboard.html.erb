@@ -4,8 +4,8 @@
 <style>
 label {display:inline;}
 input[type=radio] {margin:0px;margin-left:5px;vertical-align:center;}
-input[type=text] {margin:2px;width:517px;}
-textarea {padding:0px;margin:0px;height:100px;width:600px;font-size:12px;}
+input#subject {margin:2px;width:517px;}
+textarea#message {padding:0px;margin:0px;height:100px;width:600px;font-size:12px;}
 div#email_content {margin:10px 0px;}
 </style>
 <h4>Email all</h4>
@@ -22,7 +22,7 @@ div#email_content {margin:10px 0px;}
 	<%= radio_button_tag :positions, :producers %>
 	<%= label_tag :positions_producers, "Producers" %>
 	<%= radio_button_tag :positions, :contacts %>
-	<%= label_tag :positions_contacts, "Contact people" %>
+	<%= label_tag :positions_contacts, "Producers, directors and stage managers" %>
 	<br />
 	<div id="email_content">
 		<strong>Subject</strong>:
