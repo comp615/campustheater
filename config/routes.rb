@@ -79,7 +79,7 @@ Ydc::Application.routes.draw do
       get 'update_attendance'
     end
 		resources :auditions do
-      get 'recent', :on => :collection
+      get 'past', :on => :collection
     end
 		resources :reservations
 		member do

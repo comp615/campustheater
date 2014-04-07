@@ -131,7 +131,7 @@
   	<h5>Auditions &nbsp; <%= link_to "(Edit)", show_edit_people_path(@show) %></h5>
   	<span class="alt-text">Audition Info</span><br />
   	<p><%= @show.aud_info.blank? ? "(blank)" : @show.aud_info %></p>
-    <p><%= link_to "View #{pluralize @recent_auditions.count, "recent auditions"}", :controller => :auditions, :action => :recent, :show_id => @show.id if @recent_auditions.any? %></p>
+    <p><%= link_to "Past auditions", :controller => :auditions, :action => :past, :show_id => @show.id if @recent_auditions.any? %></p>
   	<br />
 		<div id="audition_slots">
 			<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>

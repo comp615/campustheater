@@ -45,10 +45,10 @@ class AuditionsController < ApplicationController
 		@user_audition ||= {}
 	end
 
-	def recent
+	def past
 		@active_nav = :auditions
-		@auditions = @show.auditions.recent_past
-		if !@aud_admin || @auditions.empty?
+		@auditions = @show.auditions
+		if !@aud_admin || @auditions.recent_past.empty?
 			redirect_to :action => :index, :show_id => @show.id
 		end
 	end
