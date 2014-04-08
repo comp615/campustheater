@@ -1,5 +1,3 @@
-require 'rvm/capistrano'
-
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
@@ -20,6 +18,7 @@ server '107.170.35.207', user: 'deploy', roles: [:web]
 # Default value for :scm is :git
 set :scm, :git
 set :rvm_type, :system
+set :rvm_custom_path, '/usr'
 set :rvm_ruby_string, 'ruby-1.9.3-p125'
 
 # Default value for :format is :pretty

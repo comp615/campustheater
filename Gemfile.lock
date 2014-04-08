@@ -53,6 +53,9 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -137,8 +140,6 @@ GEM
     ri_cal (0.8.8)
     rubycas-client (2.3.9)
       activesupport
-    rvm-capistrano (1.5.0)
-      capistrano (>= 2.15.4)
     sass (3.3.4)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -177,7 +178,9 @@ DEPENDENCIES
   aws-sdk
   best_in_place
   capistrano (~> 3.1)
+  capistrano-bundler (>= 1.1.0)
   capistrano-rails (~> 1.1)
+  capistrano-rvm
   client_side_validations!
   coffee-rails (~> 3.2.1)
   enum_column3
@@ -195,7 +198,6 @@ DEPENDENCIES
   remotipart
   ri_cal
   rubycas-client
-  rvm-capistrano
   sass-rails (~> 3.2.3)
   therubyracer
   uglifier (>= 1.0.3)
