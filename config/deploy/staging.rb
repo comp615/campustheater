@@ -1,5 +1,6 @@
 set :branch, 'steve-cmi'
-set :deploy_to, '/rails/campustheater-staging'
+# set :deploy_to, '/rails/campustheater-staging'
+set :deploy_to, '/home/deploy/staging'
 set :rails_env, 'staging'
 set :keep_releases, 2
 
