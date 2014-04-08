@@ -1,9 +1,9 @@
 development:
-  access_key_id: AKIAIKV35FPA5QOUEOEQ
-  secret_access_key: D8EWdgliXO+0CiwiJSSs2zh96Esm7Evi9pIZusSE
-  bucket: yaledramacoalition
+  access_key_id: PUT_YOUR_AWS_ACCESS_KEY_HERE
+  secret_access_key: aws_secret_key
+  bucket: s3_bucket_name
 
 production:
-  access_key_id: AKIAIKV35FPA5QOUEOEQ
-  secret_access_key: D8EWdgliXO+0CiwiJSSs2zh96Esm7Evi9pIZusSE
-  bucket: yaledramacoalition
+  access_key_id: PUT_YOUR_AWS_ACCESS_KEY_HERE
+  secret_access_key: aws_secret_key
+  bucket: s3_bucket_name

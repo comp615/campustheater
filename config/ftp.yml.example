@@ -1,9 +1,9 @@
 development:
-  host: yaledramacoalition.org
-  user: u40038516-ydc
-  password: Betterton
+  host: yoursite.com
+  user: user
+  password: password
 
 production:
-  host: yaledramacoalition.org
-  user: u40038516-ydc
-  password: Betterton
+  host: yoursite.com
+  user: user
+  password: password

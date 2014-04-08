@@ -1,5 +1,5 @@
 development:
-  account_id: UA-8441507-2
+  account_id: UA-1234567-1
 
 production:
-  account_id: UA-8441507-2
+  account_id: UA-1234567-1
