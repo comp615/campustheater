@@ -1,0 +1,9 @@
+development:
+  host: yaledramacoalition.org
+  user: u40038516-ydc
+  password: Betterton
+
+production:
+  host: yaledramacoalition.org
+  user: u40038516-ydc
+  password: Betterton

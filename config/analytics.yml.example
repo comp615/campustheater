@@ -1,0 +1,5 @@
+development:
+  account_id: UA-8441507-2
+
+production:
+  account_id: UA-8441507-2
