@@ -1,6 +1,14 @@
+# Server
+
+# YDC live server
+server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web], ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
+set :deploy_to, '/rails/campustheater-staging'
+
+# CMI test server
+# server '107.170.35.207', user: 'deploy', roles: [:web]
+# set :deploy_to, '/home/deploy/staging'
+
 set :branch, 'steve-cmi'
-# set :deploy_to, '/rails/campustheater-staging'
-set :deploy_to, '/home/deploy/staging'
 set :rails_env, 'staging'
 set :keep_releases, 2
 

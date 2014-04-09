@@ -7,11 +7,6 @@ set :application, 'campustheater'
 set :scm, :git
 set :repo_url, 'git@github.com:steve-cmi/campustheater.git'
 
-# Server
-# server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web],
-#   ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
-server '107.170.35.207', user: 'deploy', roles: [:web]
-
 # Ruby version for RVM - should match .rvmrc
 set :rvm_ruby_version, 'ruby-1.9.3-p125'
 
