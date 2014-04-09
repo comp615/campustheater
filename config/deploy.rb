@@ -3,19 +3,17 @@ lock '3.1.0'
 
 set :application, 'campustheater'
 
-### repository
+# Git
 set :scm, :git
 set :repo_url, 'git@github.com:steve-cmi/campustheater.git'
 
-### server
+# Server
 # server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web],
 #   ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
 server '107.170.35.207', user: 'deploy', roles: [:web]
 
-### rvm
-set :rvm_type, :system
-set :rvm_custom_path, '/usr'
-set :rvm_ruby_string, 'ruby-1.9.3-p125'
+# Ruby version for RVM - should match .rvmrc
+set :rvm_ruby_version, 'ruby-1.9.3-p125'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
