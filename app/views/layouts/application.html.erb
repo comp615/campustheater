@@ -41,7 +41,7 @@
                 <% end %>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                    	<li><%= link_to "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
+                    	<li><%= link_to Rails.env.development? ? "Staging" : "Home", root_path, :class => @active_nav == :home ? "active" : "" %></li>
                     	<li><%= link_to "Shows", shows_path, :class => @active_nav == :calendar ? "active" : "" %></li>
                     	<li><%= link_to "Auditions", auditions_path, :class => @active_nav == :auditions ? "active" : "" %></li>
                     	<li><%= link_to "Opportunities", opportunities_path, :class => @active_nav == :opportunities ? "active" : "" %></li>
