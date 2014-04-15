@@ -54,10 +54,15 @@ class PagesController < ApplicationController
 		puts "row config: #{@rows.map{|r| r.length}.inspect}"
 	end
 
-	# Static Page
+	# Static Pages
 	def resources
 		@page_name = " - Resources"
 		@active_nav = :learn
+	end
+
+	def donate
+		@page_name = " - Donate"
+		@active_nav = :donate
 	end
 
 	# The parameter we recieve is the file that we want to render

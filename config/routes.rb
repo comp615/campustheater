@@ -100,6 +100,7 @@ Ydc::Application.routes.draw do
   
   # Hijack guide links and wrap them in a special template
   match 'resources' => 'pages#resources'
+  match 'donate' => 'pages#donate'
   match 'guides/:static_file' => 'pages#guides', :as => :guides
   
   # Add legacy routes here
