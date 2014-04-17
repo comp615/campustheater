@@ -51,21 +51,25 @@ class Showtime < ActiveRecord::Base
 		ShowtimeMailer.notify_oup_email(@show,self).deliver if @show && @show.approved		
 	end
 	
+	def reserved_seats
+		@reserved_seats ||= self.reservations.sum(:num)
+	end
+
 	def is_full?
-		self.reservations.sum(:num) >= self.show.seats
+		self.reserved_seats >= self.show.seats
 	end
 
 	def reservations_frozen?
 		Time.now > self.timestamp - self.show.freeze_mins_before.minutes
 	end
 	
-	# Cap waitlist at 2x number of seats
+	# Cap waitlist when reserved seats = number of seats + waitlist_seats
 	def is_waitlist_full?
-		self.is_full? && (!self.show.waitlist || self.reservations.sum(:num) >= self.show.seats * 2)
+		self.is_full? && (!self.show.waitlist || self.reserved_seats >= self.show.total_seats)
 	end
 	
 	def remaining_tickets
-		[self.show.seats - self.reservations.sum(:num),0].max
+		[self.show.seats - self.reserved_seats,0].max
 	end
 
 	#### New code added by steve@commonmedia.com March 2013.

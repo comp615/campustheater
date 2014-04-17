@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140403174239) do
+ActiveRecord::Schema.define(:version => 20140417145931) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20140403174239) do
     t.enum     "accent_color",               :limit => [:red, :yellow, :green, :dark_blue, :blue, :light_blue, :black]
     t.boolean  "charges_at_door"
     t.string   "private_registration_token"
+    t.integer  "waitlist_seats"
   end
 
   create_table "showtimes", :force => true do |t|

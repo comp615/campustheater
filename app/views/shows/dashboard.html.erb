@@ -62,8 +62,8 @@
 	  			<th>
 	  				Remaining
 	  			</th>
-	  			<th>
-	  				Waitlisted (Max <%= @show.seats %>)
+	  			<th colspan="2">
+	  				Waitlisted (Max <%= @show.waitlist_seats %>)
 	  			</th>
 	  		</tr>
 	  		<% @show.showtimes.each do |showtime| %>
@@ -73,13 +73,13 @@
 	  				<%= small_timestamp(showtime.timestamp) %>
 	  			</td>
 	  			<td>
-	  				<%= [showtime.reservations.sum(:num), @show.seats].min %>
+	  				<%= [showtime.reserved_seats, @show.seats].min %>
 	  			</td>
 	  			<td>
-	  				<%= @show.seats - [showtime.reservations.sum(:num), @show.seats].min %>
+	  				<%= @show.seats - [showtime.reserved_seats, @show.seats].min %>
 	  			</td>
 	  			<td>
-	  				<%= [showtime.reservations.sum(:num) - @show.seats, 0].max %>
+	  				<%= [showtime.reserved_seats - @show.seats, 0].max %>
 	  			</td>
 	  		</tr>
 	  		<tr class="links <%= 'past' if showtime.timestamp <= Time.now %>">

@@ -92,8 +92,10 @@
 						end
 				%><br />
 				<%= f.check_box :waitlist %>
-				<%= f.label :waitlist, "Enable Waitlist" %>
-				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the number of seats given above">What's this?</a><br />
+				<%= f.label :waitlist, "Enable Waitlist of" %>
+				<%= f.number_field :waitlist_seats %>
+				<%= f.label :waitlist_seats, "Seats" %>
+				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the number of seats specified on this line.">What's this?</a><br />
 			</div>
 
 			<%= f.check_box :charges_at_door %>
