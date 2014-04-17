@@ -33,7 +33,10 @@ set :linked_files, %w{Gemfile Gemfile.lock config/analytics.yml config/aws.yml c
 set :linked_dirs, %w{log tmp}
 
 # Default value for default_env is {}
-# set :default_env, { path: "/usr/local/rvm/bin:$PATH" }
+set :default_env, {
+  path: "/usr/local/rvm/gems/ruby-1.9.3-p125/bin:/usr/local/rvm/gems/ruby-1.9.3-p125@global/bin:/usr/local/rvm/rubies/ruby-1.9.3-p125/bin:/usr/local/rvm/bin:$PATH",
+  gem_path: "/usr/local/rvm/gems/ruby-1.9.3-p125:/usr/local/rvm/gems/ruby-1.9.3-p125@global",
+}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

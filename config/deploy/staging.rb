@@ -1,7 +1,7 @@
 # Server
 
 # YDC live server
-server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web], ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
+server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web, :app, :db], ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
 set :deploy_to, '/rails/campustheater-staging'
 
 # CMI test server
