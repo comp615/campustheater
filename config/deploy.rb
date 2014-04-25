@@ -3,6 +3,9 @@ lock '3.1.0'
 
 set :application, 'campustheater'
 
+# Server (note: YDC keypair needed)
+server 'yaledramacoalition.org', user: 'ubuntu', roles: [:web, :app, :db], ssh_options: {keys: %w(~/.ssh/YDCKeypair.pem)}
+
 # Git
 set :scm, :git
 set :repo_url, 'git@github.com:steve-cmi/campustheater.git'
