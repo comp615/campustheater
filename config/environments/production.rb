@@ -78,4 +78,7 @@ Ydc::Application.configure do
     }
 end
 
-ActionMailer::Base.delivery_method = :smtp
+# ActionMailer::Base.delivery_method = :smtp
+# For temporary review, don't really send emails...just put them in a file
+ActionMailer::Base.delivery_method = :file
+ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
