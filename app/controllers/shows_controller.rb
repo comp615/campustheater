@@ -54,6 +54,11 @@ class ShowsController < ApplicationController
 			redirect_to :action => :dashboard
 			return
 		end
+		if @showtime.past?
+			flash[:error] = "Reminders cannot be sent for past shows"
+			redirect_to :action => :dashboard
+			return
+		end
 		if request.post?
 			emails_sent = 0
 			@showtime.reservations.each do |reservation|

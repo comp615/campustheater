@@ -62,9 +62,12 @@
 	  			<th>
 	  				Remaining
 	  			</th>
-	  			<th colspan="2">
-	  				Waitlisted (Max <%= @show.waitlist_seats %>)
+	  			<th>
+	  				Waitlisted<br />(Max <%= @show.waitlist_seats %>)
 	  			</th>
+          <th>
+            Reminders
+          </th>
 	  		</tr>
 	  		<% @show.showtimes.each do |showtime| %>
 
@@ -81,21 +84,23 @@
 	  			<td>
 	  				<%= [showtime.reserved_seats - @show.seats, 0].max %>
 	  			</td>
+          <td>
+              <% if showtime.reminder_sent -%>
+              Sent
+              <% elsif showtime.past? -%>
+              Unsent
+              <% else -%>
+              <%= link_to "Send", :action => :remind, :showtime_id => showtime.id %>
+              <% end -%>
+          </td>
 	  		</tr>
 	  		<tr class="links <%= 'past' if showtime.timestamp <= Time.now %>">
 	  			<td>
 	  				&nbsp; <i class='icon-print'></i> <%= link_to "View Reservations", show_showtime_path(@show, showtime) %>
 	  			</td>
-	  			<td colspan="3">
+	  			<td colspan="4">
 	  				<i class='icon-download-alt'></i> <%= link_to "Download Reservations (excel file)", show_showtime_path(@show, showtime, "csv") %>
 	  			</td>
-          <td>
-              <% if showtime.reminder_sent -%>
-              Reminders sent
-              <% else -%>
-              <%= link_to "Email reminders", :action => :remind, :showtime_id => showtime.id %>
-              <% end -%>
-          </td>
 	  		</tr>
 	  		<% end %>
 	  	</table><br />

@@ -124,6 +124,14 @@ class Showtime < ActiveRecord::Base
 	def self.upcoming
 		self.future
 	end
+
+	def future?
+		self.timestamp > Time.zone.now
+	end
+
+	def past?
+		self.timestamp < Time.zone.now
+	end
 	
 	####
 	
