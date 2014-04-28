@@ -33,7 +33,7 @@ set :linked_files, %w{Gemfile Gemfile.lock config/analytics.yml config/aws.yml c
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{log tmp}
+set :linked_dirs, %w{log tmp public/static public/static_archives public/static_guides}
 
 # Default value for default_env is {}
 set :default_env, {
