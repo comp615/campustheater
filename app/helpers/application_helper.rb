@@ -101,7 +101,7 @@ module ApplicationHelper
 	def get_reservation_line(show, block = false)
 		if show.showtimes.length > 0 && Time.now > Time.at(show.showtimes.last.timestamp)
 			"Show no longer running"
-		elsif !show.tix_enabled && show.alt_tix
+		elsif !show.tix_enabled && show.alt_tix?
 			if show.alt_tix_link =~ /^mailto:/
 				link_to "E-mail Ticket Reserves", show.alt_tix_link, :class => 'btn btn-primary', :target => '_blank'
 			else
