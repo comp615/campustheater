@@ -18,6 +18,7 @@ textarea {padding:0px;margin:0px;height:100px;width:600px;font-size:12px;}
 		<p>on <%= @showtime.timestamp.strftime '%A %B %e' %></p>
 		<p>at <%= @showtime.timestamp.strftime '%l:%m %p' %></p>
 		<p>at the <%= @show.location %></p>
+		<p>status <em>CONFIRMED/PARTIALLY RESERVED/WAITLISTED<em></p>
 	</blockquote>
 
 	<p>

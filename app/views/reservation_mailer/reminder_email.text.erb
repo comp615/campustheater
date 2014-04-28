@@ -10,6 +10,8 @@ at <%= @showtime.timestamp.strftime('%l:%m %p').strip %>
 
 at the <%= @show.location.strip %>
 
+status <%= @reservation.status_line %>
+
 <% unless @message.blank? -%>
 A brief note from the <%= @show.title.strip %> team:
 <%= word_wrap @message %>

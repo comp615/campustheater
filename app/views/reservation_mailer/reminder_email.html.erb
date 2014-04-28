@@ -7,6 +7,7 @@
 	<p>on <%= @showtime.timestamp.strftime '%A %B %e' %></p>
 	<p>at <%= @showtime.timestamp.strftime '%l:%m %p' %></p>
 	<p>at the <%= @show.location %></p>
+	<p>status <%= @reservation.status_line %></p>
 </blockquote>
 
 <% unless @message.blank? -%>
