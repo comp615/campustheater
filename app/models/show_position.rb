@@ -43,5 +43,22 @@ class ShowPosition < ActiveRecord::Base
 	def cleanup_person
 		self.person.destroy if self.person && self.person.show_positions.count == 0 && self.person.netid.blank?
 	end
+
+	#### New code added by steve@commonmedia.com March 2013.
+
+	# Select positions for admin email_all
+	def self.primary
+		where('assistant IS NULL')
+	end
+
+	def self.producers
+		where(:position_id => 1)
+	end
+
+	def self.contacts
+		where(:position_id => [1,2,3])
+	end
+	
+	####
 	
 end

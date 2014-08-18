@@ -23,23 +23,21 @@ class ReservationsController < ApplicationController
 	
 	# Not actually used I think, supersceded by index for routing cleanliness
 	def new
-		@reservation = Reservation.new
 		render :edit
 	end
 	
 	def create
 		@reservation = Reservation.new
+		@reservation.show_token = params[:t] if params[:t]
 		params[:reservation][:token] = rand(36**8).to_s(36)
 		params[:reservation][:person_id] = @current_user.id if @current_user
 		respond_to do |format|
 			if @reservation.update_attributes(params[:reservation])
-				
 				# Tell the ReservationMailer to send a confirmation email
-        ReservationMailer.reservation_confirmation_email(@reservation.showtime, @reservation, @reservation.status_line).deliver
-
-				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully created. You should receive an email confirmation shortly with a link to this page.' }
+		        ReservationMailer.reservation_confirmation_email(@reservation.showtime, @reservation, @reservation.status_line).deliver
+				format.html { redirect_to show_reservation_path(@show, @reservation, :auth_code => @reservation.token), :notice => 'Reservation was successfully created. You should receive an email confirmation shortly with a link to this page.' }
 			else
-				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again!'
+				flash.now[:error] = "Sorry, there was a problem with the data you entered. #{@reservation.errors.full_messages.to_sentence}."
 				format.html { render :action => "edit" }
 			end
 		end
@@ -50,14 +48,14 @@ class ReservationsController < ApplicationController
 		if request.format == :ics
 			res = @reservation
 			ical_event = RiCal.Event do |event|
-	      event.description = res.showtime.show.title
-	      event.dtstart  =   @reservation.showtime.timestamp
-	      event.dtend = @reservation.showtime.timestamp + 2.hours
-	     	event.location = @reservation.showtime.show.location
-	    end
-	    filename = "ydc_tickets_" + @reservation.id.to_s + ".ics"
-	    send_data(ical_event.export, :filename => filename, :disposition=>"inline; filename=" + filename, :type=>"text/calendar")
-	    return
+			    event.description = res.showtime.show.title
+			    event.dtstart  =   @reservation.showtime.timestamp
+			    event.dtend = @reservation.showtime.timestamp + 2.hours
+			    event.location = @reservation.showtime.show.location
+		    end
+		    filename = "ydc_tickets_" + @reservation.id.to_s + ".ics"
+		    send_data(ical_event.export, :filename => filename, :disposition=>"inline; filename=" + filename, :type=>"text/calendar")
+		    return
 		end
 		render :edit
 	end
@@ -69,11 +67,12 @@ class ReservationsController < ApplicationController
 	# Update an existing reservation (Requires auth code or login)
 	def update
 		params[:reservation][:person_id] = @current_user.id if @current_user && (!@reservation || !@reservation.person_id)
+		@reservation.show_token = @show.private_registration_token
 		respond_to do |format|
 			if @reservation.update_attributes(params[:reservation])
-				format.html { redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => 'Reservation was successfully updated.' }
+				format.html { redirect_to show_reservation_path(@show, @reservation, :auth_code => @reservation.token), :notice => 'Reservation was successfully updated.' }
 			else
-				flash.now[:error] = 'Sorry, there was a problem with the data you entered, please check below and try again! You may only make one reservation per email per show'
+				flash.now[:error] = "Sorry, there was a problem with the data you entered. #{@reservation.errors.full_messages.to_sentence}."
 				format.html { render :action => "edit" }
 			end
 		end
@@ -92,7 +91,7 @@ class ReservationsController < ApplicationController
 	def fetch_show
 		return if !params[:show_id] && params[:auth]
 		@show = Show.includes(:showtimes).find(params[:show_id])
-		redirect_to @show, :notice => "Sorry this shows tickets can no longer be changed!" if !@show.ok_to_ticket?
+		redirect_to @show, :notice => "Sorry this show's tickets can no longer be changed!" unless params[:auth_code] || @show.ok_to_ticket?(params[:t])
 	end
 	
 	def auth_reservation
@@ -110,7 +109,7 @@ class ReservationsController < ApplicationController
 
 			# Redirect them to the new url structure
 			@show = @reservation.showtime.show
-			redirect_to (url_for([@show,@reservation]) + "?auth_code=#{@reservation.token}"), :notice => "We've updated our website. Please use the new address shown above for future reference!"
+			redirect_to show_reservation_path(@show, @reservation, :auth_code => @reservation.token), :notice => "We've updated our website. Please use the new address shown above for future reference!"
 		end
 
 		return true if (@current_user && @current_user.has_permission?(@show, :full)) || 

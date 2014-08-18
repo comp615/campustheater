@@ -101,8 +101,12 @@ module ApplicationHelper
 	def get_reservation_line(show, block = false)
 		if show.showtimes.length > 0 && Time.now > Time.at(show.showtimes.last.timestamp)
 			"Show no longer running"
-		elsif !show.tix_enabled && show.alt_tix
-			show.alt_tix
+		elsif !show.tix_enabled && show.alt_tix?
+			if show.alt_tix_link =~ /^mailto:/
+				link_to "E-mail Ticket Reserves", show.alt_tix_link, :class => 'btn btn-primary', :target => '_blank'
+			else
+				link_to "Reservations Here", show.alt_tix_link, :class => 'btn btn-primary', :target => '_blank'
+			end
 		elsif !show.approved
 			"Show not yet approved"
 		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && !block
@@ -110,9 +114,9 @@ module ApplicationHelper
 		elsif show.tix_enabled && show.on_sale && Time.now > show.on_sale && block
 			render :partial => "shared/show_reservation_form", :locals => {:show => show}
 		elsif show.tix_enabled
-			"Not available till #{show.on_sale}"
+			"Not available til #{show.on_sale}"
 		else
-			"No data provided"
+			"Tickets not yet available, check back soon!"
 		end
 	end
 	

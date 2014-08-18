@@ -12,7 +12,7 @@ class ShowsController < ApplicationController
 		@active_nav = :calendar
 		@page_name = " - Upcoming Shows"
 		
-		@shows = Show.future
+		@shows = Show.on_show_page.future
 		@this_week = @shows.select{|s| s.this_week?}
 
 		@showtime_data = {}
@@ -28,17 +28,47 @@ class ShowsController < ApplicationController
 		@active_nav = :calendar
 		@page_name = " - #{@show.title}"
 		s3 = AWS::S3.new
-   	s3_bucket = s3.buckets['yaledramacoalition']
-   	@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
+	   	s3_bucket = s3.buckets['yaledramacoalition']
+   		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 	end
 
 	def dashboard
 		@page_name = " - Show Dashboard"
 		# People can see this as long as they have SOME permission
 		s3 = AWS::S3.new
-   	s3_bucket = s3.buckets['yaledramacoalition']
+	   	s3_bucket = s3.buckets['yaledramacoalition']
 		@s3_objects = s3_bucket.objects.with_prefix("shows/#{@show.id}/misc/")
 		raise ActionController::RoutingError.new('Not Found') unless @current_user.has_permission?(@show, nil, true)	
+		@recent_auditions = @show.auditions.recent_past
+	end
+
+	def remind
+		@showtime = @show.showtimes.find_by_id(params[:showtime_id]) if params[:showtime_id]
+		if @showtime.nil?
+			flash[:error] = "No showtime selected!"
+			redirect_to :action => :dashboard
+			return
+		end
+		if @showtime.reminder_sent
+			flash[:error] = "Reminders have already been sent for this showtime"
+			redirect_to :action => :dashboard
+			return
+		end
+		if @showtime.past?
+			flash[:error] = "Reminders cannot be sent for past shows"
+			redirect_to :action => :dashboard
+			return
+		end
+		if request.post?
+			emails_sent = 0
+			@showtime.reservations.each do |reservation|
+				ReservationMailer.reminder_email(@show, @showtime, reservation, params[:message]).deliver
+				emails_sent += 1
+			end
+			@showtime.update_attribute :reminder_sent, true
+			flash[:notice] = "Reminder emails sent to #{view_context.pluralize emails_sent, 'attendee'}."
+			redirect_to :action => :dashboard
+		end
 	end
 	
 	def new

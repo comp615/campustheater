@@ -61,6 +61,7 @@ Ydc::Application.routes.draw do
   match 'admin/approve_takeover/:id' => 'admin#approve_takeover', :as => :approve_takeover
   match 'admin/reject_takeover/:id' => 'admin#reject_takeover', :as => :reject_takeover
   match 'admin/approve_show/:id' => 'admin#approve_show', :as => :approve_show
+  match 'admin/email_all' => 'admin#email_all', :as => :email_all
   
   
   match 'login' => 'people#dashboard', :as => :login
@@ -72,11 +73,14 @@ Ydc::Application.routes.draw do
   resources :shows do
     get 'edit_people', :controller => :shows, :action => :edit_people, :as => :edit_people
     match 'edit_files', :controller => :shows, :action => :edit_files, :as => :edit_files, :via => [:get, :post]
+    match 'remind/:showtime_id', :controller => :shows, :action => :remind, :as => :remind, :via => [:get, :post]
     get 'dashboard', :controller => :shows, :action => :dashboard, :as => :dashboard
 		resources :showtimes, :only => [:show, :index]  do #Used as reservation viewer for admin
       get 'update_attendance'
     end
-		resources :auditions
+		resources :auditions do
+      get 'past', :on => :collection
+    end
 		resources :reservations
 		member do
 	    put 'auditions', :controller => :auditions, :action => :update
@@ -96,6 +100,7 @@ Ydc::Application.routes.draw do
   
   # Hijack guide links and wrap them in a special template
   match 'resources' => 'pages#resources'
+  match 'donate' => 'pages#donate'
   match 'guides/:static_file' => 'pages#guides', :as => :guides
   
   # Add legacy routes here

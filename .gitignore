@@ -7,6 +7,9 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore RVM config
+/.rvmrc
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
@@ -17,6 +20,5 @@
 /public/static_archives
 /public/guides
 /public/static_guides
-Gemfile.lock
 
 app/assets/images/.DS_Store

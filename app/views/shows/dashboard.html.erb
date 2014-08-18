@@ -63,8 +63,11 @@
 	  				Remaining
 	  			</th>
 	  			<th>
-	  				Waitlisted (Max <%= @show.seats %>)
+	  				Waitlisted<br />(Max <%= @show.waitlist_seats %>)
 	  			</th>
+          <th>
+            Reminders
+          </th>
 	  		</tr>
 	  		<% @show.showtimes.each do |showtime| %>
 
@@ -73,25 +76,37 @@
 	  				<%= small_timestamp(showtime.timestamp) %>
 	  			</td>
 	  			<td>
-	  				<%= [showtime.reservations.sum(:num), @show.seats].min %>
+	  				<%= [showtime.reserved_seats, @show.seats].min %>
 	  			</td>
 	  			<td>
-	  				<%= @show.seats - [showtime.reservations.sum(:num), @show.seats].min %>
+	  				<%= @show.seats - [showtime.reserved_seats, @show.seats].min %>
 	  			</td>
 	  			<td>
-	  				<%= [showtime.reservations.sum(:num) - @show.seats, 0].max %>
+	  				<%= [showtime.reserved_seats - @show.seats, 0].max %>
 	  			</td>
+          <td>
+              <% if showtime.reminder_sent -%>
+              Sent
+              <% elsif showtime.past? -%>
+              Unsent
+              <% else -%>
+              <%= link_to "Send", :action => :remind, :showtime_id => showtime.id %>
+              <% end -%>
+          </td>
 	  		</tr>
 	  		<tr class="links <%= 'past' if showtime.timestamp <= Time.now %>">
 	  			<td>
 	  				&nbsp; <i class='icon-print'></i> <%= link_to "View Reservations", show_showtime_path(@show, showtime) %>
 	  			</td>
-	  			<td colspan="3">
+	  			<td colspan="4">
 	  				<i class='icon-download-alt'></i> <%= link_to "Download Reservations (excel file)", show_showtime_path(@show, showtime, "csv") %>
 	  			</td>
 	  		</tr>
 	  		<% end %>
-	  	</table>
+	  	</table><br />
+      <p>
+          <%= link_to "Private Reservations Link", :controller => :reservations, :show_id => @show.id, :t => @show.private_registration_token %>
+      </p>
 	  <% else %>
 	  	<% @show.showtimes.each do |showtime| %>
 	  		<%= small_timestamp(showtime.timestamp) %><br />
@@ -121,6 +136,7 @@
   	<h5>Auditions &nbsp; <%= link_to "(Edit)", show_edit_people_path(@show) %></h5>
   	<span class="alt-text">Audition Info</span><br />
   	<p><%= @show.aud_info.blank? ? "(blank)" : @show.aud_info %></p>
+    <p><%= link_to "Past auditions", :controller => :auditions, :action => :past, :show_id => @show.id if @recent_auditions.any? %></p>
   	<br />
 		<div id="audition_slots">
 			<%= render :partial => 'shared/audition_blocks', :locals => { :audition_groups => Audition.group_into_blocks(@show.auditions) } %>

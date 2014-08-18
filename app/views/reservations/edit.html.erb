@@ -24,7 +24,7 @@
 
 		Please select a showtime:<br />
 		<br />
-		<%= form_for [@show, @reservation] do |f| %>
+		<%= form_for [@show, @reservation], :url => {:auth_code => params[:auth_code], :t => params[:t]} do |f| %>
 			<% @show.showtimes.each do |showtime| %>
 				<%= render :partial => "showtime_reservation_line", :locals => {:form => f, :showtime => showtime} %><br />
 			<% end %>
@@ -39,7 +39,11 @@
 		<% end %>
 		<% if !@reservation.id.blank? %>
 			<br />
+<<<<<<< HEAD
 			<%= button_to "Cancel Reservation", [@show,@reservation], :method => :delete, :confirm => "Are you sure you want to cancel this reservation? This cannot be undone." %>
+=======
+			<%= button_to "Cancel Reservation", {:auth_code => params[:auth_code]}, :method => :delete, :confirm => "Are you sure you want to cancel this reservation?" %>
+>>>>>>> FETCH_HEAD
 		<% end %>
 	</div>
 </div>

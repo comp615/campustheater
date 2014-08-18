@@ -37,6 +37,20 @@ class Audition < ActiveRecord::Base
 		groups << group
 		groups
 	end
+
+	#### New code added by steve@commonmedia.com March 2013.
+
+	def self.immediate_future
+		# self.future is now plus 10 minutes
+		where(['timestamp > ?', Time.now])
+	end
+
+	RECENT_PAST_DAYS = 5
+	def self.recent_past
+		where(['timestamp BETWEEN ? and ?', Time.now - RECENT_PAST_DAYS.days, Time.now])
+	end
+
+	####
 	
 	private
 		

@@ -25,4 +25,13 @@ class ReservationMailer < ActionMailer::Base
     @reservation = reservation
     mail(:to => @reservation.email, :subject => "[YDC Site] Show Cancelation Notice: " + show.title, :reply_to => @show.contact)
   end
+
+  def reminder_email(show, showtime, reservation, message)
+    @show = show
+    @showtime = showtime
+    @reservation = reservation
+    @message = message
+    mail(:to => reservation.email, :subject => "[YDC Site] Show Reminder: " + show.title, :reply_to => @show.contact)
+  end
+
 end

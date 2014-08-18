@@ -1,0 +1,5 @@
+development:
+  account_id: UA-1234567-1
+
+production:
+  account_id: UA-1234567-1

@@ -1,0 +1,30 @@
+<div class="span10 offset1">
+	<h2><%= @show.title %> <span class="faded">past auditions</span></h2>
+
+	<hr />
+
+	<table class="admin">
+		<tr>
+			<th>Audition Time</th>
+			<th>Location</th>
+			<th>Person</th>
+			<th>Email</th>
+			<th>Phone</th>
+		</tr>
+		<tr><td colspan="4"></td></tr>
+		<% @auditions.each do |audition| %>
+		<tr>
+			<td><%= small_timestamp(audition.timestamp) %></td>
+			<td><%= audition.location %></td>
+			<% if audition.person %>
+				<td><%= audition.person.display_name %></td>
+				<td><%= audition.email %></td>
+				<td><%= audition.phone %></td>
+			<% else %>
+				<td colspan="3">Not Taken</td>
+			<% end %>
+		</tr>
+	    <% end %>
+	</table>
+
+</div>

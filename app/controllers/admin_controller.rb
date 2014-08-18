@@ -10,7 +10,7 @@ class AdminController < ApplicationController
 	end
 
 	def newsletter
-		@shows = Show.readonly.this_week
+		@shows = Show.readonly.coming_soon.this_week
 		@auditions = Audition.future.includes(:show).select{|a| a.show}.group_by(&:show)
 		future_show_ids = Show.future.pluck("`shows`.`id`")
 		@opportunities = ShowPosition.crew.vacant.where(:show_id => future_show_ids).includes(:show, :position).group_by(&:show)
@@ -51,6 +51,27 @@ class AdminController < ApplicationController
 		else
 			redirect_to admin_dashboard_path, :error => "There was a problem, please try again..."
 		end
+	end
+
+	def email_all
+		if params[:shows].blank?
+			flash[:error] = 'Please select which shows you want to email.'
+		elsif params[:positions].blank?
+			flash[:error] = 'Please select which positions you want to email.'
+		elsif params[:subject].blank?
+			flash[:error] = 'Please enter a subject for your email.'
+		elsif params[:message].blank?
+			flash[:error] = 'Please enter a message to send.'
+		else
+			recipients = Person.staff_for(params[:shows], params[:positions]).pluck(:email).compact
+			if recipients.empty?
+				flash[:error] = 'The selected options matched no people!'
+			else
+				AdminMailer.staff_email(recipients, params[:subject], params[:message]).deliver
+				flash[:notice] = "Email sent to #{recipients.size} people."
+			end
+		end
+		redirect_to :action => :dashboard
 	end
 	
 	private

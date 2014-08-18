@@ -92,9 +92,16 @@
 						end
 				%><br />
 				<%= f.check_box :waitlist %>
-				<%= f.label :waitlist, "Enable Waitlist" %>
-				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the number of seats given above">What's this?</a>
+				<%= f.label :waitlist, "Enable Waitlist of" %>
+				<%= f.number_field :waitlist_seats %>
+				<%= f.label :waitlist_seats, "Seats" %>
+				<a href="#" rel="tooltip" title="A waitlist allows you to take reservations even when the theater is full. If people cancel tickets, waitlisters will automatically be notified. The waitlist itself is capped at the number of seats specified on this line.">What's this?</a><br />
 			</div>
+
+			<%= f.check_box :charges_at_door %>
+			<%= f.label :charges_at_door, "Charges at the Door" %>
+			<a href="#" rel="tooltip" title="If your show will charge an entrance fee, the YDC requires that you notify patrons using this feature.">What's this?</a><br />
+
 			<hr />
 			<h4>Permissions</h4>
 			<a href="#" rel="tooltip" title="These are the people (besides you) who will be able to access your show to edit it (or portions of it)">What's This?</a>

@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 		# TODO: Change this, duh!
 
 		# Group things appropriately. Cannot be more than 2 modules
-		@shows = Show.readonly.this_week
+		@shows = Show.readonly.coming_soon.this_week
 
 		@showtime_data = {}
 		@shows.each {|show| @showtime_data[show.id] = show.showtimes.map {|st| {:id => st.id, :text => st.short_display_time, :cap => show.cap}}}
@@ -54,10 +54,15 @@ class PagesController < ApplicationController
 		puts "row config: #{@rows.map{|r| r.length}.inspect}"
 	end
 
-	# Static Page
+	# Static Pages
 	def resources
 		@page_name = " - Resources"
 		@active_nav = :learn
+	end
+
+	def donate
+		@page_name = " - Donate"
+		@active_nav = :donate
 	end
 
 	# The parameter we recieve is the file that we want to render

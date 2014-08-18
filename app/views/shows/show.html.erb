@@ -29,6 +29,16 @@
 	</div>
 </div>
 
+<% if @show.contact? -%>
+<div class="row">
+	<div class="span8 offset2">
+		<h5 style="display:inline">Contact the Show</h5>
+		<small>at</small>
+		<%= mail_to @show.contact %>
+	</div>
+</div>
+<% end -%>
+
 <div class="row">
 	<div class="span4 offset2 performances lg">
 		<h5>Performances</h5>
@@ -40,6 +50,9 @@
 	<div class="span4 reservations">
 		<h5>Reservations</h5>
 		<%= get_reservation_line(@show, true) %>
+		<% if @show.charges_at_door -%>
+		<h6>There is a cost of admittance to this production.</h6>
+		<% end -%>
 	</div>
 </div>
 

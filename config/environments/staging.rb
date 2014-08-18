@@ -12,7 +12,7 @@ Ydc::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -67,18 +67,17 @@ Ydc::Application.configure do
 
 
   # Root url used for action mailer links
-  config.action_mailer.default_url_options = { :host => "yaledramacoalition.org" }
+  config.action_mailer.default_url_options = { :host => "localhost", :port => 3000 }
   
   #Use notifier plugin gem
-  config.middleware.use ExceptionNotification::Rack,
-  	:email => { 
-      :email_prefix => "[YDC Site] ",
-  	  :sender_address => %{"YDC Bug Notifier" <ydc123@gmail.com>},
-  	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu, eli.block@yale.edu}
-    }
+  # config.middleware.use ExceptionNotification::Rack,
+  # 	:email => { 
+  #     :email_prefix => "[YDC Site] ",
+  # 	  :sender_address => %{"YDC Bug Notifier" <ydc123@gmail.com>},
+  # 	  :exception_recipients => %w{charlie.croom@gmail.com, stuart.teal@yale.edu, eli.block@yale.edu}
+  #   }
 end
 
-ActionMailer::Base.delivery_method = :smtp
-# For temporary review, don't really send emails...just put them in a file
-# ActionMailer::Base.delivery_method = :file
-# ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
+# Also in development, don't really send emails...just put them in a file
+ActionMailer::Base.delivery_method = :file
+ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }

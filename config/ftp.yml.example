@@ -1,0 +1,9 @@
+development:
+  host: yoursite.com
+  user: user
+  password: password
+
+production:
+  host: yoursite.com
+  user: user
+  password: password

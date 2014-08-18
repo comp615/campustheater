@@ -3,4 +3,4 @@
 <%= show.tagline if !show.tagline.blank? %><%= raw "<br />" if !show.tagline.blank? %>
 <strong>Directed By:</strong> <%= show.director %><br />
 <strong>Place:</strong> <%= show.location %><br />
-<%= format_showtimes(show.showtimes) %>
+<strong>Showtimes:</strong> <%= format_showtimes(show.showtimes) %>

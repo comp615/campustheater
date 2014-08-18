@@ -9,6 +9,8 @@ class PeopleController < ApplicationController
 		#TODO: SHould we cache people's public profiles?
 		#TODO: Should admins be able to edit?
 		@page_name = " - #{@person.display_name}"
+		@show_positions = @person.show_positions.includes({:show => :showtimes},:position).where(:show_id => Show.unscoped.on_people_page)
+		@show_positions = @show_positions.select{|sp| sp.show}.sort_by{|sp| sp.show.showtimes.first.timestamp}.reverse
 	end
 	
 	def dashboard

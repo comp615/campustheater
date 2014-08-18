@@ -112,5 +112,38 @@ class Person < ActiveRecord::Base
     self.lname = name[1].downcase || ''
     self.save
   end
-	
+
+  #### New code added by steve@commonmedia.com March 2013.
+
+  # Generate a list of people for the admin email_all form.
+  def self.staff_for(show_option, position_option)
+
+    # select shows
+    case show_option.to_sym
+    when :upcoming
+      shows = Show.upcoming
+    when :semester
+      shows = Show.this_semester
+    when :year
+      shows = Show.this_year
+    end
+
+    # select positions
+    case position_option.to_sym
+    when :producers
+      positions = ShowPosition.primary.producers
+    when :contacts
+      positions = ShowPosition.primary.contacts
+    end
+
+    # merge shows and positions
+    show_positions = positions.where(:show_id => shows.select(:id))
+
+    # select people
+    Person.where(:id => show_positions.select(:person_id))
+
+  end
+
+  ####
+  
 end

@@ -17,7 +17,7 @@ class Show < ActiveRecord::Base
 	#TODO: Make some scopes to get basic information only
 	
 	attr_accessible :category, :title, :writer, :tagline, :location, :url_key, :contact, :description, :poster, :accent_color, :flickr_id
-	attr_accessible :tix_enabled, :alt_tix, :seats, :cap, :waitlist, :show_waitlist, :freeze_mins_before, :on_sale
+	attr_accessible :tix_enabled, :alt_tix, :seats, :cap, :waitlist, :show_waitlist, :waitlist_seats, :charges_at_door, :freeze_mins_before, :on_sale
 	attr_accessible :auditions_enabled, :aud_info
 	attr_accessible :showtimes_attributes, :show_positions_attributes, :permissions_attributes
 	accepts_nested_attributes_for :showtimes, :allow_destroy => true
@@ -38,8 +38,8 @@ class Show < ActiveRecord::Base
 	
 	
 	def self.shows_in_range(range)
-		ids = Showtime.where(:timestamp => range).pluck(:show_id)
-		Show.where(:id => ids) # TODO: verify hotfix to handle shows which aren't approved yet
+		# TODO: verify hotfix to handle shows which aren't approved yet
+		Show.where(:id => Showtime.select(:show_id).where(:timestamp => range))
 	end
 	
 	def director
@@ -103,10 +103,6 @@ class Show < ActiveRecord::Base
 		self.joins(:showtimes).where(["showtimes.timestamp >= ?",Time.now]).order("showtimes.timestamp")
 	end
 
-	def self.future_ids
-		Showtime.where(["showtimes.timestamp >= ?",Time.now]).pluck(:show_id)
-	end
-	
 	def has_opened?
 		self.showtimes.sort_by{|st| st.timestamp}.first.timestamp.to_time >= Time.now
 	end
@@ -115,8 +111,20 @@ class Show < ActiveRecord::Base
 		self.showtimes.sort_by{|st| st.timestamp}.last.timestamp.to_time < Time.now
 	end
 	
-	def ok_to_ticket?
-		self.tix_enabled && self.on_sale.to_time <= Time.now && !self.has_closed?
+	def ok_to_ticket?(token = nil)
+		if token and token == private_registration_token
+			self.tix_enabled
+		else
+			self.tix_enabled && self.on_sale.to_time <= Time.now && !self.has_closed?
+		end
+	end
+
+	def private_registration_token
+		unless self[:private_registration_token]
+			self[:private_registration_token] = SecureRandom.hex
+			save
+		end
+		self[:private_registration_token]
 	end
 	
 	# Get the OCI term of the show's opening night, can help for categorizing
@@ -189,5 +197,47 @@ class Show < ActiveRecord::Base
 		end
 		range
 	end
-	
+
+	#### New code added by steve@commonmedia.com March 2013.
+
+	public
+
+	# Conditionally exclude or include certain event types.
+	def self.in_category(category)
+		where(:category => category)
+	end
+
+	def self.coming_soon
+		in_category([:comedy, :dance, :theater])
+	end
+
+	def self.on_show_page
+		in_category([:dance, :theater])
+	end
+
+	def self.on_people_page
+		in_category([:dance, :theater])
+	end
+
+	# Find shows by semester and academic year.
+	def self.upcoming
+		# not reusing self.future because joins break subqueries
+		where(:id => Showtime.select(:show_id).upcoming)
+	end
+
+	def self.this_semester
+		where(:id => Showtime.select(:show_id).this_semester)
+	end
+
+	def self.this_year
+		where(:id => Showtime.select(:show_id).this_year)
+	end
+
+	# Total seats, including waitlist
+	def total_seats
+		seats + waitlist_seats
+	end
+
+	####
+
 end
