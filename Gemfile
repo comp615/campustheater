@@ -54,7 +54,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano',  '~> 3.1'
+gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-rails', '~> 1.1'
 gem 'capistrano-bundler', '>= 1.1.0'
 gem 'capistrano-rvm'
