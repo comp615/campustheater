@@ -126,28 +126,6 @@
 					<% end %>
 
 					<hr />
-
-					<h2>Auditions</h2>
-					<% @auditions.each do |show, auditions| %>
-						<strong><%= link_to show.title, best_link(show, true), :class => 'title' %></strong><br />
-						<strong>By:</strong> <%= show.writer %><br />
-						<strong>Show Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
-						<strong>Directed By:</strong> <%= show.director %><br />
-						<b>Audition Dates:</b> <%= format_showtimes auditions %><br />
-						<b>Audition Signup:</b> <%= link_to auditions.select{|a| !a.person_id}.count.to_s + " Slots Available", show_auditions_url(show) %><br /><br />
-					<% end %>
-				</td>
-				<td width="50%" style="vertical-align: top; padding: 0 25px;">
-					<h2>Announcements</h2>
-						<div id="announcements">
-							<% @announcements.each do |subject, message| %>
-								<p>
-									<strong style="font-size: 18px;"><%= subject %></strong><br />
-									<%= message.gsub(/\n/,"<br />").html_safe %>
-								</p>
-							<% end %>
-						</div>
-					<hr />
 					<h2>Opportunities</h2>
 					<table>
 						<% @opportunities.each do |show, ops| %>
@@ -178,8 +156,31 @@
 								<% end %>
 							</tr>
 						<% end %>
-				</table>
-				<br />View <%= link_to "all opportunities", opportunities_url %> on the full website!
+					</table>
+					<br />View <%= link_to "all opportunities", opportunities_url %> on the full website!
+					<hr />
+					<h2>Auditions</h2>
+					<% @auditions.each do |show, auditions| %>
+						<strong><%= link_to show.title, best_link(show, true), :class => 'title' %></strong><br />
+						<strong>By:</strong> <%= show.writer %><br />
+						<strong>Show Dates:</strong> <%= format_showtimes(show.showtimes) %><br />
+						<strong>Directed By:</strong> <%= show.director %><br />
+						<b>Audition Dates:</b> <%= format_showtimes auditions %><br />
+						<b>Audition Signup:</b> <%= link_to auditions.select{|a| !a.person_id}.count.to_s + " Slots Available", show_auditions_url(show) %><br /><br />
+					<% end %>
+				</td>
+				<td width="50%" style="vertical-align: top; padding: 0 25px;">
+					<h2>Announcements</h2>
+						<div id="announcements">
+							<% @announcements.each do |subject, message| %>
+								<p>
+									<strong style="font-size: 18px;"><%= subject %></strong><br />
+									<%= message.gsub(/\n/,"<br />").html_safe %>
+								</p>
+							<% end %>
+						</div>
+					<hr />
+					
 				</td>
 		</table>
 	</body>
