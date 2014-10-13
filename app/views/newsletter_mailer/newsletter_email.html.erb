@@ -87,8 +87,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="50%" style="vertical-align: top; padding: 0 25px;">
-					<h2>This Week's Shows</h2>
+				<!--THIS WEEK-->
+				<h2>This Week's Shows</h2>
 					<% if @shows.length == 0 %>
 						No shows this week, check out the <%= link_to "full calendar", shows_url %> for more information!
 					<% else %>
@@ -118,13 +118,30 @@
 											<% elsif show.ok_to_ticket? %>
 												<%= link_to "Tickets", new_show_reservation_url(show) %>
 											<% end %>
-										</td>
+											</td>
 								</tr>
 							<% end %>
 						</table>
 						<br />Check out the <%= link_to "full calendar", shows_url %> for even more shows!
 					<% end %>
-
+					<!--END THIS WEEK-->
+			</tr>
+			<tr>
+				<!--ANNOUNCEMENTS-->
+					<h2>Announcements</h2>
+						<div id="announcements">
+							<% @announcements.each do |subject, message| %>
+								<p>
+									<strong style="font-size: 18px;"><%= subject %></strong><br />
+									<%= message.gsub(/\n/,"<br />").html_safe %>
+								</p>
+							<% end %>
+						</div>
+				<!--END ANNOUNCEMENTS-->
+			</tr>
+			<tr>
+				<td width="50%" style="vertical-align: top; padding: 0 25px;">
+				<!--OPPORTUNITIES-->				
 					<hr />
 					<h2>Opportunities</h2>
 					<table>
@@ -158,7 +175,11 @@
 						<% end %>
 					</table>
 					<br />View <%= link_to "all opportunities", opportunities_url %> on the full website!
+					<!--END OPPORTUNITIES-->
 					<hr />
+					<!--AUDITIONS-->
+				</td>
+				<td width="50%" style="vertical-align: top; padding: 0 25px;">
 					<h2>Auditions</h2>
 					<% @auditions.each do |show, auditions| %>
 						<strong><%= link_to show.title, best_link(show, true), :class => 'title' %></strong><br />
@@ -168,19 +189,8 @@
 						<b>Audition Dates:</b> <%= format_showtimes auditions %><br />
 						<b>Audition Signup:</b> <%= link_to auditions.select{|a| !a.person_id}.count.to_s + " Slots Available", show_auditions_url(show) %><br /><br />
 					<% end %>
-				</td>
-				<td width="50%" style="vertical-align: top; padding: 0 25px;">
-					<h2>Announcements</h2>
-						<div id="announcements">
-							<% @announcements.each do |subject, message| %>
-								<p>
-									<strong style="font-size: 18px;"><%= subject %></strong><br />
-									<%= message.gsub(/\n/,"<br />").html_safe %>
-								</p>
-							<% end %>
-						</div>
+					<!--END AUDITIONS-->
 					<hr />
-					
 				</td>
 		</table>
 	</body>
