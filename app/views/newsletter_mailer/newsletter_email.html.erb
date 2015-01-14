@@ -61,7 +61,7 @@
 				<a class="add" href="#">
 					Add another announcement
 				</a><br /><br />
-				<input name="send" type="submit" value="Send this bad boy!" data-confirm='Are you sure? Email will be sent as it looks below!' />
+				<input name="send" type="submit" value="Send this bad boy!" data-confirm='Are you sure? Email will be sent exactly as it looks below!' />
 			</form>
 		<% end %>
 		<table width="100%">
@@ -87,8 +87,9 @@
 				</td>
 			</tr>
 			<tr>
+				<td>
 				<!--THIS WEEK-->
-				<h2>This Week's Shows</h2>
+					<h2>This Week's Shows</h2>
 					<% if @shows.length == 0 %>
 						No shows this week, check out the <%= link_to "full calendar", shows_url %> for more information!
 					<% else %>
@@ -124,9 +125,11 @@
 						</table>
 						<br />Check out the <%= link_to "full calendar", shows_url %> for even more shows!
 					<% end %>
+				</td>
 					<!--END THIS WEEK-->
 			</tr>
 			<tr>
+				<td>
 				<!--ANNOUNCEMENTS-->
 					<h2>Announcements</h2>
 						<div id="announcements">
@@ -137,6 +140,7 @@
 								</p>
 							<% end %>
 						</div>
+				</td>
 				<!--END ANNOUNCEMENTS-->
 			</tr>
 			<tr>
@@ -192,6 +196,7 @@
 					<!--END AUDITIONS-->
 					<hr />
 				</td>
+			</tr>
 		</table>
 	</body>
 </html>
