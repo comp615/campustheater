@@ -16,6 +16,7 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/autocomplete
 //= require jquery-ui/sortable
+//= require jquery-color
 //= require jquery.timepicker.js
 //= require jquery.lazyload.min.js
 //= require bootstrap

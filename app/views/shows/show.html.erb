@@ -42,9 +42,16 @@
 <div class="row">
 	<div class="span4 offset2 performances lg">
 		<h5>Performances</h5>
+
 		<% @show.showtimes.each do |showtime| %>
-			<%= raw style_full_showtime(showtime.timestamp) %><br />
+			<%= raw style_full_showtime(showtime.timestamp) %>
+      <% if @current_user.has_permission?(@show, :reservations) %>
+        &nbsp;
+        <%= link_to "Guest list", show_showtime_path(@show, showtime), style: "font-size: 14px;" %>
+      <% end %>
+      <br />
 		<% end %>
+
 		<span class="performances-location">@ <%= @show.location.blank? ? "TBA" : @show.location %></span>
 	</div>
 	<div class="span4 reservations">
