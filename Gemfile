@@ -24,6 +24,12 @@ gem 'net-ldap'
 gem 'rubycas-client'
 gem 'ri_cal'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl', '~> 4.0'
+  gem 'pry' # put 'binding.pry' in specs or dev code to enter debugger console there
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
