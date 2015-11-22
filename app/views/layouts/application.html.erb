@@ -4,20 +4,20 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    
+
     <meta name="description" content="The Yale Drama Coalition is an organization for the furthering of theater at Yale University.">
     <meta name="keywords" content="Yale, theater, information, theatre, dramat, drama, coalition, University, repertory, mailing">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!--Favicon-->
     <link rel="shortcut icon" href="<%= image_path 'favicon.ico' %>">
     <link rel="apple-touch-icon" href="<%= image_path 'apple-touch-icon.png' %>">
-    
+
     <!--[if lt IE 9]>
         <%= javascript_include_tag "html5shiv-p" %>
     <![endif]-->
-    
-    <!--Fonts-->    
+
+    <!--Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="//use.typekit.net/ekt1irl.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -61,17 +61,17 @@
                 </div>
 	       </div>
 	   </nav>
-	</header>																																					
+	</header>
 
 	<div id="main" class="<%= params[:controller] %> <%= params[:action] %>">
     	<div class="container">
     	<% if flash[:notice] %>
 	       <div class="alert alert-info"><%= flash[:notice] %></div>
 	    <% end %>
-	    <% if flash[:error] %>
+	    <% if flash[:error] ||= flash[:alert] %>
 	       <div class="alert alert-error"><%= flash[:error] %></div>
 	    <% end %>
-	    
+
 		<%= yield %>
     	</div>
 	</div>
@@ -79,7 +79,7 @@
 	<footer>
         <div id="footer-umbrella">
     		<%= image_tag "umbrella-foot.png", :width => "40px", :height => "30px" %>
-		</div>	
+		</div>
 		<div class="container">
 		<div class="row">
     		<div class="span6">
@@ -93,7 +93,7 @@
 	</footer>
 
 	<%= render :partial => "shared/dialogs" %>
-	
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];

@@ -1,4 +1,5 @@
 <% javascript 'admin.js' %>
+
 <h3>Admin Dashboard</h3>
 
 <style>
@@ -52,6 +53,7 @@ div#email_content {margin:10px 0px;}
 		<% end %>
 	</table>
 <% end %>
+
 <br /><br />
 
 <h4>Pending Name Request Queue</h4>
@@ -66,8 +68,35 @@ div#email_content {margin:10px 0px;}
 	</table>
 <% end %>
 
+<br /><br />
+
+<h4>House Managers</h4>
+<p>Any names here will have access to view and check off the guest list for all shows, all showtimes. To view the guest list, go to the main page for a show and click the Guest List link next to each showtime. House managers <strong>do not</strong> have full admin access to shows.</p>
+
+<%= form_tag house_managers_path, method: :post do %>
+  <table class="house-managers-list">
+    <% @house_managers.each do |p| %>
+      <tr class="house-manager">
+        <td><%= p.person.display_name %></td>
+        <td><%= link_to "Remove", house_manager_path(p.id), method: :delete, "data-confirm" => "Really remove #{p.person.display_name} from the House Managers list?" %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><strong>New house manager:</strong></td>
+      <td></td>
+    </tr>
+    <tr class="new-house-manager">
+      <td><%= text_field_tag :name, "", class: "select-house-manager", placeholder: "Student Name" %></td>
+      <td>
+        <%= hidden_field_tag :person_id, "", :class => "person_id" %>
+        <%= submit_tag "Add" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
 
 <br /><br />
+
 <b>Select a show to edit:</b>
 <form method="get" action="/shows/id/dashboard">
   <%= select_tag :show_edit_id, options_from_collection_for_select(@shows, :id, :title) %>

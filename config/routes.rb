@@ -63,6 +63,7 @@ Ydc::Application.routes.draw do
   match 'admin/approve_show/:id' => 'admin#approve_show', :as => :approve_show
   match 'admin/email_all' => 'admin#email_all', :as => :email_all
 
+  resources :house_managers, only: [:create, :destroy]
 
   match 'login' => 'people#dashboard', :as => :login
   match 'logout' => 'people#logout', :as => :logout
