@@ -13,7 +13,7 @@
 </div>
 
 <div class="row-fluid">
-  <div class="span6">
+  <div class="span6 reservations-lists">
 
     <h3>Confirmed</h3>
     <p><em>Alphabetical by last name</em></p>
@@ -23,7 +23,7 @@
         <div class="reservation-group" reservation_id="<%= reservation.id %>">
           <% reservation.num.times do %>
             <a class="btn reservation-member">
-              <%= reservation.fname %> <%= reservation.lname %>
+              <%= reservation.lname.capitalize %>, <%= reservation.fname.capitalize %>
             </a>
           <% end # reservation member %>
           <%= image_tag "loading.gif", class: "saving", style: "display: none;" %>
@@ -32,37 +32,36 @@
     </div>
 
     <h3>Waitlist</h3>
+    <p><em>In the order they signed up</em></p>
 
     <div class="waitlist">
       <% @waitlist.each do |reservation| %>
         <div class="reservation-group" reservation_id="<%= reservation.id %>">
           <% reservation.num.times do %>
             <a class="btn reservation-member">
-              <%= reservation.fname %> <%= reservation.lname %>
+              <%= reservation.lname.capitalize %>, <%= reservation.fname.capitalize %>
             </a>
           <% end # reservation member %>
           <%= image_tag "loading.gif", class: "saving", style: "display: none;" %>
         </div>
       <% end # reservation %>
     </div>
-
   </div>
 </div>
 
 <div class="totals-box well">
   <%= image_tag "loading.gif", class: "saving" %>
 
-  <h3>Seats available: <span class="count-seats"><%= @show.seats %></span></h3>
-
   <table>
+
     <tr>
       <th></th>
-      <th>Reserved</th>
+      <th>On List</th>
       <th>Admitted</th>
     </tr>
 
     <tr>
-      <th class="text-right">Confirmed list</th>
+      <th class="text-right">Reserved</th>
       <td class="text-center count-confirmed-reserved">??</td>
       <td class="text-center count-confirmed-admitted">??</td>
     </tr>
@@ -76,17 +75,22 @@
     <tr>
       <th class="text-right">Walk-ins</th>
       <td class="text-center">
-        <a class="btn add-walkin">+</a>
-        /
-        <a class="btn remove-walkin">-</a>
+        <a class="btn add-walkin">+</a> / <a class="btn remove-walkin">-</a>
       </td>
       <td class="text-center count-walkins-admitted">??</td>
     </tr>
 
     <tr>
       <th class="text-right">Total</th>
-      <td class="text-center count-total-reserved">??</td>
-      <td class="text-center count-total-admitted">??</td>
+      <td></td>
+      <td class="text-center"><strong class="count-total-admitted">??</strong></td>
     </tr>
+
+    <tr>
+      <th class="text-right">Seats available</th>
+      <td></td>
+      <td class="count-seats text-center"><strong class="text-info"><%= @show.seats %></strong></td>
+    </tr>
+
   </table>
 </div>

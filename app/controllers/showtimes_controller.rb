@@ -41,26 +41,27 @@ class ShowtimesController < ApplicationController
     confirmed_reserved = @confirmed.map(&:num).sum
     waitlist_reserved  = @waitlist.map(&:num).sum
     total_reserved     = confirmed_reserved + waitlist_reserved
-    confirmed_admitted = @showtime.attendees.with_reservation.confirmed.count
-    waitlist_admitted  = @showtime.attendees.with_reservation.waitlist.count
+    confirmed_admitted = @showtime.attendees.reserved.confirmed.count
+    waitlist_admitted  = @showtime.attendees.reserved.waitlist.count
     walkins_admitted   = @showtime.attendees.walkin.count
     total_admitted     = @showtime.attendees.count
     reservation_counts = @showtime.attendees.group(:reservation_id).count # { id => ct, id => ct }
 
     CSV.generate do |csv|
       csv << ["Totals"]
-      csv << ["", "Reserved", "Admitted"]
-      csv << ["Confirmed list", confirmed_reserved, confirmed_admitted]
+      csv << ["", "On List", "Admitted"]
+      csv << ["Reserved", confirmed_reserved, confirmed_admitted]
       csv << ["Waitlist", waitlist_reserved, waitlist_admitted]
       csv << ["Walk-ins", "", walkins_admitted]
-      csv << ["Total", total_reserved, total_admitted]
+      csv << ["Total", "", total_admitted]
+      csv << ["Seats available", "", @show.seats]
       csv << [""]
 
       csv << ["Confirmed"]
       csv << ["Name (alphabetical)", "Num reserved", "Num admitted"]
       @confirmed.each do |reservation|
         csv << [
-          "#{reservation.fname reservation.lname}",
+          "#{reservation.lname}, #{reservation.fname}",
           reservation.num,
           reservation_counts[reservation.id] || 0
         ]
@@ -71,7 +72,7 @@ class ShowtimesController < ApplicationController
       csv << ["Name (chronological)", "Num reserved", "Num admitted"]
       @waitlist.each do |reservation|
         csv << [
-          "#{reservation.fname reservation.lname}",
+          "#{reservation.lname}, #{reservation.fname}",
           reservation.num,
           reservation_counts[reservation.id] || 0
         ]

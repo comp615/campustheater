@@ -3,7 +3,7 @@ class CreateShowtimeAttendees < ActiveRecord::Migration
     create_table :showtime_attendees do |t|
       t.references :showtime
       t.references :reservation
-      t.boolean :was_on_waitlist
+      t.boolean :was_on_waitlist, null: false, default: false
       t.datetime :created_at
     end
 

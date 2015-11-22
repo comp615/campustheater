@@ -4,8 +4,8 @@ FactoryGirl.define do
 
     reservation_type_id 1
     fname "First Name"
-    lname "Last Name"
-    email "email@example.com"
+    sequence(:lname) { |n| "Student #{n}" }
+    sequence(:email) { |n| "email_#{n}@example.com" }
     num 2
   end
 end

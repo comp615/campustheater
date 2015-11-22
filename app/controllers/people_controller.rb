@@ -1,9 +1,9 @@
-class PeopleController < ApplicationController  
+class PeopleController < ApplicationController
 
 	skip_before_filter :force_auth, :only => [:show, :logout]
 	before_filter :verify_user, :except => [:show, :dashboard, :logout, :new, :create]
 	before_filter :fetch_user, :except => [:dashboard, :logout, :new, :create]
-	
+
 	def show
 		# Show public view
 		#TODO: SHould we cache people's public profiles?
@@ -12,18 +12,19 @@ class PeopleController < ApplicationController
 		@show_positions = @person.show_positions.includes({:show => :showtimes},:position).where(:show_id => Show.unscoped.on_people_page)
 		@show_positions = @show_positions.select{|sp| sp.show}.sort_by{|sp| sp.show.showtimes.first.timestamp}.reverse
 	end
-	
+
 	def dashboard
 		#Determine type of user dashboard to show
-		@shows = Show.unscoped.includes(:showtimes).find(@current_user.permissions.map(&:show_id))
+    show_ids = @current_user.permissions.map(&:show_id).compact
+		@shows = Show.unscoped.includes(:showtimes).find(show_ids)
 		@permission_map = @current_user.permissions.group_by(&:show_id)
-		
+
 		#TODO: Could probably optimize this
 		@reservations = @current_user.reservations.includes(:showtime => [:show]).select{|r| r.showtime.timestamp >= Time.now}.sort_by{|r| r.showtime.timestamp}
 		@auditions = @current_user.auditions.where(["`timestamp` > ?",Time.now])
 		@similar_people = @current_user.similar_to_me
 	end
-	
+
 	# New User step 1
 	def new
 		redirect_to @current_user if @current_user # They must be CAS authed no we're OK
@@ -32,7 +33,7 @@ class PeopleController < ApplicationController
 		@person.populateLDAP
 		@current_user = @person
 	end
-	
+
 	# Designed to be indemnipotent in case they refresh the page and re-submit
 	def create
 		@person = Person.new unless @current_user
@@ -48,13 +49,13 @@ class PeopleController < ApplicationController
 				session[:user_flow_entry] = nil
 				url ||= dashboard_path
 				redirect_to url, :notice => "Profile created successfully. Enjoy the new site! And if you need help, check out the learn tab above."
-			end			
+			end
 		else
 			flash.now[:error] = "There was an error with the data you entered, please try again!"
 			render :new
 		end
 	end
-	
+
 	def takeover_request
 		# Asking to match people, let's do it
 		# We'll allow multiple requests for a name and let the admin sort it out...
@@ -70,7 +71,7 @@ class PeopleController < ApplicationController
 			redirect_to dashboard_path, :notice => "Takeover request successful!"
 		end
 	end
-	
+
 	def update
 		respond_to do |format|
 	    if @person.update_attributes(params[:person])
@@ -82,21 +83,21 @@ class PeopleController < ApplicationController
 	    end
 	  end
 	end
-	
+
 	def logout
 		@current_user = nil
 		reset_session
 		CASClient::Frameworks::Rails::Filter.logout(self)
 	end
-	
+
 	private
-	
+
 	def fetch_user
 		@person = Person.find(params[:id])
 	end
-	
+
 	def verify_user
 		raise ActionController::RoutingError.new('Forbidden')	unless @current_user && (@current_user.id == params[:id].to_i || @current_user.site_admin?)
 	end
-	
+
 end

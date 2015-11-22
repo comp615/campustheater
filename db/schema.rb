@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(:version => 20151106213104) do
   create_table "showtime_attendees", :force => true do |t|
     t.integer  "showtime_id"
     t.integer  "reservation_id"
-    t.boolean  "was_on_waitlist"
+    t.boolean  "was_on_waitlist", :default => false, :null => false
     t.datetime "created_at"
   end
 

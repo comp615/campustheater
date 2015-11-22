@@ -13,6 +13,8 @@ $(function(){
 
   // All page data refreshes every few seconds
 
+  var full_data_refresh = null;
+
   function refresh_all_counts(){
     console.log("Refreshing all attendance data.");
 
@@ -31,7 +33,8 @@ $(function(){
           $('.reservation-group').not(':has(.pending-save)').find('.saving').hide();
           console.log("All attendance data updated.");
 
-          setTimeout(refresh_all_counts, 5000); // Check again in 15 seconds
+          if (full_data_refresh) { clearTimeout(full_data_refresh); }
+          full_data_refresh = setTimeout(refresh_all_counts, 5000); // Check again in 5 secs
         } else {
           alert_error(); // Malformed response
         }
@@ -47,7 +50,6 @@ $(function(){
     update_and_highlight_total('.count-waitlist-reserved', data.waitlist_reserved);
     update_and_highlight_total('.count-waitlist-admitted', data.waitlist_admitted);
     update_and_highlight_total('.count-walkins-admitted', data.walkins_admitted);
-    update_and_highlight_total('.count-total-reserved', data.total_reserved);
     update_and_highlight_total('.count-total-admitted', data.total_admitted);
 
     var num_seats = parseInt($('.count-seats').text());
@@ -60,9 +62,6 @@ $(function(){
     // Update per-reservation admittance status
     $('.reservation-group').each(function(i, this_group){
       var res_id = $(this_group).attr('reservation_id');
-      if (! res_id) {
-        console.error("Reservation group has no id!");
-      }
       var remote_count = data.reservation_counts[res_id];
       update_and_highlight_reservation(res_id, remote_count);
     });
@@ -97,7 +96,7 @@ $(function(){
       console.log('Updating reservation '+res_id+' # checked from '+local_count+' to '+remote_count+'.');
 
       // Clear out all checked items
-      members.removeClass('.checked');
+      members.removeClass('checked');
       // Then re-check the right number
       for(i = 0; i < remote_count; i ++){
         member = members[i];

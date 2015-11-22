@@ -80,7 +80,7 @@ class Showtime < ActiveRecord::Base
     waitlist  = []
     num_total = 0
 
-    reservations.order(:updated_at).each do |r|
+    reservations.order(:created_at).each do |r|
       if num_total >= show.seats
         # We're already past capacity. All people join the waitlist.
         waitlist << r

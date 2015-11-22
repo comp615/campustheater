@@ -3,6 +3,7 @@ class ShowtimeAttendeesController < ApplicationController
   before_filter :require_reservations_auth
 	before_filter :fetch_show
   before_filter :fetch_showtime
+  before_filter :fetch_reservation, only: [:create, :destroy]
 
 	def index
     # Fetch counts for # confirmed, # waitlist, total admitted, etc.
@@ -37,8 +38,8 @@ class ShowtimeAttendeesController < ApplicationController
 
 	def create
     @showtime.attendees.create!(
-      reservation_id: params[:reservation_id],  # this may be nil (if walk-in)
-      was_on_waitlist: params[:was_on_waitlist] # this may be nil (if walk-in)
+      reservation_id: params[:reservation_id], # this may be nil (if walk-in)
+      was_on_waitlist: params[:was_on_waitlist] || false # this may be nil (if walk-in)
     )
 
     response = { success: true }
@@ -58,12 +59,17 @@ class ShowtimeAttendeesController < ApplicationController
 
   def destroy
     if @reservation
-      @showtime.attendees.where(reservation_id: @reservation.id).last.destroy
+      record = @showtime.attendees.where(reservation_id: @reservation.id).last
+    else
+      record = @showtime.attendees.walkin.last
+    end
 
+    raise ActiveRecord::RecordNotFound unless record
+    record.destroy
+
+    if @reservation
       num_attending = @showtime.attendees.where(reservation_id: @reservation.id).count
       @reservation.used = num_attending; @reservation.save!
-    else
-      @showtime.attendees.walkin.last.destroy
     end
 
     render json: { success: true }
