@@ -46,5 +46,11 @@ describe ShowtimesController do
       response.status.should eq 302
       response.should redirect_to dashboard_path # person dashboard
     end
+
+    it "rejects logged-out users" do
+      sign_in nil
+      get :show, show_id: @show.id, id: @showtime.id
+      response.status.should eq 302 # redirected to Yale login page
+    end
   end
 end

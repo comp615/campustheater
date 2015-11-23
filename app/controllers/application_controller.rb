@@ -1,23 +1,23 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
 	# Add this before filter to force CAS Authentication on all controllers + actions
 	before_filter :force_auth
-	before_filter :check_user	
-	
+	before_filter :check_user
+
 	def logged_in?
 		!!@current_user
 	end
-	
+
 	# And their protected methods
 	protected
-	
+
 	# force auth is always run after check_user, so we might have been successful
 	def force_auth
 		session[:last_ts] = nil
 		CASClient::Frameworks::Rails::Filter.filter self unless @current_user
 	end
-	
+
 	def check_user
 		 #session[:cas_user] = "cpc2"
 		 #@current_user = Person.where(:netid => "cpc2").first
@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
 		if(!session[:last_ts] && !@current_user)
 				CASClient::Frameworks::Rails::GatewayFilter.filter self
 		end
-		
+
 		session[:last_ts] = Time.now
-		
+
 		if(session[:cas_user])
 			# User is CAS Authed, try to make an account for them
 			# Check if we actually created an account, and if so, redirect them to profile flow
@@ -39,6 +39,6 @@ class ApplicationController < ActionController::Base
 				redirect_to new_person_path
 			end
 		end
-		
+
 	end
 end

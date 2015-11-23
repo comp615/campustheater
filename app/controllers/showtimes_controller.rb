@@ -28,7 +28,7 @@ class ShowtimesController < ApplicationController
 	end
 
 	def require_reservations_auth
-		unless @current_user.has_permission?(@show, :reservations)
+		unless @current_user and @current_user.has_permission?(@show, :reservations)
       redirect_to dashboard_path
     end
 	end

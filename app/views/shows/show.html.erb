@@ -45,7 +45,7 @@
 
 		<% @show.showtimes.each do |showtime| %>
 			<%= raw style_full_showtime(showtime.timestamp) %>
-      <% if @current_user.has_permission?(@show, :reservations) %>
+      <% if @current_user and @current_user.has_permission?(@show, :reservations) %>
         &nbsp;
         <%= link_to "Guest list", show_showtime_path(@show, showtime), style: "font-size: 14px;" %>
       <% end %>
