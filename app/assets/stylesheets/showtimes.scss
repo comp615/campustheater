@@ -1,22 +1,83 @@
 .showtimes.show {
-	.confirmed, .waitlist {
-		float: left;
-		margin-right: 20px;
-	}
+  min-height: 800px;
 
-	.confirmed {
-		width: 75%;
-		.reservation_block {
-			display: inline-block;
-		}
-	}
+  .reservations-lists {
+    padding-bottom: 170px;
+  }
 
-	.reservation_block {
-		margin-bottom: 15px;
-		cursor: pointer;
-		.checked {
-			text-decoration: line-through;
-		}
-	}
+  .reservation-group {
+    border: 1px solid #eee;
+    padding: 5px 5px 0 5px;
+    margin-top: 5px;
+    position: relative;
+
+    .reservation-member {
+      margin-bottom: 5px;
+    }
+
+    .reservation-member.checked {
+      text-decoration: line-through;
+      color: #888;
+      background: #eee;
+    }
+
+    .saving {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 30px;
+    }
+  }
+
+  // Global totals-box behavior
+  .totals-box {
+    position: fixed;
+    z-index: 9;
+
+    th, td {
+      font-size: 15px; }
+
+    .text-center {
+      text-align: center; }
+
+    .text-right {
+      text-align: right; }
+
+    .text-info {
+      color: #31708f; }
+
+    .text-danger {
+      color: #d43f3a; }
+
+    .saving {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 50px; }
+
+    // Normal or large screens
+    @media (min-width: 768px) {
+      width: 40%;
+      right: 10px;
+      top: 150px;
+
+      th, td {
+        padding: 5px 10px 5px 10px; }
+    }
+
+    // Tiny screens
+    @media (max-width: 767px) {
+      bottom: 0px;
+      left: 10px;
+      right: 10px;
+      padding: 3px;
+
+      th, td {
+        padding: 3px; }
+    }
+  }
+
+
+
+
 }
-

@@ -13,3 +13,18 @@ Campustheater is a centralized resource for undergraduate theater.  It supports 
 - Loading spinner on poster upload
 - Freshmen and Playground tables need to be enhanced into Rails
 - See internal code TODOs
+
+== SETUP TIPS
+
+- `bundle install`
+- If you're on OSX, libv8 and therubyracer may give you build errors. If so, see the advice [on installing therubyracer](http://stackoverflow.com/a/20145328/1729692) and [on installing libv8](http://stackoverflow.com/a/19674065/1729692). You may need to install therubyracer before libv8, per the instructions. The following recently worked for us (on Mac OSX):
+  - `gem install therubyracer -v '0.12.1'`
+  - `gem install libv8 -v '3.16.14.3' -- --with-system-v8`
+  - `bundle`
+
+- Copy `config/database.yml.example` to `database.yml` and adjust db connection settings
+- Copy `config/analytics.yml.example` to `analytics.yml`
+- Copy `config/aws.yml.example` to `aws.yml`
+- Copy `config/email.yml.example` to `email.yml` (mailer SMTP settings)
+- Copy `config/ftp.yml.example` to `ftp.yml` (TODO: is this used at all?)
+- `rake db:reset` to create db from schema (**not all migrations are present**)

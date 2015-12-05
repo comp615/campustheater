@@ -15,13 +15,14 @@
  *= require_self
  *= require frontpage
  *= require auditions
+ *= require admin
  *= require shows
  *= require showtimes
  *= require people
  *= require reservations
  *= require resources
- *= require jquery.ui.datepicker
- *= require jquery.ui.autocomplete
+ *= require jquery-ui/datepicker
+ *= require jquery-ui/autocomplete
  *= require jquery.timepicker.css
 */
 
@@ -118,10 +119,10 @@ a {
     border: none;
     background-color: $purple;
     color: white;
-    
+
     text-shadow: none;
     @include box-shadow(none);
-    
+
     &:hover {
     	color: white;
     	background-color: #070d4b;
@@ -137,8 +138,8 @@ a {
 	}
 }
 
-.field_with_errors { 
-	display: inline; 
+.field_with_errors {
+	display: inline;
 	input, select, textarea {
 		border: 1px solid red
 	}
@@ -155,11 +156,11 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 	border: 1px solid $lt-purple;
 	@include box-shadow(none);
 	padding: 4px 10px;
-	
+
 	&::-webkit-input-placeholder, &::-moz-placeholder {
     	color: $purple;
 	}
-	
+
 	&:hover {
     	border-color: $purple;
 	}
@@ -168,7 +169,7 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
 		background-color: $purple;
 		border-color: $purple;
 		color: #FFF;
-    	@include box-shadow(#{0 0 2px 1px $lt-purple});		
+    	@include box-shadow(#{0 0 2px 1px $lt-purple});
 	}
 }
 
@@ -176,32 +177,32 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     @media (max-width: 767px) {
         margin-left: 0px;
     }
-    
-    .btn-navbar { 
+
+    .btn-navbar {
         @extend .btn;
         margin: 10px 0 0 0;
         background-color: $muted-purple;
-        
+
         &:not(.collapsed) { background-color: $dk-purple; }
-        
+
         .icon-bar {
             @include box-shadow(none);
         }
     }
-    
+
     .brand {
         text-shadow: none;
         color: $lt-purple;
         padding: 10px 20px 10px !important;
         margin-left: -20px !important;
-    }    
+    }
 
-	.navbar-inner { 
+	.navbar-inner {
 	   background: $purple;
 	   border: none;
 	   @include box-shadow(#{none !important});
        padding: 0 20px !important;
-       
+
        .nav-collapse.in {
            margin-bottom: 20px;
        }
@@ -212,35 +213,35 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     	   text-shadow: none;
     	   line-height: 30px;
     	   padding: 9px 16px 11px;
-    	   
+
     	   &:hover {
         	   color: white;
                @media (max-width: 767px) {
                     background-color: $dk-purple;
                }
     	   }
-    	   
-    	   &.active { 
+
+    	   &.active {
     	       font-weight: bold;
     	       color: white;
     	   }
 	   }
     }
-    
+
     .navbar-search {
 		background-color: $muted-purple;
 		border-radius: 3px;
 		line-height: 30px;
 		margin-top: 9px;
-		border: none !important;		
+		border: none !important;
 		@include box-shadow(#{none !important});
-		
+
 		@media (max-width: 979px) {
     		padding: 10px 15px 10px 8px !important;
 		}
-		
+
 		.input-append { margin: 0; }
-		
+
 		.btn {
     		background: none;
     		padding: 5px 8px 4px 5px;
@@ -248,11 +249,11 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     		float: right;
     		margin-right: -27px;
 		}
-		
+
 		> .input-append {
     		padding-right: 27px;
 		}
-        
+
     	.search-query {
     		border-radius: 0;
     		@include box-shadow(none);
@@ -264,17 +265,17 @@ input[type=text], input[type=number], input[type=file], textarea, select, .faux-
     		@include box-sizing;
     	}
 	}
-	
+
 	#nav-user {
     	margin-top: 9px;
-	
+
     	a {
         	padding: 0 10px 2px;
         	background: $muted-purple;
         	border-radius: 3px;
         	line-height: 28px;
         	text-transform: none;
-        	
+
         	&:hover {
             	background: $dk-purple;
         	}
@@ -287,19 +288,19 @@ footer {
 	background: $dk-purple;
 	color: $lt-purple;
 	position: relative;
-	
+
 	.container {
     	@media (max-width: 767px) {
         	padding-top: 54px;
     	}
 	}
-	
+
 	.row > div {
     	text-align: center;
 	}
 
 	.right { text-align: right; }
-	
+
 	a:hover { color: lighten($purple, 15%); }
 }
 
@@ -307,22 +308,22 @@ footer {
     position: absolute;
     top: 14px;
     left: 50%;
-    
+
     img {
         width: 63px;
         height: 30px;
         margin-left: -20px;
         opacity: 0.4;
-    
+
         -webkit-transition: all 0.8s ease-in-out;
         -moz-transition: all 0.8s ease-in-out;
         -o-transition: all 0.8s ease-in-out;
         transition: all 0.8s ease-in-out;
-        
+
         &:hover {
             opacity: 1.0;
             -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg); 
+            -moz-transform: rotate(360deg);
             -o-transform: rotate(360deg);
             transform: rotate(360deg);
         }

@@ -13,9 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require jquery.ui.datepicker
-//= require jquery.ui.autocomplete
-//= require jquery.ui.sortable
+//= require jquery-ui/datepicker
+//= require jquery-ui/autocomplete
+//= require jquery-ui/sortable
+//= require jquery-color
 //= require jquery.timepicker.js
 //= require jquery.lazyload.min.js
 //= require bootstrap
@@ -61,7 +62,7 @@ $(document).ready(function() {
   // On click for reservation modal show
   $('#reservations').on('show', reservationOpenHandler);
   $('#reservations').on('click', '.btn-primary', reservationSubmitHandler);
-  $('a[data-toggle=modal][href=#reservations]').on("click", function(e) { 
+  $('a[data-toggle=modal][href=#reservations]').on("click", function(e) {
     $("#reservations").data("show-id", $(this).data("show-id"));
     $("#reservations .show_title").text($(this).closest(".item").find("[data-field=show_title]").first().text());
   });

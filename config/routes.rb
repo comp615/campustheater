@@ -45,40 +45,41 @@ Ydc::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  
+
   # Shouldn't have index...
-  resources :people 
+  resources :people
   resources :news, :path => "/news"
   match 'people/:id/request_names' => 'people#takeover_request', :as => :takeover_request, :method => :post
 
   #match ':show_name/reserve' => 'reservations#show_reservation', :as => :show_reservation
   #match ':show_name/reserve/:id' => 'reservations#new', :as => :showtime_reservation
   match 'dashboard' => 'people#dashboard', :as => :dashboard
-  
-  
+
+
   match 'admin' => 'admin#dashboard', :as => :admin_dashboard
   match 'admin/newsletter' => 'admin#newsletter', :as => :admin_newsletter
   match 'admin/approve_takeover/:id' => 'admin#approve_takeover', :as => :approve_takeover
   match 'admin/reject_takeover/:id' => 'admin#reject_takeover', :as => :reject_takeover
   match 'admin/approve_show/:id' => 'admin#approve_show', :as => :approve_show
   match 'admin/email_all' => 'admin#email_all', :as => :email_all
-  
-  
+
+  resources :house_managers, only: [:create, :destroy]
+
   match 'login' => 'people#dashboard', :as => :login
   match 'logout' => 'people#logout', :as => :logout
-  
+
   match 'archives(/:term)' => 'shows#archives', :as => :archives
-  
-  
+
+
   resources :shows do
     get 'edit_people', :controller => :shows, :action => :edit_people, :as => :edit_people
     match 'edit_files', :controller => :shows, :action => :edit_files, :as => :edit_files, :via => [:get, :post]
     match 'remind/:showtime_id', :controller => :shows, :action => :remind, :as => :remind, :via => [:get, :post]
     get 'dashboard', :controller => :shows, :action => :dashboard, :as => :dashboard
-		resources :showtimes, :only => [:show, :index]  do #Used as reservation viewer for admin
-      get 'update_attendance'
-    end
-		resources :auditions do
+
+    resources :showtimes, only: [:show, :index] # #show is the guest list (manage attendance)
+
+    resources :auditions do
       get 'past', :on => :collection
     end
 		resources :reservations
@@ -86,23 +87,27 @@ Ydc::Application.routes.draw do
 	    put 'auditions', :controller => :auditions, :action => :update
 	  end
 	end
-	
+
+  get 'shows/:show_id/showtimes/:showtime_id/attendees' => 'showtime_attendees#index'
+  post 'shows/:show_id/showtimes/:showtime_id/attendees' => 'showtime_attendees#create'
+  delete 'shows/:show_id/showtimes/:showtime_id/attendees' => 'showtime_attendees#destroy'
+
 	match 'auditions' => 'auditions#all'
 	match 'opportunities' => 'auditions#opportunities'
-	
-	
+
+
 	match 'search' => 'search#index', :as => :search
 	match 'search/lookup' => 'search#lookup', :as => :search_lookup
-	
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'pages#index'
-  
+
   # Hijack guide links and wrap them in a special template
   match 'resources' => 'pages#resources'
   match 'donate' => 'pages#donate'
   match 'guides/:static_file' => 'pages#guides', :as => :guides
-  
+
   # Add legacy routes here
   # TODO: These can be removed probably a month or so after launch, remove supporting code too
   match 'audition_signup.php', :controller => :auditions, :action => :index
@@ -117,7 +122,5 @@ Ydc::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  
-  
 
 end

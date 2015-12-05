@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140417145931) do
+ActiveRecord::Schema.define(:version => 20151106213104) do
 
   create_table "auditions", :force => true do |t|
     t.integer   "show_id",                                                      :null => false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20140417145931) do
   add_index "people", ["netid"], :name => "index_people_on_netid"
 
   create_table "permissions", :force => true do |t|
-    t.integer  "show_id",                                                  :null => false
+    t.integer  "show_id"
     t.integer  "person_id",                                                :null => false
     t.enum     "level",      :limit => [:full, :reservations, :auditions]
     t.datetime "created_at",                                               :null => false
@@ -149,6 +149,16 @@ ActiveRecord::Schema.define(:version => 20140417145931) do
     t.string   "private_registration_token"
     t.integer  "waitlist_seats"
   end
+
+  create_table "showtime_attendees", :force => true do |t|
+    t.integer  "showtime_id"
+    t.integer  "reservation_id"
+    t.boolean  "was_on_waitlist", :default => false, :null => false
+    t.datetime "created_at"
+  end
+
+  add_index "showtime_attendees", ["reservation_id"], :name => "index_showtime_attendees_on_reservation_id"
+  add_index "showtime_attendees", ["showtime_id"], :name => "index_showtime_attendees_on_showtime_id"
 
   create_table "showtimes", :force => true do |t|
     t.integer  "show_id",                          :null => false
